@@ -1,0 +1,123 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    caret-color: transparent;
+}
+
+.wrapper {
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    width: 720px;
+    max-width: 100%;
+    margin: 40px auto;
+    align-self: center;
+    box-sizing: border-box;
+    border: 10px solid;
+    border-color: #2eb2d5;
+    
+}
+
+header {
+    display: block;
+    height: 100px;
+}
+
+header .logo {
+    display: block;
+    height: 100%;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h5 {
+    color: #3cd5ff;
+    text-align: left;
+    padding-left: 140px;
+    margin: 0px;
+}
+
+h1 {
+    color: #3cd5ff;
+    margin: 0px;
+}
+
+.message {
+    color: black;
+    margin: 0px;
+}
+
+p {
+    margin: 0px;
+}
+
+#email {
+    border: none;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    color: steelblue;
+}
+
+#code {
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: large;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    line-height: 55px;
+    height: 55px;
+    width: 90%;
+    font-size: 200%;
+    font-weight: 700;
+    background-color:#3b5961;
+    
+}
+::placeholder{
+    color: #ffed77;
+}
+
+.form-send>input {
+    color:#ffe32c;
+    caret-color: whitesmoke;
+}
+
+.btn {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    color: #8a8a8a;
+    width: 250px;
+    height: 49px;
+    border: none;
+    outline: none;
+    border-radius: 49px;
+    cursor: pointer;
+    background-color: #3cd5ff;
+    color: #FAEBE0;
+    text-transform: uppercase;
+    transition: .7s;
+    margin: 0px;
+    padding: 0px;
+}
+
+.btn:hover {
+    background-color: #3cd5ff;
+}
+
+.btn-resend {
+    width: 150px;
+    height: 39px;
+    border-radius: 39px;
+    background-color:steelblue;
+    color: #FAEBE0;
+} */
