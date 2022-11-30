@@ -71,10 +71,10 @@ export default function FormUpdateAccount() {
     const validate = () => {
         let temp = {}
         temp.name = account.name == "" ? false:true;
-        temp.email = account.email == "" ? false:true;
-        temp.phoneNumber = account.phoneNumber == "" ? false:true;
-        temp.address = account.address == "" ? false:true;
-        temp.status = account.status == "" ? false:true;
+        // temp.email = account.email == "" ? false:true;
+        // temp.phoneNumber = account.phoneNumber == "" ? false:true;
+        // temp.address = account.address == "" ? false:true;
+        // temp.status = account.status == "" ? false:true;
         setMessage(temp);
         return Object.values(temp).every(x => x == true)
     }
@@ -94,7 +94,7 @@ export default function FormUpdateAccount() {
                             type="text"
                             className={"form-control"+ appErrorsClass('name')}
                             name="name"
-                            value={account.name}
+                            value={user.fullName}
                             onChange={handleChange}
                         />
                     </div>
@@ -105,10 +105,10 @@ export default function FormUpdateAccount() {
                     </div>
                     <div className="col-sm-9 text-secondary">
                         <input
-                            type="text"
+                            type="email"
                             className={"form-control"+ appErrorsClass('email')}
                             name="email"
-                            value={account.email}
+                            value={user.email}
                             onChange={handleChange}
                         />
                     </div>
@@ -122,34 +122,35 @@ export default function FormUpdateAccount() {
                             type="text"
                             className={"form-control"+ appErrorsClass('phoneNumber')}
                             name="phoneNumber"
-                            value={account.phoneNumber}
+                            value={user.phone}
                             onChange={handleChange}
+
                         />
                     </div>
                 </div>
-                <div className="row mb-3">
+                {/* <div className="row mb-3">
                     <div className="col-sm-3">
-                        <h6 className="mb-0">Address</h6>
+                        <h6 className="mb-0">Image</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
                         <input
-                            type="text"
+                            type="file"
                             className={"form-control"+ appErrorsClass('address')}
-                            name="address"
-                            value={account.address}
+                            name="image"
+                            value={user.image}
                             onChange={handleChange}
                         />
                     </div>
-                </div>
+                </div> */}
                 <div className="row mb-3">
                     <div className="col-sm-3">
-                        <h6 className="mb-0">Status</h6>
+                        <h6 className="mb-0">Gender</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
                         <input
                             type="text"
                             className={"form-control"+ appErrorsClass('status')}
-                            value={account.status}
+                            value={user.gender}
                             onChange={handleChange}
                         />
                     </div>

@@ -41,7 +41,7 @@ export default function AccountCreate({ refreshList }) {
     //   userAccountId: user.Id,
     };
     console.log(createData);
-    ApiService.createAccount(createData)
+     await ApiService.createAccount(createData)
       .then((response) => {
         console.log(response);
         setSuccessMsg("Create successfully!");

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 
 import PageHeading from "../../../components/PageHeading";
 

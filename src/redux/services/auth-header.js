@@ -4,11 +4,10 @@ export default function authHeader() {
 
   if (user && token) {
     return { Authorization: 'Bearer ' + token.token ,
-    withCredentials: true,
     headers: {
       "Authorization": "Bearer " + token,
       "Accept": "application/json, text/plain,",
-      "Access-Control-Allow-Origin": "",
+      // "Access-Control-Allow-Origin": "",
       "Content-type": "application/json; charset=UTF-8;",
     },
   };

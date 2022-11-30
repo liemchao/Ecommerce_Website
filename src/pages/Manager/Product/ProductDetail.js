@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
+import ApiService from "../../../api/apiService";
 
 const ProductDetail = () => {
     const { state } = useLocation();
@@ -12,22 +13,58 @@ const ProductDetail = () => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
+    const [data, setData] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
+    const [FavoritList, setFavortData]= useState()
     // const [Time, setTime] = useState() ;
-  
     useEffect(() => {
       if (typeof state != "undefined") {
         localStorage.setItem("Temp", JSON.stringify(state));
       }
       const storageEvent = JSON.parse(localStorage.getItem("Temp"));
-      setProduct(storageEvent);
+      // setProduct(storageEvent);
+      getDataProduct();
+
+      getFoveritList();
       setLoadingData(false);
     }, []);
+
+    async function getDataProduct(){
+      setProduct(storageEvent);
+    };
+
+    async function componentDidMount(){
+      setInterval(this.getDataProduct,1000)
+    };
+
+    async function getFoveritList() {
+      console.log(Product.id);
+      setLoadingData(true);
+      await ApiService.getFoveritList(Product.id)
+        .then((response) => {
+       
+          setData(response);
+          console.log(response);
+        
+          setLoadingData(false);
+        })
+        .catch((error) => {
+          if (error.response) {
+           
+          } else if (error.request) {
+            // no response
+            console.log(error.request);
+          } else {
+        
+          }
+          console.log(error.config);
+        });
+    }
   
     return (
       <div>
         <PageHeading title="Product Detail" />
-        {loadingData ? (
+        {loadingData && data ? (
           <p>Loading, please wait...</p>
         ) : (
           <div className="main-body">
@@ -303,7 +340,28 @@ const ProductDetail = () => {
 
                       </div>
                     </Tab>
+                    <Tab eventKey="Behavor" title="Behavor Customer">
+                      <div className="card-body">
+                      <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Favorite</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{data}</p>
+                          </div>
+                        </div>
 
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">View</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{data}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </Tab>
+                    
 
 
                   </Tabs>

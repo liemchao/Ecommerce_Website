@@ -27,7 +27,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
   
     };
 
-    ApiService.changeUserRole(data)
+    await ApiService.changeUserRole(data)
       .then((response) => {
         setSuccessMsg("Update role successfull");
         setLoading(false);
@@ -55,7 +55,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
         };
    
 
-    ApiService.updateStatusAccount(data)
+    await ApiService.updateStatusAccount(data)
       .then((response) => {
         console.log(response);
         setSuccessMsg("Status change successfully!");
@@ -83,7 +83,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
         };
    
 
-    ApiService.updateStatusAccount(data)
+    await ApiService.updateStatusAccount(data)
       .then((response) => {
         console.log(response);
         setSuccessMsg("Status change successfully!");

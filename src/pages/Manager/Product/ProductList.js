@@ -10,6 +10,7 @@ import { Paginator } from "primereact/paginator";
 import { Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CreateProduct from "../Product/ProductCreate"
+import UpdateProduct from "../Product/Updateproduct";
 
 
 const ProductList = () => {
@@ -114,28 +115,23 @@ const ProductList = () => {
       <Link
           style={{ paddingRight: "10px" }}
           to={{
-            pathname: "/Dashboard/Staff/ProductDetail",
+            pathname: "/Dashboard/Manager/ProductDetail",
             state: rowData,
           }}
         >
          <Button>Detail</Button>
         </Link>
-        <Button  style={{margin:2, paddingLeft :3} } className="btn btn-success">Update</Button>
-        <Button className="btn btn-danger">Delete</Button>
-     
-        {/* Detail */}
-        {/* <Link
+        <Link
           style={{ paddingRight: "10px" }}
           to={{
-            pathname: "/Dashboard/Admin/AccountDetail",
+            pathname: "/Dashboard/Manager/ProductUpdate",
             state: rowData,
           }}
         >
-         <Button style={{ marginLeft: "-30px" }}>Detail</Button>
-        </Link> */}
-        {/* Update */}
-        
-        {/* <AccountUpdate rowData={rowData} refreshList={refreshList} /> */}
+            <Button  style={{margin:2, paddingLeft :3} } className="btn btn-success">Update
+          </Button>
+      </Link>
+        <Button className="btn btn-danger">Delete</Button>
       </div>
       </>
     );

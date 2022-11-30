@@ -27,7 +27,7 @@ const AccountList = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getAccountCustomer()
+    await ApiService.getAccountSystem()
       .then((response) => {
 
         const dataRes = response.data.data
@@ -85,18 +85,6 @@ const AccountList = () => {
     );
   };
 
-  const customAddress = (rowData) => {
-    return(
-      <>
-        <span
-          className="d-inline-block text-truncate"
-          style={{ maxWidth: 150 }}
-        >
-          {rowData.address}
-        </span>
-      </>
-    );
-  };
 
   const customStatus = (rowData) => {
     if (rowData.status=="Activated") {
@@ -114,7 +102,7 @@ const AccountList = () => {
         <Link
           style={{ paddingRight: "15px" }}
           to={{
-            pathname: "/Dashboard/Manager/Account/AccountDetail",
+            pathname: "/Dashboard/Manager/Employee/AccountDetail",
             state: rowData,
           }}
         >
@@ -188,10 +176,10 @@ const AccountList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Account Customer List" />
+          <PageHeading title="Account Employee List" />
           {/* <AccountCreate refreshList={refreshList} /> */}
         </div>
-        {!data ? (
+        {!data && data.status=="employee"? (
           <p>No data to show...</p>
         ) : (
           <div id="wrapper">

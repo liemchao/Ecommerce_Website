@@ -13,6 +13,8 @@ export default function ProductCreate({ refreshList }) {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [category, setCategory]= useState("");
+  const [ower , setOwer]= useState("");
   
   const [Product, setProduct] = useState({
     name:"",
@@ -36,28 +38,40 @@ export default function ProductCreate({ refreshList }) {
     productStatus:"",
     receivedDate:"",
     file:"",
-    // userProductId: user.Id,
   });
 
   async function createProduct() {
     setLoading(true);
 
     let createData = {
-    email:Product.email,
-    phone:Product.phone,
-    password:Product.password,
+    name: Product.email,
+    description:Product.description,
+    price:Product.price,
     fullname: Product.fullname,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
+    name: Product.email,
     roleId: parseInt(Product.roleId),
-    // image: Product.image,
     gender: Boolean(Product.gender),
-    dob:Product.dob
-    //   userProductId: user.Id,
     };
     console.log(createData);
-    ApiService.createProduct(createData)
+    await ApiService.createProduct(createData)
       .then((response) => {
         console.log(response);
-        setSuccessMsg("Create successfully!");
+        setSuccessMsg("Create Product successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -112,7 +126,7 @@ export default function ProductCreate({ refreshList }) {
             position: "absolute",
             top: "60px",
             left: "250px",
-            right: "250px",
+            right: "100px",
             bottom: "120px",
             border: "1px solid #ccc",
             background: "#fff",
@@ -140,7 +154,7 @@ export default function ProductCreate({ refreshList }) {
 
 
            {/* Name */}
-           <div className="p-field p-col-8 p-md-4">
+           <div className="p-field p-col-2 p-md-4">
             <label htmlFor="name">Price</label>
             <InputText
               id="name"
@@ -173,28 +187,6 @@ export default function ProductCreate({ refreshList }) {
               onChange={(e) => setProduct({ ...Product, fullname: e.target.value })}
             />
           </div>
-           {/* Name */}
-           {/* <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Change Role</label>
-            <select
-              onChange={(e) => setProduct({...Product, roleId: parseInt(e.currentTarget.value)})}
-            >
-              <option value="1">Employee</option>
-              <option value="2">Manager</option>
-              <option value="3">Admin</option>
-            </select>
-          </div> */}
-           {/* Name */}
-           {/* <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Image</label>
-            <InputText
-              id="name"
-              type="file"
-              value={Product.image}
-              required
-              onChange={(e) => setProduct({ ...Product, image: e.target.value })}
-            />
-          </div> */}
            {/* Name */}
            <div className="p-field p-col-1 p-md-1">
             <label htmlFor="name">Length</label>
@@ -254,7 +246,7 @@ export default function ProductCreate({ refreshList }) {
           </div>
 
 
-          <div className="p-field p-col-6 p-md-4">
+          <div style={{marginTop:-45}}className="p-field p-col-2 p-md-5">
             <label htmlFor="name">Street</label>
             <InputText
               id="name"
@@ -287,7 +279,7 @@ export default function ProductCreate({ refreshList }) {
             <label htmlFor="name">receivedDate</label>
             <InputText
               id="name"
-              type="text"
+              type="Date"
               // value={}
               required
               onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
@@ -343,6 +335,7 @@ export default function ProductCreate({ refreshList }) {
 
         </div>
         {/* Close & Submit button */}
+        <div className="center">
         <Button
           type="button"
           label="Close"
@@ -352,6 +345,7 @@ export default function ProductCreate({ refreshList }) {
         <Button type="button" onClick={handleSubmit}>
           Submit
         </Button>
+        </div>
         {/* Spinner */}
         {loading && (
           <span className="spinner-border spinner-border-sm float-lg-right"></span>

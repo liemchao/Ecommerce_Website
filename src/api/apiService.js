@@ -23,7 +23,7 @@ const getAccountSystem = () => {
 
 
 const getAccountById = (id) => {
-   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account//${id}`, {
+   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/${id}`, {
      headers: authHeader(),
    });
  };
@@ -36,6 +36,12 @@ const updateStatusAccount = (data) => {
 };
 
 const changeUserRole = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/adjusting-role`,data, {
+    headers: authHeader(),
+  });
+};
+
+const getProfile = (data) => {
   return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/adjusting-role`,data, {
     headers: authHeader(),
   });
@@ -187,13 +193,13 @@ const getPublicProduct = () => {
 // };
 
 const createProduct = (data) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add`, {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add`,data, {
     headers: authHeader(),
   });
 };
 
  const updateProduct = (data) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/update`, {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/update`,data, {
     headers: authHeader(),
   });
  };
@@ -206,6 +212,16 @@ const createProduct = (data) => {
 
 const deleteProduct = (id) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/${id}`, {
+    headers: authHeader(),
+  });
+};
+const getFoveritList = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/number-of-farvorite?id=${id}`, {
+    headers: authHeader(),
+  });
+};
+const getViewProduct = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/number-of-view?id=${id}`, {
     headers: authHeader(),
   });
 };
@@ -675,10 +691,10 @@ export default {
   getAccountSystem,
   updateStatusAccount,
   changeUserRole,
-  // viewCandidate,
+  getViewProduct,
   createAccount,
   getAccountCustomer,
-  // createAccountByFile,
+  getFoveritList,
   // updateProfile,
   // updateAccount,
   // updatePassword,

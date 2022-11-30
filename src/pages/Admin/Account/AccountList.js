@@ -32,7 +32,7 @@ const AccountList = () => {
   // var validExt = ["xlsx"];
 
   async function getAccountSystem() {
-    ApiService.getAccountSystem()
+    await ApiService.getAccountSystem()
       .then((response) => {
         // check if the data is populated
         const dataRes = response.data.data
@@ -230,39 +230,39 @@ const AccountList = () => {
   //   validation(event.target.files[0]);
   // };
 
-  const template = {
-    layout: "CurrentPageReport PrevPageLink NextPageLink",
-    CurrentPageReport: (options) => {
-      return (
-        <>
-          <span
-            className="p-mx-3"
-            style={{ color: "var(--text-color)", userSelect: "none" }}
-          >
-            Go to{" "}
-            <InputText
-              size="2"
-              className="p-ml-1"
-              value={currentPage}
-              tooltip={pageInputTooltip}
-              // onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-              onChange={onPageInputChange}
-            />
-          </span>
-          <span
-            style={{
-              color: "var(--text-color)",
-              userSelect: "none",
-              width: "120px",
-              textAlign: "center",
-            }}
-          >
-            {options.first} - {options.last} of {options.totalRecords}
-          </span>
-        </>
-      );
-    },
-  };
+  // const template = {
+  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
+  //   CurrentPageReport: (options) => {
+  //     return (
+  //       <>
+  //         <span
+  //           className="p-mx-3"
+  //           style={{ color: "var(--text-color)", userSelect: "none" }}
+  //         >
+  //           Go to{" "}
+  //           <InputText
+  //             size="2"
+  //             className="p-ml-1"
+  //             value={currentPage}
+  //             tooltip={pageInputTooltip}
+  //             // onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
+  //             onChange={onPageInputChange}
+  //           />
+  //         </span>
+  //         <span
+  //           style={{
+  //             color: "var(--text-color)",
+  //             userSelect: "none",
+  //             width: "120px",
+  //             textAlign: "center",
+  //           }}
+  //         >
+  //           {options.first} - {options.last} of {options.totalRecords}
+  //         </span>
+  //       </>
+  //     );
+  //   },
+  // };
 
   return (
     <>
@@ -285,7 +285,7 @@ const AccountList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column style={{width:"5%"}}header="ID" field="indexNumber"/>
+                  <Column style={{width:"5%"}}header="No" field="indexNumber"/>
                   {/* <Column header="Avatar" body={customImage} /> */}
                   <Column header="Name" field="fullname" />
                   <Column style={{paddingRight:2, paddingLeft:3 ,width:"20%"}} header="Email" field="email"  />
@@ -295,7 +295,7 @@ const AccountList = () => {
                   <Column header="Action" body={customButton}/>
                 </DataTable>
                 <Paginator
-                  paginator
+                  // paginator
                   // template={template}
                   // first={first}
                   // rows={rows}

@@ -209,9 +209,9 @@ const Sidebar = () => {
                  Customer
                 </Link>
 
-                {/* <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
-                 Customer
-                </Link> */}
+                 <Link className="collapse-item" to="/Dashboard/Manager/EmployeeList">
+                 Employee
+                </Link> 
 
                 <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
                  Task

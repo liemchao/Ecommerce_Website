@@ -23,12 +23,12 @@ const CreateAccount = React.lazy(() => import("./pages/Admin/Account/CreateAccou
 
 // Manager
 const CustomerAccountList = React.lazy(() => import("./pages/Manager/Account/AccountList"));
-// const ManagerAccountDetail = React.lazy(() => import("./pages/Manager/Account/AccountDetail"));
-// const ManagerCompanyList = React.lazy(() => import("./pages/Manager/Company/CompanyList"));
-// const ManagerCompanyDetail = React.lazy(() => import("./pages/Manager/Company/CompanyDetail"));
+const EmployeeAccountDetail = React.lazy(() => import("./pages/Manager/Employee/AccountDetail"));
+const CustomerAccountDetail = React.lazy(() => import("./pages/Manager/Account/AccountDetail"));
+const ProductUpdate = React.lazy(() => import("./pages/Manager/Product/Updateproduct"));
 const ProductList = React.lazy(() => import("./pages/Manager/Product/ProductList"))
 const ProductDetail = React.lazy(() => import("./pages/Manager/Product/ProductDetail"))
-// const ManagerSkillList = React.lazy(() => import("./pages/Manager/Skill/SkillList"))
+const EmployeeList = React.lazy(() => import("./pages/Manager/Employee/AccountList"))
 // const ManagerPositionList = React.lazy(() => import("./pages/Manager/Position/PositionList"))
 // const ManagerEventList = React.lazy(() => import("./pages/Manager/Event/EventList"))
 // const ManagerInterviewList = React.lazy(() => import("./pages/Manager/Interview/InterviewList"))
@@ -83,12 +83,12 @@ const routes = [
   // { path: "/Dashboard/Admin/ApplyList", name: "AdminApplyList", component: AdminApplyList },
   
   { path: "/Dashboard/Manager/AccountList", name: "EmployeeAccountList", component: CustomerAccountList },
-  // { path: "/Dashboard/Manager/AccountDetail", name: "ManagerAccountDetail", component: ManagerAccountDetail },
-  // { path: "/Dashboard/Manager/CompanyList", name: "ManagerCompanyList", component: ManagerCompanyList },
-  // { path: "/Dashboard/Manager/CompanyDetail", name: "ManagerCompanyDetail", component: ManagerCompanyDetail },
+  { path: "/Dashboard/Manager/Employee/AccountDetail", name: "EmployeeAccountDetail", component: EmployeeAccountDetail},
+  { path: "/Dashboard/Manager/Account/AccountDetail", name: "CustomerAccountList", component: CustomerAccountDetail },
+  { path: "/Dashboard/Manager/ProductUpdate", name: "ProductUpdate", component: ProductUpdate },
   { path: "/Dashboard/Manager/ProductList", name: "ProductList", component:ProductList },
   { path: "/Dashboard/Manager/ProductDetail", name: "ProductDetail", component:ProductDetail },
-  // { path: "/Dashboard/Manager/SkillList", name: "ManagerSkillList", component: ManagerSkillList },
+  { path: "/Dashboard/Manager/EmployeeList", name: "EmployeeList", component: EmployeeList },
   // { path: "/Dashboard/Manager/PositionList", name: "ManagerPositionList", component: ManagerPositionList },
   // { path: "/Dashboard/Manager/EventList", name: "ManagerEventList", component: ManagerEventList },
   // { path: "/Dashboard/Manager/InterviewList", name: "ManagerInterviewList", component: ManagerInterviewList },
