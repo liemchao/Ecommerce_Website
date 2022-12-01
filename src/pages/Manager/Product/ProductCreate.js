@@ -13,8 +13,7 @@ export default function ProductCreate({ refreshList }) {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  const [category, setCategory]= useState("");
-  const [ower , setOwer]= useState("");
+  
   
   const [Product, setProduct] = useState({
     name:"",
@@ -23,7 +22,6 @@ export default function ProductCreate({ refreshList }) {
     description: "",
     width:"" ,
     length:"",
-    area:"",
     street:"",
     province:"",
     district:"",
@@ -37,35 +35,31 @@ export default function ProductCreate({ refreshList }) {
     productOwnerId:"",
     productStatus:"",
     receivedDate:"",
-    file:"",
   });
 
   async function createProduct() {
     setLoading(true);
-
+    
     let createData = {
-    name: Product.email,
+    name: Product.name,
     description:Product.description,
-    price:Product.price,
-    fullname: Product.fullname,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    name: Product.email,
-    roleId: parseInt(Product.roleId),
-    gender: Boolean(Product.gender),
+    categoryId:Product.categoryId,
+    price:parseInt(Product.price),
+    width: parseInt(Product.width),
+    length: parseInt(Product.length),
+    street: Product.street,
+    province: Product.province,
+    district: Product.district,
+    noBedroom: parseInt(Product.noBedroom),
+    noToilet: parseInt(Product.noToilet),
+    noFloor: parseInt(Product.noFloor),
+    facade: parseInt(Product.facade),
+    isFurniture: Boolean(Product.isFurniture),
+    direction: Product.direction,
+    utilities: Product.utilities,
+    productStatus:Product.productStatus,
+    productOwnerId:Product.productOwnerId,
+    receivedDate:Product.receivedDate,
     };
     console.log(createData);
     await ApiService.createProduct(createData)
@@ -145,13 +139,26 @@ export default function ProductCreate({ refreshList }) {
             <label htmlFor="name">Name</label>
             <InputText
               id="name"
-              type="email"
-              value={Product.email}
+              type="text"
+              value={Product.name}
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
           </div>
-
+           
+          <div className="p-field p-col-8 p-md-4">
+           <label htmlFor="role">Category </label>
+            <select
+              onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
+            >
+              <option value="d645ae85-04e5-4b8c-9011-4c1dd6e9cae2">Shophouse</option>
+              <option value="58fd08d4-1425-401a-9430-4f915f663797">Land</option>
+              <option value="b64f980c-4773-49ae-a291-5b0e2a348583">Officetel</option>
+              <option value="f30d5a38-0a30-4e33-b716-6a11ed2a874b">Townhouse</option>
+              <option value="b375f2b3-b29c-4e9f-a0d8-9090aee75edb">Resort</option>
+              <option value="59da778e-e0cd-40f8-ae48-ced5c1c3a066">Apartment</option>
+            </select>
+          </div>
 
            {/* Name */}
            <div className="p-field p-col-2 p-md-4">
@@ -159,9 +166,7 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="number"
-              // value={}
-              required
-              onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, price: e.target.value })}
             />
           </div>
 
@@ -170,11 +175,25 @@ export default function ProductCreate({ refreshList }) {
             <label htmlFor="name">Description</label>
             <InputText
               id="name"
-              type="password"
-              value={Product.password}
+              type="text"
+              value={Product.description}
               required
-              onChange={(e) => setProduct({ ...Product, password: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, description: e.target.value })}
             />
+          </div>
+
+             
+          <div className="p-field p-col-8 p-md-4">
+           <label htmlFor="role">Product Status </label>
+            <select
+              onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
+            >
+              <option value="1">Not open for sale</option>
+              <option value="2">On sale</option>
+              <option value="3">On hold</option>
+              <option value="4">Deposited</option>
+              <option value="5">Sold</option>
+            </select>
           </div>
            {/* Name */}
            <div className="p-field p-col-1 p-md-1">
@@ -182,9 +201,8 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="number"
-              value={Product.fullname}
-              required
-              onChange={(e) => setProduct({ ...Product, fullname: e.target.value })}
+              value={Product.width}
+              onChange={(e) => setProduct({ ...Product, width: e.target.value })}
             />
           </div>
            {/* Name */}
@@ -194,17 +212,7 @@ export default function ProductCreate({ refreshList }) {
               id="name"
               type="number"
               required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Area</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, length: e.target.value })}
             />
           </div>
 
@@ -213,8 +221,8 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
+              value={Product.noBedroom}
+              onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
             />
           </div>
           <div className="p-field p-col-1 p-md-1">
@@ -222,8 +230,8 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
+              value={Product.noToilet}
+              onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
             />
           </div>
           <div className="p-field p-col-1 p-md-1">
@@ -231,8 +239,8 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
+              value={Product.noFloor}
+              onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
             />
           </div>
           <div className="p-field p-col-1 p-md-1">
@@ -240,9 +248,21 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
+              value={Product.facade}
+              onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
             />
+          </div>
+          <div className="p-field p-col-8 p-md-4">
+           <label htmlFor="role">Product Ower </label>
+            <select
+              onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
+            >
+              <option value="e2145c7f-ad87-4108-9d39-0305261f9ca2">Mandel Umbert</option>
+              <option value="d4f82fe0-ad2d-45e2-83fc-1d133cd3e11a">Kaja Pache</option>
+              <option value="a08128ef-d132-47fd-b7d7-2d5f9d824d6e">Chris Pepi</option>
+              <option value="01b4bc8f-589d-4812-90f6-2f26f9cd2802">Pasquale Grimwood</option>
+              
+            </select>
           </div>
 
 
@@ -251,8 +271,28 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="text"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
+              value={Product.street}
+              onChange={(e) => setProduct({ ...Product, street: e.target.value })}
+            />
+          </div>
+
+          <div style={{marginTop:-45}}className="p-field p-col-2 p-md-5">
+            <label htmlFor="name">Province</label>
+            <InputText
+              id="name"
+              type="text"
+              value={Product.province}
+              onChange={(e) => setProduct({ ...Product, province: e.target.value })}
+            />
+          </div>
+
+          <div style={{marginTop:-45}}className="p-field p-col-2 p-md-5">
+            <label htmlFor="name">District</label>
+            <InputText
+              id="name"
+              type="text"
+              value={Product.district}
+              onChange={(e) => setProduct({ ...Product, district: e.target.value })}
             />
           </div>
           <div className="p-field p-col-8 p-md-4">
@@ -260,9 +300,20 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="text"
-              // value={}
+              value={Product.direction}
               required
-              onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
+            />
+          </div>
+
+          <div className="p-field p-col-8 p-md-4">
+            <label htmlFor="name">utilities</label>
+            <InputText
+              id="name"
+              type="text"
+              value={Product.utilities}
+              required
+              onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
             />
           </div>
           {/* <div className="p-field p-col-8 p-md-4">
@@ -280,27 +331,12 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="Date"
-              // value={}
+              value={Product.receivedDate}
               required
-              onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
             />
           </div>
-
-          <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Image</label>
-            <InputText
-              id="name"
-              type="file"
-              // value={}
-              required
-              onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
-            />
-          </div>
-
-
-          
-   
-          
+         
           {/* Gender */}
           <div className="p-field p-col-8 p-md-3">
             <label htmlFor="status">isFurniture</label>
@@ -312,7 +348,7 @@ export default function ProductCreate({ refreshList }) {
                 name="exampleRadios"
                 id="exampleRadios1"
                 value={true}
-                onChange={(e) => setProduct({ ...Product, gender: e.target.value })}
+                onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
               <label class="form-check-label" for="exampleRadios1">
                Avaliable
@@ -325,7 +361,7 @@ export default function ProductCreate({ refreshList }) {
                 name="exampleRadios"
                 id="exampleRadios2"
                 value={false}
-                onChange={(e) => setProduct({ ...Product, gender: e.target.value })}
+                onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
               <label class="form-check-label" for="exampleRadios2">
                Not Avalabel

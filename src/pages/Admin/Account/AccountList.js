@@ -135,7 +135,7 @@ const AccountList = () => {
       return <div className="badge badge-primary mr-2">Active</div>;
     }
     if (rowData.status === "Banned") {
-      return <div className="badge badge-danger mr-2">Inactive</div>;
+      return <div className="badge badge-danger mr-2">Banned</div>;
     }
   };
 

@@ -8,9 +8,9 @@ import img1 from "../../assets/img/image1.png";
 import img2 from "../../assets/img/image2.png";
 import img3 from "../../assets/img/image3.png";
 
-const text1 = "Looking for a place to shine?";
-const text2 = "Discover new talents?";
-const text3 = "Join us";
+const text1 = "Looking for a digitizing system ";
+const text2 = "Quickly manage customers";
+const text3 = "An upgraded version";
 
 export default function Login() {
   const [mainClass, setMainClass] = useState("sign-in-mode");

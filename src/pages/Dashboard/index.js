@@ -16,7 +16,7 @@ class Dashboard extends Component {
       <>
         <PageHeading title="Dashboard" />
         {/* <!-- Content Row --> */}
-        <div className="row">
+        {/* <div className="row">
           <CardInfo
             title="Earnings (Monthly)"
             icon="calendar"
@@ -47,7 +47,7 @@ class Dashboard extends Component {
           <div className="col-xl-4 col-lg-6">
             <ChartDonut />
           </div>
-        </div>
+        </div> */}
       </>
     );
   }

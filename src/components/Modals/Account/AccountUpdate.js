@@ -178,7 +178,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
               <Button
                 
                 onClick={handleChangeStatusBanned}
-                label="Change to Inactive"
+                label="Change to Banned"
                 className="p-button-rounded p-button-danger"
               />
             )}

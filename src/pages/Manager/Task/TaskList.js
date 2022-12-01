@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
-// import TaskCreate from "../../../components/Modals/Task/TaskCreate";
+// import TaskCreate from "../../Manager/Task/TaskCreate";
 // import TaskUpdate from "../../../components/Modals/Task/TaskUpdate";
 import ApiService from "../../../api/apiService";
 
@@ -9,6 +9,10 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
+import { Button  } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+
 
 const TaskList = () => {
   const [data, setData] = useState([]);
@@ -27,12 +31,16 @@ const TaskList = () => {
 
     ApiService.getTask()
       .then((response) => {
-        console.log(response.data.data);
-        // check if the data is populated
-        setData(response.data.data);
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++ index ;
+          obj['indexNumber'] = count
+
+        })
+       
+
+        setData(listDataSet);
         setLoadingData(false);
       })
       .catch((error) => {
@@ -56,9 +64,9 @@ const TaskList = () => {
     getTaskList();
   }, [currentPage]);
 
-  // const refreshList = () => {
-  //   getTaskList(currentPage);
-  // };
+  const refreshList = () => {
+    getTaskList(currentPage);
+  };
 
   // const onPageChange = (event) => {
   //   setFirst(event.first);
@@ -84,12 +92,29 @@ const TaskList = () => {
   // };
 
   const customStatus = (rowData) => {
-    if (rowData.status) {
-      return <div className="badge badge-primary mr-2">Active</div>;
+    if (rowData.isDone) {
+      return <div className="badge badge-success mr-2">Done</div>;
     }
-    if (!rowData.status) {
-      return <div className="badge badge-danger mr-2">Inactive</div>;
+    else{
+      return <div className="badge badge-danger mr-2">Not Done</div>;
     }
+  };
+
+  const customButton = (rowData) => {
+    return (
+      <div style={{ display: "center" }}>
+        {/* Detail */}
+        <Link
+          style={{ paddingRight: "30px" }}
+          to={{
+            pathname: "/Dashboard/Manager/TaskDetail",
+            state: rowData,
+          }}
+        >
+         <Button>Task Detail</Button>
+        </Link>
+      </div>
+    );
   };
  
   // const template = {
@@ -151,7 +176,14 @@ const TaskList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="Task List" />
-          {/* <TaskCreate refreshList={refreshList} /> */}
+          <Link
+          style={{ paddingRight: "30px" }}
+          to={{
+            pathname: "/Dashboard/Manager/TaskCreate",
+          }}
+        >
+         <Button>Task Create</Button>
+        </Link>
         </div>
         {!data ? (
           <p>No data to show...</p>
@@ -164,11 +196,11 @@ const TaskList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column header="ID" field="id" />
-                  <Column header="Content" field="name" />
-                  <Column header="Product" field="price" />
-                  <Column header="Employe" field="description" />
+                  <Column header="ID" field="indexNumber" />
+                  <Column header="Name Task" field="name" />
+                  <Column header="Create Date" field="createDate" />
                   <Column header="Status" body={customStatus} />
+                  <Column header="Action" body={customButton} />
                 </DataTable>
                 <Paginator
                   // paginator

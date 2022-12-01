@@ -193,7 +193,7 @@ const getPublicProduct = () => {
 // };
 
 const createProduct = (data) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add`,data, {
+  return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-without-image`,data, {
     headers: authHeader(),
   });
 };
@@ -225,6 +225,54 @@ const getViewProduct = (id) => {
     headers: authHeader(),
   });
 };
+const getidCategory = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/product-category`, {
+    headers: authHeader(),
+  });
+};
+
+const getidProductOwer = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/product-owner`, {
+    headers: authHeader(),
+  });
+};
+
+const getProductStatus = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/product-status`, {
+    headers: authHeader(),
+  });
+};
+
+const getAppoinment = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment`, {
+    headers: authHeader(),
+  });
+};
+
+const getEmployee = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/employee`, {
+    headers: authHeader(),
+  });
+};
+
+const AssAppointment = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment/assign`,data, {
+    headers: authHeader(),
+  });
+};
+
+
+const getLead = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead`, {
+    headers: authHeader(),
+  });
+};
+const ChangStatusLead = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/update-status`,data, {
+    headers: authHeader(),
+  });
+};
+
 
 // /* Skills */
 // const getPublicSkill = (ele, page) => {
@@ -695,6 +743,13 @@ export default {
   createAccount,
   getAccountCustomer,
   getFoveritList,
+  getProductStatus,
+  getAppoinment,
+  getEmployee,
+  AssAppointment,
+  ChangStatusLead,
+
+ 
   // updateProfile,
   // updateAccount,
   // updatePassword,
@@ -732,6 +787,9 @@ export default {
   updateProduct,
   deleteProduct,
   getTask,
+  getidCategory,
+  getidProductOwer,
+  getLead,
 
   // // Skills
   // getPublicSkill,

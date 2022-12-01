@@ -4,6 +4,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
 
+
 const ProductDetail = () => {
     const { state } = useLocation();
     const [Product, setProduct] = useState([]);
@@ -13,58 +14,49 @@ const ProductDetail = () => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
-    const [data, setData] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
-    const [FavoritList, setFavortData]= useState()
-    // const [Time, setTime] = useState() ;
+    const [data, setData] = useState([]);
+
+
+    
+  
     useEffect(() => {
       if (typeof state != "undefined") {
         localStorage.setItem("Temp", JSON.stringify(state));
       }
       const storageEvent = JSON.parse(localStorage.getItem("Temp"));
-      // setProduct(storageEvent);
-      getDataProduct();
-
-      getFoveritList();
+      setProduct(storageEvent);
       setLoadingData(false);
+      // getFoveritList();
     }, []);
 
-    async function getDataProduct(){
-      setProduct(storageEvent);
-    };
-
-    async function componentDidMount(){
-      setInterval(this.getDataProduct,1000)
-    };
-
-    async function getFoveritList() {
-      console.log(Product.id);
-      setLoadingData(true);
-      await ApiService.getFoveritList(Product.id)
-        .then((response) => {
+    // async function getFoveritList() {
+    //   setLoadingData(true);
+    //   await ApiService.getFoveritList(Product.id)
+    //     .then((response) => {
        
-          setData(response);
-          console.log(response);
+    //       setData(response);
+    //       console.log(response);
         
-          setLoadingData(false);
-        })
-        .catch((error) => {
-          if (error.response) {
+    //       setLoadingData(false);
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
            
-          } else if (error.request) {
-            // no response
-            console.log(error.request);
-          } else {
+    //       } else if (error.request) {
+    //         // no response
+    //         console.log(error.request);
+    //       } else {
         
-          }
-          console.log(error.config);
-        });
-    }
+    //       }
+    //       console.log(error.config);
+    //     });
+    // }
   
     return (
       <div>
         <PageHeading title="Product Detail" />
-        {loadingData && data ? (
+        {loadingData ? (
           <p>Loading, please wait...</p>
         ) : (
           <div className="main-body">
@@ -177,74 +169,6 @@ const ProductDetail = () => {
                             <p>{Product.width}m&#178;</p>
                           </div>
                         </div>
-
-                        
-
-                        
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Email:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.email}</p>
-                          </div>
-                        </div>
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Phone:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.phone}</p>
-                          </div>
-                        </div> */}
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Gender:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.gender}</p>
-                          </div>
-                        </div> */}
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Birth Day:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.birthday}</p>
-                          </div>
-                        </div> */}
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Joined Since:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p >{(Product.createDate).slice(0,10)}</p>
-                          </div>
-                        </div>
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Time Create</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p >{(Product.createDate).slice(11,19)+"s"}</p>
-                          </div>
-                        </div> */}
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Status</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            {Product.status ? (
-                              <div className="badge badge-primary mr-2">
-                                Active
-                              </div>
-                            ) : (
-                              <div className="badge badge-danger mr-2">
-                                Banned
-                              </div>
-                            )}
-                          </div>
-                        </div> */}
                       </div>
                     </Tab>
                     <Tab eventKey="Product" title="Product Local">
@@ -340,28 +264,7 @@ const ProductDetail = () => {
 
                       </div>
                     </Tab>
-                    <Tab eventKey="Behavor" title="Behavor Customer">
-                      <div className="card-body">
-                      <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Favorite</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{data}</p>
-                          </div>
-                        </div>
 
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">View</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{data}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </Tab>
-                    
 
 
                   </Tabs>

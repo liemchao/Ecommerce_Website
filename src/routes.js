@@ -29,10 +29,10 @@ const ProductUpdate = React.lazy(() => import("./pages/Manager/Product/Updatepro
 const ProductList = React.lazy(() => import("./pages/Manager/Product/ProductList"))
 const ProductDetail = React.lazy(() => import("./pages/Manager/Product/ProductDetail"))
 const EmployeeList = React.lazy(() => import("./pages/Manager/Employee/AccountList"))
-// const ManagerPositionList = React.lazy(() => import("./pages/Manager/Position/PositionList"))
-// const ManagerEventList = React.lazy(() => import("./pages/Manager/Event/EventList"))
-// const ManagerInterviewList = React.lazy(() => import("./pages/Manager/Interview/InterviewList"))
-// const ManagerRoleList = React.lazy(() => import("./pages/Manager/Role/RoleList"))
+const AppointmentList = React.lazy(() => import("./pages/Manager/Appointment/AppointmentList"))
+const AppointmentDetail = React.lazy(() => import("./pages/Manager/Appointment/AppointmentDetail"))
+const TaskDetail = React.lazy(() => import("./pages/Manager/Task/TaskDetail"))
+const TaskCreate = React.lazy(() => import("./pages/Manager/Task/TaskCreate"))
 // const ManagerWelfareList = React.lazy(() => import("./pages/Manager/Welfare/WelfareList"))
 const ManagerTaskList = React.lazy(() => import("./pages/Manager/Task/TaskList"))
 // const ManagerRecruitmentList = React.lazy(() => import("./pages/Manager/Recruitment/RecruitmentList"))
@@ -89,13 +89,11 @@ const routes = [
   { path: "/Dashboard/Manager/ProductList", name: "ProductList", component:ProductList },
   { path: "/Dashboard/Manager/ProductDetail", name: "ProductDetail", component:ProductDetail },
   { path: "/Dashboard/Manager/EmployeeList", name: "EmployeeList", component: EmployeeList },
-  // { path: "/Dashboard/Manager/PositionList", name: "ManagerPositionList", component: ManagerPositionList },
-  // { path: "/Dashboard/Manager/EventList", name: "ManagerEventList", component: ManagerEventList },
-  // { path: "/Dashboard/Manager/InterviewList", name: "ManagerInterviewList", component: ManagerInterviewList },
-  // { path: "/Dashboard/Manager/RoleList", name: "ManagerRoleList", component: ManagerRoleList },
-  // { path: "/Dashboard/Manager/WelfareList", name: "ManagerWelfareList", component: ManagerWelfareList },
+  { path: "/Dashboard/Manager/AppointmentList", name: "AppointmentList", component: AppointmentList },
+  { path: "/Dashboard/Manager/AppointmentDetail", name: "AppointmentDetail", component: AppointmentDetail },
+  { path: "/Dashboard/Manager/TaskDetail", name: "TaskDetail", component: TaskDetail },
   { path: "/Dashboard/Manager/TaskList", name: "ManagerTaskList", component: ManagerTaskList },
-  // { path: "/Dashboard/Manager/RecruitmentList", name: "ManagerRecruitmentList", component: ManagerRecruitmentList }
+  { path: "/Dashboard/Manager/TaskCreate", name: "TaskCreateList", component: TaskCreate },
 ];
 
 export default routes;

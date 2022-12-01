@@ -69,15 +69,17 @@ const LoginForm = (props) => {
           <h4>
             <span style={{ color: "blue" }}>C</span>
             <span style={{ color: "orange" }}>R</span>
-            <span style={{ color: "green" }}>M</span> Managment
+            <span style={{ color: "green" }}>M</span> 
+            <span style={{ color: "purple" }}>I</span>&
+            <span style={{ color: "black" }}>DTV</span> 
           </h4>
         </div>
         <div className="heading">
-          <h2>Welcome Back</h2>
-          <h6>Not registred yet? </h6>
+          <h2>Welcome To</h2>
+          {/* <h6>Not registred yet? </h6>
           <a className="toggle" href="/Login" onClick={props.onClick}>
             Register
-          </a>
+          </a> */}
         </div>
         <div className="actual-form">
           {/* Input Email */}

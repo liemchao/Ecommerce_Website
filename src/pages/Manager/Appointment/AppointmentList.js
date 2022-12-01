@@ -1,34 +1,35 @@
 import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
-import AccountCreate from "../../../components/Modals/Account/AccountCreate";
-import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
+import PositionCreate from "../../../components/Modals/Position/PositionCreate";
+import PositionUpdate from "../../../components/Modals/Position/PositionUpdate";
 import ApiService from "../../../api/apiService";
 
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { Button } from "react-bootstrap";
+import { InputText } from "primereact/inputtext";
 
-
-const AccountList = () => {
+const AppointmentList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
-  // const [totalRecords, setTotalRecords] = useState();
-  // const [totalPage, setTotalPage] = useState();
+  const [totalRecords, setTotalRecords] = useState();
+  const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(3);
-  const [currentPage, setCurrentPage] = useState(20);
+  const [rows, setRows] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
-  async function getAccountList() {
+  async function getAppointment() {
     setLoadingData(true);
 
-    await ApiService.getAccountSystem()
+    ApiService.getAppoinment()
       .then((response) => {
+
 
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
@@ -40,8 +41,6 @@ const AccountList = () => {
         // setTotalRecords(response.totalRow);
 
         setData(listDataSet);
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
         // you tell it that you had the result
         setLoadingData(false);
       })
@@ -63,56 +62,8 @@ const AccountList = () => {
   }
 
   useEffect(() => {
-    getAccountList();
+    getAppointment();
   }, [currentPage]);
-
-  const refreshList = () => {
-    getAccountList();
-  };
-
-  const customImage = (rowData) => {
-    return (
-      <img
-        style={{ width: "100px", height: "60px" }}
-        src={rowData.image}
-        alt="user-image"
-        className="img-fluid"
-        onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-        }
-      />
-    );
-  };
-
-
-  const customStatus = (rowData) => {
-    if (rowData.status==="Activated") {
-      return <div className="badge badge-primary mr-2">Active</div>;
-    }
-    if (!rowData.status==="Banned") {
-      return <div className="badge badge-danger mr-2">Banned</div>;
-    }
-  };
-
-  const customButton = (rowData) => {
-    return (
-      <div style={{ display: "flex" }}>
-        {/* Detail */}
-        <Link
-          style={{ paddingRight: "15px" }}
-          to={{
-            pathname: "/Dashboard/Manager/Employee/AccountDetail",
-            state: rowData,
-          }}
-        >
-           <Button style={{ marginLeft: "0px" }}>Detail</Button>
-        </Link>
-        {/* Update */}
-        <AccountUpdate rowData={rowData} refreshList={refreshList} />
-      </div>
-    );
-  };
 
   // const onPageChange = (event) => {
   //   setFirst(event.first);
@@ -133,8 +84,64 @@ const AccountList = () => {
   //   }
   // };
 
-  // const onPageInputChange = (event) => {
-  //   setCurrentPage(event.target.value);
+  const onPageInputChange = (event) => {
+    setCurrentPage(event.target.value);
+  };
+
+  const customButton = (rowData) => {
+    return (
+      <div style={{ display: "flex" }}>
+        {/* Detail */}
+        <Link
+          style={{ paddingRight: "15px" }}
+          to={{
+            pathname: "/Dashboard/Manager/AppointmentDetail",
+            state: rowData,
+          }}
+        >
+         <Button>Apply Appointment</Button>
+        </Link>
+      </div>
+    );
+  };
+
+  const AppointmentStatus = (rowData) => {
+    if(rowData.appointmentStatus === "Customer Canceled") {
+      return <div className="badge badge-info mr-2">Customer Canceled</div>
+    }
+    if (rowData.appointmentStatus === "Expired") {
+      return <div className="badge badge-warning mr-2">Expired</div>
+    }
+    if (rowData.appointmentStatus === "Finished") {
+      return <div className="badge badge-success mr-2">Finished</div>
+    }
+    if (rowData.appointmentStatus === "Rejected") {
+      return <div className="badge badge-danger mr-2">Rejected</div>
+    }
+  };
+
+  // const refreshList = () => {
+  //   getRecruitmentList(rows, currentPage);
+  // };
+
+  // const handleDelete = (e, rowData) => {
+  //   e.preventDefault();
+  //   let confirm = window.confirm(
+  //     "Are you sure you want to delete this recruitments?"
+  //   );
+
+  //   if (confirm) {
+  //     ApiService.deleteRecruitments(
+  //       rowData
+  //         .then((response) => {
+  //           console.log(response.data);
+  //           refreshList();
+  //         })
+  //         .catch((e) => {
+  //           console.log(e);
+  //         })
+  //     );
+  //   }
   // };
 
   // const template = {
@@ -176,10 +183,9 @@ const AccountList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Account Employee List" />
-          {/* <AccountCreate refreshList={refreshList} /> */}
+          <PageHeading title="Appointment List" />
         </div>
-        {!data && data.role=="employee"? (
+        {!data ? (
           <p>No data to show...</p>
         ) : (
           <div id="wrapper">
@@ -190,15 +196,12 @@ const AccountList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-
-                 
-                  <Column header="ID" field="indexNumber" />
-                  <Column header="Avatar" body={customImage} />
-                  <Column header="Name" field="fullname" />
-                  <Column header="Email" field="email" />
-                  {/* <Column header="Address" body={customAddress} /> */}
-                  <Column header="Phone" field="phone" />
-                  <Column header="Status" body={customStatus} />
+                  <Column header="No" field="indexNumber" />
+                  <Column header="Title" field="activityType" />
+                  <Column header="Description" field="description" />
+                  <Column header="Start Date" field="startDate" />
+                  <Column header="End Date" field="endDate" />
+                  <Column header="Status" body={AppointmentStatus} />
                   <Column header="Action" body={customButton} />
                 </DataTable>
                 <Paginator
@@ -219,4 +222,4 @@ const AccountList = () => {
   );
 };
 
-export default AccountList;
+export default AppointmentList;

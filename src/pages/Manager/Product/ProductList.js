@@ -42,24 +42,17 @@ const ProductList = () => {
 
         setData(listDataSet);
         console.log(listDataSet);
-        // console.log(toString(listDataSet.productImages.url));
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+       
         setLoadingData(false);
       })
       .catch((error) => {
         if (error.response) {
-          // get response with a status code not in range 2xx
-          // console.log(error.response.data.data);
-          // console.log(error.response.data.status);
-          // console.log(error.response.data.headers);
+        
         } else if (error.request) {
-          // no response
+      
           console.log(error.request);
         } else {
-          // Something wrong in setting up the request
-          // console.log("Error", error.message);
+      
         }
         console.log(error.config);
       });
@@ -90,10 +83,10 @@ const ProductList = () => {
   
     if (rowData.isSold) {
       // console.log(rowData.status);
-      return <div className="badge badge-primary mr-2">Avaliable</div>;
+      return <div className="badge badge-primary mr-2"> Not Avaliable</div>;
     }
     else{
-      return <div className="badge badge-danger mr-2">Inactive</div>;
+      return <div className="badge badge-success mr-2">Avaliable</div>;
     }
   }
   const getPrice = (rowData)=>{
@@ -122,16 +115,16 @@ const ProductList = () => {
          <Button>Detail</Button>
         </Link>
         <Link
-          style={{ paddingRight: "10px" }}
+          style={{ paddingRight: "20px" }}
           to={{
             pathname: "/Dashboard/Manager/ProductUpdate",
             state: rowData,
           }}
         >
-            <Button  style={{margin:2, paddingLeft :3} } className="btn btn-success">Update
+            <Button  style={{margin:3, paddingRight :2} } className="btn btn-success">Update
           </Button>
       </Link>
-        <Button className="btn btn-danger">Delete</Button>
+        <Button  style={{ paddingRight: "15px" }} className="btn btn-danger">Delete</Button>
       </div>
       </>
     );
@@ -226,8 +219,8 @@ const ProductList = () => {
                   <Column header="ID" field="indexNumber"/>
                   <Column header="Name" field="name"/>
                   <Column header="Category" body={getCaId} />
-                  <Column header="Image" body={customImage} />
-                  <Column header="Address" body={getAddress} />
+                  {/* <Column header="Image" body={customImage} /> */}
+                  {/* <Column header="Address" body={getAddress} /> */}
                   <Column header="Price(VND)" body={getPrice} />
                   <Column header="IsSold" body={getStatus} />
                   <Column header="Action" body={customButton} />
