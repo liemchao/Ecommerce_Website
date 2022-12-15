@@ -37,6 +37,7 @@ const AppointmentList = () => {
 
         })
         // setTotalRecords(response.totalRow);
+        console.log(response);
 
         setData(listDataSet);
         // you tell it that you had the result
@@ -45,9 +46,7 @@ const AppointmentList = () => {
       .catch((error) => {
         if (error.response) {
           // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+  
         } else if (error.request) {
           // no response
           console.log(error.request);
@@ -115,6 +114,15 @@ const AppointmentList = () => {
     }
     if (rowData.appointmentStatus === "Rejected") {
       return <div className="badge badge-danger mr-2">Rejected</div>
+    }
+    if (rowData.appointmentStatus === "Waiting") {
+      return <div className="badge badge-primary mr-2">Waiting</div>
+    }
+    if (rowData.appointmentStatus === "Employee Canceled") {
+      return <div className="badge badge-dark">Employee Canceled</div>
+    }
+    if (rowData.appointmentStatus === "Accepted") {
+      return <div className="badge badge-success">Accepted</div>
     }
   };
 

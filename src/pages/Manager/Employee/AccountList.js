@@ -27,7 +27,7 @@ const AccountList = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getAccountSystem(currentPage, rows)
+    await ApiService.getAccountEmployee(currentPage, rows)
       .then((response) => {
 
         const dataRes = response.data.data
@@ -91,7 +91,7 @@ const AccountList = () => {
     if (rowData.status==="Activated") {
       return <div className="badge badge-primary mr-2">Active</div>;
     }
-    if (!rowData.status==="Banned") {
+    if (rowData.status==="Banned") {
       return <div className="badge badge-danger mr-2">Banned</div>;
     }
   };

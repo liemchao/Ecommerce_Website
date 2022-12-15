@@ -179,6 +179,7 @@ const AccountList = () => {
           })
           setData(listDataSet);
           setLoadingData(false)
+          window.location.reload()
         })
         .catch((error) => {
           if (error.response) {
