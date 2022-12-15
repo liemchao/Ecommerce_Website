@@ -17,7 +17,6 @@ const AccountDetail = () => {
   const [rows, setRows] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingData, setLoadingData] = useState(true);
-  // const [Time, setTime] = useState() ;
 
   useEffect(() => {
     if (typeof state != "undefined") {
@@ -79,22 +78,6 @@ const AccountDetail = () => {
                           <p>{account.phone}</p>
                         </div>
                       </div>
-                      {/* <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.gender}</p>
-                        </div>
-                      </div> */}
-                      {/* <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Birth Day:</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.birthday}</p>
-                        </div>
-                      </div> */}
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Joined Since:</h6>
@@ -105,15 +88,15 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create</h6>
+                          <h6 className="mb-0">Time Create:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p >{(account.createDate).slice(11,19)+"s"}</p>
+                          <p >{(account.createDate).slice(11,19)}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.status ? (

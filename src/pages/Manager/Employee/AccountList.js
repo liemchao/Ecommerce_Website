@@ -15,11 +15,11 @@ import { Button } from "react-bootstrap";
 const AccountList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
-  // const [totalRecords, setTotalRecords] = useState();
+  const [totalRecords, setTotalRecords] = useState();
   // const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(3);
-  const [currentPage, setCurrentPage] = useState(20);
+  const [rows, setRows] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
@@ -27,7 +27,7 @@ const AccountList = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getAccountSystem()
+    await ApiService.getAccountSystem(currentPage, rows)
       .then((response) => {
 
         const dataRes = response.data.data
@@ -38,6 +38,7 @@ const AccountList = () => {
 
         })
         // setTotalRecords(response.totalRow);
+        setTotalRecords(response.data.totalRow);
 
         setData(listDataSet);
         // setTotalPage(response.data.totalPage);
@@ -114,24 +115,24 @@ const AccountList = () => {
     );
   };
 
-  // const onPageChange = (event) => {
-  //   setFirst(event.first);
-  //   setRows(event.rows);
-  //   setCurrentPage(event.page + 1);
-  // };
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    setCurrentPage(event.page + 1);
+  };
 
-  // const onPageInputKeyDown = (event, options, totalPage) => {
-  //   if (event.key === "Enter") {
-  //     const page = parseInt(currentPage);
-  //     if (page < 0 || page > totalPage) {
-  //       setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
-  //     } else {
-  //       const first = currentPage ? options.rows * (page - 1) : 0;
-  //       setFirst(first);
-  //       setPageInputTooltip("Press 'Enter' key to go to this page.");
-  //     }
-  //   }
-  // };
+  const onPageInputKeyDown = (event, options, totalPage) => {
+    if (event.key === "Enter") {
+      const page = parseInt(currentPage);
+      if (page < 0 || page > totalPage) {
+        setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
+      } else {
+        const first = currentPage ? options.rows * (page - 1) : 0;
+        setFirst(first);
+        setPageInputTooltip("Press 'Enter' key to go to this page.");
+      }
+    }
+  };
 
   // const onPageInputChange = (event) => {
   //   setCurrentPage(event.target.value);
@@ -202,13 +203,13 @@ const AccountList = () => {
                   <Column header="Action" body={customButton} />
                 </DataTable>
                 <Paginator
-                  // paginator
+                  paginator
                   // template={template}
-                  // first={first}
-                  // rows={rows}
-                  // totalRecords={totalRecords}
-                  // onPageChange={onPageChange}
-                  // className="p-jc-end p-my-3"
+                  first={first}
+                  rows={rows}
+                  totalRecords={totalRecords}
+                  onPageChange={onPageChange}
+                  className="p-jc-end p-my-3"
                 />
               </div>
             </div>

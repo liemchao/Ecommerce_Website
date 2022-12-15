@@ -21,7 +21,7 @@ class CardInfo extends Component {
 
     render() {
         return (
-            <div className="col-xl-3 col-md-6 mb-4">
+            <div className="col-xl-2 col-md-4 mb-4">
                 <div className={this.state.cardClass}>
                     <div className="card-body">
                         <div className="row no-gutters align-items-center">

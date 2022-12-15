@@ -33,7 +33,7 @@ const AppointmentList = React.lazy(() => import("./pages/Manager/Appointment/App
 const AppointmentDetail = React.lazy(() => import("./pages/Manager/Appointment/AppointmentDetail"))
 const TaskDetail = React.lazy(() => import("./pages/Manager/Task/TaskDetail"))
 const TaskCreate = React.lazy(() => import("./pages/Manager/Task/TaskCreate"))
-// const ManagerWelfareList = React.lazy(() => import("./pages/Manager/Welfare/WelfareList"))
+const LeadList = React.lazy(() => import("./pages/Manager/Lead/LeadList"))
 const ManagerTaskList = React.lazy(() => import("./pages/Manager/Task/TaskList"))
 // const ManagerRecruitmentList = React.lazy(() => import("./pages/Manager/Recruitment/RecruitmentList"))
 
@@ -94,6 +94,7 @@ const routes = [
   { path: "/Dashboard/Manager/TaskDetail", name: "TaskDetail", component: TaskDetail },
   { path: "/Dashboard/Manager/TaskList", name: "ManagerTaskList", component: ManagerTaskList },
   { path: "/Dashboard/Manager/TaskCreate", name: "TaskCreateList", component: TaskCreate },
+  { path: "/Dashboard/Manager/LeadList", name: "LeadList", component: LeadList },
 ];
 
 export default routes;

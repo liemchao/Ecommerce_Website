@@ -12,6 +12,11 @@ import { Button  } from "react-bootstrap";
 
 const ProductDetail = () => {
   const { state } = useLocation();
+  const [totalRecords, setTotalRecords] = useState();
+  const [totalPage, setTotalPage] = useState();
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [Appointment, setAppointment] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState([]);
@@ -20,10 +25,12 @@ const ProductDetail = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [data1, setData1] = useState([]);
+  const [idLead ,setLead] = useState([]);
+  const [nameLead ,setNameLead] = useState([]);
 
 
 
-  async function AssAppointment() {
+  async function AssTask() {
     setLoading(true);
 
     let data = {
@@ -33,7 +40,7 @@ const ProductDetail = () => {
     };
 
 
-    await ApiService.AssAppointment(data)
+    await ApiService.Ass(data)
       .then((response) => {
         setSuccessMsg("Assing Appoint successfull");
         setLoading(false);
@@ -55,7 +62,7 @@ const ProductDetail = () => {
     setLoading(true);
 
 
-    await ApiService.getLead()
+    await ApiService.getLead(currentPage, rows)
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
@@ -82,7 +89,8 @@ const ProductDetail = () => {
       });
   }
 
-  async function getAccountList() {
+
+  async function getEmployeeList() {
     setLoadingData(true);
 
     await ApiService.getEmployee()
@@ -116,10 +124,20 @@ const ProductDetail = () => {
         console.log(error.config);
       });
   }
+
+  const chooseCustomer = (rowData) =>{
+    let disableButton = document.getElementById(rowData.id);
+    let disable = document.createAttribute("disabled")
+    disableButton.setAttributeNode(disable)
+
+    nameLead.push(rowData.fullname);
+    setLead(rowData.id);
+
+   }
   const customButton = (rowData) => {
 
     if (rowData.leadStatus=="New") {
-        return <Button  refreshList={refreshList} >Choose</Button>;
+        return <input style={{marginLeft:"10%"}}type="checkbox"></input>;
         
       }
       else{
@@ -136,10 +154,10 @@ const ProductDetail = () => {
   };
 
 useEffect(() => {
-    // setAppointment(storageEvent);
     GetLead();
-    getAccountList();
+    getEmployeeList();
   }, []);
+
   const refreshList = () => {
     setLoadingData(true);
     GetLead();
@@ -184,11 +202,11 @@ useEffect(() => {
       ) : (
         <div className="main-body">
           <div className="row">
-
-
             <div className="col-lg-4">
               <div className="card">
               <div className="p-field p-col-8 p-md-4">
+              <label htmlFor="name">Task_Name</label>
+               <input></input>
                   <label htmlFor="role">Empoyee_Name</label>
                   <select
                     onChange={(e) => setId(e.currentTarget.value)}
@@ -203,7 +221,10 @@ useEffect(() => {
                   </select>
                 </div>
               
-                <textarea readOnly>
+                <textarea readOnly
+                 value={nameLead}
+                >
+
 
                 </textarea>
 
@@ -227,12 +248,6 @@ useEffect(() => {
                   <Column header="Name" field="fullname"/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
-
-                  {/* <Column header="Cate" field="s" />
-                  <Column header="Name" field="d" />
-                  <Column header="Name" field="c" />
-                  <Column header="Name" field="d" />
-                  <Column header="Status" body="d" /> */}
                 </DataTable>
                 <Paginator
                   // paginator

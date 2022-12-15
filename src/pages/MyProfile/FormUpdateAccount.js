@@ -70,11 +70,13 @@ export default function FormUpdateAccount() {
 
     const validate = () => {
         let temp = {}
-        temp.name = account.name == "" ? false:true;
-        // temp.email = account.email == "" ? false:true;
-        // temp.phoneNumber = account.phoneNumber == "" ? false:true;
-        // temp.address = account.address == "" ? false:true;
-        // temp.status = account.status == "" ? false:true;
+        temp.fullName = account.fullName == "" ? false:true;
+        temp.email = account.email == "" ? false:true;
+        temp.phoneNumber = account.phone == "" ? false:true;
+        temp.password = account.password == "" ? false:true;
+        temp.gender = account.gender == "" ? false:true;
+        temp.image = account.image == "" ? false:true;
+        temp.dob = account.dob == "" ? false:true;
         setMessage(temp);
         return Object.values(temp).every(x => x == true)
     }
@@ -150,7 +152,7 @@ export default function FormUpdateAccount() {
                         <input
                             type="text"
                             className={"form-control"+ appErrorsClass('status')}
-                            value={user.gender}
+                            placeholder={user.gender}
                             onChange={handleChange}
                         />
                     </div>

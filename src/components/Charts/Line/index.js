@@ -8,6 +8,12 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 
 class ChartLine extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: this.props.title,
+        }
+    }
     chartRef = React.createRef();
 
     componentDidMount() {
@@ -103,12 +109,11 @@ class ChartLine extends Component {
 
     render() {
         return (
-            <CardBasic title="Area Chart">
+            <CardBasic title={this.state.title}>
                 <div className="chart-area">
                     <canvas id="myAreaChart" ref={this.chartRef}></canvas>
                 </div>
                 <hr />
-                Styling for the area chart can be found in the <code>/Components/Charts/Line/Index.js</code> file.
             </CardBasic>
         )
     }

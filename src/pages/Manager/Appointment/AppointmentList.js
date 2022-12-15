@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
-import PositionCreate from "../../../components/Modals/Position/PositionCreate";
-import PositionUpdate from "../../../components/Modals/Position/PositionUpdate";
 import ApiService from "../../../api/apiService";
 
 import { Link } from "react-router-dom";
@@ -10,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { InputText } from "primereact/inputtext";
+
 
 const AppointmentList = () => {
   const [data, setData] = useState([]);

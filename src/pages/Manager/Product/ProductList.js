@@ -17,18 +17,20 @@ const ProductList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
+  // const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
+
   async function getPublicProduct() {
     setLoadingData(true);
 
-    ApiService.getPublicProduct()
+    await ApiService.getPublicProduct(currentPage, rows)
       .then((response) => {
         // console.log(response);
         const dataRes = response.data.data
@@ -39,9 +41,8 @@ const ProductList = () => {
 
         })
        
-
+        setTotalRecords(response.data.totalRow);
         setData(listDataSet);
-        console.log(listDataSet);
        
         setLoadingData(false);
       })
@@ -104,45 +105,50 @@ const ProductList = () => {
   const customButton = (rowData) => {
     return (
       <>
-      <div style={{ display: "center" }}>
+      <div style={{ marginRight:"10%", display: "center" }}>
       <Link
-          style={{ paddingRight: "10px" }}
+          style={{ paddingRight: "10%" }}
           to={{
             pathname: "/Dashboard/Manager/ProductDetail",
             state: rowData,
           }}
         >
-         <Button>Detail</Button>
+         <Button style={{marginBottom:"1%", paddingRight:"13%",marginBottom:"2%"}}>Detail</Button>
         </Link>
         <Link
-          style={{ paddingRight: "20px" }}
+         
           to={{
             pathname: "/Dashboard/Manager/ProductUpdate",
             state: rowData,
           }}
         >
-            <Button  style={{margin:3, paddingRight :2} } className="btn btn-success">Update
+            <Button  style={{ paddingRight: "10%",paddingRight:"6%", marginBottom:"2%" }}className="btn btn-success">Update
           </Button>
       </Link>
-        <Button  style={{ paddingRight: "15px" }} className="btn btn-danger">Delete</Button>
+        <Button  style={{ marginRight:"10%",  paddingRight: "10%" }} className="btn btn-danger">Delete</Button>
       </div>
       </>
     );
   };
-  const customImage = (rowData) => {
-    return (
-      <img
-        style={{ width: "100px", height: "60px" }}
-        src={rowData.productImages[1].url}
-        alt="product-image"
-        className="img-fluid"
-        onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-        }
-      />
-    );
-  };
+  
+  const handleSearch = (e) =>{
+    setQuery(e.target.value);
+    if(e.target.value === ""){
+      refreshList();
+    }
+
+  }
+
+  const searchProduct= () =>{
+    const filterData = data.filter((value)=>{
+     console.log(value);
+      return (
+        value.name.toLowerCase().includes(query.toLowerCase())
+      )
+    });
+    setData(filterData);
+
+  }
   
 
   // const onPageInputKeyDown = (event, options, totalPage) => {
@@ -200,14 +206,26 @@ const ProductList = () => {
     <>
       {/* New DataTable */}
       <div>
-        <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Product List" />
-          <CreateProduct  refreshList={refreshList} 
-          />
-        </div>
-        {!data ? (
-          <p>No data to show...</p>
-        ) : (
+       <PageHeading title="Product List" />
+       <div style={{marginLeft:"88%"}}className="d-sm-flex align-items-center justify-content-between">
+        
+        {/* Upload File Modal */}
+        <CreateProduct refreshList={refreshList}
+        
+        />
+        
+      </div>
+      <div className="row">
+       <div style={{marginBottom:20}}>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}class="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
+       onClick={searchProduct}
+       >Search</Button>
+       </div>
+       {!data  ? (
+           <p>Data not show</p>
+          
+          ) : (
           <div id="wrapper">
             <div className="container-fluid">
               <div className="card shadow mb-4">
@@ -219,31 +237,25 @@ const ProductList = () => {
                   <Column header="ID" field="indexNumber"/>
                   <Column header="Name" field="name"/>
                   <Column header="Category" body={getCaId} />
-                  {/* <Column header="Image" body={customImage} /> */}
-                  {/* <Column header="Address" body={getAddress} /> */}
+            
                   <Column header="Price(VND)" body={getPrice} />
                   <Column header="IsSold" body={getStatus} />
-                  <Column header="Action" body={customButton} />
-
-                  {/* <Column header="Cate" field="s" />
-                  <Column header="Name" field="d" />
-                  <Column header="Name" field="c" />
-                  <Column header="Name" field="d" />
-                  <Column header="Status" body="d" /> */}
+                  <Column header="Action" body={customButton} /> 
                 </DataTable>
                 <Paginator
-                  // paginator
-                  // template={template}
-                  // first={first}
-                  // rows={rows}
-                  // totalRecords={totalRecords}
-                  // onPageChange={onPageChange}
-                  // className="p-jc-end p-my-3"
+                  paginator
+                  first={first}
+                  rows={rows}
+                  totalRecords={totalRecords}
+                  onPageChange={onPageChange}
+                  className="p-jc-end p-my-3"
                 />
               </div>
             </div>
           </div>
+           
         )}
+         </div>
       </div>
     </>
   );

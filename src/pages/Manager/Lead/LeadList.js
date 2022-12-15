@@ -1,39 +1,46 @@
 import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
-import InterviewCreate from "../../../components/Modals/Interview/InterviewCreate";
-import InterviewUpdate from "../../../components/Modals/Interview/InterviewUpdate";
-import ApiService from "../../../api/ApiService";
+import ApiService from "../../../api/apiService";
 
 import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
+import { Button } from "react-bootstrap";
 
-const InterviewList = () => {
+const LeadList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
+  // const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
-  async function getInterviewList(rows, currentPage) {
+  async function getLeadList() {
     setLoadingData(true);
 
-    ApiService.getInterview(rows, currentPage)
+    ApiService.getLead( currentPage,rows)
       .then((response) => {
-        console.log(response.data.data);
-        // check if the data is populated
-        setData(response.data.data);
-        setTotalPage(response.data.totalPage);
-        setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++ index ;
+          obj['indexNumber'] = count
+
+        })
+        // setTotalRecords(response.totalRow);
+        setTotalRecords(response.data.totalRow);
+        console.log(totalRecords)
+
+        setData(listDataSet);
+
+      
         setLoadingData(false);
       })
       .catch((error) => {
@@ -54,7 +61,7 @@ const InterviewList = () => {
   }
 
   useEffect(() => {
-    getInterviewList(rows, currentPage);
+    getLeadList();
   }, [currentPage]);
 
   const onPageChange = (event) => {
@@ -83,56 +90,60 @@ const InterviewList = () => {
   const customButton = (rowData) => {
     return (
       <div style={{ display: "flex" }}>
-        {/* Detail */}
-        <Link
+ 
+         <Link
           style={{ paddingRight: "15px" }}
           to={{
             pathname: "Dashboard/Admin/InterviewDetail",
             state: rowData,
           }}
         >
-          <i className="fas fa-eye fa"></i>
-        </Link>
+          <Button>Detail</Button>
+        </Link> 
 
-        {/* Update */}
-        <InterviewUpdate data={rowData} />
+
       </div>
     );
   };
 
-  const template = {
-    layout: "CurrentPageReport PrevPageLink NextPageLink",
-    CurrentPageReport: (options) => {
-      return (
-        <>
-          <span
-            className="p-mx-3"
-            style={{ color: "var(--text-color)", userSelect: "none" }}
-          >
-            Go to{" "}
-            <InputText
-              size="2"
-              className="p-ml-1"
-              value={currentPage}
-              tooltip={pageInputTooltip}
-              onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-              onChange={onPageInputChange}
-            />
-          </span>
-          <span
-            style={{
-              color: "var(--text-color)",
-              userSelect: "none",
-              width: "120px",
-              textAlign: "center",
-            }}
-          >
-            {options.first} - {options.last} of {options.totalRecords}
-          </span>
-        </>
-      );
-    },
-  };
+  const customStatus = (rowData) => {
+    
+      return <div className="badge badge-success mr-2">{rowData.leadStatus}</div>;
+    }
+
+  // const template = {
+  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
+  //   CurrentPageReport: (options) => {
+  //     return (
+  //       <>
+  //         <span
+  //           className="p-mx-3"
+  //           style={{ color: "var(--text-color)", userSelect: "none" }}
+  //         >
+  //           Go to{" "}
+  //           <InputText
+  //             size="2"
+  //             className="p-ml-1"
+  //             value={currentPage}
+  //             tooltip={pageInputTooltip}
+  //             onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
+  //             onChange={onPageInputChange}
+  //           />
+  //         </span>
+  //         <span
+  //           style={{
+  //             color: "var(--text-color)",
+  //             userSelect: "none",
+  //             width: "120px",
+  //             textAlign: "center",
+  //           }}
+  //         >
+  //           {options.first} - {options.last} of {options.totalRecords}
+  //         </span>
+  //       </>
+  //     );
+  //   },
+  // };
 
   return (
     <>
@@ -140,29 +151,33 @@ const InterviewList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="Interview List" />
-          <InterviewCreate />
-        </div>
+          {/* // <InterviewCreate /> */}
+        </div> 
         {!data ? (
           <p>No data to show...</p>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">
               <div className="card shadow mb-4">
-                <DataTable
+              <DataTable
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column header="ID" field="id" />
-                  <Column header="Title" field="title" />
-                  <Column header="Start Time" field="starttime" />
-                  <Column header="Link" field="link" />
-                  <Column header="Place" field="place" />
+                  <Column header="ID" field="indexNumber"/>
+                  <Column header="Name" field="fullname"/>
+                  <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
+
+                  {/* <Column header="Cate" field="s" />
+                  <Column header="Name" field="d" />
+                  <Column header="Name" field="c" />
+                  <Column header="Name" field="d" />
+                  <Column header="Status" body="d" /> */}
                 </DataTable>
                 <Paginator
                   paginator
-                  template={template}
+                  // template={template}
                   first={first}
                   rows={rows}
                   totalRecords={totalRecords}
@@ -178,4 +193,4 @@ const InterviewList = () => {
   );
 };
 
-export default InterviewList;
+export default LeadList;

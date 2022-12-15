@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Modal from "react-modal";
 
 import { InputText } from "primereact/inputtext";
@@ -13,6 +13,11 @@ export default function ProductCreate({ refreshList }) {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [category, setCategory] = useState([]);
+  const [prostatus, setProductStatus] = useState([]);
+  const [ower, setOwer] = useState([]);
+  const [unti, setUniti] = useState([]);
+  const [direc, setDirec]= useState([]);
   
   
   const [Product, setProduct] = useState({
@@ -81,12 +86,185 @@ export default function ProductCreate({ refreshList }) {
       });
   }
 
-  // const handleOpenModal = (e) => {
-  //   e.preventDefault();
-  //   setErrMsg("");
-  //   setSuccessMsg("");
-  //   setModalIsOpen(true);
-  // };
+  async function getCate() {
+    setLoading(true);
+
+    await ApiService.getidCategory()
+      .then((response) => {
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        console.log(response);
+
+        setCategory(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getOwer() {
+    setLoading(true);
+
+    await ApiService.getidProductOwer()
+      .then((response) => {
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+        console.log(response);
+
+        setOwer(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getProductStatus() {
+    setLoading(true);
+
+    await ApiService.getProductStatus()
+      .then((response) => {
+        const dataRes = response.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+        console.log(response);
+
+        setProductStatus(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getUniti() {
+    setLoading(true);
+
+    await ApiService.getUniti()
+      .then((response) => {
+        const dataRes = response.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+        console.log(response);
+
+        setUniti(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getDirc() {
+    setLoading(true);
+
+    await ApiService.getDirection()
+      .then((response) => {
+        const dataRes = response.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+        console.log(response);
+
+        setDirec(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+
+ 
+  useEffect(() => {
+    getCate();
+    getOwer();
+    getProductStatus();
+    getUniti();
+    getDirc();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,12 +329,13 @@ export default function ProductCreate({ refreshList }) {
             <select
               onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
             >
-              <option value="d645ae85-04e5-4b8c-9011-4c1dd6e9cae2">Shophouse</option>
-              <option value="58fd08d4-1425-401a-9430-4f915f663797">Land</option>
-              <option value="b64f980c-4773-49ae-a291-5b0e2a348583">Officetel</option>
-              <option value="f30d5a38-0a30-4e33-b716-6a11ed2a874b">Townhouse</option>
-              <option value="b375f2b3-b29c-4e9f-a0d8-9090aee75edb">Resort</option>
-              <option value="59da778e-e0cd-40f8-ae48-ced5c1c3a066">Apartment</option>
+              
+
+{
+                      category.map((x, y) =>
+                      
+                        <option key={y} value={x.id}>{x.productCategoryName}</option>)
+                    }
             </select>
           </div>
 
@@ -188,11 +367,10 @@ export default function ProductCreate({ refreshList }) {
             <select
               onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
             >
-              <option value="1">Not open for sale</option>
-              <option value="2">On sale</option>
-              <option value="3">On hold</option>
-              <option value="4">Deposited</option>
-              <option value="5">Sold</option>
+              {
+                    prostatus.map((x, y) =>
+                        <option key={y} value={x.id}>{x.name}</option>)
+                    }
             </select>
           </div>
            {/* Name */}
@@ -257,10 +435,10 @@ export default function ProductCreate({ refreshList }) {
             <select
               onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
-              <option value="e2145c7f-ad87-4108-9d39-0305261f9ca2">Mandel Umbert</option>
-              <option value="d4f82fe0-ad2d-45e2-83fc-1d133cd3e11a">Kaja Pache</option>
-              <option value="a08128ef-d132-47fd-b7d7-2d5f9d824d6e">Chris Pepi</option>
-              <option value="01b4bc8f-589d-4812-90f6-2f26f9cd2802">Pasquale Grimwood</option>
+              {
+                      ower.map((x, y) =>
+                        <option key={y} value={x.id}>{x.productOwnerName}</option>)
+                    }
               
             </select>
           </div>
@@ -296,25 +474,28 @@ export default function ProductCreate({ refreshList }) {
             />
           </div>
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Direction</label>
-            <InputText
-              id="name"
-              type="text"
-              value={Product.direction}
-              required
+           <label htmlFor="role">Direction </label>
+            <select
               onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
-            />
+            >
+              {
+                    direc.map((x, y) =>
+                        <option key={y} value={x.id}>{x.name}</option>)
+                    }
+              
+            </select>
           </div>
-
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">utilities</label>
-            <InputText
-              id="name"
-              type="text"
-              value={Product.utilities}
-              required
+           <label htmlFor="role">Utilities </label>
+            <select
               onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
-            />
+            >
+
+{
+                      unti.map((x, y) =>
+                        <option key={y} value={x.id}>{x.name}</option>)
+                    }
+            </select>
           </div>
           {/* <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">productOwnerId</label>
@@ -341,29 +522,29 @@ export default function ProductCreate({ refreshList }) {
           <div className="p-field p-col-8 p-md-3">
             <label htmlFor="status">isFurniture</label>
             <br />
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios1"
                 value={true}
                 onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
-              <label class="form-check-label" for="exampleRadios1">
+              <label className="form-check-label" for="exampleRadios1">
                Avaliable
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios2"
                 value={false}
                 onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
-              <label class="form-check-label" for="exampleRadios2">
+              <label className="form-check-label" for="exampleRadios2">
                Not Avalabel
               </label>
             </div>

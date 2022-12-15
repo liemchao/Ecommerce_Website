@@ -4,12 +4,20 @@ import Chart from "chart.js";
 import CardBasic from '../../Cards/Basic';
 
 class ChartDonut extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: this.props.title,
+        }
+    }
     chartRef = React.createRef();
 
     componentDidMount() {
 
         const myPieChart = this.chartRef.current.getContext("2d");
         console.log(this.chartRef);
+        this.setState({ title: this.props.title ? this.props.title : 'Basic Card Example' });
+        
 
         new Chart(myPieChart, {
             type: 'doughnut',
@@ -44,12 +52,12 @@ class ChartDonut extends Component {
 
     render() {
         return (
-            <CardBasic title="Donut Chart">
+            <CardBasic title={this.state.title}>
                  <div className="chart-pie pt-4">
                         <canvas id="myPieChart" ref={this.chartRef}></canvas>
                     </div>
                     <hr />
-                    Styling for the donut chart can be found in the <code>/Components/Charts/Donut/index.js</code> file.
+                  
             </CardBasic>
         )
     }

@@ -13,8 +13,13 @@ const Logout = () => {
   localStorage.clear();
 };
 
-const getAccountSystem = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account`, {
+const searchAccountSystem = (query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?searchString=${query}`, {
+    headers: authHeader(),
+  });
+};
+const getAccountSystem = (currentPage,rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}`, {
     headers: authHeader(),
   });
 };
@@ -72,6 +77,26 @@ const getTask = () => {
     headers: authHeader(),
   });
 };
+
+const getAccountManager = (currentPage,rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}&filter=2%3B2`, {
+    headers: authHeader(),
+  });
+};
+const getAccountAdmin = (currentPage,rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}&filter=2%3B1`, {
+    headers: authHeader(),
+  });
+};
+const getAccountEmployee = (currentPage,rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}&filter=2%3B3`, {
+    headers: authHeader(),
+  });
+};
+
+
+
+
 
 
 // const createAccountByFile = (data) => {
@@ -170,8 +195,8 @@ const getTask = () => {
 // };
 
 // /* Product */
-const getPublicProduct = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product`, {
+const getPublicProduct = (page,size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?pageNumber=${page}&pageSize=${size}`, {
     headers: authHeader(),
   });
 };
@@ -231,6 +256,17 @@ const getidCategory = () => {
   });
 };
 
+const getUniti = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/product-utilities`, {
+    headers: authHeader(),
+  });
+};
+const getDirection = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/product-direction`, {
+    headers: authHeader(),
+  });
+};
+
 const getidProductOwer = () => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/v1/api/Enum/product-owner`, {
     headers: authHeader(),
@@ -262,8 +298,8 @@ const AssAppointment = (data) => {
 };
 
 
-const getLead = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead`, {
+const getLead = (page,size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead?pageNumber=${page}&pageSize=${size}`, {
     headers: authHeader(),
   });
 };
@@ -748,6 +784,11 @@ export default {
   getEmployee,
   AssAppointment,
   ChangStatusLead,
+  getUniti,
+  getDirection,
+  getAccountAdmin,
+  getAccountEmployee,
+  getAccountManager,
 
  
   // updateProfile,
@@ -776,6 +817,7 @@ export default {
   // updateCompanyByCreatorId,
   // disableCompanyByCreatorId,
   // deleteCompany,
+  searchAccountSystem,
 
   // // Products
   getPublicProduct,

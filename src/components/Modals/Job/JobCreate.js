@@ -109,29 +109,29 @@ export default function JobCreate({ refreshList }) {
             <div className="p-field p-col-12 p-md-3">
               <label htmlFor="status">Status</label>
               <br />
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="radio"
                   name="exampleRadios"
                   id="exampleRadios1"
                   value={true}
                   onChange={(e) => setJob({ ...job, status: e.target.value })}
                 />
-                <label class="form-check-label" for="exampleRadios1">
+                <label className="form-check-label" for="exampleRadios1">
                   Active
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="radio"
                   name="exampleRadios"
                   id="exampleRadios2"
                   value={false}
                   onChange={(e) => setJob({ ...job, status: e.target.value })}
                 />
-                <label class="form-check-label" for="exampleRadios2">
+                <label className="form-check-label" for="exampleRadios2">
                   Inactive
                 </label>
               </div>

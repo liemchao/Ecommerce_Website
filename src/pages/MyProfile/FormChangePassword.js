@@ -68,7 +68,7 @@ export default function FormChangePassword() {
                         </div>
                         <div className="col-sm-9 text-secondary">
                             <input
-                                type="text"
+                                type="password"
                                 className={"form-control"+ appErrorsClass('oldPassword')}
                                 name="oldPassword"
                                 value={password.oldPassword}
@@ -82,7 +82,7 @@ export default function FormChangePassword() {
                         </div>
                         <div className="col-sm-9 text-secondary">
                             <input
-                                type="text"
+                                type="password"
                                 className={"form-control"+ appErrorsClass('newPassword')}
                                 name="newPassword"
                                 value={password.newPassword}
@@ -96,7 +96,7 @@ export default function FormChangePassword() {
                         </div>
                         <div className="col-sm-9 text-secondary">
                             <input
-                                type="text"
+                                type="password"
                                 className={"form-control"+ appErrorsClass('confirmPassword')}
                                 name="confirmPassword"
                                 value={password.confirmPassword}

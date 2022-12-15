@@ -76,7 +76,7 @@ export default function AccountCreate({ refreshList }) {
     <div>
       <Button
     
-        style={{ float: "right" }}
+        style={{ float: "right"}}
         className="btn btn-primary" 
         onClick={() => setModalIsOpen(true)}
       >Create Account</Button>
@@ -117,10 +117,9 @@ export default function AccountCreate({ refreshList }) {
           <div className="p-field p-col-12 p-md-6">
             <label htmlFor="name">Email</label>
             <InputText
-              id="name"
+              id="email"
               type="email"
               value={Account.email}
-              required
               onChange={(e) => setAccount({ ...Account, email: e.target.value })}
             />
           </div>
@@ -130,10 +129,9 @@ export default function AccountCreate({ refreshList }) {
            <div className="p-field p-col-12 p-md-6">
             <label htmlFor="name">Phone</label>
             <InputText
-              id="name"
+              id="phone"
               type="phone"
               value={Account.phone}
-              required
               onChange={(e) => setAccount({ ...Account, phone: e.target.value })}
             />
           </div>
@@ -142,10 +140,10 @@ export default function AccountCreate({ refreshList }) {
            <div className="p-field p-col-12 p-md-6">
             <label htmlFor="name">Password</label>
             <InputText
-              id="name"
+              id="password"
               type="password"
               value={Account.password}
-              required
+              
               onChange={(e) => setAccount({ ...Account, password: e.target.value })}
             />
           </div>
@@ -156,7 +154,7 @@ export default function AccountCreate({ refreshList }) {
               id="name"
               type="text"
               value={Account.fullname}
-              required
+             
               onChange={(e) => setAccount({ ...Account, fullname: e.target.value })}
             />
           </div>
@@ -189,7 +187,7 @@ export default function AccountCreate({ refreshList }) {
               id="name"
               type="date"
               value={Account.dob}
-              required
+            
               onChange={(e) => setAccount({ ...Account, dob: e.target.value })}
             />
           </div>
@@ -199,29 +197,29 @@ export default function AccountCreate({ refreshList }) {
           <div className="p-field p-col-12 p-md-3">
             <label htmlFor="status">Gender</label>
             <br />
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios1"
                 value={true}
                 onChange={(e) => setAccount({ ...Account, gender: e.target.value })}
               />
-              <label class="form-check-label" for="exampleRadios1">
+              <label className="form-check-label" htmlFor="exampleRadios1">
                 Female
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios2"
                 value={false}
                 onChange={(e) => setAccount({ ...Account, gender: e.target.value })}
               />
-              <label class="form-check-label" for="exampleRadios2">
+              <label className="form-check-label" htmlFor="exampleRadios2">
                 Male
               </label>
             </div>

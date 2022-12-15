@@ -41,7 +41,7 @@ export default function ProductCreate({ refreshList }) {
     //   userProductId: user.Id,
     };
     console.log(createData);
-    ApiService.createProduct(createData)
+    await ApiService.createProduct(createData)
       .then((response) => {
         console.log(response);
         setSuccessMsg("Create successfully!");
@@ -266,29 +266,29 @@ export default function ProductCreate({ refreshList }) {
           <div className="p-field p-col-12 p-md-3">
             <label htmlFor="status">isFurniture</label>
             <br />
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios1"
                 value={true}
                 onChange={(e) => setProduct({ ...Product, gender: e.target.value })}
               />
-              <label class="form-check-label" for="exampleRadios1">
+              <label className="form-check-label" for="exampleRadios1">
                Avaliable
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios2"
                 value={false}
                 onChange={(e) => setProduct({ ...Product, gender: e.target.value })}
               />
-              <label class="form-check-label" for="exampleRadios2">
+              <label className="form-check-label" for="exampleRadios2">
                Not Avalabel
               </label>
             </div>
