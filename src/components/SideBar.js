@@ -221,7 +221,7 @@ const Sidebar = () => {
                   Task List
                 </Link>
 
-                <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
+                <Link className="collapse-item" to="/Dashboard/Manager/LeadList">
                   Lead List
                 </Link>
 

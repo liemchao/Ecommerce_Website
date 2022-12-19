@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Button } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
+import LeadList from "../Lead/LeadList";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 
 
 const AccountDetail = () => {
     const { state } = useLocation();
     const [Task, setTask] = useState([]);
+    const [ListLead, setLead] = useState([]);
+    
    
     const [currentPage, setCurrentPage] = useState(1);
     const [loadingData, setLoadingData] = useState(true);
@@ -18,6 +23,7 @@ const AccountDetail = () => {
       }
       const storageEvent = JSON.parse(localStorage.getItem("Temp"));
       setTask(storageEvent);
+      setLead(Task.taskDetails);
   
       setLoadingData(false);
     }, []);
@@ -199,7 +205,14 @@ const AccountDetail = () => {
                             <h6 className="mb-0">Lead:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Task.taskDetails.leadId}</p>
+                          {
+                    Task.taskDetails.map((x, y) =>          
+                        <p key={y}>{x.leadId} <Button style={{marginLeft:"10%"}}>
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button></p>)
+                     
+                    }
+                          
                           </div>
                         </div>
                        

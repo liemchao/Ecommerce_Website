@@ -62,31 +62,22 @@ const ProductDetail = () => {
           <div className="main-body">
             <div className="row">
               <div className="col-lg-4">
-               
-                <div className="card">
-                  <img
-                    src={Product.productImages[1].url}
-                    alt="user_avatar"
+            
+              {
+                    Product.productImages.map((x, y) => 
+                    <div className="card">         
+                    <img
+                    src={x.url}
+                    alt="img-product"
                     className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
                     width={200}
                   />
-                </div>
-                <div className="card">
-                  <img
-                    src={Product.productImages[2].url}
-                    alt="user_avatar"
-                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
-                    width={200}
-                  />
-                </div>
-                <div className="card">
-                  <img
-                    src={Product.productImages[3].url}
-                    alt="user_avatar"
-                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
-                    width={200}
-                  />
-                </div>
+                    </div>
+                     
+                    )}
+            
+                
+                
               </div>
               <div className="col-lg-8">
                 <div className="card">

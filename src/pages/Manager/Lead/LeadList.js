@@ -150,7 +150,7 @@ const LeadList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Interview List" />
+          <PageHeading title="Lead List" />
           {/* // <InterviewCreate /> */}
         </div> 
         {!data ? (

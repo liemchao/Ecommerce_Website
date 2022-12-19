@@ -36,9 +36,9 @@ const AccountDetail = () => {
             <div className="col-lg-4">
               <div className="card">
                 <img
-                  src={account.avatar}
+                  src={account.image}
                   alt="user_avatar"
-                  className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
+                  className="p-1 bg-primary img-thumbnail rounded-circle mx-auto d-block"
                   width={200}
                 />
               </div>
@@ -105,7 +105,7 @@ const AccountDetail = () => {
                           <h6 className="mb-0">Time Create</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p >{(account.createDate).slice(11,19)+"s"}</p>
+                          <p >{(account.createDate).slice(11,19)}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -113,7 +113,7 @@ const AccountDetail = () => {
                           <h6 className="mb-0">Status</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {account.status ? (
+                          {account.status=="Active" ? (
                             <div className="badge badge-primary mr-2">
                               Active
                             </div>
