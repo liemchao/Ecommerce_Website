@@ -72,8 +72,8 @@ const getAccountCustomer = () => {
   });
 };
 
-const getTask = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Task/task`, {
+const getTask = (currentPage , rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Task/task?pageNumber=${currentPage}&pageSize=${rows}`, {
     headers: authHeader(),
   });
 };

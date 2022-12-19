@@ -112,7 +112,7 @@ const AccountList = () => {
       <div style={{ display: "flex" }}>
         {/* Detail */}
         <Link
-          style={{ paddingRight: "15px" }}
+          style={{ paddingRight: "5%" }}
           to={{
             pathname: "/Dashboard/Manager/Account/AccountDetail",
             state: rowData,
@@ -188,7 +188,7 @@ const AccountList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Account Customer List" />
+          <PageHeading title="List Account Customer " />
           {/* <AccountCreate refreshList={refreshList} /> */}
         </div>
         {!data ? (
@@ -207,7 +207,7 @@ const AccountList = () => {
                   <Column header="ID" field="indexNumber" />
                   <Column header="Avatar" body={customImage} />
                   <Column header="Name" field="fullname" />
-                  <Column header="Email" field="email" />
+                  <Column style={{ paddingRight: 2, paddingLeft: 3, width: "20%" }} header="Email" field="email" />
                   {/* <Column header="Address" body={customAddress} /> */}
                   <Column header="Phone" field="phone" />
                   <Column header="Status" body={customStatus} />

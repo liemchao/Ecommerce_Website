@@ -96,7 +96,7 @@ const AppointmentList = () => {
             state: rowData,
           }}
         >
-         <Button>Apply Appointment</Button>
+         <Button>Detail Appointment</Button>
         </Link>
       </div>
     );

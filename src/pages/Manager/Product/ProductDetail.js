@@ -121,7 +121,7 @@ const ProductDetail = () => {
                             <h6 className="mb-0">Price</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Product.price}</p>
+                            <p>{Product.price}(VND)</p>
                           </div>
                         </div>
 
@@ -139,7 +139,7 @@ const ProductDetail = () => {
                             <h6 className="mb-0">With</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Product.width}m&#178;</p>
+                            <p>{Product.width}m</p>
                           </div>
                         </div>
 
@@ -148,7 +148,7 @@ const ProductDetail = () => {
                             <h6 className="mb-0">Length</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Product.length}m&#178;</p>
+                            <p>{Product.length}m</p>
                           </div>
                         </div>
 
@@ -161,14 +161,6 @@ const ProductDetail = () => {
                           </div>
                         </div>
 
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">With</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.width}m&#178;</p>
-                          </div>
-                        </div>
                       </div>
                     </Tab>
                     <Tab eventKey="Product" title="Product Local">
@@ -208,7 +200,7 @@ const ProductDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">NoBedroom</h6>
+                            <h6 className="mb-0">Number of Bedroom</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noBedroom}</p>
@@ -217,7 +209,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">NoToilet</h6>
+                            <h6 className="mb-0">Number of Toilet</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noToilet}</p>
@@ -227,7 +219,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">NoFloor</h6>
+                            <h6 className="mb-0">Number of Floor</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noFloor}</p>
@@ -237,7 +229,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Facade</h6>
+                            <h6 className="mb-0">Number of Facade</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.facade}</p>
@@ -246,7 +238,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">isFurniture</h6>
+                          <h6 className="mb-0">Furniture</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Product.isFurniture ? (

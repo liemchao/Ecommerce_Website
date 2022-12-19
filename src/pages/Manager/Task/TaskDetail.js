@@ -18,6 +18,7 @@ const AccountDetail = () => {
       }
       const storageEvent = JSON.parse(localStorage.getItem("Temp"));
       setTask(storageEvent);
+  
       setLoadingData(false);
     }, []);
   
@@ -106,13 +107,13 @@ const AccountDetail = () => {
                             <h6 className="mb-0">Status</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            {Task.status ? (
-                              <div className="badge badge-primary mr-2">
+                            {Task.isDone ? (
+                              <div className="badge badge-success mr-2">
                                 Done
                               </div>
                             ) : (
                               <div className="badge badge-danger mr-2">
-                                No Done
+                                Not Done
                               </div>
                             )}
                           </div>
@@ -191,6 +192,19 @@ const AccountDetail = () => {
                         </div>
 
                      </Tab>
+                     <Tab eventKey="Lead" title="Lead">
+                     <div className="card-body">
+                     <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Lead:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Task.taskDetails.leadId}</p>
+                          </div>
+                        </div>
+                       
+                      </div>
+                      </Tab>
                   </Tabs>
                 </div>
               </div>

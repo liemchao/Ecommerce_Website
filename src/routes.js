@@ -82,7 +82,7 @@ const routes = [
   // { path: "/Dashboard/Admin/RecruitmentList", name: "AdminRecruitmentList", component: RecruitmentList },
   // { path: "/Dashboard/Admin/ApplyList", name: "AdminApplyList", component: AdminApplyList },
   
-  { path: "/Dashboard/Manager/AccountList", name: "EmployeeAccountList", component: CustomerAccountList },
+  { path: "/Dashboard/Manager/AccountList", name: "CustomerAccountList", component: CustomerAccountList },
   { path: "/Dashboard/Manager/Employee/AccountDetail", name: "EmployeeAccountDetail", component: EmployeeAccountDetail},
   { path: "/Dashboard/Manager/Account/AccountDetail", name: "CustomerAccountList", component: CustomerAccountDetail },
   { path: "/Dashboard/Manager/ProductUpdate", name: "ProductUpdate", component: ProductUpdate },

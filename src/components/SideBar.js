@@ -199,26 +199,30 @@ const Sidebar = () => {
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Resource</h6>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
-                  Product
+                  Product List
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
                   Product Ower
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">
-                  AppointmentList
+                  Appointment List
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/AccountList">
-                  Customer
+                  Customer List
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/EmployeeList">
-                  Employee
+                  Employee List
                 </Link>
 
 
                 <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
-                  Task
+                  Task List
+                </Link>
+
+                <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
+                  Lead List
                 </Link>
 
 

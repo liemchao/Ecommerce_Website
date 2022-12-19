@@ -217,7 +217,7 @@ const ProductList = () => {
       </div>
       <div className="row">
        <div style={{marginBottom:20}}>
-       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}class="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchProduct}
        >Search</Button>
@@ -239,7 +239,7 @@ const ProductList = () => {
                   <Column header="Category" body={getCaId} />
             
                   <Column header="Price(VND)" body={getPrice} />
-                  <Column header="IsSold" body={getStatus} />
+                  <Column header="Sold" body={getStatus} />
                   <Column header="Action" body={customButton} /> 
                 </DataTable>
                 <Paginator
