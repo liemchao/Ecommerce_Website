@@ -5,6 +5,9 @@ import Modal from "react-modal";
 import { Button } from "primereact/button";
 
 import ApiService from "../../../api/apiService";
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 export default function AccountUpdate({ rowData, refreshList }) {
@@ -135,8 +138,9 @@ export default function AccountUpdate({ rowData, refreshList }) {
 
   return (
     <div>
-      <a href="#!" onClick={handleOpenModal} style={{ paddingRight: "3px" }}>
-        <Button style={{ marginTop: 2, marginLeft: "1%", paddingLeft: "4%", paddingBottom: "5%", paddingRight: "2%" }}>Update</Button>
+      <a href="#!" onClick={handleOpenModal}>
+      <Button style={{marginLeft:"-10%" , paddingLeft:"9%"}} className="btn btn-success"><FontAwesomeIcon icon={faPencilAlt} />
+          </Button>
       </a>
 
       <Modal
@@ -170,7 +174,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
           },
         }}
       >
-        <h3>Update Acount</h3>
+        <h3>Update Product</h3>
         <div className="p-fluid p-formgrid p-grid">
           {/* Status */}
           <div className="p-field p-col-12 p-md-3">
@@ -179,7 +183,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
                 <h6 className="mb-0">With</h6>
               </div>
               <div className="col-sm-9 text-secondary">
-                <p>{rowData.width}m&#178;</p>
+                <p>{rowData.width}</p>
               </div>
             </div>
           </div>

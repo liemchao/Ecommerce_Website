@@ -4,6 +4,8 @@ import { Tabs, Tab } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 
 
 const AppointDetail = () => {
@@ -124,7 +126,7 @@ const AppointDetail = () => {
                   </select>
                 </div>
 
-                <Button style={{ marginTop: 300 }} onClick={AssAppointment} >Assgin Appointment</Button>
+                <Button style={{ marginTop: 300 }} onClick={AssAppointment} >Create Appointment</Button>
                 {loading && (
                   <span className="spinner-border spinner-border-sm float-lg-right"></span>
                 )}
@@ -153,6 +155,20 @@ const AppointDetail = () => {
                 >
                   <Tab eventKey="Detail" title="Appoint Detail">
                     <div className="card-body">
+                    <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Full Name</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{Appointment.fullname}
+                          <Button style={{marginLeft:"10%"}}>
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button>
+                          </p>
+
+                       
+                        </div>
+                      </div>
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
@@ -163,14 +179,7 @@ const AppointDetail = () => {
                         </div>
                       </div>
 
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">FullName</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.fullname}</p>
-                        </div>
-                      </div>
+                   
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
@@ -279,6 +288,20 @@ const AppointDetail = () => {
                   <Tab eventKey="Status" title="Employee">
                     <div className="card-body">
 
+
+                    <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">FullName</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{Appointment.fullname}
+                          <Button style={{marginLeft:"10%"}}>
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button>
+                          </p>
+                        </div>
+                      </div>
+
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Email</h6>
@@ -288,19 +311,9 @@ const AppointDetail = () => {
                         </div>
                       </div>
 
-
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">FullName</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.fullname}</p>
-                        </div>
-                      </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">isFurniture</h6>
+                          <h6 className="mb-0">Furniture</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Appointment.isFurniture ? (
@@ -326,20 +339,15 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">CompanyName</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.lead.companyName}</p>
-                        </div>
-                      </div>
-
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
                           <h6 className="mb-0">FullName</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.lead.fullname}</p>
+                          <p>{Appointment.lead.fullname} 
+                          <Button style={{marginLeft:"10%"}}>
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button>
+                          
+                          </p>
                         </div>
                       </div>
 
@@ -367,7 +375,11 @@ const AppointDetail = () => {
                           <h6 className="mb-0">Product Name</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.product.name}</p>
+                          <p>{Appointment.product.name} 
+                          <Button style={{marginLeft:"10%"}}>
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button>
+                          </p>
                         </div>
                       </div>
 

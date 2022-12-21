@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Sidebar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -187,7 +189,7 @@ const Sidebar = () => {
               data-target="#collapseFive"
               aria-controls="collapseFive"
             >
-              <i className="fas fa-fw fa-cog"></i>
+             <FontAwesomeIcon style={{marginRight:"10%"}} icon={faCog} />
               <span>Manager</span>
             </Link>
             <div
@@ -201,7 +203,7 @@ const Sidebar = () => {
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
                   Product List
                 </Link>
-                <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
+                <Link className="collapse-item" to="/Dashboard/Manager/ProductOwerList">
                   Product Ower
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">

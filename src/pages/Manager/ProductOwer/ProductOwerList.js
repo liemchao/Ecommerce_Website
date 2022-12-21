@@ -18,8 +18,9 @@ const ProductList = () => {
   const [totalRecords, setTotalRecords] = useState();
   const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
@@ -27,7 +28,7 @@ const ProductList = () => {
   async function getPublicProduct() {
     setLoadingData(true);
 
-    ApiService.getPublicProduct()
+    ApiService.getPublicProduct(currentPage,rows)
       .then((response) => {
         // console.log(response);
         const dataRes = response.data.data
@@ -38,7 +39,7 @@ const ProductList = () => {
 
         })
        
-
+        setTotalRecords(response.data.totalRow);
         setData(listDataSet);
         console.log(listDataSet);
         // console.log(toString(listDataSet.productImages.url));
@@ -87,9 +88,9 @@ const ProductList = () => {
   }
   const getStatus=(rowData)=>{
   
-    if (rowData.isSold) {
-      // console.log(rowData.status);
-      return <div className="badge badge-primary mr-2">Avaliable</div>;
+    if (!rowData.isSold) {
+  
+      return <div className="badge badge-success mr-2">Avaliable</div>;
     }
     else{
       return <div className="badge badge-danger mr-2">Inactive</div>;
@@ -114,7 +115,7 @@ const ProductList = () => {
       <Link
           style={{ paddingRight: "10px" }}
           to={{
-            pathname: "/Dashboard/Staff/ProductDetail",
+            pathname: "/Dashboard/Manager/ProductOwerDetail",
             state: rowData,
           }}
         >
@@ -169,6 +170,25 @@ const ProductList = () => {
   //   }
   // };
 
+  const handleSearch = (e) =>{
+    setQuery(e.target.value);
+    if(e.target.value === ""){
+      refreshList();
+    }
+
+  }
+
+  const searchProduct= () =>{
+    const filterData = data.filter((value)=>{
+     console.log(value);
+      return (
+        value.name.toLowerCase().includes(query.toLowerCase())
+      )
+    });
+    setData(filterData);
+
+  }
+
   const onPageInputChange = (event) => {
     setCurrentPage(event.target.value);
   };
@@ -212,10 +232,17 @@ const ProductList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Product List" />
+          <PageHeading title="Product Ower List" />
           <CreateProduct  refreshList={refreshList} 
           />
         </div>
+        <div className="row">
+       <div style={{marginBottom:20}}>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
+       onClick={searchProduct}
+       >Search</Button>
+       </div>
         {!data ? (
           <p>No data to show...</p>
         ) : (
@@ -233,7 +260,7 @@ const ProductList = () => {
                   <Column header="Image" body={customImage} />
                   <Column header="Address" body={getAddress} />
                   <Column header="Price(VND)" body={getPrice} />
-                  <Column header="IsSold" body={getStatus} />
+                  <Column header="Sold" body={getStatus} />
                   <Column header="Action" body={customButton} />
 
                   {/* <Column header="Cate" field="s" />
@@ -243,18 +270,19 @@ const ProductList = () => {
                   <Column header="Status" body="d" /> */}
                 </DataTable>
                 <Paginator
-                  // paginator
+                  paginator
                   // template={template}
-                  // first={first}
-                  // rows={rows}
-                  // totalRecords={totalRecords}
-                  // onPageChange={onPageChange}
-                  // className="p-jc-end p-my-3"
+                  first={first}
+                  rows={rows}
+                  totalRecords={totalRecords}
+                  onPageChange={onPageChange}
+                  className="p-jc-end p-my-3"
                 />
               </div>
             </div>
           </div>
         )}
+      </div>
       </div>
     </>
   );

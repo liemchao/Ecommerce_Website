@@ -33,31 +33,20 @@ const ProductDetail = () => {
           <div className="main-body">
             <div className="row">
               <div className="col-lg-4">
+              {
+                    Product.productImages.map((x, y) => 
+                    <div className="card">         
+                    <img
+                    src={x.url}
+                    alt="img-product"
+                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
+                    width={200}
+                  />
+                    </div>
+                     
+                    )}
+              
                
-                <div className="card">
-                  <img
-                    src={Product.productImages[1].url}
-                    alt="user_avatar"
-                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
-                    width={200}
-                  />
-                </div>
-                <div className="card">
-                  <img
-                    src={Product.productImages[2].url}
-                    alt="user_avatar"
-                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
-                    width={200}
-                  />
-                </div>
-                <div className="card">
-                  <img
-                    src={Product.productImages[3].url}
-                    alt="user_avatar"
-                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
-                    width={200}
-                  />
-                </div>
               </div>
               <div className="col-lg-8">
                 <div className="card">
@@ -105,21 +94,14 @@ const ProductDetail = () => {
                           </div>
                         </div>
 
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">With</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.width}m&#178;</p>
-                          </div>
-                        </div>
+                  
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
                             <h6 className="mb-0">Length</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Product.length}m&#178;</p>
+                            <p>{Product.length}m</p>
                           </div>
                         </div>
 
@@ -134,10 +116,10 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">With</h6>
+                            <h6 className="mb-0">Width</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Product.width}m&#178;</p>
+                            <p>{Product.width}m</p>
                           </div>
                         </div>
 
@@ -224,6 +206,15 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
+                            <h6 className="mb-0">District</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.district}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
                             <h6 className="mb-0">Province</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
@@ -231,14 +222,7 @@ const ProductDetail = () => {
                           </div>
                         </div>
 
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">District</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.district}</p>
-                          </div>
-                        </div>
+                      
                       </div>
                     </Tab>
 
@@ -247,7 +231,7 @@ const ProductDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">NoBedroom</h6>
+                            <h6 className="mb-0">Number of Bedroom</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noBedroom}</p>
@@ -256,7 +240,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">NoToilet</h6>
+                            <h6 className="mb-0">Number of Toilet</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noToilet}</p>
@@ -266,7 +250,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">NoFloor</h6>
+                            <h6 className="mb-0">Number of Floor</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noFloor}</p>
@@ -285,7 +269,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">isFurniture</h6>
+                          <h6 className="mb-0">Furniture</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Product.isFurniture ? (

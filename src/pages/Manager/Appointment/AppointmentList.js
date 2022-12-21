@@ -16,7 +16,7 @@ const AppointmentList = () => {
   const [totalRecords, setTotalRecords] = useState();
   const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
@@ -25,7 +25,7 @@ const AppointmentList = () => {
   async function getAppointment() {
     setLoadingData(true);
 
-    ApiService.getAppoinment()
+    ApiService.getAppoinment(currentPage, rows)
       .then((response) => {
 
 
@@ -183,6 +183,11 @@ const AppointmentList = () => {
   //     );
   //   },
   // };
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    setCurrentPage(event.page + 1);
+  };
 
   return (
     <>
@@ -211,13 +216,12 @@ const AppointmentList = () => {
                   <Column header="Action" body={customButton} />
                 </DataTable>
                 <Paginator
-                  // paginator
-                  // template={template}
-                  // first={first}
-                  // rows={rows}
-                  // totalRecords={totalRecords}
-                  // onPageChange={onPageChange}
-                  // className="p-jc-end p-my-3"
+                  paginator
+                  first={first}
+                  rows={rows}
+                  totalRecords={totalRecords}
+                  onPageChange={onPageChange}
+                  className="p-jc-end p-my-3"
                 />
               </div>
             </div>

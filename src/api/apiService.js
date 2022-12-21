@@ -66,8 +66,8 @@ const createAccount = (data) => {
   });
 };
 
-const getAccountCustomer = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/CustomerAccount/customer-account`, {
+const getAccountCustomer = (currentPage,rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/CustomerAccount/customer-account?pageNumber=${currentPage}&pageSize=${rows}`, {
     headers: authHeader(),
   });
 };
@@ -93,6 +93,7 @@ const getAccountEmployee = (currentPage,rows) => {
     headers: authHeader(),
   });
 };
+
 
 
 
@@ -201,6 +202,12 @@ const getPublicProduct = (page,size) => {
   });
 };
 
+const searchProduct = (query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?searchString=${query}`, {
+    headers: authHeader(),
+  });
+};
+
 // const getPublicProduct = () => {
 //   return http.get(`/api/Products/page/${ele}/${page}`); // chỉ lấy Product có status active cho candidate
 // };
@@ -279,8 +286,8 @@ const getProductStatus = () => {
   });
 };
 
-const getAppoinment = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment`, {
+const getAppoinment = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}`, {
     headers: authHeader(),
   });
 };
@@ -303,8 +310,8 @@ const getLead = (page,size) => {
     headers: authHeader(),
   });
 };
-const ChangStatusLead = (data) => {
-  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/update-status`,data, {
+const getNewLead = (page,size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead?pageNumber=${page}&pageSize=${size}&filter=3%3BNew`,{
     headers: authHeader(),
   });
 };
@@ -783,7 +790,6 @@ export default {
   getAppoinment,
   getEmployee,
   AssAppointment,
-  ChangStatusLead,
   getUniti,
   getDirection,
   getAccountAdmin,
@@ -826,12 +832,14 @@ export default {
   // searchForProduct,
   createProduct,
   // changeProductStatus,
+  searchProduct,
   updateProduct,
   deleteProduct,
   getTask,
   getidCategory,
   getidProductOwer,
   getLead,
+  getNewLead,
 
   // // Skills
   // getPublicSkill,

@@ -113,7 +113,7 @@ const AccountDetail = () => {
                           <h6 className="mb-0">Status</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {account.status=="Active" ? (
+                          {account.status=="Activated" ? (
                             <div className="badge badge-primary mr-2">
                               Active
                             </div>

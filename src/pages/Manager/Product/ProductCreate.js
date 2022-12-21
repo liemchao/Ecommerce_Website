@@ -323,24 +323,8 @@ export default function ProductCreate({ refreshList }) {
               onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
           </div>
-           
-          <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Category </label>
-            <select
-              onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
-            >
-              
 
-{
-                      category.map((x, y) =>
-                      
-                        <option key={y} value={x.id}>{x.productCategoryName}</option>)
-                    }
-            </select>
-          </div>
-
-           {/* Name */}
-           <div className="p-field p-col-2 p-md-4">
+          <div className="p-field p-col-2 p-md-4">
             <label htmlFor="name">Price</label>
             <InputText
               id="name"
@@ -360,10 +344,28 @@ export default function ProductCreate({ refreshList }) {
               onChange={(e) => setProduct({ ...Product, description: e.target.value })}
             />
           </div>
+           
+          <div className="p-field p-col-8 p-md-4">
+           <label htmlFor="role">Category:</label>
+            <select
+              onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
+            >
+              
+
+{
+                      category.map((x, y) =>
+                      
+                        <option key={y} value={x.id}>{x.productCategoryName}</option>)
+                    }
+            </select>
+          </div>
+
+           {/* Name */}
+          
 
              
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Product Status </label>
+           <label htmlFor="role">Product Status:</label>
             <select
               onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
             >
@@ -373,65 +375,9 @@ export default function ProductCreate({ refreshList }) {
                     }
             </select>
           </div>
-           {/* Name */}
-           <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Width</label>
-            <InputText
-              id="name"
-              type="number"
-              value={Product.width}
-              onChange={(e) => setProduct({ ...Product, width: e.target.value })}
-            />
-          </div>
-           {/* Name */}
-           <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Length</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, length: e.target.value })}
-            />
-          </div>
 
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Bedroom</label>
-            <InputText
-              id="name"
-              type="number"
-              value={Product.noBedroom}
-              onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Toilet</label>
-            <InputText
-              id="name"
-              type="number"
-              value={Product.noToilet}
-              onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label style={{marginRight:5}} htmlFor="name">Floor</label>
-            <InputText
-              id="name"
-              type="number"
-              value={Product.noFloor}
-              onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Facade</label>
-            <InputText
-              id="name"
-              type="number"
-              value={Product.facade}
-              onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
-            />
-          </div>
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Product Ower </label>
+           <label htmlFor="role">Product Ower:</label>
             <select
               onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
@@ -442,9 +388,66 @@ export default function ProductCreate({ refreshList }) {
               
             </select>
           </div>
+           {/* Name */}
+           <div  style={{marginLeft:"0%"}}className="p-field p-col-2 p-md-2">
+            <label htmlFor="name">Width</label>
+            <InputText
+              id="name"
+              type="number"
+              value={Product.width}
+              onChange={(e) => setProduct({ ...Product, width: e.target.value })}
+            />
+          </div>
+           {/* Name */}
+           <div className="p-field p-col-3 p-md-2">
+            <label htmlFor="name">Length</label>
+            <InputText
+              id="name"
+              type="number"
+              required
+              onChange={(e) => setProduct({ ...Product, length: e.target.value })}
+            />
+          </div>
+
+          <div className="p-field p-col-3 p-md-2">
+            <label htmlFor="name">Bedroom</label>
+            <InputText
+              id="name"
+              type="number"
+              value={Product.noBedroom}
+              onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
+            />
+          </div>
+          <div className="p-field p-col-3 p-md-2">
+            <label htmlFor="name">Toilet</label>
+            <InputText
+              id="name"
+              type="number"
+              value={Product.noToilet}
+              onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
+            />
+          </div>
+          <div className="p-field p-col-3 p-md-2">
+            <label style={{marginRight:5}} htmlFor="name">Floor</label>
+            <InputText
+              id="name"
+              type="number"
+              value={Product.noFloor}
+              onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
+            />
+          </div>
+          <div className="p-field p-col-1 p-md-2">
+            <label htmlFor="name">Facade</label>
+            <InputText
+              id="name"
+              type="number"
+              value={Product.facade}
+              onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
+            />
+          </div>
 
 
-          <div style={{marginTop:-45}}className="p-field p-col-2 p-md-5">
+          <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">Street</label>
             <InputText
               id="name"
@@ -454,7 +457,7 @@ export default function ProductCreate({ refreshList }) {
             />
           </div>
 
-          <div style={{marginTop:-45}}className="p-field p-col-2 p-md-5">
+          <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">Province</label>
             <InputText
               id="name"
@@ -464,7 +467,7 @@ export default function ProductCreate({ refreshList }) {
             />
           </div>
 
-          <div style={{marginTop:-45}}className="p-field p-col-2 p-md-5">
+          <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">District</label>
             <InputText
               id="name"
@@ -474,7 +477,7 @@ export default function ProductCreate({ refreshList }) {
             />
           </div>
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Direction </label>
+           <label htmlFor="role">Direction:</label>
             <select
               onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
             >
@@ -486,7 +489,7 @@ export default function ProductCreate({ refreshList }) {
             </select>
           </div>
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Utilities </label>
+           <label htmlFor="role">Utilities:</label>
             <select
               onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
             >
@@ -507,7 +510,7 @@ export default function ProductCreate({ refreshList }) {
               onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
             />
           </div> */}
-          <div className="p-field p-col-8 p-md-4">
+          <div style={{marginTop:"-3%"}} className="p-field p-col-8 p-md-4">
             <label htmlFor="name">receivedDate</label>
             <InputText
               id="name"

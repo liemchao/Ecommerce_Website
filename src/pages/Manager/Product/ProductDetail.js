@@ -4,22 +4,13 @@ import { Tabs, Tab } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
 
-
 const ProductDetail = () => {
     const { state } = useLocation();
     const [Product, setProduct] = useState([]);
-    const [work, setWork] = useState([]);
-    const [totalRecords, setTotalRecords] = useState();
-    const [totalPage, setTotalPage] = useState();
-    const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
+   
     const [loadingData, setLoadingData] = useState(true);
-    const [data, setData] = useState([]);
-
-
     
-  
+
     useEffect(() => {
       if (typeof state != "undefined") {
         localStorage.setItem("Temp", JSON.stringify(state));
@@ -127,7 +118,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">With</h6>
+                            <h6 className="mb-0">Width</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.width}m</p>
@@ -168,6 +159,15 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
+                            <h6 className="mb-0">District</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.district}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
                             <h6 className="mb-0">Province</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
@@ -175,14 +175,7 @@ const ProductDetail = () => {
                           </div>
                         </div>
 
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">District</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.district}</p>
-                          </div>
-                        </div>
+                       
                       </div>
                     </Tab>
 
@@ -220,7 +213,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Facade</h6>
+                            <h6 className="mb-0">Facade</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.facade}</p>

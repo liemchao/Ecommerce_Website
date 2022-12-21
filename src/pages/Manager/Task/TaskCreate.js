@@ -13,7 +13,6 @@ import { Button  } from "react-bootstrap";
 const ProductDetail = () => {
   const { state } = useLocation();
   const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,12 +20,12 @@ const ProductDetail = () => {
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState([]);
   const [id, setId] = useState("");
+  const [name, setName] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [data1, setData1] = useState([]);
   const [idLead ,setLead] = useState([]);
-  const [nameLead ,setNameLead] = useState([]);
 
 
 
@@ -34,10 +33,11 @@ const ProductDetail = () => {
     setLoading(true);
 
     let data = {
-      id: Appointment.id,
+      name:name,
       employeeId: id,
-
+      leadId: idLead
     };
+    console.log(data);
 
 
     await ApiService.Ass(data)
@@ -59,10 +59,9 @@ const ProductDetail = () => {
   }
 
   async function GetLead() {
-    setLoading(true);
+    setLoadingData(true);
 
-
-    await ApiService.getLead(currentPage, rows)
+    ApiService.getNewLead(currentPage,rows)
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
@@ -71,21 +70,25 @@ const ProductDetail = () => {
           obj['indexNumber'] = count
 
         })
-       
-
+      
+        setTotalRecords(response.data.totalRow);
         setData(listDataSet);
         setLoadingData(false);
       })
       .catch((error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setErrMsg(resMessage);
-        setLoading(false);
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       });
   }
 
@@ -125,23 +128,45 @@ const ProductDetail = () => {
       });
   }
 
+var array= []
   const chooseCustomer = (rowData) =>{
-    let disableButton = document.getElementById(rowData.id);
-    let disable = document.createAttribute("disabled")
-    disableButton.setAttributeNode(disable)
+    let checkBox = document.getElementById(rowData.id);
+      if (checkBox.checked){
+        array.push(rowData)
+         idLead.push(array);
+                   setLead([...idLead]);
+        //  console.log(idLead);
+              // let disable = document.createAttribute("disabled")
+    // disableButton.setAttributeNode(disable)
 
-    nameLead.push(rowData.fullname);
-    setLead(rowData.id);
+    // nameLead.push(rowData.fullname);
+    // setLead(rowData.id);
+      }
+  };
+    // let disable = document.createAttribute("disabled")
+    // disableButton.setAttributeNode(disable)
 
-   }
+    // nameLead.push(rowData.fullname);
+    // setLead(rowData.id);
+
+
+    const onPageChange = (event) => {
+      setFirst(event.first);
+      setRows(event.rows);
+      setCurrentPage(event.page + 1);
+    };
+  
   const customButton = (rowData) => {
 
     if (rowData.leadStatus=="New") {
-        return <input style={{marginLeft:"10%"}}type="checkbox"></input>;
+        return <input id={rowData.id} style={{marginLeft:"10%"}}type="checkbox" onClick={ () => {
+          chooseCustomer(rowData)
+
+        }}/>;
         
       }
       else{
-        return <Button disabled>Choose</Button>;;
+        return <Button disabled></Button>;;
       }
   };
   const customStatus = (rowData) => {
@@ -156,48 +181,17 @@ const ProductDetail = () => {
 useEffect(() => {
     GetLead();
     getEmployeeList();
-  }, []);
+  }, [currentPage]);
 
   const refreshList = () => {
     setLoadingData(true);
-    GetLead();
   };
-
-  async function updateStatus(rowData) {
-    setLoading(true);
-
-    let data = {
-  leadID: rowData.id,
-  status: 1,
-  
-    };
-
-    await ApiService.ChangStatusLead(data)
-      .then((response) => {
-        setSuccessMsg("Update role successfull");
-        setLoading(false);
-      })
-      .catch((error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setErrMsg(resMessage);
-        setLoading(false);
-      });
-  }
-
-
-  
 
 
   return (
     <div>
       <PageHeading title="Task Create" />
-      {loadingData? (
+      {!data? (
         <p>Loading, please wait...</p>
       ) : (
         <div className="main-body">
@@ -206,7 +200,7 @@ useEffect(() => {
               <div className="card">
               <div className="p-field p-col-8 p-md-4">
               <label htmlFor="name">Task_Name</label>
-               <input></input>
+               <input onChange={(e) => setName(e.currentTarget.value)} ></input>
                   <label htmlFor="role">Empoyee_Name</label>
                   <select
                     onChange={(e) => setId(e.currentTarget.value)}
@@ -221,14 +215,8 @@ useEffect(() => {
                   </select>
                 </div>
               
-                <textarea readOnly
-                 value={nameLead}
-                >
 
-
-                </textarea>
-
-            <Button style={{marginTop:"50%"}}> Assig Task</Button>
+            <Button style={{marginTop:"50%"}} onClick={AssTask}> Assig Task</Button>
 
               </div>
             </div>
@@ -250,13 +238,12 @@ useEffect(() => {
                   <Column header="Action" body={customButton} />
                 </DataTable>
                 <Paginator
-                  // paginator
-                  // template={template}
-                  // first={first}
-                  // rows={rows}
-                  // totalRecords={totalRecords}
-                  // onPageChange={onPageChange}
-                  // className="p-jc-end p-my-3"
+                  paginator
+                  first={first}
+                  rows={rows}
+                  totalRecords={totalRecords}
+                  onPageChange={onPageChange}
+                  className="p-jc-end p-my-3"
                 />
               </div>
             </div>

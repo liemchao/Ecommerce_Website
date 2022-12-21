@@ -164,9 +164,13 @@ const AccountList = () => {
     }
 
   }
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
 
 
     async function searchAccount() {
+    
       await ApiService.searchAccountSystem(query)
         .then((response) => {
           // check if the data is populated
@@ -177,21 +181,29 @@ const AccountList = () => {
             obj['indexNumber'] = count
   
           })
+          
           setData(listDataSet);
           setLoadingData(false)
-          window.location.reload()
+         
         })
         .catch((error) => {
-          if (error.response) {
+          if(error.response.status == 404) {
+            setData([]);
             setErrMsg(error.response.data)
-          } else if (error.request) {
-            setErrMsg(error.response.data);
 
-          } else {
-  
-            setErrMsg(error.response.data);
           }
-          setErrMsg(error.response.data);
+          // if (error.response) {
+          //   faTableCellsLarge
+          //   setErrMsg(error.response.data)
+
+          // } else if (error.request) {
+          //   setErrMsg(error.response.data);
+
+          // } else {
+  
+          //   setErrMsg(error.response.data);
+          // }
+          // setErrMsg(error.response.data);
         });
     }
 
@@ -248,20 +260,29 @@ const AccountList = () => {
       <div className="row">
        <div style={{marginBottom:-30}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}class="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
-       {errMsg && (
+       {/* {errMsg && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
                 {errMsg} 
               </div>
             </div>
-          )}
+          )} */}
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchAccount}
        >Search</Button>
        </div>
-       {!data  ? (
-           <p>Data not show</p>
-          
+       {data.length==0 ? (
+       <div style={{marginTop:"5%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           >
+
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
           ) : (
         <Tabs
           defaultActiveKey="Detail"

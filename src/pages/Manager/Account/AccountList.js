@@ -18,8 +18,10 @@ const AccountList = () => {
   // const [totalRecords, setTotalRecords] = useState();
   // const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(3);
-  const [currentPage, setCurrentPage] = useState(20);
+  const [rows, setRows] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
+  const [totalRecords, setTotalRecords] = useState();
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
@@ -27,7 +29,7 @@ const AccountList = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getAccountCustomer()
+    await ApiService.getAccountCustomer(currentPage,rows)
       .then((response) => {
 
         const dataRes = response.data.data
@@ -37,7 +39,7 @@ const AccountList = () => {
           obj['indexNumber'] = count
 
         })
-        // setTotalRecords(response.totalRow);
+        setTotalRecords(response.data.totalRow);
 
         setData(listDataSet);
         // setTotalPage(response.data.totalPage);
@@ -73,7 +75,7 @@ const AccountList = () => {
   const customImage = (rowData) => {
     return (
       <img
-        style={{ width: "100px", height: "60px" }}
+        style={{ width: "100px", height: "60px" ,paddingRight:"30%"}}
         src={rowData.image}
         alt="user-image"
         className="img-fluid"
@@ -106,6 +108,8 @@ const AccountList = () => {
       return <div className="badge badge-danger mr-2">Banned</div>;
     }
   };
+
+ 
 
   const customButton = (rowData) => {
     return (
@@ -182,6 +186,30 @@ const AccountList = () => {
   //     );
   //   },
   // };
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    setCurrentPage(event.page + 1);
+  };
+
+  const handleSearch = (e) =>{
+    setQuery(e.target.value);
+    if(e.target.value === ""){
+      refreshList();
+    }
+
+  }
+
+  const searchProduct= () =>{
+    const filterData = data.filter((value)=>{
+     console.log(value);
+      return (
+        value.fullname.toLowerCase().includes(query.toLowerCase())
+      )
+    });
+    setData(filterData);
+
+  }
 
   return (
     <>
@@ -190,7 +218,14 @@ const AccountList = () => {
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="List Account Customer " />
           {/* <AccountCreate refreshList={refreshList} /> */}
-        </div>
+          </div>
+        <div className="row">
+       <div style={{marginBottom:20}}>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
+       onClick={searchProduct}
+       >Search</Button>
+       </div>
         {!data ? (
           <p>No data to show...</p>
         ) : (
@@ -206,7 +241,7 @@ const AccountList = () => {
                  
                   <Column header="ID" field="indexNumber" />
                   <Column header="Avatar" body={customImage} />
-                  <Column header="Name" field="fullname" />
+                  <Column style={{ paddingRight: 2, paddingLeft: 3, width: "16%" }} header="Name" field="fullname" />
                   <Column style={{ paddingRight: 2, paddingLeft: 3, width: "20%" }} header="Email" field="email" />
                   {/* <Column header="Address" body={customAddress} /> */}
                   <Column header="Phone" field="phone" />
@@ -214,18 +249,19 @@ const AccountList = () => {
                   <Column header="Action" body={customButton} />
                 </DataTable>
                 <Paginator
-                  // paginator
-                  // template={template}
-                  // first={first}
-                  // rows={rows}
-                  // totalRecords={totalRecords}
-                  // onPageChange={onPageChange}
-                  // className="p-jc-end p-my-3"
+                  paginator
+                 
+                  first={first}
+                  rows={rows}
+                  totalRecords={totalRecords}
+                  onPageChange={onPageChange}
+                  className="p-jc-end p-my-3"
                 />
               </div>
             </div>
           </div>
         )}
+      </div>
       </div>
     </>
   );

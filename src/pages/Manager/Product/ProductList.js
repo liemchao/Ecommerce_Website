@@ -11,13 +11,17 @@ import { Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CreateProduct from "../Product/ProductCreate"
 import UpdateProduct from "../Product/Updateproduct";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
 const ProductList = () => {
   const [data, setData] = useState([]);
+  const [errMsg, setErrMsg] = useState("");
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  // const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +36,7 @@ const ProductList = () => {
 
     await ApiService.getPublicProduct(currentPage, rows)
       .then((response) => {
-        // console.log(response);
+     
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -105,27 +109,17 @@ const ProductList = () => {
   const customButton = (rowData) => {
     return (
       <>
-      <div style={{ marginRight:"10%", display: "center" }}>
+      <div className="row">
       <Link
-          style={{ paddingRight: "10%" }}
           to={{
             pathname: "/Dashboard/Manager/ProductDetail",
             state: rowData,
           }}
         >
-         <Button style={{marginBottom:"1%", paddingRight:"13%",marginBottom:"2%"}}>Detail</Button>
+         <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
         </Link>
-        <Link
-         
-          to={{
-            pathname: "/Dashboard/Manager/ProductUpdate",
-            state: rowData,
-          }}
-        >
-            <Button  style={{ paddingRight: "10%",paddingRight:"6%", marginBottom:"2%" }}className="btn btn-success">Update
-          </Button>
-      </Link>
-        <Button  style={{ marginRight:"10%",  paddingRight: "10%" }} className="btn btn-danger">Delete</Button>
+        <UpdateProduct rowData={rowData} refreshList={refreshList} />
+        <Button  style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
       </div>
       </>
     );
@@ -139,15 +133,42 @@ const ProductList = () => {
 
   }
 
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-     console.log(value);
-      return (
-        value.name.toLowerCase().includes(query.toLowerCase())
-      )
-    });
-    setData(filterData);
+  async function searchProduct() {
+    
+    await ApiService.searchProduct(query)
+      .then((response) => {
+        // check if the data is populated
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
 
+        })
+        
+        setData(listDataSet);
+        setLoadingData(false)
+       
+      })
+      .catch((error) => {
+        if(error.response.status == 404) {
+          setData([]);
+          setErrMsg(error.response.data)
+
+        }
+        // if (error.response) {
+        //   faTableCellsLarge
+        //   setErrMsg(error.response.data)
+
+        // } else if (error.request) {
+        //   setErrMsg(error.response.data);
+
+        // } else {
+
+        //   setErrMsg(error.response.data);
+        // }
+        // setErrMsg(error.response.data);
+      });
   }
   
 
@@ -167,6 +188,9 @@ const ProductList = () => {
   const onPageInputChange = (event) => {
     setCurrentPage(event.target.value);
   };
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
 
   const template = {
     layout: "CurrentPageReport PrevPageLink NextPageLink",
@@ -220,11 +244,20 @@ const ProductList = () => {
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchProduct}
-       >Search</Button>
+       ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-       {!data  ? (
-           <p>Data not show</p>
-          
+       {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           >
+
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
           ) : (
           <div id="wrapper">
             <div className="container-fluid">
@@ -235,7 +268,7 @@ const ProductList = () => {
                   responsiveLayout="scroll"
                 >
                   <Column header="ID" field="indexNumber"/>
-                  <Column header="Name" field="name"/>
+                  <Column style={{ paddingRight:"4%", width: "25%" }} header="Name" field="name"/>
                   <Column header="Category" body={getCaId} />
             
                   <Column header="Price(VND)" body={getPrice} />

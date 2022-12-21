@@ -14,7 +14,7 @@ const LeadList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  // const [totalPage, setTotalPage] = useState();
+  const [query, setQuery] = useState("");
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,6 +63,10 @@ const LeadList = () => {
   useEffect(() => {
     getLeadList();
   }, [currentPage]);
+
+  const refreshList = () => {
+    getLeadList();
+  };
 
   const onPageChange = (event) => {
     setFirst(event.first);
@@ -144,6 +148,24 @@ const LeadList = () => {
   //     );
   //   },
   // };
+  const handleSearch = (e) =>{
+    setQuery(e.target.value);
+    if(e.target.value === ""){
+      refreshList();
+    }
+
+  }
+
+  const searchProduct= () =>{
+    const filterData = data.filter((value)=>{
+     console.log(value);
+      return (
+        value.fullname.toLowerCase().includes(query.toLowerCase())
+      )
+    });
+    setData(filterData);
+
+  }
 
   return (
     <>
@@ -153,6 +175,13 @@ const LeadList = () => {
           <PageHeading title="Lead List" />
           {/* // <InterviewCreate /> */}
         </div> 
+        <div className="row">
+       <div style={{marginBottom:20}}>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
+       onClick={searchProduct}
+       >Search</Button>
+       </div>
         {!data ? (
           <p>No data to show...</p>
         ) : (
@@ -188,6 +217,7 @@ const LeadList = () => {
             </div>
           </div>
         )}
+      </div>
       </div>
     </>
   );
