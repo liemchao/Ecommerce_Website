@@ -318,9 +318,13 @@ const getNewLead = (page,size) => {
 
 
 // /* Skills */
-// const getPublicSkill = (ele, page) => {
-//   return http.get(`/api/Skills/page/${ele}/${page}`); // lấy tất cả skills có status active dành cho candidate
-// };
+const getNameLead = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/${id}`,{
+  headers: authHeader(),
+});
+};
+
+
 
 // const getSkillList = (ele, page) => {
 //   return http.get(`/api/Skills/${ele}/${page}`); // lấy tất cả skills dành cho admin , staff
@@ -840,7 +844,7 @@ export default {
   getidProductOwer,
   getLead,
   getNewLead,
-
+  getNameLead,
   // // Skills
   // getPublicSkill,
   // getSkillList,

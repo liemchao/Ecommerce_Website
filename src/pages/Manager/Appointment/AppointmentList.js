@@ -8,6 +8,8 @@ import Button from "react-bootstrap/Button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 
 
 const AppointmentList = () => {
@@ -90,13 +92,13 @@ const AppointmentList = () => {
       <div style={{ display: "flex" }}>
         {/* Detail */}
         <Link
-          style={{ paddingRight: "15px" }}
+          style={{ paddingRight: "-10%" }}
           to={{
             pathname: "/Dashboard/Manager/AppointmentDetail",
             state: rowData,
           }}
         >
-         <Button>Detail Appointment</Button>
+         <Button><FontAwesomeIcon icon={faClipboardList}/></Button>
         </Link>
       </div>
     );

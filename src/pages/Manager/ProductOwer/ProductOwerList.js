@@ -10,6 +10,10 @@ import { Paginator } from "primereact/paginator";
 import { Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CreateProduct from "../Product/ProductCreate"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileMedicalAlt, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
 const ProductList = () => {
@@ -111,7 +115,7 @@ const ProductList = () => {
   const customButton = (rowData) => {
     return (
       <>
-      <div style={{ display: "center" }}>
+      <div className="row">
       <Link
           style={{ paddingRight: "10px" }}
           to={{
@@ -119,10 +123,10 @@ const ProductList = () => {
             state: rowData,
           }}
         >
-         <Button>Detail</Button>
+         <Button style={{marginLeft:"-20%"}}><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
         </Link>
-        <Button  style={{margin:2, paddingLeft :3} } className="btn btn-success">Update</Button>
-        <Button className="btn btn-danger">Delete</Button>
+        <Button  style={{marginLeft:"-10%" , paddingLeft:"9%"}} className="btn btn-success"><FontAwesomeIcon icon={faPen}/></Button>
+        <Button style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
      
         {/* Detail */}
         {/* <Link
@@ -241,7 +245,7 @@ const ProductList = () => {
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchProduct}
-       >Search</Button>
+       ><FontAwesomeIcon icon={faSearch}/></Button>
        </div>
         {!data ? (
           <p>No data to show...</p>

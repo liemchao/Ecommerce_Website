@@ -4,6 +4,8 @@ import Modal from "react-modal";
 // import { InputText } from "primereact/inputtext";
 // import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 // import { FileUpload } from "primereact/fileupload";
 
 import ApiService from "../../../api/apiService";
@@ -132,7 +134,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
   return (
     <div>
       <a href="#!" onClick={handleOpenModal} style={{ paddingRight: "3px"  }}>
-      <Button  style={{ marginTop:2,marginLeft: "1%", paddingLeft:"4%" ,paddingBottom:"5%" , paddingRight:"2%" }}>Update</Button>
+      <Button  style={{marginLeft:"-10%" , paddingLeft:"9%"}} className="btn btn-success"><FontAwesomeIcon icon={faPencilAlt} /></Button>
       </a>
 
       <Modal
@@ -166,7 +168,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
           },
         }}
       >
-        <h3>Update Acount</h3>
+        <h3>Update Customer Account</h3>
         <div className="p-fluid p-formgrid p-grid">
           {/* Status */}
           <div className="p-field p-col-12 p-md-3">

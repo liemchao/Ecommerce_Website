@@ -11,36 +11,85 @@ import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
 import { Button  } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+
 
 
 
 const TaskList = () => {
   const [data, setData] = useState([]);
+  const [names, setNames] = useState([]);
+
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
   const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
+
+
+ 
+
+
   async function getTaskList() {
     setLoadingData(true);
 
-    ApiService.getTask(currentPage,rows)
+    await ApiService.getTask(currentPage,rows)
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
           const count = ++ index ;
           obj['indexNumber'] = count
-
         })
-       
-
-        setData(listDataSet);
+        // let bigArray = []
+        // // let nameArray = []
+        // let i = 0;
+      
+        // listDataSet.map((value, index) => {
+        //   let objArray = []
+        //   let name = value.name;
+        //   let createDate = value.createDate
+        //   let isDone = value.isDone
+        //   let taskDetails = []
+        //   taskDetails = value.taskDetails
+        //   setNames([])
+        //   taskDetails.map((currValue) => {
+        //       ApiService.getNameLead(currValue.leadId)
+        //         .then((response) => {
+        //           let name = response.data.data[0].fullname
+        //           names.push(name)
+        //         })
+        //         .catch((error) => {
+        //           if (error.response) {
+        //           } else if (error.request) {
+        //             // no response
+        //             console.log(error.request);
+        //           } else {
+        //             // Something wrong in setting up the request
+        //             console.log("Error", error.message);
+        //           }
+        //           console.log(error.config);
+        //         });
+        //   })
+        //   let creater = value.creater
+        //   let employee = value.employee
+        //   objArray.push(name)
+        //   objArray.push(createDate)
+        //   objArray.push(isDone)
+        //   objArray.push(names)
+        //   objArray.push(creater)
+        //   objArray.push(employee)
+        //   bigArray.push(objArray)
+        //   console.log(bigArray.length ,bigArray)
+        // }) 
+        setData(listDataSet)
         setLoadingData(false);
       })
       .catch((error) => {
@@ -105,13 +154,13 @@ const TaskList = () => {
       <div style={{ display: "center" }}>
         {/* Detail */}
         <Link
-          style={{ paddingRight: "30px" }}
+          style={{ paddingLeft: "2%" }}
           to={{
             pathname: "/Dashboard/Manager/TaskDetail",
             state: rowData,
           }}
         >
-         <Button>Task Detail</Button>
+         <Button> <FontAwesomeIcon icon={faClipboardList}/></Button>
         </Link>
       </div>
     );
@@ -182,7 +231,7 @@ const TaskList = () => {
             pathname: "/Dashboard/Manager/TaskCreate",
           }}
         >
-         <Button>Task Create</Button>
+         <Button><FontAwesomeIcon icon={faPlus}/> Create Task</Button>
         </Link>
         </div>
         {!data ? (

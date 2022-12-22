@@ -17,6 +17,8 @@ import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
+
+
 const ProductList = () => {
   const [data, setData] = useState([]);
   const [errMsg, setErrMsg] = useState("");
@@ -231,7 +233,7 @@ const ProductList = () => {
       {/* New DataTable */}
       <div>
        <PageHeading title="Product List" />
-       <div style={{marginLeft:"88%"}}className="d-sm-flex align-items-center justify-content-between">
+       <div style={{marginLeft:"85%", paddingLeft:"5%"}}className="d-sm-flex align-items-center justify-content-between">
         
         {/* Upload File Modal */}
         <CreateProduct refreshList={refreshList}

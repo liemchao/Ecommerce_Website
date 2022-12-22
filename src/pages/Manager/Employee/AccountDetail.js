@@ -108,6 +108,8 @@ const AccountDetail = () => {
                           <p >{(account.createDate).slice(11,19)}</p>
                         </div>
                       </div>
+                      
+                      
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Status</h6>

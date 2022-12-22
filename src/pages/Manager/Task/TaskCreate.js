@@ -7,6 +7,8 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button  } from "react-bootstrap";
 // import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -128,19 +130,24 @@ const ProductDetail = () => {
       });
   }
 
-var array= []
-  const chooseCustomer = (rowData) =>{
-    let checkBox = document.getElementById(rowData.id);
+  const chooseCustomer = (id) =>{
+    let checkBox = document.getElementById(id);
       if (checkBox.checked){
-        array.push(rowData)
-         idLead.push(array);
-                   setLead([...idLead]);
-        //  console.log(idLead);
+        idLead.push(id);
               // let disable = document.createAttribute("disabled")
     // disableButton.setAttributeNode(disable)
-
     // nameLead.push(rowData.fullname);
     // setLead(rowData.id);
+      } else {
+        idLead.splice(idLead.indexOf(checkBox.id), 1)
+        // idLead.forEach((value, index) => {
+        //   if(checkBox.id === value) 
+        //   {
+        //     idLead.splice(index, 1);
+        //     console.log(idLead)
+        //   }
+        // })
+        
       }
   };
     // let disable = document.createAttribute("disabled")
@@ -160,8 +167,7 @@ var array= []
 
     if (rowData.leadStatus=="New") {
         return <input id={rowData.id} style={{marginLeft:"10%"}}type="checkbox" onClick={ () => {
-          chooseCustomer(rowData)
-
+          chooseCustomer(rowData.id)
         }}/>;
         
       }
@@ -216,7 +222,7 @@ useEffect(() => {
                 </div>
               
 
-            <Button style={{marginTop:"50%"}} onClick={AssTask}> Assig Task</Button>
+            <Button style={{marginTop:"50%"}} onClick={AssTask}> <FontAwesomeIcon icon={faPlus}/> Create Task</Button>
 
               </div>
             </div>

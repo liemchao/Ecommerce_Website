@@ -5,6 +5,7 @@ import PageHeading from "../../../components/PageHeading";
 import LeadList from "../Lead/LeadList";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
 
 
 const AccountDetail = () => {
@@ -105,7 +106,7 @@ const AccountDetail = () => {
                             <h6 className="mb-0">Time Create:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p >{(Task.createDate).slice(11,19)+"s"}</p>
+                            <p >{(Task.createDate).slice(11,19)}</p>
                           </div>
                         </div>
                         <div className="row mb-3">
@@ -207,11 +208,23 @@ const AccountDetail = () => {
                           <div className="col-sm-9 text-secondary">
                           {
                     Task.taskDetails.map((x, y) =>          
-                        <p key={y}>{x.leadId} <Button style={{marginLeft:"10%"}}>
+                        <p key={y}>{x.leadId} 
+                        <Link
+                        
+                        to={{
+                          pathname: "/Dashboard/Manager/LeadTaskDetail",
+                        }}
+                        
+                        >
+                        <Button style={{marginLeft:"10%"}}>
                           <FontAwesomeIcon icon={faExternalLinkSquare} />
-                          </Button></p>)
+                          </Button>
+                          </Link></p>
+                          )
+                          
                      
                     }
+                    
                           
                           </div>
                         </div>

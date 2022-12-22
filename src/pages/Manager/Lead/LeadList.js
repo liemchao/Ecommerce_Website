@@ -9,6 +9,9 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+
 
 const LeadList = () => {
   const [data, setData] = useState([]);
@@ -98,11 +101,11 @@ const LeadList = () => {
          <Link
           style={{ paddingRight: "15px" }}
           to={{
-            pathname: "Dashboard/Admin/InterviewDetail",
+            pathname: "/Dashboard/Manager/LeadDetail",
             state: rowData,
           }}
         >
-          <Button>Detail</Button>
+        <Button><FontAwesomeIcon icon={faClipboardList}/></Button>
         </Link> 
 
 
@@ -111,9 +114,12 @@ const LeadList = () => {
   };
 
   const customStatus = (rowData) => {
-    
+    if(rowData.leadStatus=="New"){
+      return <div className="badge badge-warning mr-2">{rowData.leadStatus}</div>;
+    }else{
       return <div className="badge badge-success mr-2">{rowData.leadStatus}</div>;
     }
+  }
 
   // const template = {
   //   layout: "CurrentPageReport PrevPageLink NextPageLink",

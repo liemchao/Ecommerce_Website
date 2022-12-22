@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Button } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
 
 const ProductDetail = () => {
     const { state } = useLocation();
@@ -240,6 +243,42 @@ const ProductDetail = () => {
 
                       </div>
                     </Tab>
+                    <Tab eventKey="Ower" title="Product Ower" >
+                    <div className="card-body">
+                     <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Name Ower:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+          
+                  
+                      
+                        <p>{Product.productOwner.name} 
+                        <Link
+                        
+                        to={{
+                          pathname: "/Dashboard/Manager/LeadTaskDetail",
+                        }}
+                        
+                        >
+                        <Button style={{marginLeft:"10%"}}>
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button>
+                          </Link></p>
+                          
+                          
+                     
+                    
+                    
+                          
+                          </div>
+                        </div>
+                       
+                      </div>
+
+
+                    </Tab>
+                   
 
 
 

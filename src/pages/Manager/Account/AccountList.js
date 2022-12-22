@@ -10,6 +10,10 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
 const AccountList = () => {
@@ -113,7 +117,7 @@ const AccountList = () => {
 
   const customButton = (rowData) => {
     return (
-      <div style={{ display: "flex" }}>
+      <div className="row">
         {/* Detail */}
         <Link
           style={{ paddingRight: "5%" }}
@@ -122,10 +126,11 @@ const AccountList = () => {
             state: rowData,
           }}
         >
-           <Button style={{ marginLeft: "0px" }}>Detail</Button>
+            <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
         </Link>
         {/* Update */}
         <AccountUpdate rowData={rowData} refreshList={refreshList} />
+        <Button  style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
       </div>
     );
   };
@@ -224,7 +229,7 @@ const AccountList = () => {
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchProduct}
-       >Search</Button>
+       ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
         {!data ? (
           <p>No data to show...</p>

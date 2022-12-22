@@ -4,10 +4,10 @@ import { Tabs, Tab } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
-import PageHeading from "../../../components/PageHeading";
+import PageHeading from "../../../../components/PageHeading";
 
 
-const AccountDetail = () => {
+const LeadDetail = () => {
   const { state } = useLocation();
   const [account, setAccount] = useState([]);
   const [work, setWork] = useState([]);
@@ -29,7 +29,7 @@ const AccountDetail = () => {
 
   return (
     <div>
-      <PageHeading title="Customer Detail" />
+      <PageHeading title="Lead Detail" />
       {loadingData ? (
         <p>Loading, please wait...</p>
       ) : (
@@ -37,12 +37,7 @@ const AccountDetail = () => {
           <div className="row">
             <div className="col-lg-4">
               <div className="card">
-                <img
-                  src={account.image}
-                  alt="user_avatar"
-                  className="p-1 bg-primary img-thumbnail rounded-circle mx-auto d-block"
-                  width={200}
-                />
+               
               </div>
             </div>
             <div className="col-lg-8">
@@ -59,7 +54,7 @@ const AccountDetail = () => {
                           <h6 className="mb-0">Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account.fullname}</p>
+                      
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -78,28 +73,13 @@ const AccountDetail = () => {
                           <p>{account.phone}</p>
                         </div>
                       </div>
-                      {/* <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.gender}</p>
-                        </div>
-                      </div> */}
-                      {/* <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Birth Day:</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.birthday}</p>
-                        </div>
-                      </div> */}
+                     
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Joined Since:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p >{(account.createDate).slice(0, 10)}</p>
+                          {/* <p >{(account.createDate).slice(0, 10)}</p> */}
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -107,15 +87,7 @@ const AccountDetail = () => {
                           <h6 className="mb-0">Time Create</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p >{(account.createDate).slice(11, 19)}</p>
-                        </div>
-                      </div>
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Day of Brith</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p >{account.dob}</p>
+                          {/* <p >{(account.createDate).slice(11, 19)}</p> */}
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -123,52 +95,11 @@ const AccountDetail = () => {
                           <h6 className="mb-0">Status</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {account.status ? (
-                            <div className="badge badge-primary mr-2">
-                              Active
-                            </div>
-                          ) : (
-                            <div className="badge badge-danger mr-2">
-                              Banned
-                            </div>
-                          )}
                         </div>
                       </div>
                     </div>
                   </Tab>
-
-                  <Tab eventKey="History" title="History View Product">
-                    <DataTable>
-                      <Column header="No">
-
-                      </Column>
-                      <Column header="Image"> </Column>
-                      <Column header="Name"> </Column>
-                      <Column header="Time"></Column>
-                    </DataTable>
-
-
-
-
-
-                  </Tab>
-
-                  <Tab eventKey="Favourite" title="Favorite Product">
-
-
-
-                  </Tab>
-
-                  <Tab eventKey="opportunity" title="Opportunity">
-
-
-
-                  </Tab>
-                  <Tab eventKey="appointment" title="Appointment">
-
-
-
-                  </Tab>
+    
                 </Tabs>
 
 
@@ -181,4 +112,4 @@ const AccountDetail = () => {
   );
 };
 
-export default AccountDetail;
+export default LeadDetail;

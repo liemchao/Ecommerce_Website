@@ -4,11 +4,12 @@ import Modal from "react-modal";
 import { InputText } from "primereact/inputtext";
 // import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import ApiService from "../../../api/apiService";
 
 export default function ProductCreate({ refreshList }) {
-//   const user = JSON.parse(localStorage.getItem("user"));
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -275,10 +276,10 @@ export default function ProductCreate({ refreshList }) {
     <div>
       <Button
     
-        style={{ float: "right" }}
+        style={{ float: "right"}}
         className="btn btn-primary" 
         onClick={() => setModalIsOpen(true)}
-      >Create Product</Button>
+      ><FontAwesomeIcon icon={faPlus} /> Add</Button>
       <Modal
         isOpen={modalIsOpen}
         onAfterClose={refreshList}

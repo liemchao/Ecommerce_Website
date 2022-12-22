@@ -25,6 +25,8 @@ const LeadList = React.lazy(() => import("./pages/Manager/Lead/LeadList"))
 const ManagerTaskList = React.lazy(() => import("./pages/Manager/Task/TaskList"))
 const ProductOwerList = React.lazy(() => import("./pages/Manager/ProductOwer/ProductOwerList"))
 const ProductOwerDetail = React.lazy(() => import("./pages/Manager/ProductOwer/ProductOwerDetail"))
+const LeadDetail = React.lazy(() => import("./pages/Manager/Lead/LeadDetail"))
+const LeadTaskDetail = React.lazy(() => import("./pages/Manager/Task/DetailTask/LeadDetail"))
 
 
 const routes = [
@@ -49,6 +51,9 @@ const routes = [
   { path: "/Dashboard/Manager/LeadList", name: "LeadList", component: LeadList },
   { path: "/Dashboard/Manager/ProductOwerList", name: "ProductOwerList", component: ProductOwerList },
   { path: "/Dashboard/Manager/ProductOwerDetail", name: "ProductOwerDetail", component: ProductOwerDetail },
+  { path: "/Dashboard/Manager/LeadDetail", name: "LeadDetail", component: LeadDetail},
+  { path: "/Dashboard/Manager/LeadTaskDetail", name: "LeadTaskDetail", component: LeadTaskDetail},
+
 ];
 
 export default routes;
