@@ -46,11 +46,11 @@ const changeUserRole = (data) => {
   });
 };
 
-const getProfile = (data) => {
-  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/adjusting-role`,data, {
-    headers: authHeader(),
-  });
-};
+// const getProfile = (data) => {
+//   return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/adjusting-role`,data, {
+//     headers: authHeader(),
+//   });
+// };
 
 // const getAdminLog = () => {
 //   return http.get(`/api/UserAccounts/AdminLog`, { headers: authHeader() });
@@ -208,6 +208,7 @@ const searchProduct = (query) => {
   });
 };
 
+
 // const getPublicProduct = () => {
 //   return http.get(`/api/Products/page/${ele}/${page}`); // chỉ lấy Product có status active cho candidate
 // };
@@ -287,7 +288,7 @@ const getProductStatus = () => {
 };
 
 const getAppoinment = (page, size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}`, {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse`, {
     headers: authHeader(),
   });
 };
@@ -316,12 +317,84 @@ const getNewLead = (page,size) => {
   });
 };
 
+const getOpportunity  = (page,size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Opportunity/opportunity?pageNumber=${page}&pageSize=${size}`, {
+    headers: authHeader(),
+  });
+};
+
+const getFeedBack  = (page,size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Feedback/feedback?pageNumber=${page}&pageSize=${size}`, {
+    headers: authHeader(),
+  });
+};
+
 
 // /* Skills */
 const getNameLead = (id) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/${id}`,{
   headers: authHeader(),
 });
+};
+
+
+const getProvie = () => {
+  return axios.get(`https://vapi.vnappmob.com/api/province`
+);
+};
+const getHistory= (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/customer-history-list/${id}`,{
+  headers: authHeader(),
+});
+};
+const getProductById= (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/${id}`,{
+  headers: authHeader(),
+});
+};
+
+//Filter Appointment
+
+
+const getAppoinmentWa = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BWaiting`, {
+    headers: authHeader(),
+  });
+};
+
+const getAppoinmentAc = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BAccepted`, {
+    headers: authHeader(),
+  });
+};
+
+const getAppoinmentCu = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BCustomer%20Canceled`, {
+    headers: authHeader(),
+  });
+};
+
+const getAppoinmentEm = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&filter=7%3BEmployee%20Canceled`, {
+    headers: authHeader(),
+  });
+};
+
+const getAppoinmentRe = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&filter=7%3BRejected`, {
+    headers: authHeader(),
+  });
+};
+
+const getAppoinmentEx = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BExpired`, {
+    headers: authHeader(),
+  });
+};
+const getAppoinmentFi = (page, size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BFinished`, {
+    headers: authHeader(),
+  });
 };
 
 
@@ -799,6 +872,7 @@ export default {
   getAccountAdmin,
   getAccountEmployee,
   getAccountManager,
+  getFeedBack,
 
  
   // updateProfile,
@@ -815,22 +889,19 @@ export default {
   // changePassword,
 
   // // Companies
-  // getCompanies,
-  // getPublicCompanies,
-  // getCompanyById,
-  // getEmloyeeInCompany,
-  // getMyCompany,
-  // getLogByRecruiter,
-  // createCompany,
-  // updateCompany,
-  // changeCompanyStatus,
-  // updateCompanyByCreatorId,
-  // disableCompanyByCreatorId,
-  // deleteCompany,
+  //Filter
+  getAppoinmentAc,
+  getAppoinmentCu,
+  getAppoinmentEm,
+  getAppoinmentEx,
+  getAppoinmentFi,
+  getAppoinmentRe,
+  getAppoinmentWa,
   searchAccountSystem,
 
   // // Products
   getPublicProduct,
+  getProductById,
   // getProductList,
   // getProductById,
   // searchForProduct,
@@ -845,6 +916,9 @@ export default {
   getLead,
   getNewLead,
   getNameLead,
+  getProvie,
+  getOpportunity,
+  getHistory,
   // // Skills
   // getPublicSkill,
   // getSkillList,

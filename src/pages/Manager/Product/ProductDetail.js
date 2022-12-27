@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Tabs, Tab, Button } from "react-bootstrap";
+import { Tabs, Tab, Button, Figure  } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
-import ApiService from "../../../api/apiService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
@@ -59,15 +58,18 @@ const ProductDetail = () => {
             
               {
                     Product.productImages.map((x, y) => 
-                    <div className="card">         
-                    <img
-                    src={x.url}
-                    alt="img-product"
-                    className="p-1 bg-primary img-thumbnail rounded mx-auto d-block"
-                    width={200}
-                  />
-                    </div>
-                     
+                    <div style={{ textAlign:"center"}}className="card">
+                    <Figure style={{margin:"2%"}}>
+                    <Figure.Image
+                      width={180}
+                      height={180}
+                      alt="171x180"
+                      src={x.url}
+                      className="img-thumbnail"
+                      
+                    />
+                  </Figure>
+                   </div>
                     )}
             
                 

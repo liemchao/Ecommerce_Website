@@ -227,6 +227,13 @@ const Sidebar = () => {
                   Lead List
                 </Link>
 
+                <Link className="collapse-item" to="/Dashboard/Manager/OpportunityList">
+                  Opportunity List
+                </Link>
+                <Link className="collapse-item" to="/Dashboard/Manager/FeedBackList">
+                  FeedBack List
+                </Link>
+
 
                 {/* <h6 className="collapse-header">Jobs:</h6>
                 <Link className="collapse-item" to="/Dashboard/Recruiter/CompanyList">

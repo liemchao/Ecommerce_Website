@@ -19,6 +19,7 @@ export default function ProductCreate({ refreshList }) {
   const [ower, setOwer] = useState([]);
   const [unti, setUniti] = useState([]);
   const [direc, setDirec]= useState([]);
+  const [provice, setProvice]= useState([]);
   
   
   const [Product, setProduct] = useState({
@@ -152,6 +153,63 @@ export default function ProductCreate({ refreshList }) {
       });
   }
 
+  function convertVietnamese(str) {
+    str= str.toLowerCase();
+    str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+    str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+    str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+    str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+    str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+    str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+    str= str.replace(/đ/g,"d");
+    str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g," ");
+    str= str.replace(/-+-/g,"-");
+    str= str.replace(/^\-+|\-+$/g,"");
+
+    return str;
+}
+
+async function getProvice() {
+  setLoading(true);
+
+  await ApiService.getProvie()
+    .then((response) => {
+
+      console.log(response.data.results)
+      let listProRes = [];
+      let listSet = [];
+      listProRes = response.data.results;
+      listProRes.map((obj, index) => {
+        let dataObj = {
+          province_id: obj.province_id,
+          province_name: convertVietnamese(obj.province_name),
+          province_type: convertVietnamese(obj.province_type)
+        }
+        listSet.push(dataObj);
+      })
+
+  
+      setProvice(listSet);
+
+      setLoading(false);
+    })
+    .catch((error) => {
+      if (error.response) {
+        // get response with a status code not in range 2xx
+        console.log(error.response.data.data);
+        console.log(error.response.data.status);
+        console.log(error.response.data.headers);
+      } else if (error.request) {
+        // no response
+        console.log(error.request);
+      } else {
+        // Something wrong in setting up the request
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+}
+
   async function getProductStatus() {
     setLoading(true);
 
@@ -265,6 +323,7 @@ export default function ProductCreate({ refreshList }) {
     getProductStatus();
     getUniti();
     getDirc();
+    getProvice();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -319,7 +378,6 @@ export default function ProductCreate({ refreshList }) {
             <InputText
               id="name"
               type="text"
-              value={Product.name}
               required
               onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
@@ -347,7 +405,7 @@ export default function ProductCreate({ refreshList }) {
           </div>
            
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Category:</label>
+           <label htmlFor="role">Category:</label><br></br>
             <select
               onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
             >
@@ -366,7 +424,7 @@ export default function ProductCreate({ refreshList }) {
 
              
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Product Status:</label>
+           <label htmlFor="role">Product Status:</label><br></br>
             <select
               onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
             >
@@ -378,7 +436,7 @@ export default function ProductCreate({ refreshList }) {
           </div>
 
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Product Ower:</label>
+           <label htmlFor="role">Product Ower:</label><br></br>
             <select
               onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
@@ -459,13 +517,16 @@ export default function ProductCreate({ refreshList }) {
           </div>
 
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Province</label>
-            <InputText
-              id="name"
-              type="text"
-              value={Product.province}
-              onChange={(e) => setProduct({ ...Product, province: e.target.value })}
-            />
+           <label htmlFor="role">Province</label><br></br>
+            <select
+              onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
+            >
+              {
+                      provice.map((x, y) =>
+                        <option key={y} value={x.province_id}>{x.province_name}</option>)
+                    }
+              
+            </select>
           </div>
 
           <div className="p-field p-col-8 p-md-4">
@@ -478,7 +539,7 @@ export default function ProductCreate({ refreshList }) {
             />
           </div>
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Direction:</label>
+           <label htmlFor="role">Direction:</label><br></br>
             <select
               onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
             >
@@ -490,7 +551,7 @@ export default function ProductCreate({ refreshList }) {
             </select>
           </div>
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Utilities:</label>
+           <label htmlFor="role">Utilities:</label><br></br>
             <select
               onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
             >
@@ -515,7 +576,7 @@ export default function ProductCreate({ refreshList }) {
             <label htmlFor="name">receivedDate</label>
             <InputText
               id="name"
-              type="Date"
+              type="datetime-local"
               value={Product.receivedDate}
               required
               onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
@@ -535,7 +596,7 @@ export default function ProductCreate({ refreshList }) {
                 value={true}
                 onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
-              <label className="form-check-label" for="exampleRadios1">
+              <label className="form-check-label" htmlFor="exampleRadios1">
                Avaliable
               </label>
             </div>
@@ -548,7 +609,7 @@ export default function ProductCreate({ refreshList }) {
                 value={false}
                 onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
-              <label className="form-check-label" for="exampleRadios2">
+              <label className="form-check-label" htmlFor="exampleRadios2">
                Not Avalabel
               </label>
             </div>

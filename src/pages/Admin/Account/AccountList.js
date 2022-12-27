@@ -18,6 +18,9 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch} from '@fortawesome/free-solid-svg-icons';
+import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons';
 
 const AccountList = () => {
   const [data, setData] = useState([]);
@@ -111,7 +114,7 @@ const AccountList = () => {
   const customButton = (rowData) => {
     return (
       <>
-        <div style={{ display: "center" }}>
+        <div className="row">
 
           {/* Detail */}
           <Link
@@ -121,7 +124,7 @@ const AccountList = () => {
               state: rowData,
             }}
           >
-            <Button style={{ marginLeft: "0px" }}>Detail</Button>
+            <Button style={{ marginLeft: "0px" }}><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
           </Link>
           {/* Update */}
 
@@ -259,17 +262,10 @@ const AccountList = () => {
       </div>
       <div className="row">
        <div style={{marginBottom:-30}}>
-       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}class="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
-       {/* {errMsg && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {errMsg} 
-              </div>
-            </div>
-          )} */}
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchAccount}
-       >Search</Button>
+       ><FontAwesomeIcon icon={faSearch}/></Button>
        </div>
        {data.length==0 ? (
        <div style={{marginTop:"5%"}}id="wrapper">

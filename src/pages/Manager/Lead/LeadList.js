@@ -11,6 +11,13 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
+import CreateProduct from "../Product/ProductCreate"
+import { faSearch} from '@fortawesome/free-solid-svg-icons'
+
+
+
+
 
 
 const LeadList = () => {
@@ -95,23 +102,22 @@ const LeadList = () => {
   };
 
   const customButton = (rowData) => {
-    return (
-      <div style={{ display: "flex" }}>
- 
-         <Link
-          style={{ paddingRight: "15px" }}
-          to={{
-            pathname: "/Dashboard/Manager/LeadDetail",
-            state: rowData,
-          }}
-        >
-        <Button><FontAwesomeIcon icon={faClipboardList}/></Button>
-        </Link> 
-
-
-      </div>
-    );
-  };
+      return (
+        <div className="row">
+          {/* Detail */}
+          <Link
+            style={{ paddingLeft: "5%" }}
+            to={{
+              pathname: "/Dashboard/Manager/LeadDetail",
+              state: rowData,
+            }}
+          >
+           <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+          </Link>
+          <AccountUpdate rowData={rowData} refreshList={refreshList} />
+        </div>
+      );
+    };
 
   const customStatus = (rowData) => {
     if(rowData.leadStatus=="New"){
@@ -179,14 +185,14 @@ const LeadList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="Lead List" />
-          {/* // <InterviewCreate /> */}
+          <CreateProduct refreshList={refreshList}/>
         </div> 
         <div className="row">
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchProduct}
-       >Search</Button>
+       ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
         {!data ? (
           <p>No data to show...</p>
@@ -199,16 +205,12 @@ const LeadList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column header="ID" field="indexNumber"/>
+                  <Column header="No" field="indexNumber"/>
                   <Column header="Name" field="fullname"/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
 
-                  {/* <Column header="Cate" field="s" />
-                  <Column header="Name" field="d" />
-                  <Column header="Name" field="c" />
-                  <Column header="Name" field="d" />
-                  <Column header="Status" body="d" /> */}
+                
                 </DataTable>
                 <Paginator
                   paginator

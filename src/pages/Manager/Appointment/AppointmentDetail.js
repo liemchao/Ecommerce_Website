@@ -126,7 +126,7 @@ const AppointDetail = () => {
                   </select>
                 </div>
 
-                <Button style={{ marginTop: 300 }} onClick={AssAppointment} >Create Appointment</Button>
+                <Button style={{ marginTop: 300 }} onClick={AssAppointment} >Assign Appointment</Button>
                 {loading && (
                   <span className="spinner-border spinner-border-sm float-lg-right"></span>
                 )}
@@ -232,21 +232,13 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">startDate</h6>
+                          <h6 className="mb-0">StartDate</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.startDate}</p>
+                          <p>{Appointment.startDate}{Appointment.startTime}</p>
                         </div>
                       </div>
 
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Start Time</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.startTime}</p>
-                        </div>
-                      </div>
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
@@ -257,31 +249,17 @@ const AppointDetail = () => {
                         </div>
                       </div>
 
-
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">AbortReason</h6>
+                          <h6 className="mb-0">Accepted Day</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.abortReason}</p>
+                          <p>{Appointment.acceptedTime}</p>
                         </div>
                       </div>
 
                     </div>
-                    <div className="row mb-3">
-                      <div className="col-sm-9 text-secondary">
-                        {!Appointment.acceptedDate ? (
-                          <div className="badge badge-primary mr-2">
-
-                          </div>
-                        ) : (
-                          <div className="badge badge-danger mr-2">
-                            <p>{Appointment.acceptedDate}</p>
-                          </div>
-                        )}
-                      </div>
-
-                    </div>
+                    
 
                   </Tab>
 

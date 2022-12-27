@@ -9,6 +9,8 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons';
 
 const AccountAdminList = () => {
   const [data, setData] = useState([]);
@@ -91,7 +93,7 @@ const AccountAdminList = () => {
   const customButton = (rowData) => {
     return (
       <>
-        <div style={{ display: "center" }}>
+        <div className="row">
 
           {/* Detail */}
           <Link
@@ -101,7 +103,7 @@ const AccountAdminList = () => {
               state: rowData,
             }}
           >
-            <Button style={{ marginLeft: "0px" }}>Detail</Button>
+            <Button  style={{ marginLeft: "0px" }}><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
           </Link>
           {/* Update */}
 

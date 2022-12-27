@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
-import AccountCreate from "../../../components/Modals/Account/AccountCreate";
-import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
 import ApiService from "../../../api/apiService";
 
 import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
+import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
+import CreateProduct from "../Product/ProductCreate"
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
-const AccountList = () => {
+
+
+
+
+const LeadList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
-  // const [totalRecords, setTotalRecords] = useState();
-  // const [totalPage, setTotalPage] = useState();
+  const [totalRecords, setTotalRecords] = useState();
+  const [query, setQuery] = useState("");
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [totalRecords, setTotalRecords] = useState();
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
-  async function getAccountList() {
+  async function getOpportunity() {
     setLoadingData(true);
 
-    await ApiService.getAccountCustomer(currentPage,rows)
+    ApiService.getOpportunity( currentPage,rows)
       .then((response) => {
-
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -43,12 +44,13 @@ const AccountList = () => {
           obj['indexNumber'] = count
 
         })
+        // setTotalRecords(response.totalRow);
         setTotalRecords(response.data.totalRow);
+        console.log(totalRecords)
 
         setData(listDataSet);
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+
+      
         setLoadingData(false);
       })
       .catch((error) => {
@@ -69,94 +71,61 @@ const AccountList = () => {
   }
 
   useEffect(() => {
-    getAccountList();
+    getOpportunity();
   }, [currentPage]);
 
   const refreshList = () => {
-    getAccountList();
+    getOpportunity();
   };
 
-  const customImage = (rowData) => {
-    return (
-      <img
-        style={{ width: "100px", height: "60px" ,paddingRight:"30%"}}
-        src={rowData.image}
-        alt="user-image"
-        className="img-fluid"
-        onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-        }
-      />
-    );
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    setCurrentPage(event.page + 1);
   };
 
-  const customAddress = (rowData) => {
-    return(
-      <>
-        <span
-          className="d-inline-block text-truncate"
-          style={{ maxWidth: 150 }}
-        >
-          {rowData.address}
-        </span>
-      </>
-    );
-  };
-
-  const customStatus = (rowData) => {
-    if (rowData.status=="Activated") {
-      return <div className="badge badge-primary mr-2">Active</div>;
-    }
-    if (!rowData.status=="Banned") {
-      return <div className="badge badge-danger mr-2">Banned</div>;
+  const onPageInputKeyDown = (event, options, totalPage) => {
+    if (event.key === "Enter") {
+      const page = parseInt(currentPage);
+      if (page < 0 || page > totalPage) {
+        setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
+      } else {
+        const first = currentPage ? options.rows * (page - 1) : 0;
+        setFirst(first);
+        setPageInputTooltip("Press 'Enter' key to go to this page.");
+      }
     }
   };
 
- 
+  const onPageInputChange = (event) => {
+    setCurrentPage(event.target.value);
+  };
 
   const customButton = (rowData) => {
-    return (
-      <div className="row">
-        {/* Detail */}
-        <Link
-          style={{ paddingRight: "5%" }}
-          to={{
-            pathname: "/Dashboard/Manager/Account/AccountDetail",
-            state: rowData,
-          }}
-        >
-            <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
-        </Link>
-        {/* Update */}
-        <AccountUpdate rowData={rowData} refreshList={refreshList} />
-        <Button  style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
-      </div>
-    );
-  };
+      return (
+        <div className="row">
+          {/* Detail */}
+          <Link
+            style={{ paddingLeft: "5%" }}
+            to={{
+              pathname: "/Dashboard/Manager/LeadDetail",
+              state: rowData,
+            }}
+          >
+           <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+          </Link>
+          <AccountUpdate rowData={rowData} refreshList={refreshList} />
+        </div>
+      );
+    };
 
-  // const onPageChange = (event) => {
-  //   setFirst(event.first);
-  //   setRows(event.rows);
-  //   setCurrentPage(event.page + 1);
-  // };
-
-  // const onPageInputKeyDown = (event, options, totalPage) => {
-  //   if (event.key === "Enter") {
-  //     const page = parseInt(currentPage);
-  //     if (page < 0 || page > totalPage) {
-  //       setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
-  //     } else {
-  //       const first = currentPage ? options.rows * (page - 1) : 0;
-  //       setFirst(first);
-  //       setPageInputTooltip("Press 'Enter' key to go to this page.");
-  //     }
-  //   }
-  // };
-
-  // const onPageInputChange = (event) => {
-  //   setCurrentPage(event.target.value);
-  // };
+  const customStatus = (rowData) => {
+    if(rowData.opportunityStatus=="New"){
+      return <div className="badge badge-primary mr-2">{rowData.opportunityStatus}</div>;
+    }else{
+      return <div className="badge badge-success mr-2">{rowData.opportunityStatus}</div>;
+    }
+  }
 
   // const template = {
   //   layout: "CurrentPageReport PrevPageLink NextPageLink",
@@ -191,12 +160,6 @@ const AccountList = () => {
   //     );
   //   },
   // };
-  const onPageChange = (event) => {
-    setFirst(event.first);
-    setRows(event.rows);
-    setCurrentPage(event.page + 1);
-  };
-
   const handleSearch = (e) =>{
     setQuery(e.target.value);
     if(e.target.value === ""){
@@ -221,9 +184,9 @@ const AccountList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="List Account Customer " />
-          {/* <AccountCreate refreshList={refreshList} /> */}
-          </div>
+          <PageHeading title="Opportunity List" />
+          <CreateProduct refreshList={refreshList}/>
+        </div> 
         <div className="row">
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
@@ -236,27 +199,24 @@ const AccountList = () => {
         ) : (
           <div id="wrapper">
             <div className="container-fluid">
-              <div className="card shadow mb-1">
-                <DataTable
+              <div className="card shadow mb-4">
+              <DataTable
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
-                  responsive="true"
                 >
-
-                 
-                  <Column header="No" field="indexNumber" />
-                  <Column header="Avatar" body={customImage} />
-                  <Column style={{ paddingRight: 2, paddingLeft: 3, width: "16%" }} header="Name" field="fullname" />
-                  <Column style={{ paddingRight: 2, paddingLeft: 3, width: "20%" }} header="Email" field="email" />
-                  {/* <Column header="Address" body={customAddress} /> */}
-                  <Column header="Phone" field="phone" />
-                  <Column header="Status" body={customStatus} />
+                  <Column header="No" field="indexNumber"/>
+                  <Column header="Name" field="name"/>
+                  <Column header="Description" field="description"/>
+                  <Column header="ListedPrice" field="listedPrice"/>
+                  <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
+
+                
                 </DataTable>
                 <Paginator
                   paginator
-                 
+                  // template={template}
                   first={first}
                   rows={rows}
                   totalRecords={totalRecords}
@@ -273,4 +233,4 @@ const AccountList = () => {
   );
 };
 
-export default AccountList;
+export default LeadList;

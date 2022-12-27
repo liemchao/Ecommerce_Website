@@ -27,6 +27,14 @@ const ProductOwerList = React.lazy(() => import("./pages/Manager/ProductOwer/Pro
 const ProductOwerDetail = React.lazy(() => import("./pages/Manager/ProductOwer/ProductOwerDetail"))
 const LeadDetail = React.lazy(() => import("./pages/Manager/Lead/LeadDetail"))
 const LeadTaskDetail = React.lazy(() => import("./pages/Manager/Task/DetailTask/LeadDetail"))
+const OpportunityDetail = React.lazy(() => import("./pages/Manager/Opportunity/OpportunityDetail"))
+const OpportunityList = React.lazy(() => import("./pages/Manager/Opportunity/OpportunityList"))
+const FeedBackDetail = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackDetail"))
+const FeedBackList = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackList"))
+const ProductHistory = React.lazy(() => import("./pages/Manager/Account/DetailCustommer/ProductHistory"))
+
+
+
 
 
 const routes = [
@@ -53,6 +61,11 @@ const routes = [
   { path: "/Dashboard/Manager/ProductOwerDetail", name: "ProductOwerDetail", component: ProductOwerDetail },
   { path: "/Dashboard/Manager/LeadDetail", name: "LeadDetail", component: LeadDetail},
   { path: "/Dashboard/Manager/LeadTaskDetail", name: "LeadTaskDetail", component: LeadTaskDetail},
+  { path: "/Dashboard/Manager/OpportunityDetail", name: "OpportunityDetail", component: OpportunityDetail},
+  { path: "/Dashboard/Manager/OpportunityList", name: "OpportunityList", component: OpportunityList},
+  { path: "/Dashboard/Manager/FeedBackDetail", name: "FeedBackDetail", component: FeedBackDetail},
+  { path: "/Dashboard/Manager/FeedBackList", name: "FeedBackList", component: FeedBackList},
+  { path: "/Dashboard/Manager/ProductHistory", name: "ProductHistory", component: ProductHistory},
 
 ];
 

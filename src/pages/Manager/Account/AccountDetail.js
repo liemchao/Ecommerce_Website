@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import ViewProduct from "./DetailCustommer/ViewProduct"
 
 import PageHeading from "../../../components/PageHeading";
 
@@ -35,13 +36,16 @@ const AccountDetail = () => {
       ) : (
         <div className="main-body">
           <div className="row">
-            <div className="col-lg-4">
+            <div className="col-lg-2">
               <div className="card">
                 <img
                   src={account.image}
-                  alt="user_avatar"
-                  className="p-1 bg-primary img-thumbnail rounded-circle mx-auto d-block"
-                  width={200}
+                  alt="user-image"
+                  className="img-fluid"
+                  onError={(e) =>
+                    (e.target.src =
+                      "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                  }
                 />
               </div>
             </div>
@@ -137,16 +141,8 @@ const AccountDetail = () => {
                     </div>
                   </Tab>
 
-                  <Tab eventKey="History" title="History View Product">
-                    <DataTable>
-                      <Column header="No">
-
-                      </Column>
-                      <Column header="Image"> </Column>
-                      <Column header="Name"> </Column>
-                      <Column header="Time"></Column>
-                    </DataTable>
-
+                  <Tab eventKey="History" title="Recent View Product">
+                    <ViewProduct rowData={account}/>
 
 
 
@@ -169,6 +165,12 @@ const AccountDetail = () => {
 
 
                   </Tab>
+
+                  <Tab eventKey="Analazy" title="Analazy">
+
+
+
+</Tab>
                 </Tabs>
 
 

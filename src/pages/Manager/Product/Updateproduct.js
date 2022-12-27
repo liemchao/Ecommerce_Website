@@ -8,32 +8,21 @@ import { InputText } from "primereact/inputtext";
 import ApiService from "../../../api/apiService";
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+export default function ProductUpdate({ rowData, refreshList }) {
 
-
-
-export default function AccountUpdate({ rowData, refreshList }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [Product, setProduct] = useState("");
+
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState([]);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [decription, setDecription] = useState("");
-  const [width, setWidth] = useState("");
-  const [lenght, setlenght] = useState("");
-  const [area, setArea] = useState("");
-  const [street, setStreet] = useState("");
-  const [province, setProvice] = useState("");
-  const [district, setDistrict] = useState("");
-  const [noBedroom, setNoBedroom] = useState("");
-  const [noTolet, setnoToLet] = useState("");
-  const [noFloor, setNoFloor] = useState("");
-  const [facade, setFacade] = useState("");
-  const [isFurniture, setIsFurniter] = useState(false);
-  const [direction, setDirection] = useState("");
-  const [utilities, setUtilities] = useState("");
-  const [productStatus, setProductStatus] = useState("");
-  const [receivedDate, setReceviDate] = useState("");
+  const [prostatus, setProductStatus] = useState([]);
+  const [ower, setOwer] = useState([]);
+  const [unti, setUniti] = useState([]);
+  const [direc, setDirec]= useState([]);
+  const [provice, setProvice]= useState([]);
+  
 
 
 
@@ -42,12 +31,12 @@ export default function AccountUpdate({ rowData, refreshList }) {
     setLoading(true);
 
     let data = {
-      id: rowData.id,
-      // roleId: role,
+      // id: rowData.id,
+    
 
     };
 
-    await ApiService.changeUserRole(data)
+    await ApiService.updateProduct(data)
       .then((response) => {
         setSuccessMsg("Update Product Successfull");
         setLoading(false);
@@ -65,62 +54,161 @@ export default function AccountUpdate({ rowData, refreshList }) {
       });
   }
 
-  // async function updateStatus() {
-  //   setLoading(true);
+  async function getOwer() {
+    setLoading(true);
 
-  //   let data = {
-  //     userId: rowData.id,
-  //     status: 1,
+    await ApiService.getidProductOwer()
+      .then((response) => {
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
 
-  //       };
+        })
+      
+        setOwer(listDataSet);
 
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+  async function getProductStatus() {
+    setLoading(true);
 
-  //   await ApiService.updateStatusAccount(data)
-  //     .then((response) => {
-  //       console.log(response);
-  //       setSuccessMsg("Status change successfully!");
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       const resMessage =
-  //         (error.response &&
-  //           error.response.data &&
-  //           error.response.data.message) ||
-  //         error.message ||
-  //         error.toString();
+    await ApiService.getProductStatus()
+      .then((response) => {
+        setProductStatus(response.data);
 
-  //       setErrMsg(resMessage);
-  //       setLoading(false);
-  //     });
-  // }
-  // async function updateStatusBand() {
-  //   setLoading(true);
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
 
-  //   let data = {
-  //     userId: rowData.id,
-  //     status: 0,
+  async function getUniti() {
+    setLoading(true);
 
-  //       };
+    await ApiService.getUniti()
+      .then((response) => {
+        const dataRes = response.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
 
+        })
+   
 
-  //   await ApiService.updateStatusAccount(data)
-  //     .then((response) => {
-  //       console.log(response);
-  //       setSuccessMsg("Status change successfully!");
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       const resMessage =
-  //         (error.response &&
-  //           error.response.data &&
-  //           error.response.data.message) ||
-  //         error.message ||
-  //         error.toString();
+        setUniti(listDataSet);
 
-  //       setErrMsg(resMessage);
-  //       setLoading(false);
-  //     });
-  // }
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getDirc() {
+    setLoading(true);
+
+    await ApiService.getDirection()
+      .then((response) => {
+        const dataRes = response.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+
+        setDirec(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getCate() {
+    setLoading(true);
+
+    await ApiService.getidCategory()
+      .then((response) => {
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        setCategory(listDataSet);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // get response with a status code not in range 2xx
+          console.log(error.response.data.data);
+          console.log(error.response.data.status);
+          console.log(error.response.data.headers);
+        } else if (error.request) {
+          // no response
+          console.log(error.request);
+        } else {
+          // Something wrong in setting up the request
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
 
   const handleOpenModal = (e) => {
     e.preventDefault();
@@ -135,6 +223,14 @@ export default function AccountUpdate({ rowData, refreshList }) {
     setSuccessMsg("");
     UpdateProduct();
   };
+
+  useEffect(() => {
+    getCate();
+    getOwer();
+    getProductStatus();
+    getUniti();
+    getDirc();
+  }, []);
  
 
   return (
@@ -183,45 +279,58 @@ export default function AccountUpdate({ rowData, refreshList }) {
             <InputText
               id="name"
               type="text"
-              // value={Product.name}
+              onChange={(e) => setProduct({ ...Product, name: e.target.value })}
+              defaultValue={rowData.name}
               required
-              // onChange={(e) => setProduct({ ...Product, name: e.target.value })}
+             
             />
           </div>
 
           <div className="p-field p-col-2 p-md-4">
-            <label htmlFor="name">Price</label>
+            <label htmlFor="price">Price</label>
             <InputText
               id="name"
               type="number"
+              defaultValue={rowData.price}
               // onChange={(e) => setProduct({ ...Product, price: e.target.value })}
             />
           </div>
 
            {/* Name */}
            <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Description</label>
+            <label htmlFor="des">Description</label>
             <InputText
               id="name"
               type="text"
-              // value={Product.description}
+              defaultValue={rowData.description}
               required
               // onChange={(e) => setProduct({ ...Product, description: e.target.value })}
             />
           </div>
            
-          <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Category:</label>
+          <div className="p-field p-col-8 p-md-4"style={{marginTop:"-2.5%"}}>
+           <label htmlFor="cate">Category</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
             >
               
 
-{/* {
-                      category.map((x, y) =>
-                      
-                        <option key={y} value={x.id}>{x.productCategoryName}</option>)
-                    } */}
+                        {
+                      category.map((x, y) =>(
+                        <>
+                          {
+                            x.productCategoryName === rowData.category.productCategoryName ? (<>
+                               <option key={y} value={x.id} selected>{x.productCategoryName}</option>
+                            </>) : (<>
+                              <option key={y} value={x.id}>{x.productCategoryName}</option>
+                            </>)
+                          }
+                        </>
+                      )
+                         
+                       )
+                    }
+                  
             </select>
           </div>
 
@@ -229,140 +338,189 @@ export default function AccountUpdate({ rowData, refreshList }) {
           
 
              
-          <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Product Status:</label>
+          <div className="p-field p-col-8 p-md-4"style={{marginTop:"-2.5%"}}>
+           <label htmlFor="status">Product Status</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
             >
-              {/* {
-                    prostatus.map((x, y) =>
-                        <option key={y} value={x.id}>{x.name}</option>)
-                    } */}
+              
+              {
+                     prostatus.map((x, y) =>(
+                        <>
+                          {
+                            x.name === rowData.productStatus ? (<>
+                               <option key={y} value={x.id} selected>{x.name}</option>
+                            </>) : (<>
+                              <option key={y} value={x.id}>{x.name}</option>
+                            </>)
+                          }
+                        </>
+                      )
+                         
+                       )
+                    }
             </select>
           </div>
 
-          <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Product Ower:</label>
+          <div className="p-field p-col-3 p-md-3" style={{marginTop:"-2%"}}>
+           <label htmlFor="ower">ProductOwer</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
-              {/* {
-                      ower.map((x, y) =>
-                        <option key={y} value={x.id}>{x.productOwnerName}</option>)
-                    } */}
+               {
+                     ower.map((x, y) =>(
+                        <>
+                          {
+                            x.productOwnerName === rowData.productOwner.name ? (<>
+                               <option key={y} value={x.id} selected>{x.productOwnerName}</option>
+                            </>) : (<>
+                              <option key={y} value={x.id}>{x.productOwnerName}</option>
+                            </>)
+                          }
+                        </>
+                      )
+                         
+                       )
+                    }
               
             </select>
           </div>
            {/* Name */}
            <div  style={{marginLeft:"0%"}}className="p-field p-col-2 p-md-2">
-            <label htmlFor="name">Width</label>
+            <label htmlFor="width">Width</label>
             <InputText
               id="name"
               type="number"
-              // value={Product.width}
+              defaultValue={rowData.width}
               // onChange={(e) => setProduct({ ...Product, width: e.target.value })}
             />
           </div>
            {/* Name */}
            <div className="p-field p-col-3 p-md-2">
-            <label htmlFor="name">Length</label>
+            <label htmlFor="legth">Length</label>
             <InputText
               id="name"
               type="number"
+              defaultValue={rowData.length}
               required
               // onChange={(e) => setProduct({ ...Product, length: e.target.value })}
             />
           </div>
 
           <div className="p-field p-col-3 p-md-2">
-            <label htmlFor="name">Bedroom</label>
+            <label htmlFor="bed">Bedroom</label>
             <InputText
               id="name"
               type="number"
-              // value={Product.noBedroom}
+              defaultValue={rowData.noBedroom}
               // onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
             />
           </div>
           <div className="p-field p-col-3 p-md-2">
-            <label htmlFor="name">Toilet</label>
+            <label htmlFor="let">Toilet</label>
             <InputText
               id="name"
               type="number"
-              // value={Product.noToilet}
+              defaultValue={rowData.noToilet}
               // onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
             />
           </div>
           <div className="p-field p-col-3 p-md-2">
-            <label style={{marginRight:5}} htmlFor="name">Floor</label>
+            <label style={{marginRight:5}} htmlFor="floor">Floor</label>
             <InputText
               id="name"
               type="number"
-              // value={Product.noFloor}
+              defaultValue={rowData.noFloor}
               // onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
             />
           </div>
           <div className="p-field p-col-1 p-md-2">
-            <label htmlFor="name">Facade</label>
+            <label htmlFor="facade">Facade</label>
             <InputText
               id="name"
               type="number"
-              // value={Product.facade}
+              defaultValue={rowData.facade}
               // onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
             />
           </div>
 
 
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Street</label>
+            <label htmlFor="stress">Street</label>
             <InputText
               id="name"
               type="text"
-              // value={Product.street}
+              defaultValue={rowData.street}
               // onChange={(e) => setProduct({ ...Product, street: e.target.value })}
             />
           </div>
 
-          <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Province</label>
-            <InputText
-              id="name"
-              type="text"
-              // value={Product.province}
-              // onChange={(e) => setProduct({ ...Product, province: e.target.value })}
-            />
-          </div>
+         
 
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">District</label>
+            <label htmlFor="district">District</label>
             <InputText
               id="name"
               type="text"
-              // value={Product.district}
+              defaultValue={rowData.district}
               // onChange={(e) => setProduct({ ...Product, district: e.target.value })}
             />
           </div>
+
+
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Direction:</label>
+            <label htmlFor="province">Province</label>
+            <InputText
+              id="name"
+              type="text"
+              defaultValue={rowData.province}
+              // onChange={(e) => setProduct({ ...Product, province: e.target.value })}
+            />
+          </div>
+          <div className="p-field p-col-8 p-md-4">
+           <label htmlFor="direction">Direction:</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
             >
-              {/* {
-                    direc.map((x, y) =>
-                        <option key={y} value={x.id}>{x.name}</option>)
-                    } */}
+                {
+                     direc.map((x, y) =>(
+                        <>
+                          {
+                            x.name === rowData.direction ? (<>
+                               <option key={y} value={x.id} selected>{x.name}</option>
+                            </>) : (<>
+                              <option key={y} value={x.id}>{x.name}</option>
+                            </>)
+                          }
+                        </>
+                      )
+                         
+                       )
+                    }
               
             </select>
           </div>
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Utilities:</label>
+           <label htmlFor="Utilites">Utilities:</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
             >
+ {
+                     unti.map((x, y) =>(
+                        <>
+                          {
+                            x.name === rowData.utilities ? (<>
+                               <option key={y} value={x.id} selected>{x.name}</option>
+                            </>) : (<>
+                              <option key={y} value={x.id}>{x.name}</option>
+                            </>)
+                          }
+                        </>
+                      )
+                         
+                       )
+                    }
 
-{/* {
-                      unti.map((x, y) =>
-                        <option key={y} value={x.id}>{x.name}</option>)
-                    } */}
             </select>
           </div>
           {/* <div className="p-field p-col-8 p-md-4">
@@ -376,11 +534,11 @@ export default function AccountUpdate({ rowData, refreshList }) {
             />
           </div> */}
           <div style={{marginTop:"-3%"}} className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">receivedDate</label>
+            <label htmlFor="recivedate">receivedDate</label>
             <InputText
               id="name"
-              type="Date"
-              // value={Product.receivedDate}
+              type="datetime"
+              defaultValue={rowData.receivedDate}
               required
               // onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
             />
@@ -399,7 +557,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
                 value={true}
                 // onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
-              <label className="form-check-label" for="exampleRadios1">
+              <label className="form-check-label" htmlFor="exampleRadios1">
                Avaliable
               </label>
             </div>
@@ -412,7 +570,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
                 value={false}
                 // onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
-              <label className="form-check-label" for="exampleRadios2">
+              <label className="form-check-label" htmlFor="exampleRadios2">
                Not Avalabel
               </label>
             </div>

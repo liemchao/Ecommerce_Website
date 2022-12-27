@@ -6,6 +6,8 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 
 import ApiService from "../../../api/apiService";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function AccountCreate({ refreshList }) {
 //   const user = JSON.parse(localStorage.getItem("user"));
@@ -79,7 +81,7 @@ export default function AccountCreate({ refreshList }) {
         style={{ float: "right"}}
         className="btn btn-primary" 
         onClick={() => setModalIsOpen(true)}
-      >Create Account</Button>
+       ><FontAwesomeIcon icon={faPlus} /> Add</Button>
       <Modal
         isOpen={modalIsOpen}
         onAfterClose={refreshList}

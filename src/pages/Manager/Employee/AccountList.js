@@ -223,7 +223,7 @@ const AccountList = () => {
                 >
 
                  
-                  <Column header="ID" field="indexNumber" />
+                  <Column header="No" field="indexNumber" />
                   <Column header="Avatar" body={customImage} />
                   <Column header="Name" field="fullname" />
                   <Column style={{ paddingRight: 2, paddingLeft: 3, width: "20%" }} header="Email" field="email" />

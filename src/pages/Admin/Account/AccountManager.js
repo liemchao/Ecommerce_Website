@@ -9,10 +9,12 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons';
 
 const AccountMangerList = () => {
   const [data, setData] = useState([]);
-  
+
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
   const [totalPage, setTotalPage] = useState();
@@ -29,7 +31,7 @@ const AccountMangerList = () => {
 
 
 
- 
+
   async function getAccountManager() {
     await ApiService.getAccountManager(currentPage, rows)
       .then((response) => {
@@ -57,7 +59,7 @@ const AccountMangerList = () => {
         console.log(error.config);
       });
   }
-  
+
 
   useEffect(() => {
     setLoadingData(true);
@@ -91,7 +93,7 @@ const AccountMangerList = () => {
   const customButton = (rowData) => {
     return (
       <>
-        <div style={{ display: "center" }}>
+        <div className="row">
 
           {/* Detail */}
           <Link
@@ -101,7 +103,7 @@ const AccountMangerList = () => {
               state: rowData,
             }}
           >
-            <Button style={{ marginLeft: "0px" }}>Detail</Button>
+            <Button style={{ marginLeft: "0px" }}><FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
           </Link>
           {/* Update */}
 
@@ -181,39 +183,39 @@ const AccountMangerList = () => {
 
   return (
     <>
-              {data ? (
-                <div id="wrapper">
-                  <div className="container-fluid">
-                    <div className="card shadow mb-4">
-                      <DataTable
-                        value={data}
-                        loading={loadingData}
-                        responsiveLayout="scroll"
-                      >
-                        <Column style={{ width: "5%" }} header="No" field="indexNumber" />
-                        <Column header="Name" field="fullname" />
-                        <Column style={{ paddingRight: 2, paddingLeft: 3, width: "20%" }} header="Email" field="email" />
-                        <Column header="Phone" field="phone" />
-                        <Column header="Role" body={customRole} />
-                        <Column header="Status" body={customStatus} />
-                        <Column header="Action" body={customButton} />
-                      </DataTable>
-                      <Paginator
-                        paginator
-                        // template={template}
-                        first={first}
-                        rows={rows}
-                        totalRecords={totalRecords}
-                        onPageChange={onPageChange}
-                        className="p-jc-end p-my-3"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <p>No data to show...</p>
+      {data ? (
+        <div id="wrapper">
+          <div className="container-fluid">
+            <div className="card shadow mb-4">
+              <DataTable
+                value={data}
+                loading={loadingData}
+                responsiveLayout="scroll"
+              >
+                <Column style={{ width: "5%" }} header="No" field="indexNumber" />
+                <Column header="Name" field="fullname" />
+                <Column style={{ paddingRight: 2, paddingLeft: 3, width: "20%" }} header="Email" field="email" />
+                <Column header="Phone" field="phone" />
+                <Column header="Role" body={customRole} />
+                <Column header="Status" body={customStatus} />
+                <Column header="Action" body={customButton} />
+              </DataTable>
+              <Paginator
+                paginator
+                // template={template}
+                first={first}
+                rows={rows}
+                totalRecords={totalRecords}
+                onPageChange={onPageChange}
+                className="p-jc-end p-my-3"
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p>No data to show...</p>
 
-              )}          
+      )}
     </>
   );
 };

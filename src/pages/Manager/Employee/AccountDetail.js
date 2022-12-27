@@ -27,7 +27,7 @@ const AccountDetail = () => {
 
   return (
     <div>
-      <PageHeading title="Account Detail" />
+      <PageHeading title="Account Employee Detail" />
       {loadingData ? (
         <p>Loading, please wait...</p>
       ) : (

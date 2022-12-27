@@ -148,7 +148,7 @@ const ProductList = () => {
   const customImage = (rowData) => {
     return (
       <img
-        style={{ width: "100px", height: "60px" }}
+        style={{ width: "100px", height: "60px",marginRight:"2%"}}
         src={rowData.productImages[1].url}
         alt="product-image"
         className="img-fluid"
@@ -258,12 +258,12 @@ const ProductList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column header="ID" field="indexNumber"/>
-                  <Column header="Name" field="name"/>
+                  <Column header="No" field="indexNumber"/>
+                  <Column style={{width: "22%" }} header="Name"  field="name"/>
                   <Column header="Category" body={getCaId} />
                   <Column header="Image" body={customImage} />
-                  <Column header="Address" body={getAddress} />
-                  <Column header="Price(VND)" body={getPrice} />
+                  <Column style={{width: "14%" }} header="Address" body={getAddress} />
+                  <Column style={{width: "11%" }}header="Price(VND)" body={getPrice} />
                   <Column header="Sold" body={getStatus} />
                   <Column header="Action" body={customButton} />
 

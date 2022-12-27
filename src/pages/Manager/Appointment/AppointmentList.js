@@ -3,34 +3,48 @@ import React, { useState, useEffect } from "react";
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
 
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+// import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import CreateProduct from "../Product/ProductCreate"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import { Tab,Tabs } from "react-bootstrap";
+import AppointmentWaList from "./FilterAppoint/AppointA"
+import AppointmentAcList from "./FilterAppoint/AppointB"
+import AppointmentReList from "./FilterAppoint/AppointC"
+import AppointmentCuList from "./FilterAppoint/AppointD";
+import AppointmentEmList from "./FilterAppoint/AppointE";
+import AppointmentFiList from "./FilterAppoint/AppointJ";
+import AppointmentExList from "./FilterAppoint/AppointF";
+
+
 
 
 const AppointmentList = () => {
   const [data, setData] = useState([]);
+  const [errMsg, setErrMsg] = useState("");
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
-  async function getAppointment() {
+
+  async function getAppointmentList() {
     setLoadingData(true);
 
-    ApiService.getAppoinment(currentPage, rows)
+    await ApiService.getAppoinment(currentPage, rows)
       .then((response) => {
-
-
+     
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -38,74 +52,43 @@ const AppointmentList = () => {
           obj['indexNumber'] = count
 
         })
-        // setTotalRecords(response.totalRow);
-        console.log(response);
-
+       
+        setTotalRecords(response.data.totalRow);
         setData(listDataSet);
-        // you tell it that you had the result
+       
         setLoadingData(false);
       })
       .catch((error) => {
         if (error.response) {
-          // get response with a status code not in range 2xx
-  
+        
         } else if (error.request) {
-          // no response
+      
           console.log(error.request);
         } else {
-          // Something wrong in setting up the request
-          console.log("Error", error.message);
+      
         }
         console.log(error.config);
       });
   }
 
   useEffect(() => {
-    getAppointment();
+    getAppointmentList();
   }, [currentPage]);
 
-  // const onPageChange = (event) => {
-  //   setFirst(event.first);
-  //   setRows(event.rows);
-  //   setCurrentPage(event.page + 1);
-  // };
-
-  // const onPageInputKeyDown = (event, options, totalPage) => {
-  //   if (event.key === "Enter") {
-  //     const page = parseInt(currentPage);
-  //     if (page < 0 || page > totalPage) {
-  //       setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
-  //     } else {
-  //       const first = currentPage ? options.rows * (page - 1) : 0;
-  //       setFirst(first);
-  //       setPageInputTooltip("Press 'Enter' key to go to this page.");
-  //     }
-  //   }
-  // };
-
-  const onPageInputChange = (event) => {
-    setCurrentPage(event.target.value);
+  const refreshList = () => {
+    setLoadingData(true);
+    getAppointmentList();
   };
+  
 
-  const customButton = (rowData) => {
-    return (
-      <div style={{ display: "flex" }}>
-        {/* Detail */}
-        <Link
-          style={{ paddingRight: "-10%" }}
-          to={{
-            pathname: "/Dashboard/Manager/AppointmentDetail",
-            state: rowData,
-          }}
-        >
-         <Button><FontAwesomeIcon icon={faClipboardList}/></Button>
-        </Link>
-      </div>
-    );
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    setCurrentPage(event.page + 1);
   };
 
   const AppointmentStatus = (rowData) => {
-    if(rowData.appointmentStatus === "Customer Canceled") {
+    if (rowData.appointmentStatus === "Customer Canceled") {
       return <div className="badge badge-info mr-2">Customer Canceled</div>
     }
     if (rowData.appointmentStatus === "Expired") {
@@ -126,82 +109,143 @@ const AppointmentList = () => {
     if (rowData.appointmentStatus === "Accepted") {
       return <div className="badge badge-success">Accepted</div>
     }
+  }
+  const EmployeeName = (rowData) => {
+    if (rowData.lead.employee == null) {
+
+      return <div className="badge badge-info mr-2">Need to</div>
+    } else {
+      return <div className="badge badge-warning mr-2">In Process</div>
+
+    }
+
+
+  }
+  const TimeCreate = (rowData) => {
+
+    return <p style={{ marginTop: "12%" }}>{rowData.startDate} {rowData.startTime}</p>
+
+
+
+  }
+
+
+  const handleDelete = (e, rowData) => {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to delete this Product?"
+    );
+
+    if (confirm) {
+      ApiService.deleteJob(rowData.id)
+        .then((response) => {
+         
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't delete this Product.")
+        });
+    }
   };
 
-  // const refreshList = () => {
-  //   getRecruitmentList(rows, currentPage);
-  // };
-
-  // const handleDelete = (e, rowData) => {
-  //   e.preventDefault();
-  //   let confirm = window.confirm(
-  //     "Are you sure you want to delete this recruitments?"
-  //   );
-
-  //   if (confirm) {
-  //     ApiService.deleteRecruitments(
-  //       rowData
-  //         .then((response) => {
-  //           console.log(response.data);
-  //           refreshList();
-  //         })
-  //         .catch((e) => {
-  //           console.log(e);
-  //         })
-  //     );
-  //   }
-  // };
-
-  // const template = {
-  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
-  //   CurrentPageReport: (options) => {
-  //     return (
-  //       <>
-  //         <span
-  //           className="p-mx-3"
-  //           style={{ color: "var(--text-color)", userSelect: "none" }}
-  //         >
-  //           Go to{" "}
-  //           <InputText
-  //             size="2"
-  //             className="p-ml-1"
-  //             value={currentPage}
-  //             tooltip={pageInputTooltip}
-  //             onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-  //             onChange={onPageInputChange}
-  //           />
-  //         </span>
-  //         <span
-  //           style={{
-  //             color: "var(--text-color)",
-  //             userSelect: "none",
-  //             width: "120px",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           {options.first} - {options.last} of {options.totalRecords}
-  //         </span>
-  //       </>
-  //     );
-  //   },
-  // };
-  const onPageChange = (event) => {
-    setFirst(event.first);
-    setRows(event.rows);
-    setCurrentPage(event.page + 1);
+  const customButton = (rowData) => {
+    return (
+      <div style={{ display: "flex" }}>
+        {/* Detail */}
+        <Link
+          style={{ paddingRight: "-10%" }}
+          to={{
+            pathname: "/Dashboard/Manager/AppointmentDetail",
+            state: rowData,
+          }}
+        >
+          <Button><FontAwesomeIcon icon={faClipboardList} /></Button>
+        </Link>
+      </div>
+    );
   };
+  
+  const handleSearch = (e) =>{
+    setQuery(e.target.value);
+    if(e.target.value === ""){
+      refreshList();
+    }
+
+  }
+
+  async function searchProduct() {
+    
+    await ApiService.searchProduct(query)
+      .then((response) => {
+        // check if the data is populated
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+        
+        setData(listDataSet);
+        setLoadingData(false)
+       
+      })
+      .catch((error) => {
+        if(error.response.status == 404) {
+          setData([]);
+          setErrMsg(error.response.data)
+
+        }
+      
+      });
+  }
+  
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
+
+ 
 
   return (
     <>
       {/* New DataTable */}
       <div>
-        <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Appointment List" />
-        </div>
-        {!data ? (
-          <p>No data to show...</p>
-        ) : (
-          <div id="wrapper">
+       <PageHeading title="Appointment List" />
+       <div style={{marginLeft:"85%", paddingLeft:"5%"}}className="d-sm-flex align-items-center justify-content-between">
+        
+        {/* Upload File Modal */}
+        <CreateProduct refreshList={refreshList}
+        
+        />
+        
+      </div>
+      <div className="row">
+       <div style={{marginBottom:20}}>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
+       onClick={searchProduct}
+       ><FontAwesomeIcon icon={faSearch} /></Button>
+       </div>
+       {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
+          ) : (
+            <Tabs
+            defaultActiveKey="Detail"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            <Tab eventKey="Detail" title="All Appointment">
+            <div id="wrapper">
             <div className="container-fluid">
               <div className="card shadow mb-4">
                 <DataTable
@@ -211,9 +255,10 @@ const AppointmentList = () => {
                 >
                   <Column header="No" field="indexNumber" />
                   <Column header="Title" field="activityType" />
-                  <Column header="Description" field="description" />
-                  <Column header="Start Date" field="startDate" />
+                  <Column style={{ width: "18%" }} header="Description" field="description" />
+                  <Column header="Start Date" body={TimeCreate} />
                   <Column header="End Date" field="endDate" />
+                  <Column header="Employee" body={EmployeeName} />
                   <Column header="Status" body={AppointmentStatus} />
                   <Column header="Action" body={customButton} />
                 </DataTable>
@@ -228,7 +273,34 @@ const AppointmentList = () => {
               </div>
             </div>
           </div>
+
+          </Tab>
+          <Tab eventKey="Wa" title=" Watting">
+            <AppointmentWaList/>
+          </Tab>
+          <Tab eventKey="Ac" title=" Accepted">
+            <AppointmentAcList/>
+          </Tab>
+          <Tab eventKey="Re" title=" Rejected">
+            <AppointmentReList/>
+          </Tab>
+          <Tab eventKey="Cu" title=" Customer Canel">
+            <AppointmentCuList/>
+          </Tab>
+          <Tab eventKey="Em" title=" Employeer Canel">
+            <AppointmentEmList/>
+          </Tab>
+          <Tab eventKey="Ex" title=" Expired">
+            <AppointmentExList/>
+          </Tab>
+          <Tab eventKey="Fi" title=" Finish">
+            <AppointmentFiList/>
+          </Tab>
+
+          </Tabs>
+           
         )}
+         </div>
       </div>
     </>
   );

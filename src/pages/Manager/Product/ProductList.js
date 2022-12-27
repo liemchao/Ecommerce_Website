@@ -7,7 +7,7 @@ import ApiService from "../../../api/apiService";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CreateProduct from "../Product/ProductCreate"
 import UpdateProduct from "../Product/Updateproduct";
@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+
+
 
 
 
@@ -101,12 +103,26 @@ const ProductList = () => {
        rowData.price
     )
   }
-  const getAddress = (rowData)=>{
-    return(
-       rowData.district
-    )
 
-  }
+
+  const handleDelete = (e, rowData) => {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to delete this Product?"
+    );
+
+    if (confirm) {
+      ApiService.deleteJob(rowData.id)
+        .then((response) => {
+         
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't delete this Product.")
+        });
+    }
+  };
 
   const customButton = (rowData) => {
     return (
@@ -118,12 +134,26 @@ const ProductList = () => {
             state: rowData,
           }}
         >
-         <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
+         <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} color="primary"/></Button>
         </Link>
         <UpdateProduct rowData={rowData} refreshList={refreshList} />
-        <Button  style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+        <Button onClick={(e) => handleDelete(e, rowData)} style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
       </div>
       </>
+    );
+  };
+  const customImage = (rowData) => {
+    return (
+      <img
+        style={{ width: "100px", height: "60px",marginRight:"2%"}}
+        src={rowData.productImages[1].url}
+        alt="product-image"
+        className="img-fluid"
+        onError={(e) =>
+          (e.target.src =
+            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+        }
+      />
     );
   };
   
@@ -158,75 +188,22 @@ const ProductList = () => {
           setErrMsg(error.response.data)
 
         }
-        // if (error.response) {
-        //   faTableCellsLarge
-        //   setErrMsg(error.response.data)
-
-        // } else if (error.request) {
-        //   setErrMsg(error.response.data);
-
-        // } else {
-
-        //   setErrMsg(error.response.data);
-        // }
-        // setErrMsg(error.response.data);
+      
       });
   }
   
-
-  // const onPageInputKeyDown = (event, options, totalPage) => {
-  //   if (event.key === "Enter") {
-  //     const page = parseInt(currentPage);
-  //     if (page < 0 || page > totalPage) {
-  //       setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
-  //     } else {
-  //       const first = currentPage ? options.rows * (page - 1) : 0;
-  //       setFirst(first);
-  //       setPageInputTooltip("Press 'Enter' key to go to this page.");
-  //     }
-  //   }
-  // };
-
-  const onPageInputChange = (event) => {
-    setCurrentPage(event.target.value);
-  };
   const notFound =()=>{
     return <div className="badge badge-danger mr-2">Not Found</div>;
   }
+  const getAddress = (rowData)=>{
+    return(
+       rowData.district
+    )
 
-  const template = {
-    layout: "CurrentPageReport PrevPageLink NextPageLink",
-    CurrentPageReport: (options) => {
-      return (
-        <>
-          <span
-            className="p-mx-3"
-            style={{ color: "var(--text-color)", userSelect: "none" }}
-          >
-            Go to{" "}
-            {/* <InputText
-              size="2"
-              className="p-ml-1"
-              value={currentPage}
-              tooltip={pageInputTooltip}
-              onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-              onChange={onPageInputChange}
-            /> */}
-          </span>
-          <span
-            style={{
-              color: "var(--text-color)",
-              userSelect: "none",
-              width: "120px",
-              textAlign: "center",
-            }}
-          >
-            {options.first} - {options.last} of {options.totalRecords}
-          </span>
-        </>
-      );
-    },
-  };
+  }
+
+
+ 
 
   return (
     <>
@@ -269,14 +246,15 @@ const ProductList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column header="ID" field="indexNumber"/>
-                  <Column style={{ paddingRight:"4%", width: "25%" }} header="Name" field="name"/>
+              <Column header="No" field="indexNumber"/>
+                  <Column style={{width: "22%" }} header="Name"  field="name"/>
                   <Column header="Category" body={getCaId} />
-            
-                  <Column header="Price(VND)" body={getPrice} />
+                  <Column header="Image" body={customImage} />
+                  <Column style={{width: "14%" }} header="Address" body={getAddress} />
+                  <Column style={{width: "11%" }}header="Price(VND)" body={getPrice} />
                   <Column header="Sold" body={getStatus} />
-                  <Column header="Action" body={customButton} /> 
-                </DataTable>
+                  <Column header="Action" body={customButton} />
+                  </DataTable>
                 <Paginator
                   paginator
                   first={first}

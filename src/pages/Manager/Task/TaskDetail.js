@@ -6,12 +6,15 @@ import LeadList from "../Lead/LeadList";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
+import ApiService from "../../../api/apiService";
 
 
-const AccountDetail = () => {
+
+const TaskDetail = () => {
     const { state } = useLocation();
     const [Task, setTask] = useState([]);
     const [ListLead, setLead] = useState([]);
+    const [name, setName] = useState();
     
    
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,10 +27,43 @@ const AccountDetail = () => {
       }
       const storageEvent = JSON.parse(localStorage.getItem("Temp"));
       setTask(storageEvent);
-      setLead(Task.taskDetails);
-  
       setLoadingData(false);
     }, []);
+
+
+
+
+       async function getLeadName(id) {  
+ 
+       await ApiService.getNameLead(id)
+        .then((response) => {
+        
+          console.log("sssds"+ response.data.data[0].fullname)
+         
+          setName(response.data.data[0].fullname)
+     
+        })
+        .catch((error) => {
+          if (error.response) {
+            // get response with a status code not in range 2xx
+            console.log(error.response.data.data);
+            console.log(error.response.data.status);
+            console.log(error.response.data.headers);
+          } else if (error.request) {
+            // no response
+            console.log(error.request);
+          } else {
+            // Something wrong in setting up the request
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+    
+    }
+    const getNam=(id)=>{
+      console.log(id)
+
+    }
   
     return (
       <div>
@@ -130,8 +166,6 @@ const AccountDetail = () => {
 
                      <Tab eventKey="Employee" title="Employer">
                      <div className="card-body">
-                      
-
                         <div className="row mb-3">
                           <div className="col-sm-3">
                             <h6 className="mb-0">FullName:</h6>
@@ -207,21 +241,22 @@ const AccountDetail = () => {
                           </div>
                           <div className="col-sm-9 text-secondary">
                           {
-                    Task.taskDetails.map((x, y) =>          
-                        <p key={y}>{x.leadId} 
-                        <Link
                         
-                        to={{
-                          pathname: "/Dashboard/Manager/LeadTaskDetail",
-                        }}
-                        
-                        >
-                        <Button style={{marginLeft:"10%"}}>
-                          <FontAwesomeIcon icon={faExternalLinkSquare} />
-                          </Button>
-                          </Link></p>
-                          )
-                          
+                    Task.taskDetails.map((currvalue, index) =>   {
+                      // console.log(currvalue)
+                      return <div className="row"> <p>{currvalue.fullname}</p>
+                      <Link
+                      to={{
+                        pathname: "/Dashboard/Manager/LeadTaskDetail",
+                      }}
+                  
+                      >
+                      <Button style={{marginLeft:"30%", marginTop:"-10%"}}>
+                        <FontAwesomeIcon icon={faExternalLinkSquare} />
+                        </Button>
+                        </Link></div>
+                    })
+
                      
                     }
                     
@@ -241,5 +276,5 @@ const AccountDetail = () => {
     );
   };
   
-  export default AccountDetail;
+  export default TaskDetail;
   
