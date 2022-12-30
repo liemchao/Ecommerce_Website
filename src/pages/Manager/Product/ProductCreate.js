@@ -20,6 +20,9 @@ export default function ProductCreate({ refreshList }) {
   const [unti] = useState([]);
   const [direc, setDirec]= useState([]);
   const [provice, setProvice]= useState([]);
+  const [district, setDistrict]= useState([]);
+  const [proviceID, setProviceID]= useState();
+
   
   
   const [Product, setProduct] = useState({
@@ -207,6 +210,47 @@ async function getProvice() {
     });
 }
 
+async function getDistrict(proviceID) {
+  setLoading(true);
+  console.log(proviceID)
+
+  await ApiService.getDistrict(proviceID)
+    .then((response) => {
+
+      let listProRes = [];
+      let listSet = [];
+      listProRes = response.data.results;
+      listProRes.map((obj, index) => {
+        let dataObj = {
+          district_id: obj.district_id,
+          district_name: convertVietnamese(obj.district_name),
+          district_type: convertVietnamese(obj.district_type)
+        }
+        listSet.push(dataObj);
+      })
+
+      console.log(listSet)
+      setDistrict(listSet);
+    
+
+      setLoading(false);
+    })
+    .catch((error) => {
+      if (error.response) {
+        // get response with a status code not in range 2xx
+        console.log(error.response.data.data);
+        console.log(error.response.data.status);
+        console.log(error.response.data.headers);
+      } else if (error.request) {
+        // no response
+        console.log(error.request);
+      } else {
+        // Something wrong in setting up the request
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+}
   async function getProductStatus() {
     setLoading(true);
 
@@ -339,6 +383,9 @@ async function getProvice() {
   useEffect(() => {
     getDirc();
   }, []);
+  useEffect(() => {
+    getDistrict(proviceID);
+  }, [proviceID]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -441,7 +488,9 @@ async function getProvice() {
            <label htmlFor="role">Product Status:</label><br></br>
             <select
               onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
+            
             >
+                
               {
                     prostatus.map((x, y) =>
                         <option key={y} value={x.id}>{x.name}</option>)
@@ -533,8 +582,11 @@ async function getProvice() {
           <div className="p-field p-col-8 p-md-4">
            <label htmlFor="role">Province</label><br></br>
             <select
-              onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
+              onChange={(e) => setProviceID(e.target.value)
+              }
+              classNamePrefix="select"
             >
+            
               {
                       provice.map((x, y) =>
                         <option key={y} value={x.province_id}>{x.province_name}</option>)
@@ -544,13 +596,19 @@ async function getProvice() {
           </div>
 
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">District</label>
-            <InputText
-              id="name"
-              type="text"
-              value={Product.district}
-              onChange={(e) => setProduct({ ...Product, district: e.target.value })}
-            />
+            <label htmlFor="name">District</label><br></br>
+            <select
+             classNamePrefix="select"
+              onChange={(e) => setProduct({ ...Product, district: e.target.value })}      
+            >
+              {
+                 
+
+                      district.map((x, y) =>
+                        <option key={y} value={x.district_id}>{x.district_name}</option>)
+                    }
+              
+            </select>
           </div>
           <div className="p-field p-col-8 p-md-4">
            <label htmlFor="role">Direction:</label><br></br>

@@ -150,7 +150,7 @@ const AppointmentFiList = () => {
                                 responsiveLayout="scroll"
                             >
                                 <Column header="No" field="indexNumber" />
-                                <Column header="Title" field="activityType" />
+                                <Column header="Activity Type" field="activityType" />
                                 <Column style={{ width: "14%" }} header="Description" field="description" />
                                 <Column header="Start Date" body={TimeCreate} />
                                 <Column header="End Date" field="endDate" />

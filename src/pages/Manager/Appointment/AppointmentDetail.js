@@ -105,7 +105,7 @@ const AppointDetail = () => {
         <div className="main-body">
           <div className="row">
 
-
+            {/* 
             <div className="col-lg-4">
               <div className="card">
 
@@ -131,7 +131,7 @@ const AppointDetail = () => {
                   <span className="spinner-border spinner-border-sm float-lg-right"></span>
                 )}
                 {/* Message after submit */}
-                {errMsg && (
+            {/* {errMsg && (
                   <span className="alert alert-danger float-lg-right" role="alert">
                     {errMsg}
                   </span>
@@ -143,10 +143,10 @@ const AppointDetail = () => {
                 )}
 
               </div>
-            </div>
+            </div> */}
 
 
-            <div className="col-lg-8">
+            <div className="col-lg-12">
               <div className="card">
                 <Tabs
                   defaultActiveKey="Detail"
@@ -155,18 +155,18 @@ const AppointDetail = () => {
                 >
                   <Tab eventKey="Detail" title="Appoint Detail">
                     <div className="card-body">
-                    <div className="row mb-3">
+                      <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Full Name</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.fullname}
-                          <Button style={{marginLeft:"10%"}}>
-                          <FontAwesomeIcon icon={faExternalLinkSquare} />
-                          </Button>
+                            <Button style={{ marginLeft: "10%" }}>
+                              <FontAwesomeIcon icon={faExternalLinkSquare} />
+                            </Button>
                           </p>
 
-                       
+
                         </div>
                       </div>
 
@@ -179,7 +179,7 @@ const AppointDetail = () => {
                         </div>
                       </div>
 
-                   
+
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
@@ -259,56 +259,27 @@ const AppointDetail = () => {
                       </div>
 
                     </div>
-                    
+
 
                   </Tab>
+                  <Tab eventKey="Employe" title="Employee">
 
-                  <Tab eventKey="Status" title="Employee">
-                    <div className="card-body">
-
-
-                    <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">FullName</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.fullname}
-                          <Button style={{marginLeft:"10%"}}>
-                          <FontAwesomeIcon icon={faExternalLinkSquare} />
-                          </Button>
-                          </p>
-                        </div>
+                    {
+                      Appointment.employee == null ? (
+                      <div>
+                        <p> Apointment no have employee manage</p>
                       </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Email</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.email}</p>
-                        </div>
-                      </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Furniture</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          {Appointment.isFurniture ? (
-                            <div className="badge badge-primary mr-2">
-                              Active
-                            </div>
-                          ) : (
-                            <div className="badge badge-danger mr-2">
-                              Not Avaliable
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                      ) : (
+                      <div>
+                        <p > Apointment  have employee manage</p>
+                      </div>)
 
 
-                    </div>
+
+                    }
                   </Tab>
+
+
 
 
 
@@ -320,11 +291,11 @@ const AppointDetail = () => {
                           <h6 className="mb-0">FullName</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.lead.fullname} 
-                          <Button style={{marginLeft:"10%"}}>
-                          <FontAwesomeIcon icon={faExternalLinkSquare} />
-                          </Button>
-                          
+                          <p>{Appointment.lead.fullname}
+                            <Button style={{ marginLeft: "10%" }}>
+                              <FontAwesomeIcon icon={faExternalLinkSquare} />
+                            </Button>
+
                           </p>
                         </div>
                       </div>
@@ -353,10 +324,10 @@ const AppointDetail = () => {
                           <h6 className="mb-0">Product Name</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.product.name} 
-                          <Button style={{marginLeft:"10%"}}>
-                          <FontAwesomeIcon icon={faExternalLinkSquare} />
-                          </Button>
+                          <p>{Appointment.product.name}
+                            <Button style={{ marginLeft: "10%" }}>
+                              <FontAwesomeIcon icon={faExternalLinkSquare} />
+                            </Button>
                           </p>
                         </div>
                       </div>

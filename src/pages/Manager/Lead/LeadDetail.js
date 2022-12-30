@@ -5,6 +5,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
 import PageHeading from "../../../components/PageHeading";
+import OpportunityLeadList from "./DetailLead/Oppo";
+import AppointLeadList from "./DetailLead/AppoinmentLead";
 
 
 const LeadDetail = () => {
@@ -36,14 +38,7 @@ const LeadDetail = () => {
         <div className="main-body">
           <div className="row">
             <div className="col-lg-4">
-              <div className="card">
-                <img
-                //   src={account.image}
-                  alt="user_avatar"
-                  className="p-1 bg-primary img-thumbnail rounded-circle mx-auto d-block"
-                  width={200}
-                />
-              </div>
+
             </div>
             <div className="col-lg-8">
               <div className="card">
@@ -59,9 +54,30 @@ const LeadDetail = () => {
                           <h6 className="mb-0">Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {/* <p>{account.fullname}</p> */}
+                          {account.fullname}
                         </div>
                       </div>
+
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Gender:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          {account.gender ? (
+                            <div className="col-sm-7text-secondary">Male
+
+                            </div>
+
+                          ) : (
+                            <div className="col-sm-7text-secondary">Female
+                            </div>
+
+                          )
+
+                          }
+                        </div>
+                      </div>
+
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Email:</h6>
@@ -76,6 +92,22 @@ const LeadDetail = () => {
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.phone}</p>
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Lead Type: </h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.leadType}</p>
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Company Name:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.companyName}</p>
                         </div>
                       </div>
                       {/* <div className="row mb-3">
@@ -96,48 +128,110 @@ const LeadDetail = () => {
                       </div> */}
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Joined Since:</h6>
+                          <h6 className="mb-0">Day of Brith:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {/* <p >{(account.createDate).slice(0, 10)}</p> */}
+                          <p>{(account.dob).slice(0, 10)}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create</h6>
+                          <h6 className="mb-0">Create Day</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {/* <p >{(account.createDate).slice(11, 19)}</p> */}
+                          <p>{(account.createDate).slice(0, 10)}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0">Lead Status</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {/* {account.status ? (
-                            <div className="badge badge-primary mr-2">
-                              Active
+                          {account.leadStatus === "New" ? (
+                            <div className="badge badge-warning mr-2">
+                              New
                             </div>
                           ) : (
-                            <div className="badge badge-danger mr-2">
-                              Banned
+                            <div className="badge badge-success mr-2">
+                              {account.leadStatus}
                             </div>
-                          )} */}
+                          )}
                         </div>
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="opportunity" title="Opportunity">
 
+                  <Tab eventKey="account" title="Account">
+                    {
+                      account.account === null ? (
+                        <div style={{textAlign:"center",fontSize:30}}>
+                          <h1 className="badge badge-danger mr-2"> Lead has not registered an account in the system</h1>
+                        </div>
+                      ) : (
+                        <div className="card-body">
+                           <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Name:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          {account.account.fullname}
+                        </div>
+                      </div>
 
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Gender:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          {account.account.gender ? (
+                            <div className="col-sm-7text-secondary">Male
+
+                            </div>
+
+                          ) : (
+                            <div className="col-sm-7text-secondary">Female
+                            </div>
+
+                          )
+
+                          }
+                        </div>
+                      </div>
+
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Email:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.account.email}</p>
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Phone:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.account.phone}</p>
+                        </div>
+                      </div>
+                       
+                        </div>)
+
+                    }
 
                   </Tab>
                   <Tab eventKey="appointment" title="Appointment">
+                    <AppointLeadList  rowData={account} />
+                   
+                  </Tab>
 
+                  <Tab eventKey="opportunity" title="Opportunity">
+
+                  <OpportunityLeadList  rowData={account}/>
 
 
                   </Tab>
+
                 </Tabs>
 
 

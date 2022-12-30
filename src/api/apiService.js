@@ -416,6 +416,16 @@ const getNoti = () => {
 };
 
 
+const getopportunitytLead = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Opportunity/opportunity/lead/${id}`,{
+  headers: authHeader(),
+});
+};
+const getAppointLead = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment/lead/${id}`,{
+  headers: authHeader(),
+});
+};
 
 
 
@@ -875,6 +885,7 @@ export default {
 
   // // Account
   // getAccountCustomer,
+  getAppointLead,
   getAccountById,
   getAccountSystem,
   updateStatusAccount,
@@ -894,6 +905,7 @@ export default {
   getAccountManager,
   getFeedBack,
   getDistrict,
+  getopportunitytLead,
 
  
   // updateProfile,
