@@ -209,9 +209,11 @@ const searchProduct = (query) => {
 };
 
 
-// const getPublicProduct = () => {
-//   return http.get(`/api/Products/page/${ele}/${page}`); // chỉ lấy Product có status active cho candidate
-// };
+const getProductOwer = (page,size) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner?pageNumber=${page}&pageSize=${size}`, {
+    headers: authHeader(),
+  });
+};
 
 // const getProductList = (ele, page) => {
 //   return http.get(`/api/Products/page/${ele}/${page}`); // lấy tất cả các Product cho Admin, Staff, Recruiter
@@ -352,6 +354,16 @@ const getProductById= (id) => {
   headers: authHeader(),
 });
 };
+const getFavoirteProduct= (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/customer-favorite-list/${id}`,{
+  headers: authHeader(),
+});
+};
+const getDistrict= (id) => {
+  return axios.get(`https://vapi.vnappmob.com/api/province/district/${id}`,{
+  headers: authHeader(),
+});
+};
 
 //Filter Appointment
 
@@ -375,13 +387,13 @@ const getAppoinmentCu = (page, size) => {
 };
 
 const getAppoinmentEm = (page, size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&filter=7%3BEmployee%20Canceled`, {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BEmployee%20Canceled`, {
     headers: authHeader(),
   });
 };
 
 const getAppoinmentRe = (page, size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&filter=7%3BRejected`, {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse&filter=7%3BRejected`, {
     headers: authHeader(),
   });
 };
@@ -396,6 +408,15 @@ const getAppoinmentFi = (page, size) => {
     headers: authHeader(),
   });
 };
+
+const getNoti = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Notification/notification`, {
+    headers: authHeader(),
+  });
+};
+
+
+
 
 
 
@@ -792,7 +813,6 @@ const getAppoinmentFi = (page, size) => {
 
 export default {
   Login,
-  Login,
   Logout,
 
   // HasWelfare
@@ -873,6 +893,7 @@ export default {
   getAccountEmployee,
   getAccountManager,
   getFeedBack,
+  getDistrict,
 
  
   // updateProfile,
@@ -898,9 +919,11 @@ export default {
   getAppoinmentRe,
   getAppoinmentWa,
   searchAccountSystem,
+  getNoti,
 
   // // Products
   getPublicProduct,
+  getProductOwer,
   getProductById,
   // getProductList,
   // getProductById,
@@ -919,6 +942,7 @@ export default {
   getProvie,
   getOpportunity,
   getHistory,
+  getFavoirteProduct,
   // // Skills
   // getPublicSkill,
   // getSkillList,

@@ -208,7 +208,7 @@ const LeadList = () => {
                   <Column header="No" field="indexNumber"/>
                   <Column header="Name" field="name"/>
                   <Column header="Description" field="description"/>
-                  <Column header="ListedPrice" field="listedPrice"/>
+                  <Column header="Deal Value" field="listedPrice"/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
 

@@ -4,6 +4,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import ViewProduct from "./DetailCustommer/ViewProduct"
+import FavoirteList from "./DetailCustommer/FavoirteProduct";
 
 import PageHeading from "../../../components/PageHeading";
 
@@ -49,7 +50,7 @@ const AccountDetail = () => {
                 />
               </div>
             </div>
-            <div className="col-lg-8">
+            <div className="col-lg-10">
               <div className="card">
                 <Tabs
                   defaultActiveKey="profile"
@@ -150,7 +151,7 @@ const AccountDetail = () => {
                   </Tab>
 
                   <Tab eventKey="Favourite" title="Favorite Product">
-
+                  <FavoirteList rowData={account}/>
 
 
                   </Tab>

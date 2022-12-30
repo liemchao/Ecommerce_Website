@@ -16,7 +16,7 @@ import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
-const ProductList = () => {
+const ProductOwerList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
@@ -32,15 +32,14 @@ const ProductList = () => {
   async function getPublicProduct() {
     setLoadingData(true);
 
-    ApiService.getPublicProduct(currentPage,rows)
+    ApiService.getProductOwer(currentPage,rows)
       .then((response) => {
         // console.log(response);
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
-        listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
-
+        let  counter = 10 * (currentPage-1)
+        listDataSet.map((obj, index) => { 
+          obj['indexNumber'] = (counter + ++index) 
         })
        
         setTotalRecords(response.data.totalRow);
@@ -92,12 +91,12 @@ const ProductList = () => {
   }
   const getStatus=(rowData)=>{
   
-    if (!rowData.isSold) {
+    if (rowData.isDelete) {
   
-      return <div className="badge badge-success mr-2">Avaliable</div>;
+      return <div className="badge badge-danger mr-2">Inactive</div>;
     }
     else{
-      return <div className="badge badge-danger mr-2">Inactive</div>;
+      return <div className="badge badge-success mr-2">Avaliable</div>;
     }
   }
   const getPrice = (rowData)=>{
@@ -109,6 +108,10 @@ const ProductList = () => {
     return(
        rowData.district
     )
+
+  }
+  const getValue= (rowData) =>{
+    return <div className="badge badge-info mr-2">{rowData.totalProduct}</div>;
 
   }
 
@@ -258,20 +261,15 @@ const ProductList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-                  <Column header="No" field="indexNumber"/>
-                  <Column style={{width: "22%" }} header="Name"  field="name"/>
-                  <Column header="Category" body={getCaId} />
-                  <Column header="Image" body={customImage} />
-                  <Column style={{width: "14%" }} header="Address" body={getAddress} />
-                  <Column style={{width: "11%" }}header="Price(VND)" body={getPrice} />
-                  <Column header="Sold" body={getStatus} />
+                  <Column style={{width: "6%" }} header="No" field="indexNumber"/>
+                  <Column style={{width: "18%" }} header="Name"  field="productOwnerName"/>
+                  <Column header="Phone"  field="phone"/>
+                  <Column style={{width: "24%" }} header="Email"  field="email"/>
+                  <Column style={{textAlign:"center"}}header="TotalProduct"  body={getValue}/>
+                  <Column header="Delete" body={getStatus} />
                   <Column header="Action" body={customButton} />
 
-                  {/* <Column header="Cate" field="s" />
-                  <Column header="Name" field="d" />
-                  <Column header="Name" field="c" />
-                  <Column header="Name" field="d" />
-                  <Column header="Status" body="d" /> */}
+            
                 </DataTable>
                 <Paginator
                   paginator
@@ -292,4 +290,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductOwerList;

@@ -11,7 +11,6 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
-import CreateProduct from "../Product/ProductCreate"
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
@@ -26,6 +25,7 @@ const FeedBackList = () => {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [rating, setRating] = useState([]);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
@@ -42,10 +42,9 @@ const FeedBackList = () => {
           obj['indexNumber'] = count
 
         })
-        // setTotalRecords(response.totalRow);
+      
         setTotalRecords(response.data.totalRow);
-        console.log(totalRecords)
-
+      
         setData(listDataSet);
 
       
@@ -136,11 +135,24 @@ const FeedBackList = () => {
     return <p>{rowData.appointment.fullname}</p>;
        
    }
-   const Rate = (rowData) => {
-   
-      return  <FontAwesomeIcon icon={faStar} color="Blue"/>
-    
-       
+  const Rate = (rowData) => {
+    // setRating()
+    if(rating.length != 0) {
+      // for(;rating.length == 0;) {
+      //   // i = 0
+      //   // console.log(rating.length)
+      //   rating.shift()
+      // }
+      rating.splice(0,rating.length)
+    }
+    // console.log(rating)
+    // console.log("start")
+    for (let index = 0; index < rowData.rate; index++) {
+      // console.log(index)
+      // console.log(ro wData.rate)
+      rating.push( <FontAwesomeIcon icon={faStar} color="Blue"/>)
+    }
+    return rating
    }
   
 
@@ -202,7 +214,6 @@ const FeedBackList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="FeedBack List" />
-          <CreateProduct refreshList={refreshList}/>
         </div> 
         <div className="row">
        <div style={{marginBottom:20}}>

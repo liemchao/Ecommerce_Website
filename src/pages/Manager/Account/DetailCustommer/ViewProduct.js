@@ -156,7 +156,6 @@ const Categoy = (rowData) => {
                 responsive="true"
               >
                 <Column style={{ width: "10%" }} header="No" field="indexNumber" />
-                <Column style={{ paddingRight: 2, paddingLeft: 3, width: "19%" }} header="Time View" body={Categoy} />
                 <Column style={{ paddingRight: 2, paddingLeft: 3, width: "19%" }} header="Product Name" body={ProductName} />
                 <Column style={{paddingLeft:"6%",width: "19%" }} header="Price(VND)" body={Price}/>
                 <Column header="Favorite" body={customStatus} />
@@ -164,12 +163,7 @@ const Categoy = (rowData) => {
               </DataTable>
               <Paginator
                 paginator
-                // template={template}
-                // first={first}
-                // rows={rows}
-                // totalRecords={totalRecords}
-                // onPageChange={onPageChange}
-                // className="p-jc-end p-my-3"
+              
               />
             </div>
           </div>

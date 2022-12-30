@@ -6,7 +6,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
+import Select from 'react-select';
 import ApiService from "../../../api/apiService";
 
 export default function ProductCreate({ refreshList }) {
@@ -17,7 +17,7 @@ export default function ProductCreate({ refreshList }) {
   const [category, setCategory] = useState([]);
   const [prostatus, setProductStatus] = useState([]);
   const [ower, setOwer] = useState([]);
-  const [unti, setUniti] = useState([]);
+  const [unti] = useState([]);
   const [direc, setDirec]= useState([]);
   const [provice, setProvice]= useState([]);
   
@@ -71,7 +71,6 @@ export default function ProductCreate({ refreshList }) {
     console.log(createData);
     await ApiService.createProduct(createData)
       .then((response) => {
-        console.log(response);
         setSuccessMsg("Create Product successfully!");
         setLoading(false);
       })
@@ -130,7 +129,6 @@ export default function ProductCreate({ refreshList }) {
           obj['indexNumber'] = count
 
         })
-        console.log(response);
 
         setOwer(listDataSet);
 
@@ -175,7 +173,6 @@ async function getProvice() {
   await ApiService.getProvie()
     .then((response) => {
 
-      console.log(response.data.results)
       let listProRes = [];
       let listSet = [];
       listProRes = response.data.results;
@@ -222,7 +219,6 @@ async function getProvice() {
           obj['indexNumber'] = count
 
         })
-        console.log(response);
 
         setProductStatus(listDataSet);
 
@@ -250,17 +246,19 @@ async function getProvice() {
 
     await ApiService.getUniti()
       .then((response) => {
-        const dataRes = response.data
-        const listDataSet = [...dataRes];
-        listDataSet.map((obj, index) => {
-          const count = ++index;
-          obj['indexNumber'] = count
-
+       
+        let list  = response.data;
+        list.map((tagName) => {
+          let obj = {
+            value: tagName,
+            label: tagName.name
+          }
+          unti.push(obj)
         })
-        console.log(response);
-
-        setUniti(listDataSet);
-
+        // console.log(response.data,"dsadwqew")
+        // setUniti(response.data);
+        // // console.log(unti)
+        // console.log(unti)
         setLoading(false);
       })
       .catch((error) => {
@@ -318,12 +316,28 @@ async function getProvice() {
 
  
   useEffect(() => {
-    getCate();
-    getOwer();
-    getProductStatus();
     getUniti();
-    getDirc();
+  }, []);
+
+  
+  useEffect(() => {
+    getProductStatus();
+  }, []);
+
+  useEffect(() => {
+    getCate();
+  }, []);
+
+  useEffect(() => {
+    getOwer();
+  }, []);
+
+  useEffect(() => {
     getProvice();
+  }, []);
+
+  useEffect(() => {
+    getDirc();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -552,15 +566,17 @@ async function getProvice() {
           </div>
           <div className="p-field p-col-8 p-md-4">
            <label htmlFor="role">Utilities:</label><br></br>
-            <select
-              onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
-            >
-
-{
-                      unti.map((x, y) =>
-                        <option key={y} value={x.id}>{x.name}</option>)
-                    }
-            </select>
+           
+           <Select
+            
+            isMulti
+            name="colors"
+            options= {unti}
+            // value = {unti[0]}
+            className="basic-multi-select"
+            classNamePrefix="select"
+             onChange={(e) => console.log(e)}
+  />
           </div>
           {/* <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">productOwnerId</label>

@@ -27,7 +27,7 @@ const AccountDetail = () => {
 
   return (
     <div>
-      <PageHeading title="Account Employee Detail" />
+      <PageHeading title="Employee Account Detail" />
       {loadingData ? (
         <p>Loading, please wait...</p>
       ) : (
@@ -36,10 +36,13 @@ const AccountDetail = () => {
             <div className="col-lg-4">
               <div className="card">
                 <img
-                  src={account.image}
-                  alt="user_avatar"
-                  className="p-1 bg-primary img-thumbnail rounded-circle mx-auto d-block"
-                  width={200}
+                     src={account.image}
+                     alt="user-image"
+                     className="img-fluid"
+                     onError={(e) =>
+                       (e.target.src =
+                         "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                     }
                 />
               </div>
             </div>

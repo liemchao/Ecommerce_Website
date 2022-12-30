@@ -30,6 +30,7 @@ const ProductList = () => {
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
+  // const [counter, setCounter] = useState(0);
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
@@ -37,16 +38,18 @@ const ProductList = () => {
 
   async function getPublicProduct() {
     setLoadingData(true);
-
+    // if(currentPage == 1) 
     await ApiService.getPublicProduct(currentPage, rows)
       .then((response) => {
-     
+        // setCounter()
+        // let start = 9
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
+        let  counter = 10 * (currentPage-1)
         listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
-
+        
+          obj['indexNumber'] = (counter + ++index) 
+         
         })
        
         setTotalRecords(response.data.totalRow);

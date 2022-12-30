@@ -73,21 +73,16 @@ const AppointmentFiList = () => {
 
 
 
-    const customRole = (rowData) => {
-        return <div className="badge badge-primary mr-2">{rowData.role.roleName}</div>;
-    };
-
+ 
     const EmployeeName = (rowData) => {
-        if (rowData.lead.employee == null) {
+        if (rowData.employee == null) {
     
-          return <div className="badge badge-info mr-2">Need to</div>
+          return <div className="badge badge-warning mr-2"> Not assigned</div>
         } else {
-          return <div className="badge badge-warning mr-2">In Process</div>
+          return <div className="badge badge-info mr-2">Assigned</div>
     
         }
-    
-    
-      }
+    }
       const TimeCreate = (rowData) => {
     
         return <p style={{ marginTop: "12%" }}>{rowData.startDate} {rowData.startTime}</p>

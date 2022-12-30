@@ -47,9 +47,9 @@ const AppointmentList = () => {
      
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
+        let  counter = 10 * (currentPage-1)
         listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
+          obj['indexNumber'] = (counter + ++index) 
 
         })
        
@@ -111,11 +111,11 @@ const AppointmentList = () => {
     }
   }
   const EmployeeName = (rowData) => {
-    if (rowData.lead.employee == null) {
+    if (rowData.employee == null) {
 
-      return <div className="badge badge-info mr-2">Need to</div>
+      return <div className="badge badge-warning mr-2"> Not assigned</div>
     } else {
-      return <div className="badge badge-warning mr-2">In Process</div>
+      return <div className="badge badge-info mr-2">Assigned</div>
 
     }
 
