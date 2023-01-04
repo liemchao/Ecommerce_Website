@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Badge  } from "react-bootstrap";
+import { Button, Badge } from "react-bootstrap";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import ApiService from "../../src/api/apiService";
 
@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const Topbar = () => {
   const history = useHistory();
@@ -22,6 +25,7 @@ const Topbar = () => {
 
         setTotalRecords(response.data.totalRow);
         setData(response.data.data);
+        toast("You have Appoiment !")
       })
       .catch((error) => {
         if (error.response) {
@@ -43,6 +47,7 @@ const Topbar = () => {
   useEffect(() => {
     getNoti()
   }, []);
+  
 
 
   if (!user) {
@@ -53,8 +58,10 @@ const Topbar = () => {
     ApiService.Logout();
     history.push("/Login");
   }
-
-
+ 
+  const refreshList = () => {
+    getNoti();
+  };
 
 
   return (
@@ -78,21 +85,45 @@ const Topbar = () => {
               <Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords}</Badge>
             </a>
 
-
-            <div style={{overflow: "auto",maxHeight: "10rem", scrollbarWidth:"none"}}
+            <ToastContainer/>
+            <div style={{ overflow: "auto", maxHeight: "10rem", scrollbarWidth: "none" }}
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
+              <div className="row">
+                <Button style={{ marginLeft: "10%", border: "2px solid white " }}>
+                  All
+                </Button>
+                 
+                <Button style={{ marginLeft: "10%", border: "2px solid white" }}>
+                  UnRead
+
+                </Button>
+
+              </div>
 
 
               {
                 data.map((x, y) =>
+                <>
                   <Button
+                  onClick={refreshList}
                     className="dropdown-item"
-                  >
-                    <strong className="me-auto">{x.title}</strong>   <small className="text-muted">{x.createDate}</small>
+                    >
+                     {x.isRead==true ? (<div style={{color:"blue"}}>
+                      <strong className="me-auto">{x.title}</strong>   <small className="text-muted">{x.createDate}</small>
                     <p key={y} value={x.id}>{x.content}</p>
-                    </Button> )
+                    </div>):(
+                     <><strong className="me-auto">{x.title}</strong>   <small className="text-muted">{x.createDate}</small>
+                    <p key={y} value={x.id}>{x.content}</p></>)
+
+                     }
+                    
+                  </Button>
+              
+                  </>
+
+                  )
               }
 
 

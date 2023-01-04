@@ -15,7 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
-
+import { Tab,Tabs } from "react-bootstrap";
+import ProductNoList from "./FliterProduct/ProductNo";
+import ProductDeList from "./FliterProduct/ProductDe";
+import ProductOhList from "./FliterProduct/ProductOh";
+import ProductOsList from "./FliterProduct/ProductOs";
+import ProductSoList from "./FliterProduct/ProductSo";
+import ProductDeleList from "./FliterProduct/ProductDele";
 
 
 
@@ -93,31 +99,41 @@ const ProductList = () => {
   }
   const getStatus=(rowData)=>{
   
-    if (rowData.isSold) {
-      // console.log(rowData.status);
-      return <div className="badge badge-primary mr-2"> Not Avaliable</div>;
+    if (rowData.productStatus=="On sale") {
+      return <div className="badge badge-secondary mr-2"> On sale</div>;
     }
-    else{
-      return <div className="badge badge-success mr-2">Avaliable</div>;
+    if (rowData.productStatus === "Not open for sale") {
+      return <div className="badge badge-dark mr-2">Not open for sale</div>
+    }
+    if (rowData.productStatus === "On hold") {
+      return <div className="badge badge-warning mr-2">On hold</div>
+    }
+    if (rowData.productStatus === "Deposited") {
+      return <div className="badge badge-info mr-2">Deposited</div>
+    }
+    if (rowData.productStatus === "Sold") {
+      return <div className="badge badge-success mr-2">Sold</div>
     }
   }
   const getPrice = (rowData)=>{
+    let num = rowData.price
     return(
-       rowData.price
+       num.toLocaleString()
     )
   }
 
 
-  const handleDelete = (e, rowData) => {
+  async function handleDelete (e, rowData) {
     e.preventDefault();
     let confirm = window.confirm(
       "Are you sure you want to delete this Product?"
     );
 
     if (confirm) {
-      ApiService.deleteJob(rowData.id)
+      console.log(rowData.id)
+      await ApiService.deleteProduct(rowData.id)
         .then((response) => {
-         
+          window.alert(" Delete this Product sucsseful.")
           refreshList();
         })
         .catch((e) => {
@@ -145,23 +161,24 @@ const ProductList = () => {
       </>
     );
   };
-  const customImage = (rowData) => {
-    return (
-      <img
-        style={{ width: "100px", height: "60px",marginRight:"2%"}}
-        src={rowData.productImages[1].url}
-        alt="product-image"
-        className="img-fluid"
-        onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-        }
-      />
-    );
-  };
+  // const customImage = (rowData) => {
+  //   return (
+  //     <img
+  //       style={{ width: "100px", height: "60px",marginRight:"2%"}}
+  //       src={rowData.productImages[1].url}
+  //       alt="product-image"
+  //       className="img-fluid"
+  //       onError={(e) =>
+  //         (e.target.src =
+  //           "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+  //       }
+  //     />
+  //   );
+  // };
   
   const handleSearch = (e) =>{
     setQuery(e.target.value);
+  
     if(e.target.value === ""){
       refreshList();
     }
@@ -175,12 +192,10 @@ const ProductList = () => {
         // check if the data is populated
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
-        listDataSet.map((obj, index) => {
-          const count = ++index;
-          obj['indexNumber'] = count
-
+        let  counter = 10 * (currentPage-1)
+        listDataSet.map((obj, index) => { 
+          obj['indexNumber'] = (counter + ++index) 
         })
-        
         setData(listDataSet);
         setLoadingData(false)
        
@@ -200,7 +215,7 @@ const ProductList = () => {
   }
   const getAddress = (rowData)=>{
     return(
-       rowData.district
+      <div className="auto">{rowData.street},{rowData.district},{rowData.province}</div>
     )
 
   }
@@ -234,28 +249,33 @@ const ProductList = () => {
          <div className="card shadow mb-1">
            <DataTable
            >
-
            <Column header="Result" body={notFound}/>
            </DataTable>
           </div>
           </div>
           </div>
           ) : (
-          <div id="wrapper">
+            <Tabs
+            defaultActiveKey="Detail"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            <Tab eventKey="Detail" title="All Product">
+            <div id="wrapper">
             <div className="container-fluid">
               <div className="card shadow mb-4">
-                <DataTable
+              <DataTable
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
                 >
-              <Column header="No" field="indexNumber"/>
-                  <Column style={{width: "22%" }} header="Name"  field="name"/>
+              <Column style={{width: "5%" }} header="No" field="indexNumber"/>
+                  <Column style={{width: "20%" }} header="Name"  field="name"/>
                   <Column header="Category" body={getCaId} />
-                  <Column header="Image" body={customImage} />
-                  <Column style={{width: "14%" }} header="Address" body={getAddress} />
-                  <Column style={{width: "11%" }}header="Price(VND)" body={getPrice} />
-                  <Column header="Sold" body={getStatus} />
+                  {/* <Column header="Image" body={customImage} /> */}
+                  <Column style={{width: "22%" ,header:"center"}} header="Address" body={getAddress} />
+                  <Column style={{width: "12%" }}header="Price(VND)" body={getPrice} />
+                  <Column header="Status" body={getStatus} />
                   <Column header="Action" body={customButton} />
                   </DataTable>
                 <Paginator
@@ -269,6 +289,33 @@ const ProductList = () => {
               </div>
             </div>
           </div>
+
+          </Tab>
+          <Tab eventKey="Wa" title="Not Open">
+            <ProductNoList/>
+            
+          </Tab>
+          <Tab eventKey="Ac" title="On Sale ">
+            <ProductOsList/>
+        
+          </Tab>
+          <Tab eventKey="Re" title="On Hole">
+           <ProductOhList/>
+          </Tab>
+          <Tab eventKey="Cu" title="Deposited">
+            <ProductDeList/>
+      
+          </Tab>
+          <Tab eventKey="Em" title="Sold">
+            <ProductSoList/>
+        
+          </Tab>
+          <Tab eventKey="De" title="Deleted">
+            <ProductDeleList />
+        
+          </Tab>
+
+          </Tabs>
            
         )}
          </div>

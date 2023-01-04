@@ -73,7 +73,7 @@ const Dashboard = () => {
               <ChartLine title="Anna" />
             </div>
             <div className="col-xl-2 col-lg-6">
-              <Bar />
+              <Bar title="Test1"/>
             </div>
           </div> 
           </>

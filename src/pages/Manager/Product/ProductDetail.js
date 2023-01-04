@@ -5,6 +5,7 @@ import PageHeading from "../../../components/PageHeading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 
 const ProductDetail = () => {
     const { state } = useLocation();
@@ -259,11 +260,13 @@ const ProductDetail = () => {
                         <Link
                         
                         to={{
-                          pathname: "/Dashboard/Manager/LeadTaskDetail",
+                          pathname: "/Dashboard/Manager/ProductOwerInfo",
+                          state: Product,
                         }}
                         
                         >
                         <Button style={{marginLeft:"10%"}}>
+                          
                           <FontAwesomeIcon icon={faExternalLinkSquare} />
                           </Button>
                           </Link></p>
@@ -290,6 +293,16 @@ const ProductDetail = () => {
             </div>
           </div>
         )}
+        <div>
+        <Link 
+        to="/Dashboard/Manager/ProductList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
       </div>
     );
   };

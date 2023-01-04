@@ -22,10 +22,9 @@ export default function ProductCreate({ refreshList }) {
   const [provice, setProvice]= useState([]);
   const [district, setDistrict]= useState([]);
   const [proviceID, setProviceID]= useState();
-
   
   
-  const [Product, setProduct] = useState({
+  var [Product, setProduct] = useState({
     name:"",
     categoryId:"",
     price:"",
@@ -97,8 +96,7 @@ export default function ProductCreate({ refreshList }) {
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
-        console.log(response);
-
+    
         setCategory(listDataSet);
 
         setLoading(false);
@@ -106,9 +104,7 @@ export default function ProductCreate({ refreshList }) {
       .catch((error) => {
         if (error.response) {
           // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+       
         } else if (error.request) {
           // no response
           console.log(error.request);
@@ -139,19 +135,21 @@ export default function ProductCreate({ refreshList }) {
       })
       .catch((error) => {
         if (error.response) {
-          // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+      
+        
         } else if (error.request) {
           // no response
-          console.log(error.request);
+      
         } else {
           // Something wrong in setting up the request
           console.log("Error", error.message);
         }
-        console.log(error.config);
+       
       });
+  }
+  let getProvieID = (e)=>{
+    setProviceID(e.target.value);
+    setProduct({ ...Product, province: e.target.selectedOptions[0].text})
   }
 
   function convertVietnamese(str) {
@@ -166,7 +164,7 @@ export default function ProductCreate({ refreshList }) {
     str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g," ");
     str= str.replace(/-+-/g,"-");
     str= str.replace(/^\-+|\-+$/g,"");
-
+   
     return str;
 }
 
@@ -180,7 +178,22 @@ async function getProvice() {
       let listSet = [];
       listProRes = response.data.results;
       listProRes.map((obj, index) => {
+       
+        let modifineProvinceName = ""
+        if(obj.province_name.includes("Thành phố ")) {
+          modifineProvinceName = obj.province_name
+          obj.province_name = `${obj.province_name.replace("Thành phố ", "")} City`
+          console.log(obj.province_name)
+        }
+          if(obj.province_name.includes("Tỉnh")) {
+            modifineProvinceName = obj.province_name
+            obj.province_name = `${obj.province_name.replace("Tỉnh ", "")} Province`
+            console.log(obj.province_name)
+        
+        }
         let dataObj = {
+          
+          
           province_id: obj.province_id,
           province_name: convertVietnamese(obj.province_name),
           province_type: convertVietnamese(obj.province_type)
@@ -221,6 +234,26 @@ async function getDistrict(proviceID) {
       let listSet = [];
       listProRes = response.data.results;
       listProRes.map((obj, index) => {
+        let modifineProvinceName = ""
+        if(obj.district_name.includes("Huyện")) {
+          modifineProvinceName = obj.district_name
+          obj.district_name = `${obj.district_name.replace("Huyện ", "")} District`
+       
+    
+      }
+      if(obj.district_name.includes("Quận")) {
+        modifineProvinceName = obj.district_name
+        obj.district_name = `${obj.district_name.replace("Quận ", "")} District`
+     
+  
+    }
+      if(obj.district_name.includes("Thành phố")) {
+        modifineProvinceName = obj.district_name
+        obj.district_name = `${obj.district_name.replace("Thành phố ", "")} City`
+      
+    
+    }
+
         let dataObj = {
           district_id: obj.district_id,
           district_name: convertVietnamese(obj.district_name),
@@ -374,7 +407,7 @@ async function getDistrict(proviceID) {
 
   useEffect(() => {
     getOwer();
-  }, []);
+  },[]);
 
   useEffect(() => {
     getProvice();
@@ -386,10 +419,18 @@ async function getDistrict(proviceID) {
   useEffect(() => {
     getDistrict(proviceID);
   }, [proviceID]);
-
+  // useEffect(() => {
+  //   // setProduct({ ...Product, utilities: names})
+  //   console.log("dfsdfsf")
+  // }, [names]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createProduct();
+     createProduct();
+     setSuccessMsg("");
+     setErrMsg("");
+
+   
+   
   };
 
   return (
@@ -432,6 +473,7 @@ async function getDistrict(proviceID) {
         }}
       >
         <h3>Add New Product</h3>
+        <form onSubmit={handleSubmit} id="company-Form">
         <div className="p-fluid p-formgrid p-grid">
           {/* Name */}
           <div className="p-field p-col-8 p-md-4">
@@ -439,7 +481,7 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="text"
-              required
+              
               onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
           </div>
@@ -449,6 +491,7 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="number"
+              required
               onChange={(e) => setProduct({ ...Product, price: e.target.value })}
             />
           </div>
@@ -459,7 +502,6 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="text"
-              value={Product.description}
               required
               onChange={(e) => setProduct({ ...Product, description: e.target.value })}
             />
@@ -487,7 +529,7 @@ async function getDistrict(proviceID) {
           <div className="p-field p-col-8 p-md-4">
            <label htmlFor="role">Product Status:</label><br></br>
             <select
-              onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
+              onChange={(e) => setProduct({ ...Product,productStatus:e.target.selectedOptions[0].text })}
             
             >
                 
@@ -514,9 +556,10 @@ async function getDistrict(proviceID) {
            <div  style={{marginLeft:"0%"}}className="p-field p-col-2 p-md-2">
             <label htmlFor="name">Width</label>
             <InputText
+       
               id="name"
               type="number"
-              value={Product.width}
+              required
               onChange={(e) => setProduct({ ...Product, width: e.target.value })}
             />
           </div>
@@ -536,7 +579,7 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="number"
-              value={Product.noBedroom}
+              required
               onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
             />
           </div>
@@ -545,7 +588,6 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="number"
-              value={Product.noToilet}
               onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
             />
           </div>
@@ -554,7 +596,7 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="number"
-              value={Product.noFloor}
+              required
               onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
             />
           </div>
@@ -563,33 +605,37 @@ async function getDistrict(proviceID) {
             <InputText
               id="name"
               type="number"
-              value={Product.facade}
+              required
               onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
             />
           </div>
 
-
           <div className="p-field p-col-8 p-md-4">
-            <label htmlFor="name">Street</label>
-            <InputText
-              id="name"
-              type="text"
-              value={Product.street}
-              onChange={(e) => setProduct({ ...Product, street: e.target.value })}
-            />
+           <label htmlFor="role">Direction:</label><br></br>
+            <select
+              onChange={(e) => setProduct({ ...Product, direction:e.target.selectedOptions[0].text })}
+            >
+              {
+                    direc.map((x, y) =>
+                        <option key={y} value={x.id}>{x.name}</option>)
+                    }
+              
+            </select>
           </div>
 
-          <div className="p-field p-col-8 p-md-4">
+          <div className="p-field p-col-8 p-md-4" >
            <label htmlFor="role">Province</label><br></br>
-            <select
-              onChange={(e) => setProviceID(e.target.value)
-              }
+            <select style={{overflow:"scroll",maxHeight: "20rem"}}
+              onChange={getProvieID}
+              
+              
+            
               classNamePrefix="select"
             >
             
               {
                       provice.map((x, y) =>
-                        <option key={y} value={x.province_id}>{x.province_name}</option>)
+                        <option key={y} name={x.province_name} value={x.province_id}>{x.province_name}</option>)
                     }
               
             </select>
@@ -599,7 +645,7 @@ async function getDistrict(proviceID) {
             <label htmlFor="name">District</label><br></br>
             <select
              classNamePrefix="select"
-              onChange={(e) => setProduct({ ...Product, district: e.target.value })}      
+              onChange={(e) => setProduct({ ...Product, district: e.target.selectedOptions[0].text })}      
             >
               {
                  
@@ -610,30 +656,38 @@ async function getDistrict(proviceID) {
               
             </select>
           </div>
+
           <div className="p-field p-col-8 p-md-4">
-           <label htmlFor="role">Direction:</label><br></br>
-            <select
-              onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
-            >
-              {
-                    direc.map((x, y) =>
-                        <option key={y} value={x.id}>{x.name}</option>)
-                    }
-              
-            </select>
+            <label htmlFor="name">Street</label>
+            <InputText
+              id="name"
+              type="text"
+              required
+              onChange={(e) => setProduct({ ...Product, street: e.target.value })}
+            />
           </div>
+
           <div className="p-field p-col-8 p-md-4">
            <label htmlFor="role">Utilities:</label><br></br>
            
            <Select
-            
+                onChange={(e) => {
+                  let listNames = []
+                  e.map( (currentValue) => {
+                    listNames.push(currentValue.label)
+                  })
+                  Product.utilities = listNames.join(",")
+                }
+              }
             isMulti
             name="colors"
             options= {unti}
             // value = {unti[0]}
             className="basic-multi-select"
             classNamePrefix="select"
-             onChange={(e) => console.log(e)}
+            
+              
+             
   />
           </div>
           {/* <div className="p-field p-col-8 p-md-4">
@@ -646,7 +700,7 @@ async function getDistrict(proviceID) {
               onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
             />
           </div> */}
-          <div style={{marginTop:"-3%"}} className="p-field p-col-8 p-md-4">
+          <div style={{marginTop:"-0.2%"}} className="p-field p-col-8 p-md-4">
             <label htmlFor="name">receivedDate</label>
             <InputText
               id="name"
@@ -659,7 +713,7 @@ async function getDistrict(proviceID) {
          
           {/* Gender */}
           <div className="p-field p-col-8 p-md-3">
-            <label htmlFor="status">isFurniture</label>
+            <label htmlFor="status">Furniture</label>
             <br />
             <div className="form-check">
               <input
@@ -698,7 +752,7 @@ async function getDistrict(proviceID) {
           onClick={() => setModalIsOpen(false)}
           style={{ marginRight: "20px" }}
         />
-        <Button type="button" onClick={handleSubmit}>
+        <Button type="submit">
           Submit
         </Button>
         </div>
@@ -717,6 +771,7 @@ async function getDistrict(proviceID) {
             {successMsg}
           </span>
         )}
+        </form>
       </Modal>
     </div>
   );

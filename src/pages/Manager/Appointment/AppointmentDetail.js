@@ -6,7 +6,10 @@ import ApiService from "../../../api/apiService";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
-
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 const AppointDetail = () => {
   const { state } = useLocation();
@@ -53,9 +56,9 @@ const AppointDetail = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getEmployee()
+    await ApiService.getEmployeeAppointment()
       .then((response) => {
-
+            console.log(response.data.data)
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -84,7 +87,14 @@ const AppointDetail = () => {
         console.log(error.config);
       });
   }
+  const customButton1 = (rowData) => {
 
+  
+    return <input id={rowData.id} name="firt" style={{marginLeft:"10%"}} type="radio" />
+ 
+  
+  
+}
 
   useEffect(() => {
     if (typeof state != "undefined") {
@@ -102,50 +112,13 @@ const AppointDetail = () => {
       {loadingData ? (
         <p>Loading, please wait...</p>
       ) : (
+       
+        
         <div className="main-body">
+       
+           
           <div className="row">
-
-            {/* 
-            <div className="col-lg-4">
-              <div className="card">
-
-
-
-                <div className="p-field p-col-8 p-md-4">
-                  <label htmlFor="role">Empoyee </label>
-                  <select
-                    onChange={(e) => setId(e.currentTarget.value)}
-                  >
-                    {
-                      data.map((x, y) =>
-                        <option key={y} value={x.id}>{x.fullname}</option>)
-                    }
-
-
-
-                  </select>
-                </div>
-
-                <Button style={{ marginTop: 300 }} onClick={AssAppointment} >Assign Appointment</Button>
-                {loading && (
-                  <span className="spinner-border spinner-border-sm float-lg-right"></span>
-                )}
-                {/* Message after submit */}
-            {/* {errMsg && (
-                  <span className="alert alert-danger float-lg-right" role="alert">
-                    {errMsg}
-                  </span>
-                )}
-                {successMsg && (
-                  <span className="alert alert-success float-lg-right" role="alert">
-                    {successMsg}
-                  </span>
-                )}
-
-              </div>
-            </div> */}
-
-
+   
             <div className="col-lg-12">
               <div className="card">
                 <Tabs
@@ -153,7 +126,7 @@ const AppointDetail = () => {
                   id="uncontrolled-tab-example"
                   className="mb-3"
                 >
-                  <Tab eventKey="Detail" title="Appoint Detail">
+                  <Tab eventKey="Detail" title="Appointment Detail">
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
@@ -218,7 +191,7 @@ const AppointDetail = () => {
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="Product" title="Appoint Time">
+                  <Tab eventKey="Product" title="Appointment Time">
                     <div className="card-body">
 
                       <div className="row mb-3">
@@ -264,17 +237,63 @@ const AppointDetail = () => {
                   </Tab>
                   <Tab eventKey="Employe" title="Employee">
 
-                    {
-                      Appointment.employee == null ? (
-                      <div>
-                        <p> Apointment no have employee manage</p>
-                      </div>
+                  {
+                      Appointment.employee === null ? (
+                        <div style={{ textAlign: "center", fontSize: 30 }}>
+                          <h1 className="badge badge-danger mr-2"> The appointment not have employee manage </h1>
+                        </div>
                       ) : (
-                      <div>
-                        <p > Apointment  have employee manage</p>
-                      </div>)
+                        <div className="card-body">
+                          <div className="row mb-3">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">Name:</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              {Appointment.employee.fullname}
+                               <Button style={{ marginLeft: "10%" }}>
+                              <FontAwesomeIcon icon={faExternalLinkSquare} />
+                            </Button>
+                            </div>
+                          </div>
 
+                          {/* <div className="row mb-3">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">Gender:</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              {Appointment.employee.gender ? (
+                                <div className="col-sm-7text-secondary">Male
 
+                                </div>
+
+                              ) : (
+                                <div className="col-sm-7text-secondary">Female
+                                </div>
+
+                              )
+
+                              }
+                            </div>
+                          </div> */}
+
+                          <div className="row mb-3">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">Email:</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              <p>{Appointment.employee.email}</p>
+                            </div>
+                          </div>
+                          <div className="row mb-3">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">Phone:</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              <p>{Appointment.employee.phone}</p>
+                            </div>
+                          </div>
+
+                        </div>)
 
                     }
                   </Tab>
@@ -361,45 +380,6 @@ const AppointDetail = () => {
                         </div>
                       </div>
 
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Price(VND)</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p className="">{Appointment.product.price}</p>
-                        </div>
-                      </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">NoFLoor</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p className="">{Appointment.product.noFloor}</p>
-                        </div>
-                      </div>
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">NoFLoor</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p className="">{Appointment.product.noFloor}</p>
-                        </div>
-                      </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Street</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p className="">{Appointment.product.street}</p>
-                        </div>
-                      </div>
-
-
-
-
                     </div>
 
 
@@ -410,9 +390,62 @@ const AppointDetail = () => {
                 </Tabs>
               </div>
             </div>
+          
+            {Appointment.employee==null?(
+             <div className="col-lg-12">
+                <div className="card">
+
+<Button   style={{ float:"right"}} onClick={AssAppointment} >Assign Appointment</Button>
+     {loading && (
+       <span className="spinner-border spinner-border-sm float-lg-right"></span>
+     )}
+     {/* Message after submit */}
+     {errMsg && (
+       <span className="alert alert-danger float-lg-right" role="alert">
+         {errMsg}
+       </span>
+     )}
+     {successMsg && (
+       <span className="alert alert-success float-lg-right" role="alert">
+         {successMsg}
+       </span>
+     )}
+</div>
+             <div className="card">
+
+                 <label htmlFor="role">Empoyee List </label>
+                 <DataTable     style={{overflow:"scroll",maxHeight: "27rem"}}
+                  value={data}
+                  loading={loadingData}
+                  responsiveLayout="scroll"
+                >
+                  <Column header="Employee Name" field="fullname"/>
+                  <Column style={{width: "22%"}}header="Email" field="email"/>
+                  <Column style={{width: "22%"}}header="Email" field="email"/>
+                  <Column  header="phone" field="phone"/>
+                  <Column style={{textAlign: "center"}}header="Number Appoinment Doing" field="numberOfAppoinmentOnDoing"/>
+                  <Column header="Action" body={customButton1} />
+                </DataTable>
+               </div>
+
+              
+
+             </div>
+
+          ):(<></>)}
           </div>
         </div>
       )}
+        <div>
+        <Link 
+        to="/Dashboard/Manager/AppointmentList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
     </div>
   );
 };

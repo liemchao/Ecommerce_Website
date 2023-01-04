@@ -16,7 +16,7 @@ const ProductDetail = () => {
   const { state } = useLocation();
   const [totalRecords, setTotalRecords] = useState();
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(10);
+  const [rows, setRows] = useState(7);
   const [currentPage, setCurrentPage] = useState(1);
   const [Appointment, setAppointment] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
@@ -28,6 +28,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(false);
   const [data1, setData1] = useState([]);
   const [idLead ,setLead] = useState([]);
+  const [idEm ,setem] = useState([]);
 
 
 
@@ -98,7 +99,7 @@ const ProductDetail = () => {
   async function getEmployeeList() {
     setLoadingData(true);
 
-    await ApiService.getEmployee()
+    await ApiService.getEmployeeTask()
       .then((response) => {
 
         const dataRes = response.data.data
@@ -156,12 +157,23 @@ const ProductDetail = () => {
     // nameLead.push(rowData.fullname);
     // setLead(rowData.id);
 
+    const chooseEmployee = (id) =>{
+
+     let radio = document.getElementById(id);
+      if (radio.checked){
+       setem(id)
+       console.log(idEm)
+
+    }
+
+  }
 
     const onPageChange = (event) => {
       setFirst(event.first);
       setRows(event.rows);
       setCurrentPage(event.page + 1);
     };
+
   
   const customButton = (rowData) => {
 
@@ -175,6 +187,18 @@ const ProductDetail = () => {
         return <Button disabled></Button>;;
       }
   };
+
+  const customButton1 = (rowData) => {
+
+  
+        return  <input type="radio" id={rowData.id} name="customer_name" value={rowData} onClick={ () => {
+          chooseEmployee(rowData.id)
+        }}/>
+     
+      
+      
+  }
+
   const customStatus = (rowData) => {
     if (rowData.leadStatus=="New") {
       return <div className="badge badge-success mr-2">New</div>;
@@ -186,8 +210,12 @@ const ProductDetail = () => {
 
 useEffect(() => {
     GetLead();
-    getEmployeeList();
+  
   }, [currentPage]);
+
+  useEffect(() => {
+    getEmployeeList();
+  }, []);
 
   const refreshList = () => {
     setLoadingData(true);
@@ -202,33 +230,30 @@ useEffect(() => {
       ) : (
         <div className="main-body">
           <div className="row">
-            <div className="col-lg-4">
+            <div className="col-lg-5">
               <div className="card">
               <div className="p-field p-col-8 p-md-4">
-              <label htmlFor="name">Task_Name</label>
+              <label htmlFor="name">Task Name</label>
                <input onChange={(e) => setName(e.currentTarget.value)} ></input>
-                  <label htmlFor="role">Empoyee_Name</label>
-                  <select
-                    onChange={(e) => setId(e.currentTarget.value)}
-                  >
-                    {
-                      data1.map((x, y) =>
-                        <option key={y} value={x.id}>{x.fullname}</option>)
-                    }
-
-
-
-                  </select>
                 </div>
-              
 
-            <Button style={{marginTop:"50%"}} onClick={AssTask}> <FontAwesomeIcon icon={faPlus}/> Create Task</Button>
+                <DataTable     style={{overflow:"scroll",maxHeight: "27rem"}}
+                  value={data1}
+                  loading={loadingData}
+                  responsiveLayout="scroll"
+                >
+                  <Column header="Employee Name" field="fullname"/>
+                  <Column  style={{textAlign: "center"}} header="Number Task" field="numberOfTaskOnDoing"/>
+                  <Column header="Action" body={customButton1} />
+                </DataTable>
+
+            <Button style={{marginTop:"5%"}} onClick={AssTask}> <FontAwesomeIcon icon={faPlus}/> Create Task</Button>
 
               </div>
             </div>
 
 
-            <div className="col-lg-8">
+            <div className="col-lg-7">
               <div className="card">
 
               <div className="container-fluid">
@@ -239,7 +264,7 @@ useEffect(() => {
                   responsiveLayout="scroll"
                 >
                   <Column header="ID" field="indexNumber"/>
-                  <Column header="Name" field="fullname"/>
+                  <Column header=" Customer Name" field="fullname"/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
                 </DataTable>

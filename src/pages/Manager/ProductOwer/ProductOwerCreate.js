@@ -6,7 +6,8 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 
 import ApiService from "../../../api/apiService";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 export default function ProductCreate({ refreshList }) {
 //   const user = JSON.parse(localStorage.getItem("user"));
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -15,33 +16,25 @@ export default function ProductCreate({ refreshList }) {
   const [successMsg, setSuccessMsg] = useState("");
   
   const [Product, setProduct] = useState({
+    name:"",
     email:"",
     phone:"",
-    password:"",
-    fullname: "",
-    roleId: 0 ,
-    // image: "",
-    gender:false,
-    dob:""
-    // userProductId: user.Id,
+    isDelete:true,
   });
 
   async function createProduct() {
     setLoading(true);
 
     let createData = {
+    name:Product.name,
     email:Product.email,
     phone:Product.phone,
-    password:Product.password,
-    fullname: Product.fullname,
-    roleId: parseInt(Product.roleId),
-    // image: Product.image,
-    gender: Boolean(Product.gender),
-    dob:Product.dob
-    //   userProductId: user.Id,
+    isDelete:true,
+ 
+
     };
     console.log(createData);
-    await ApiService.createProduct(createData)
+    await ApiService.createProductOwer(createData)
       .then((response) => {
         console.log(response);
         setSuccessMsg("Create successfully!");
@@ -60,16 +53,17 @@ export default function ProductCreate({ refreshList }) {
       });
   }
 
-  // const handleOpenModal = (e) => {
-  //   e.preventDefault();
-  //   setErrMsg("");
-  //   setSuccessMsg("");
-  //   setModalIsOpen(true);
-  // };
+  const handleclose=()=>{
+    setErrMsg("");
+    setSuccessMsg("");
+    setModalIsOpen(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     createProduct();
+    setErrMsg("")
+    setSuccessMsg("")
   };
 
   return (
@@ -79,12 +73,12 @@ export default function ProductCreate({ refreshList }) {
         style={{ float: "right" }}
         className="btn btn-primary" 
         onClick={() => setModalIsOpen(true)}
-      >Create Product</Button>
+      ><FontAwesomeIcon icon={faPlus} /> Add</Button>
       <Modal
         isOpen={modalIsOpen}
         onAfterClose={refreshList}
         ariaHideApp={false}
-        onRequestClose={() => setModalIsOpen(false)}
+        onRequestClose={() => handleclose()}
         style={{
           overlay: {
             zIndex: "2",
@@ -111,197 +105,53 @@ export default function ProductCreate({ refreshList }) {
           },
         }}
       >
-        <h3>Add New Product</h3>
-        <div className="p-fluid p-formgrid p-grid">
+        <h3>Add New Product Ower</h3>
+        <div className="p-fluid p-formgrid p-grid" style={{marginLeft:"30%"}}>
           {/* Name */}
           <div className="p-field p-col-12 p-md-6">
             <label htmlFor="name">Name</label>
             <InputText
               id="name"
-              type="email"
-              value={Product.email}
+              type="text"
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
+            <br></br>
           </div>
 
 
            {/* Name */}
-           <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">Price</label>
+           <div style={{marginRight:"10%"}} className="p-field p-col-12 p-md-6" >
+            <label htmlFor="name">Email</label>
             <InputText
-              id="name"
-              type="number"
-              // value={}
+              id="email"
+              type="email"
+              required
+              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+            />
+          </div><br></br>
+
+           {/* Name */}
+           <div className="p-field p-col-12 p-md-6">
+            <label htmlFor="name">Phone</label>
+            <InputText
+              id="phone"
+              type="phone"
               required
               onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
             />
           </div>
-
-           {/* Name */}
-           <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">Description</label>
-            <InputText
-              id="name"
-              type="password"
-              value={Product.password}
-              required
-              onChange={(e) => setProduct({ ...Product, password: e.target.value })}
-            />
-          </div>
-           {/* Name */}
-           <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Width</label>
-            <InputText
-              id="name"
-              type="number"
-              value={Product.fullname}
-              required
-              onChange={(e) => setProduct({ ...Product, fullname: e.target.value })}
-            />
-          </div>
-           {/* Name */}
-           {/* <div className="p-field p-col-12 p-md-6">
-           <label htmlFor="role">Change Role</label>
-            <select
-              onChange={(e) => setProduct({...Product, roleId: parseInt(e.currentTarget.value)})}
-            >
-              <option value="1">Employee</option>
-              <option value="2">Manager</option>
-              <option value="3">Admin</option>
-            </select>
-          </div> */}
-           {/* Name */}
-           {/* <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">Image</label>
-            <InputText
-              id="name"
-              type="file"
-              value={Product.image}
-              required
-              onChange={(e) => setProduct({ ...Product, image: e.target.value })}
-            />
-          </div> */}
-           {/* Name */}
-           <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Length</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Area</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Bedroom</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Toilet</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label style={{marginRight:5}} htmlFor="name">Floor</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Facade</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-          <div className="p-field p-col-1 p-md-1">
-            <label htmlFor="name">Area</label>
-            <InputText
-              id="name"
-              type="number"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-
-          <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">Street</label>
-            <InputText
-              id="name"
-              type="text"
-              required
-              onChange={(e) => setProduct({ ...Product, dob: e.target.value })}
-            />
-          </div>
-
-          
-   
-          
-          {/* Gender */}
-          <div className="p-field p-col-12 p-md-3">
-            <label htmlFor="status">isFurniture</label>
-            <br />
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="exampleRadios"
-                id="exampleRadios1"
-                value={true}
-                onChange={(e) => setProduct({ ...Product, gender: e.target.value })}
-              />
-              <label className="form-check-label" for="exampleRadios1">
-               Avaliable
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="exampleRadios"
-                id="exampleRadios2"
-                value={false}
-                onChange={(e) => setProduct({ ...Product, gender: e.target.value })}
-              />
-              <label className="form-check-label" for="exampleRadios2">
-               Not Avalabel
-              </label>
-            </div>
-          </div>
         </div>
-        {/* Close & Submit button */}
+      
         <Button
           type="button"
           label="Close"
-          onClick={() => setModalIsOpen(false)}
-          style={{ marginRight: "20px" }}
+          onClick={() =>  handleclose()}
+          style={{marginLeft:"35%"}}
         />
-        <Button type="button" onClick={handleSubmit}>
+        <Button type="button" onClick={handleSubmit}
+            style={{marginLeft:"5%"}}>
+    
           Submit
         </Button>
         {/* Spinner */}

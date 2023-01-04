@@ -75,7 +75,7 @@ const HistoryList = ({rowData}) => {
 //   };
 
 
-const customButton = (productData) => {
+const customButton = (rowData) => {
     return (
       <div style={{ display: "flex" }}>
         {/* Detail */}
@@ -83,7 +83,7 @@ const customButton = (productData) => {
           style={{ paddingRight: "-10%" }}
           to={{
             pathname: "/Dashboard/Manager/ProductHistory",
-            state: productData,
+            rowData: rowData.product.id,
           }}
         >
           <Button><FontAwesomeIcon icon={faClipboardList} /></Button>
@@ -101,12 +101,15 @@ const customButton = (productData) => {
       return <div className="badge badge-warning mr-2">Not Favorite</div>;
     }
   };
+
   const Price = (rowData) => {
   
-      return <div className="badge badge-primary mr-2"> {rowData.product.price}</div>;
+    let num =  rowData.product.price
+    return <div className="badge badge-primary mr-2">{num.toLocaleString()}</div>
     
-  
-  };
+  }
+     
+
   const ProductName = (rowData) => {
   
     return <div className="badge badge mr-2">{rowData.product.name}</div>;

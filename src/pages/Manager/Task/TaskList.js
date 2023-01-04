@@ -9,7 +9,6 @@ import ApiService from "../../../api/apiService";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { InputText } from "primereact/inputtext";
 import { Button  } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

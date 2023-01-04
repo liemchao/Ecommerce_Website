@@ -32,6 +32,10 @@ const OpportunityList = React.lazy(() => import("./pages/Manager/Opportunity/Opp
 const FeedBackDetail = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackDetail"))
 const FeedBackList = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackList"))
 const ProductHistory = React.lazy(() => import("./pages/Manager/Account/DetailCustommer/ProductHistory"))
+const ProductOwerInfo = React.lazy(() => import("./pages/Manager/Product/FliterProduct/ProductOwerInfo"))
+const ProductInfo = React.lazy(() => import("./pages/Manager/ProductOwer/ProductView/ProductInfor"))
+const LeadInfo = React.lazy(() => import("./pages/Manager/Task/DetailTask/LeadInfo"))
+
 
 
 
@@ -66,6 +70,11 @@ const routes = [
   { path: "/Dashboard/Manager/FeedBackDetail", name: "FeedBackDetail", component: FeedBackDetail},
   { path: "/Dashboard/Manager/FeedBackList", name: "FeedBackList", component: FeedBackList},
   { path: "/Dashboard/Manager/ProductHistory", name: "ProductHistory", component: ProductHistory},
+  { path: "/Dashboard/Manager/ProductOwerInfo", name: "ProductOwerInfo", component: ProductOwerInfo},
+  { path: "/Dashboard/Manager/ProductInfo", name: "ProductInfo", component: ProductInfo},
+  { path: "/Dashboard/Manager/LeadInfo", name: "LeadInfo", component: LeadInfo},
+
+
 
 ];
 

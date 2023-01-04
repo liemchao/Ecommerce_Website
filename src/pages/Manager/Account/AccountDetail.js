@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Tabs, Tab } from "react-bootstrap";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+import { Tabs, Tab,Button} from "react-bootstrap";
 import ViewProduct from "./DetailCustommer/ViewProduct"
 import FavoirteList from "./DetailCustommer/FavoirteProduct";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 
 import PageHeading from "../../../components/PageHeading";
-
+import AppointCustomerList from "./DetailCustommer/AppointmentCus";
+import OpportunityCustomerList from "./DetailCustommer/OppoCus";
+import Analazycustomer from "./DetailCustommer/Analazy";
+import { Link } from "react-router-dom";
 
 const AccountDetail = () => {
   const { state } = useLocation();
@@ -157,11 +160,12 @@ const AccountDetail = () => {
                   </Tab>
 
                   <Tab eventKey="opportunity" title="Opportunity">
-
+                   <OpportunityCustomerList  rowData={account}/>
 
 
                   </Tab>
                   <Tab eventKey="appointment" title="Appointment">
+                    <AppointCustomerList  rowData={account}/>
 
 
 
@@ -169,9 +173,9 @@ const AccountDetail = () => {
 
                   <Tab eventKey="Analazy" title="Analazy">
 
+                 <Analazycustomer rowData={account}/>
 
-
-</Tab>
+                </Tab>
                 </Tabs>
 
 
@@ -180,6 +184,16 @@ const AccountDetail = () => {
           </div>
         </div>
       )}
+       <div>
+        <Link 
+        to="/Dashboard/Manager/AppointmentList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
     </div>
   );
 };

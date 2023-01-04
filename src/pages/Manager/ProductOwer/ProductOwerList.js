@@ -9,7 +9,7 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import CreateProduct from "../Product/ProductCreate"
+import CreateProduct from "../ProductOwer/ProductOwerCreate"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedicalAlt, faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +29,7 @@ const ProductOwerList = () => {
     "Press 'Enter' key to go to this page."
   );
 
-  async function getPublicProduct() {
+  async function getProductOwer() {
     setLoadingData(true);
 
     ApiService.getProductOwer(currentPage,rows)
@@ -69,12 +69,12 @@ const ProductOwerList = () => {
   }
 
   useEffect(() => {
-    getPublicProduct();
+    getProductOwer();
   }, [currentPage]);
 
   const refreshList = () => {
     setLoadingData(true);
-    getPublicProduct();
+    getProductOwer();
   };
   
 
@@ -83,12 +83,7 @@ const ProductOwerList = () => {
     setRows(event.rows);
     setCurrentPage(event.page + 1);
   };
-  const getCaId = (rowData)=>{
-    return(
-       rowData.category.productCategoryName
-    )
-
-  }
+  
   const getStatus=(rowData)=>{
   
     if (rowData.isDelete) {
@@ -99,17 +94,7 @@ const ProductOwerList = () => {
       return <div className="badge badge-success mr-2">Avaliable</div>;
     }
   }
-  const getPrice = (rowData)=>{
-    return(
-       rowData.price
-    )
-  }
-  const getAddress = (rowData)=>{
-    return(
-       rowData.district
-    )
-
-  }
+  
   const getValue= (rowData) =>{
     return <div className="badge badge-info mr-2">{rowData.totalProduct}</div>;
 
@@ -185,14 +170,29 @@ const ProductOwerList = () => {
 
   }
 
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-     console.log(value);
-      return (
-        value.name.toLowerCase().includes(query.toLowerCase())
-      )
+  async function searchProductOwer (){
+    await ApiService.searchProductOwer(query)
+    .then((response) => {
+      // check if the data is populated
+      const dataRes = response.data.data
+      const listDataSet = [...dataRes];
+      let  counter = 10 * (currentPage-1)
+        listDataSet.map((obj, index) => { 
+          obj['indexNumber'] = (counter + ++index) 
+        })
+      
+      setData(listDataSet);
+      setLoadingData(false)
+     
+    })
+    .catch((error) => {
+      if(error.response.status == 404) {
+        setData([]);
+   
+
+      }
+    
     });
-    setData(filterData);
 
   }
 
@@ -247,7 +247,7 @@ const ProductOwerList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={searchProductOwer}
        ><FontAwesomeIcon icon={faSearch}/></Button>
        </div>
         {!data ? (
@@ -264,7 +264,7 @@ const ProductOwerList = () => {
                   <Column style={{width: "6%" }} header="No" field="indexNumber"/>
                   <Column style={{width: "18%" }} header="Name"  field="productOwnerName"/>
                   <Column header="Phone"  field="phone"/>
-                  <Column style={{width: "24%" }} header="Email"  field="email"/>
+                  <Column style={{width: "22%" }} header="Email"  field="email"/>
                   <Column style={{textAlign:"center"}}header="TotalProduct"  body={getValue}/>
                   <Column header="Delete" body={getStatus} />
                   <Column header="Action" body={customButton} />

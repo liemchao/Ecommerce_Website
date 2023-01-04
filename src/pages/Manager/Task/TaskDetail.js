@@ -5,6 +5,7 @@ import PageHeading from "../../../components/PageHeading";
 import LeadList from "../Lead/LeadList";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
 import ApiService from "../../../api/apiService";
 
@@ -134,17 +135,10 @@ const TaskDetail = () => {
                             <h6 className="mb-0">Date Create:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p >{(Task.createDate).slice(0,10)}</p>
+                            <p >{(Task.createDate)} </p>
                           </div>
                         </div>
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Time Create:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p >{(Task.createDate).slice(11,19)}</p>
-                          </div>
-                        </div>
+                       
                         <div className="row mb-3">
                           <div className="col-sm-3">
                             <h6 className="mb-0">Status</h6>
@@ -244,14 +238,16 @@ const TaskDetail = () => {
                         
                     Task.taskDetails.map((currvalue, index) =>   {
                       // console.log(currvalue)
-                      return <div className="row"> <p>{currvalue.fullname}</p>
+                      return <div className="row"> <p
+                      style={{textAlign:"center",marginLeft:"-10%"}}>{currvalue.fullname}</p>
                       <Link
                       to={{
-                        pathname: "/Dashboard/Manager/LeadTaskDetail",
+                        pathname: "/Dashboard/Manager/LeadInfo",
+                        rowData:currvalue.leadId,
                       }}
                   
                       >
-                      <Button style={{marginLeft:"30%", marginTop:"-10%"}}>
+                      <Button style={{textAlign:"center",marginLeft:"30%", marginTop:"-10%"}}>
                         <FontAwesomeIcon icon={faExternalLinkSquare} />
                         </Button>
                         </Link></div>
@@ -272,6 +268,16 @@ const TaskDetail = () => {
             </div>
           </div>
         )}
+         <div>
+        <Link 
+        to="/Dashboard/Manager/TaskList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
       </div>
     );
   };

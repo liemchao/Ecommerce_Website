@@ -543,6 +543,16 @@ export default function ProductUpdate({ rowData, refreshList }) {
               // onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
             />
           </div>
+          <div style={{marginTop:"-3%"}} className="p-field p-col-8 p-md-4">
+            <label htmlFor="recivedate">Image</label>
+            <InputText
+              id="name"
+              type="file"
+               defaultValue={rowData.url}
+              required
+              // onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
+            />
+          </div>
          
           {/* Gender */}
           <div className="p-field p-col-8 p-md-3">

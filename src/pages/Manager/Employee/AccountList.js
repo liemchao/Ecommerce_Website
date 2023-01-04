@@ -200,7 +200,7 @@ const AccountList = () => {
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="List Account Employee" />
+          <PageHeading title="List Employee Account" />
           {/* <AccountCreate refreshList={refreshList} /> */}
         </div>
         <div className="row">

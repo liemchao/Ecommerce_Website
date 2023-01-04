@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Tabs, Tab, Button } from "react-bootstrap";
-import PageHeading from "../../../components/PageHeading";
-import ProductNumList from "./ProductView/ProductNum";
+import PageHeading from "../../../../components/PageHeading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 
-const ProductOWerDetail = () => {
+const ProductOWerInfor = () => {
     const { state } = useLocation();
     const [Product, setProduct] = useState([]);
     const [work, setWork] = useState([]);
@@ -51,7 +50,7 @@ const ProductOWerDetail = () => {
                             <h6 className="mb-0">Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            <p>{Product.productOwnerName}</p>
+                            <p>{Product.productOwner.name}</p>
                           </div>
                         </div>
 
@@ -60,7 +59,7 @@ const ProductOWerDetail = () => {
                             <h6 className="mb-0">Email:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                          <p>{Product.email}</p>
+                          <p>{Product.productOwner.email}</p>
                           </div>
                         </div>
 
@@ -69,17 +68,12 @@ const ProductOWerDetail = () => {
                             <h6 className="mb-0">Phone:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                          <p>{Product.phone}</p>
+                          <p>{Product.productOwner.phone}</p>
                          
                           </div>
                         </div>
 
                       </div>
-                    </Tab>
-                    <Tab eventKey="Productview" title="Number of Product">
-                      
-                     <ProductNumList rowData={Product}/>
-
                     </Tab>
                   </Tabs>
                 </div>
@@ -89,7 +83,7 @@ const ProductOWerDetail = () => {
         )}
       <div>
         <Link 
-        to="/Dashboard/Manager/ProductOwerList"
+        to="/Dashboard/Manager/ProductList"
         >
          <Button style={{marginTop:"2%"}}>
           <FontAwesomeIcon icon={faStepBackward} /> Back to
@@ -101,4 +95,4 @@ const ProductOWerDetail = () => {
     );
   };
   
-  export default ProductOWerDetail;
+  export default ProductOWerInfor;

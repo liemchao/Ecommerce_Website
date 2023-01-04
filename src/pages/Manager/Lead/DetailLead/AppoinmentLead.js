@@ -59,16 +59,8 @@ const AppointLeadList = ({ rowData }) => {
                     </div>
                 </div>
             ) : (
-                <div className="card shadow mb-4" style={{textAlign:"center"}}>
-                <Card style={{ width: '20rem'}}>
-                <Card.Body>
-                <Card.Title>Appointment</Card.Title>
-                  <Card.Text className="text-danger">
-                  The lead no have any appointment.
-                  </Card.Text>
-                  {/* <Button  disabled variant="primary">View Product</Button> */}
-                </Card.Body>
-              </Card>
+                <div style={{ textAlign: "center", fontSize: 30 }}>
+                <h1 className="badge badge-danger mr-2"> Lead has not  an appointment  in the system</h1>
               </div>
 
             )}

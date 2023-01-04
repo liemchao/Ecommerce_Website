@@ -215,9 +215,7 @@ const AppointmentList = () => {
        <div style={{marginLeft:"85%", paddingLeft:"5%"}}className="d-sm-flex align-items-center justify-content-between">
         
         {/* Upload File Modal */}
-        <CreateProduct refreshList={refreshList}
-        
-        />
+       
         
       </div>
       <div className="row">
@@ -287,7 +285,7 @@ const AppointmentList = () => {
           <Tab eventKey="Cu" title=" Customer Canel">
             <AppointmentCuList/>
           </Tab>
-          <Tab eventKey="Em" title=" Employeer Canel">
+          <Tab eventKey="Em" title=" Employee Canel">
             <AppointmentEmList/>
           </Tab>
           <Tab eventKey="Ex" title=" Expired">
