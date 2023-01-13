@@ -87,9 +87,47 @@ const TaskDetail = () => {
                   >
                     <Tab eventKey="profile" title="Information">
                       <div className="card-body">
+                       
+                      <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Task's Name:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p >{(Task.name)} </p>
+                          </div>
+                        </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">FullName:</h6>
+                            <h6 className="mb-0">Date Create:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p >{(Task.createDate)} </p>
+                          </div>
+                        </div>
+                       
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Status:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            {Task.isDone ? (
+                              <div className="badge badge-success mr-2">
+                                Done
+                              </div>
+                            ) : (
+                              <div className="badge badge-danger mr-2">
+                                Not Done
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab eventKey="creater" title="Creater">
+                      <div className="card-body">
+                      <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Creater:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.creater.fullname}</p>
@@ -111,55 +149,15 @@ const TaskDetail = () => {
                             <p>{Task.creater.phone}</p>
                           </div>
                         </div>
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Gender:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Task.gender}</p>
-                          </div>
-                        </div> */}
-                        {/* <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Birth Day:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Task.birthday}</p>
-                          </div>
-                        </div> */}
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Date Create:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p >{(Task.createDate)} </p>
-                          </div>
-                        </div>
-                       
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Status</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            {Task.isDone ? (
-                              <div className="badge badge-success mr-2">
-                                Done
-                              </div>
-                            ) : (
-                              <div className="badge badge-danger mr-2">
-                                Not Done
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </Tab>
 
+                      </div>
+
+                    </Tab>
                      <Tab eventKey="Employee" title="Employee">
                      <div className="card-body">
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">FullName:</h6>
+                            <h6 className="mb-0">Emplyee's Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.employee.fullname}</p>
@@ -199,7 +197,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">CreateDate:</h6>
+                            <h6 className="mb-0">Create Date:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.employee.createDate}</p>
@@ -207,7 +205,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Status</h6>
+                            <h6 className="mb-0">Status:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             {Task.employee.status=="Activated" ? (
@@ -228,7 +226,7 @@ const TaskDetail = () => {
                      <div className="card-body">
                      <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Lead Name:</h6>
+                            <h6 className="mb-0">Lead's Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                           {

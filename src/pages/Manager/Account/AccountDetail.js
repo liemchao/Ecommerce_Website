@@ -64,7 +64,7 @@ const AccountDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name:</h6>
+                          <h6 className="mb-0">Customer's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.fullname}</p>
@@ -112,7 +112,7 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create</h6>
+                          <h6 className="mb-0">Time Create:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(account.createDate).slice(11, 19)}</p>
@@ -120,7 +120,7 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Day of Brith</h6>
+                          <h6 className="mb-0">Date of Birth:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{account.dob}</p>
@@ -128,7 +128,7 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.status ? (

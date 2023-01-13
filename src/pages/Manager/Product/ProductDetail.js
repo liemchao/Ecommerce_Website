@@ -118,7 +118,7 @@ const ProductDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Name</h6>
+                            <h6 className="mb-0">Product Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.name}</p>
@@ -127,7 +127,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Category</h6>
+                            <h6 className="mb-0">Category:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.category.productCategoryName}</p>
@@ -136,7 +136,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Price</h6>
+                            <h6 className="mb-0">Price:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.price}(VND)</p>
@@ -145,7 +145,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Description</h6>
+                            <h6 className="mb-0">Description:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <textarea>{Product.description}</textarea>
@@ -154,7 +154,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Width</h6>
+                            <h6 className="mb-0">Width:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.width}m</p>
@@ -163,7 +163,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Length</h6>
+                            <h6 className="mb-0">Length:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.length}m</p>
@@ -172,7 +172,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Area</h6>
+                            <h6 className="mb-0">Area:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.area}m&#178;</p>
@@ -186,7 +186,7 @@ const ProductDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Street</h6>
+                            <h6 className="mb-0">Street:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.street}</p>
@@ -195,7 +195,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">District</h6>
+                            <h6 className="mb-0">District:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.district}</p>
@@ -204,7 +204,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Province</h6>
+                            <h6 className="mb-0">Province:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.province}</p>
@@ -220,7 +220,7 @@ const ProductDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Bedroom</h6>
+                            <h6 className="mb-0">Number of Bedroom:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noBedroom}</p>
@@ -229,7 +229,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Toilet</h6>
+                            <h6 className="mb-0">Number of Toilet:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noToilet}</p>
@@ -239,7 +239,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Floor</h6>
+                            <h6 className="mb-0">Number of Floor:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noFloor}</p>
@@ -249,7 +249,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Facade</h6>
+                            <h6 className="mb-0">Facade:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.facade}</p>
@@ -258,7 +258,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Furniture</h6>
+                          <h6 className="mb-0">Furniture:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Product.isFurniture ? (

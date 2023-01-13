@@ -67,7 +67,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Feedback Date</h6>
+                          <h6 className="mb-0">Feedback Date:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(account.feedbackDate).slice(0, 10)}</p>
@@ -79,53 +79,33 @@ const FeedbackDetail = () => {
 
                   <Tab eventKey="account" title="Appointment">
                     <div className="card-body">
+                
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Full Name</h6>
+                          <h6 className="mb-0">Title</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account.appointment.fullname}
+                          <p>{account.appointment.name}
+                          <Link 
+                          to={{
+                            pathname: "/Dashboard/Manager/FeedBackAppointment",
+                            state: account.appointment.id,
+                          }}
+                          
+                          >
                             <Button style={{ marginLeft: "10%" }}>
                               <FontAwesomeIcon icon={faExternalLinkSquare} />
                             </Button>
-                          </p>
-
-
+                            </Link></p>
+                          
                         </div>
                       </div>
 
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Name</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.appointment.name}</p>
-                        </div>
-                      </div>
-
-
+                      
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.appointment.phone}</p>
-                        </div>
-                      </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Email</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{account.appointment.email}</p>
-                        </div>
-                      </div>
-
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">ActivityType</h6>
+                          <h6 className="mb-0">Activity Type:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.activityType}</p>
@@ -134,7 +114,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Description</h6>
+                          <h6 className="mb-0">Description:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.description}</p>
@@ -143,7 +123,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.appointment.appointmentStatus =="Finished" ? (
@@ -159,7 +139,46 @@ const FeedbackDetail = () => {
                       </div>
                     </div>
 
-                    
+                  
+                  </Tab>
+                  <Tab eventKey="creater" title="Creater">
+
+                    <div className="card-body">
+
+                    <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Full Name</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.appointment.fullname}
+              
+                          </p>
+
+
+                        </div>
+                      </div>
+
+
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Phone</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.appointment.phone}</p>
+                        </div>
+                      </div>
+
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Email:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{account.appointment.email}</p>
+                        </div>
+                      </div>
+
+                    </div>
+
 
                   </Tab>
                  
@@ -217,7 +236,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create</h6>
+                          <h6 className="mb-0">Time Create:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(account.customer.createDate).slice(11, 19)}</p>
@@ -225,7 +244,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Day of Brith</h6>
+                          <h6 className="mb-0">Date of Birth</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{account.customer.dob}</p>
@@ -233,7 +252,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.customer.status ? (

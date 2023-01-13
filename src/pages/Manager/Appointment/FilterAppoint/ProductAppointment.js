@@ -91,7 +91,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Name</h6>
+                                                    <h6 className="mb-0">Name:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].name}</p>
@@ -100,7 +100,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Category</h6>
+                                                    <h6 className="mb-0">Category:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].category.productCategoryName}</p>
@@ -109,7 +109,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Price</h6>
+                                                    <h6 className="mb-0">Price:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].price}(VND)</p>
@@ -118,7 +118,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Description</h6>
+                                                    <h6 className="mb-0">Description:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <textarea>{Product[0].description}</textarea>
@@ -127,7 +127,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Width</h6>
+                                                    <h6 className="mb-0">Width:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].width}m</p>
@@ -136,7 +136,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Length</h6>
+                                                    <h6 className="mb-0">Length:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].length}m</p>
@@ -145,7 +145,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Area</h6>
+                                                    <h6 className="mb-0">Area:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].area}m&#178;</p>
@@ -159,7 +159,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Street</h6>
+                                                    <h6 className="mb-0">Street:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].street}</p>
@@ -168,7 +168,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">District</h6>
+                                                    <h6 className="mb-0">District:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].district}</p>
@@ -177,7 +177,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Province</h6>
+                                                    <h6 className="mb-0">Province:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].province}</p>
@@ -193,7 +193,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Number of Bedroom</h6>
+                                                    <h6 className="mb-0">Number of Bedroom:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].noBedroom}</p>
@@ -202,7 +202,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Number of Toilet</h6>
+                                                    <h6 className="mb-0">Number of Toilet:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].noToilet}</p>
@@ -212,17 +212,17 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Number of Floor</h6>
+                                                    <h6 className="mb-0">Number of Floor:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].noFloor}</p>
+                                                    <p>{Product[0].noFloor}:</p>
                                                 </div>
                                             </div>
 
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Facade</h6>
+                                                    <h6 className="mb-0">Facade:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     <p>{Product[0].facade}</p>
@@ -231,7 +231,7 @@ const ProductInfor = () => {
 
                                             <div className="row mb-3">
                                                 <div className="col-sm-3">
-                                                    <h6 className="mb-0">Furniture</h6>
+                                                    <h6 className="mb-0">Furniture:</h6>
                                                 </div>
                                                 <div className="col-sm-9 text-secondary">
                                                     {Product[0].isFurniture ? (

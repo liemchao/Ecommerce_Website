@@ -462,6 +462,13 @@ const getopportunitytLead = (id) => {
   headers: authHeader(),
 });
 };
+
+const getAppoimentbyID = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment/${id}`,{
+  headers: authHeader(),
+});
+};
+
 const getAppointLead = (id) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment/lead/${id}`,{
   headers: authHeader(),
@@ -507,6 +514,7 @@ export default {
   Logout,
 
   //get Resource
+  getAppoimentbyID,
   getAppointLead,
   getAccountById,
   getAccountSystem,

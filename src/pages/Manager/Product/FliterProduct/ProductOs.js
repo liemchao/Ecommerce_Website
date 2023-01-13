@@ -172,6 +172,7 @@ const ProductOsList = () => {
                                 value={data}
                                 loading={loadingData}
                                 responsiveLayout="scroll"
+                                emptyMessage="No Product Found."
                             >
                                 <Column style={{ width: "5%" }} header="No" field="indexNumber" />
                                 <Column style={{ width: "20%" }} header="Name" field="name" sortable />

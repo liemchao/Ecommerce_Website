@@ -153,7 +153,7 @@ export default function ProductCreate({ refreshList }) {
   }
 
   function convertVietnamese(str) {
-    str= str.toLowerCase();
+    // str= str.toLowerCase();
     str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
     str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
     str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
@@ -161,6 +161,7 @@ export default function ProductCreate({ refreshList }) {
     str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
     str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
     str= str.replace(/đ/g,"d");
+    str= str.replace(/Đ/g,"D");
     str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g," ");
     str= str.replace(/-+-/g,"-");
     str= str.replace(/^\-+|\-+$/g,"");
@@ -247,6 +248,9 @@ async function getDistrict(proviceID) {
      
   
     }
+
+  
+
       if(obj.district_name.includes("Thành phố")) {
         modifineProvinceName = obj.district_name
         obj.district_name = `${obj.district_name.replace("Thành phố ", "")} City`

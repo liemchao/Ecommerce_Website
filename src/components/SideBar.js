@@ -198,9 +198,12 @@ const Sidebar = () => {
               aria-labelledby="headingFive"
               data-parent="#accordionSidebar"
             >
-              <div className="bg-white py-2 collapse-inner rounded">
+              <div className="bg-white py-2 collapse-inner rounded" >
                 <h6 className="collapse-header">Resource</h6>
-                <Link className="collapse-item"  to="/Dashboard/Manager/OpportunityList">
+                <Link  className="collapse-item"   to="/Dashboard/Manager/OpportunityList"
+                 on
+                >
+                  
                   Opportunity List
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">

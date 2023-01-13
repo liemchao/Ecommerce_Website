@@ -114,9 +114,9 @@ const ProductDeList = () => {
     }
     const getStatus = (rowData) => {
 
-        if (rowData.productStatus === "Not open for sale") {
-            return <div className="badge badge-dark mr-2">Not open for sale</div>
-        }
+        if (rowData.productStatus === "Deposited") {
+            return <div className="badge badge-info mr-2">Deposited</div>
+          }
     }
 
     const customButton = (rowData) => {
@@ -172,6 +172,7 @@ const ProductDeList = () => {
                     <div className="container-fluid">
                         <div className="card shadow mb-4">
                             <DataTable
+                              emptyMessage="No Product Found."
                             >
                                 <Column header="Result" body={notFound} />
                             </DataTable>

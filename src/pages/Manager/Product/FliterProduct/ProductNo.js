@@ -156,6 +156,9 @@ const ProductNoList = () => {
             }
         }
     };
+    const notFound =()=>{
+        return <div className="badge badge-danger mr-2">Not Found</div>;
+      }
 
 
     const onPageInputChange = (event) => {
@@ -164,7 +167,22 @@ const ProductNoList = () => {
 
     return (
         <>
-            {data ? (
+            {data.length == 0 ? (
+                <div id="wrapper">
+                    <div className="container-fluid">
+                        <div className="card shadow mb-4">
+                            <DataTable
+                              emptyMessage="No Product Found."
+                            >
+                                <Column header="Result" body={notFound} />
+                            </DataTable>
+                        </div>
+                    </div>
+                </div>
+
+
+            ) : (
+
                 <div id="wrapper">
                     <div className="container-fluid">
                         <div className="card shadow mb-4">
@@ -172,9 +190,10 @@ const ProductNoList = () => {
                                 value={data}
                                 loading={loadingData}
                                 responsiveLayout="scroll"
+                                emptyMessage="No Product Found."
                             >
                                 <Column style={{ width: "5%" }} header="No" field="indexNumber" />
-                                <Column style={{ width: "20%" }} header="Name" field="name" sortable/>
+                                <Column style={{ width: "20%" }} header="Name" field="name"  sortable/>
                                 <Column header="Category" body={getCaId} />
                                 {/* <Column header="Image" body={customImage} /> */}
                                 <Column style={{ width: "22%", header: "center" }} header="Address" body={getAddress} />
@@ -194,8 +213,6 @@ const ProductNoList = () => {
                         </div>
                     </div>
                 </div>
-            ) : (
-                <p>No data to show...</p>
 
             )}
         </>

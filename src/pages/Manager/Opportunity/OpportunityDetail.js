@@ -44,7 +44,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Name:</h6>
+                            <h6 className="mb-0">Opportunity Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Opportunity.name}</p>
@@ -102,7 +102,7 @@ const ProductOWerDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name:</h6>
+                          <h6 className="mb-0"> Lead's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.lead.fullname}
@@ -206,7 +206,7 @@ const ProductOWerDetail = () => {
 
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Day of Brith:</h6>
+                              <h6 className="mb-0">Date of Birth :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{(Opportunity.lead.dob).slice(0, 10)}</p>
@@ -247,7 +247,7 @@ const ProductOWerDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name:</h6>
+                          <h6 className="mb-0">Emplyee's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.employee.fullname}</p>
@@ -322,7 +322,7 @@ const ProductOWerDetail = () => {
                     </div>
                   </Tab>
 
-                  <Tab eventKey="ProductDetail" title="ProductDetail">
+                  <Tab eventKey="ProductDetail" title="Product Detail">
                     <div className="card-body">
 
 
@@ -344,6 +344,15 @@ const ProductOWerDetail = () => {
                             </Button>
                             </Link>
                           </p>
+                        </div>
+                      </div>
+
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Street</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <p>{Opportunity.product.street}</p>
                         </div>
                       </div>
 

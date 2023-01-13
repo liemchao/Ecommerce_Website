@@ -175,7 +175,7 @@ const LeadList = () => {
     
     let num = rowData.listedPrice
     return(
-       num.toLocaleString()
+      <p className="badge badge-primary mr-2">{num.toLocaleString()}</p>
     )
   }
 

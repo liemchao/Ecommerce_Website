@@ -49,7 +49,7 @@ const LeadDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name:</h6>
+                          <h6 className="mb-0">Lead's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.fullname}
@@ -60,20 +60,20 @@ const LeadDetail = () => {
                         <div className="col-sm-3">
                           <h6 className="mb-0">Gender:</h6>
                         </div>
-                        <div className="col-sm-9 text-secondary">
+                    
                           {account.gender ? (
-                            <div className="col-sm-7text-secondary">Male
+                            <div className="col-sm-9 text-secondary">Male
 
                             </div>
 
                           ) : (
-                            <div className="col-sm-7text-secondary">Female
+                            <div className="col-sm-9 text-secondary">Female
                             </div>
 
                           )
 
                           }
-                        </div>
+                      
                       </div>
 
                       <div className="row mb-3">

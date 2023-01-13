@@ -38,6 +38,8 @@ const LeadInfo = React.lazy(() => import("./pages/Manager/Task/DetailTask/LeadIn
 const OppProduct = React.lazy(() => import("./pages/Manager/Opportunity/OppProduct/ProductDetailOpp"))
 const ProductAppoimnet = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/ProductAppointment"))
 const LeadAppoiment = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/LeadDetailAp"))
+const FeedBackAppointment = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackDe/AppoimentFe"))
+
 
 
 
@@ -81,6 +83,8 @@ const routes = [
   { path: "/Dashboard/Manager/OppProduct", name: "OppProduct", component: OppProduct},
   { path: "/Dashboard/Manager/ProductAppoimnet", name: "ProductAppoimnet", component: ProductAppoimnet},
   { path: "/Dashboard/Manager/LeadAppoiment", name: "ProductAppoimnet", component: LeadAppoiment },
+  { path: "/Dashboard/Manager/FeedBackAppointment", name: "FeedBackAppointment", component: FeedBackAppointment },
+  
 
 
 
