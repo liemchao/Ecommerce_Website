@@ -1,79 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Tabs, Tab } from "react-bootstrap";
-
+import { Tabs, Tab ,Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
+import PageHeading from "../../../../components/PageHeading";
+import OpportunityLeadList from "../../Lead/DetailLead/Oppo";
+import AppointLeadList from "../../Lead/DetailLead/AppoinmentLead";
 import ApiService from "../../../../api/apiService";
 
-import PageHeading from "../../../../components/PageHeading";
 
+const LeadDetail = () => {
 
-
-const LeadInfor = (rowData) => {
   const { state } = useLocation();
-  const [account, setAccount] = useState([]);
-  const [work, setWork] = useState([]);
-  const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [id, setID] = useState(rowData.location.rowData);
+    const [account, setAccount] = useState([]);
+    const [id, setid] = useState(state);
+    console.log(state)
 
+    const [loadingData, setLoadingData] = useState(true);
 
-   async function getLeadInfo() {
-      
+    async function getLeadDetail() {
 
-
+        setLoadingData(true);
         await ApiService.getLeadbyID(id)
-          .then((response) => {
-            // console.log(response);
-            const dataRes = response.data.data
-            const listDataSet = [...dataRes];
-           
-            setTotalRecords(response.data.totalRow);
-         
-            setAccount(listDataSet);
-            console.log(account);
-       
-            // console.log(toString(listDataSet.productImages.url));
-            // setTotalPage(response.data.totalPage);
-            // setTotalRecords(response.data.totalEle);
-            // you tell it that you had the result
-        
-          })
-          .catch((error) => {
-            if (error.response) {
-              // get response with a status code not in range 2xx
-              // console.log(error.response.data.data);
-              // console.log(error.response.data.status);
-              // console.log(error.response.data.headers);
-            } else if (error.request) {
-              // no response
-              console.log(error.request);
-            } else {
-              // Something wrong in setting up the request
-              // console.log("Error", error.message);
-            }
-            console.log(error.config);
-          });
-      }
+            .then((response) => {
 
-  useEffect(() => {
-    getLeadInfo()
-  }, []);
+              setAccount(response.data.data[0]);
+                
+                setLoadingData(false);
+            })
+            .catch((error) => {
+                if (error.response) {
+
+                } else if (error.request) {
+                    // no response
+                    console.log(error.request);
+                } else {
+
+                }
+                console.log(error.config);
+            });
+    }
+
+    useEffect(() => {
+
+      getLeadDetail();
+    }, []);
+
 
   return (
     <div>
       <PageHeading title="Lead Detail" />
-      {account.length==0 ? (
+      {loadingData ? (
         <p>Loading, please wait...</p>
       ) : (
         <div className="main-body">
           <div className="row">
-            <div className="col-lg-4">
-
-            </div>
-            <div className="col-lg-8">
+        
+            <div className="col-lg-12">
               <div className="card">
                 <Tabs
                   defaultActiveKey="profile"
@@ -87,7 +71,7 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account[0].fullname}</p>
+                          {account.fullname}
                         </div>
                       </div>
 
@@ -96,7 +80,7 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Gender:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {account[0].gender ? (
+                          {account.gender ? (
                             <div className="col-sm-7text-secondary">Male
 
                             </div>
@@ -116,7 +100,7 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account[0].email}</p>
+                          <p>{account.email}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -124,7 +108,7 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account[0].phone}</p>
+                          <p>{account.phone}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -132,22 +116,43 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Lead Type: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account[0].leadType}</p>
+                          <p>{account.leadType}</p>
                         </div>
                       </div>
                       {
-                        account.companyName == "" ? (<>
+                        account.leadType=="Personal" ? (<>
 
                         </>) : (
-
+                          
                           <div className="row mb-3">
                             <div className="col-sm-3">
                               <h6 className="mb-0">Company Name:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
-                              <p>{account[0].companyName}</p>
+                              <p>{account.companyName}</p>
                             </div>
                           </div>
+
+                          
+                        )
+                      }
+
+
+{
+                        account.leadType=="Personal" ? (<>
+
+                        </>) : (
+                          
+                          <div className="row mb-3">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">Website:</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              <p>{account.website}</p>
+                            </div>
+                          </div>
+
+                          
                         )
                       }
                       {/* <div className="row mb-3">
@@ -167,7 +172,7 @@ const LeadInfor = (rowData) => {
                         </div>
                       </div> */}
                       {
-                        account.dob == null ? (<>
+                        account.dob == null| account.dob == "" ? (<>
 
                         </>) : (
 
@@ -176,7 +181,7 @@ const LeadInfor = (rowData) => {
                               <h6 className="mb-0">Day of Brith:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
-                              <p>{(account[0].dob).slice(0, 10)}</p>
+                              <p>{(account.dob).slice(0, 10)}</p>
                             </div>
                           </div>
                         )
@@ -186,7 +191,7 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Create Day</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{(account[0].createDate).slice(0, 10)}</p>
+                          <p>{(account.createDate).slice(0, 10)}</p>
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -194,7 +199,7 @@ const LeadInfor = (rowData) => {
                           <h6 className="mb-0">Lead Status</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {account[0].leadStatus === "New" ? (
+                          {account.leadStatus === "New" ? (
                             <div className="badge badge-warning mr-2">
                               New
                             </div>
@@ -208,7 +213,7 @@ const LeadInfor = (rowData) => {
                     </div>
                   </Tab>
 
-                  {/* <Tab eventKey="account" title="Account">
+                  <Tab eventKey="account" title="Account">
                     {
                       account.account === null ? (
                         <div style={{ textAlign: "center", fontSize: 30 }}>
@@ -266,16 +271,39 @@ const LeadInfor = (rowData) => {
 
                     }
 
-                  </Tab> */}
+                  </Tab>
+                  <Tab eventKey="appointment" title="Appointment">
+                    <AppointLeadList rowData={account} />
+
+                  </Tab>
+
+                  <Tab eventKey="opportunity" title="Opportunity">
+
+                    <OpportunityLeadList rowData={account} />
+
+
+                  </Tab>
+
                 </Tabs>
+
 
               </div>
             </div>
           </div>
         </div>
       )}
+          <div>
+        <Link 
+        to="/Dashboard/Manager/LeadList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default LeadInfor;
+export default LeadDetail;

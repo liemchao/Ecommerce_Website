@@ -240,7 +240,7 @@ const TaskDetail = () => {
                       <Link
                       to={{
                         pathname: "/Dashboard/Manager/LeadInfo",
-                        rowData:currvalue.leadId,
+                        state:currvalue.leadId,
                       }}
                   
                       >

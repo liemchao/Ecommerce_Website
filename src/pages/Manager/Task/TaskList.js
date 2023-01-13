@@ -214,7 +214,7 @@ const TaskList = () => {
             pathname: "/Dashboard/Manager/TaskCreate",
           }}
         >
-         <Button><FontAwesomeIcon icon={faPlus}/> Create Task</Button>
+         <Button><FontAwesomeIcon icon={faPlus}/>Add</Button>
         </Link>
         </div>
         <div className="row">

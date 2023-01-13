@@ -87,7 +87,7 @@ const Topbar = () => {
             </a>
 
             <ToastContainer/>
-            <div style={{ overflow: "auto", maxHeight: "15rem", scrollbarWidth: "none" }}
+            <div style={{ overflow: "auto", maxHeight: "14  rem", scrollbarWidth: "none" }}
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
