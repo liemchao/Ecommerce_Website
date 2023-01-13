@@ -93,14 +93,24 @@ const customButton = (rowData) => {
   };
 
 
-  const customStatus = (rowData) => {
-    if (rowData.isFavorite) {
-      return <div className="badge badge-success mr-2"> Favorite</div>;
+  const getStatus=(rowData)=>{
+  
+    if (rowData.product.productStatus=="On sale") {
+      return <div className="badge badge-success mr-2"> On sale</div>;
     }
-   else {
-      return <div className="badge badge-warning mr-2">Not Favorite</div>;
+    if (rowData.product.productStatus === "Not open for sale") {
+      return <div className="badge badge-dark mr-2">Not open for sale</div>
     }
-  };
+    if (rowData.product.productStatus === "On hold") {
+      return <div className="badge badge-warning mr-2">On hold</div>
+    }
+    if (rowData.product.productStatus === "Deposited") {
+      return <div className="badge badge-info mr-2">Deposited</div>
+    }
+    if (rowData.product.productStatus === "Sold") {
+      return <div className="badge badge-secondary mr-2">Sold</div>
+    }
+  }
 
   const Price = (rowData) => {
   
@@ -117,14 +127,6 @@ const customButton = (rowData) => {
 
 };
 
-const Categoy = (rowData) => {
-  
-  return <div className="badge badge mr-2">{rowData.customer.createDate}</div>;
-
-
-};
-
- 
 
   const onPageChange = (event) => {
     setFirst(event.first);
@@ -147,7 +149,7 @@ const Categoy = (rowData) => {
 
   return (
     <>
-      {data ? (
+      {!data.length==0 ? (
         <div id="wrapper">
           <div className="container-fluid">
             <div className="card shadow mb-4">
@@ -161,7 +163,7 @@ const Categoy = (rowData) => {
                 <Column style={{ width: "10%" }} header="No" field="indexNumber" />
                 <Column style={{ paddingRight: 2, paddingLeft: 3, width: "19%" }} header="Product Name" body={ProductName} />
                 <Column style={{paddingLeft:"6%",width: "19%" }} header="Price(VND)" body={Price}/>
-                <Column header="Favorite" body={customStatus} />
+                <Column  style={{paddingLeft:"6%",width: "19%" }}  header="Status" body={getStatus} />
                 <Column header="Action" body={customButton} />
               </DataTable>
               <Paginator

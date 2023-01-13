@@ -4,30 +4,49 @@ import { Tabs, Tab ,Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
-import PageHeading from "../../../components/PageHeading";
-import OpportunityLeadList from "./DetailLead/Oppo";
-import AppointLeadList from "./DetailLead/AppoinmentLead";
+import PageHeading from "../../../../components/PageHeading";
+import OpportunityLeadList from "../../Lead/DetailLead/Oppo";
+import AppointLeadList from "../../Lead/DetailLead/AppoinmentLead";
+import ApiService from "../../../../api/apiService";
 
 
 const LeadDetail = () => {
-  const { state } = useLocation();
-  const [account, setAccount] = useState([]);
-  const [work, setWork] = useState([]);
-  const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loadingData, setLoadingData] = useState(true);
 
-  useEffect(() => {
-    if (typeof state != "undefined") {
-      localStorage.setItem("Temp", JSON.stringify(state));
+  const { state } = useLocation();
+    const [account, setAccount] = useState([]);
+    const [id, setid] = useState(state);
+    console.log(state)
+
+    const [loadingData, setLoadingData] = useState(true);
+
+    async function getLeadDetail() {
+
+        setLoadingData(true);
+        await ApiService.getLeadbyID(id)
+            .then((response) => {
+
+              setAccount(response.data.data[0]);
+                
+                setLoadingData(false);
+            })
+            .catch((error) => {
+                if (error.response) {
+
+                } else if (error.request) {
+                    // no response
+                    console.log(error.request);
+                } else {
+
+                }
+                console.log(error.config);
+            });
     }
-    const storageEvent = JSON.parse(localStorage.getItem("Temp"));
-    setAccount(storageEvent);
-    setLoadingData(false);
-  }, []);
+
+    useEffect(() => {
+
+      getLeadDetail();
+    }, []);
+
 
   return (
     <div>

@@ -133,7 +133,7 @@ const AppointmentEm = ({ rowData }) => {
         </div>
             ) : (
                 <div style={{ textAlign: "center", fontSize: 30 }}>
-                <h1 className="badge badge-danger mr-2"> Customer has not  an opportunity  in the system</h1>
+                <h1 className="badge badge-danger mr-2"> Employee has not  an appointment  in the system</h1>
               </div>
 
             )}

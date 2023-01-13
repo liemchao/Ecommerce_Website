@@ -35,6 +35,11 @@ const ProductHistory = React.lazy(() => import("./pages/Manager/Account/DetailCu
 const ProductOwerInfo = React.lazy(() => import("./pages/Manager/Product/FliterProduct/ProductOwerInfo"))
 const ProductInfo = React.lazy(() => import("./pages/Manager/ProductOwer/ProductView/ProductInfor"))
 const LeadInfo = React.lazy(() => import("./pages/Manager/Task/DetailTask/LeadInfo"))
+const OppProduct = React.lazy(() => import("./pages/Manager/Opportunity/OppProduct/ProductDetailOpp"))
+const ProductAppoimnet = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/ProductAppointment"))
+const LeadAppoiment = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/LeadDetailAp"))
+
+
 
 
 
@@ -73,6 +78,10 @@ const routes = [
   { path: "/Dashboard/Manager/ProductOwerInfo", name: "ProductOwerInfo", component: ProductOwerInfo},
   { path: "/Dashboard/Manager/ProductInfo", name: "ProductInfo", component: ProductInfo},
   { path: "/Dashboard/Manager/LeadInfo", name: "LeadInfo", component: LeadInfo},
+  { path: "/Dashboard/Manager/OppProduct", name: "OppProduct", component: OppProduct},
+  { path: "/Dashboard/Manager/ProductAppoimnet", name: "ProductAppoimnet", component: ProductAppoimnet},
+  { path: "/Dashboard/Manager/LeadAppoiment", name: "ProductAppoimnet", component: LeadAppoiment },
+
 
 
 

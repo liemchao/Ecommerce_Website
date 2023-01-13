@@ -174,7 +174,7 @@ const ProductNoList = () => {
                                 responsiveLayout="scroll"
                             >
                                 <Column style={{ width: "5%" }} header="No" field="indexNumber" />
-                                <Column style={{ width: "20%" }} header="Name" field="name" />
+                                <Column style={{ width: "20%" }} header="Name" field="name" sortable/>
                                 <Column header="Category" body={getCaId} />
                                 {/* <Column header="Image" body={customImage} /> */}
                                 <Column style={{ width: "22%", header: "center" }} header="Address" body={getAddress} />

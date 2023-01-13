@@ -31,11 +31,12 @@ const AppointDetail = () => {
       employeeId: id,
 
     };
+    console.log(data)
 
 
     await ApiService.AssAppointment(data)
       .then((response) => {
-        setSuccessMsg("Assing Appoint successfull");
+        setSuccessMsg("Assing Appoitment successfull");
         setLoading(false);
       })
       .catch((error) => {
@@ -86,11 +87,26 @@ const AppointDetail = () => {
         }
         console.log(error.config);
       });
+
+   
+
   }
+
+  const chooseEmployee = (id) =>{
+
+    let radio = document.getElementById(id);
+     if (radio.checked){
+      setId(id)
+    
+
+   }
+
+ }
   const customButton1 = (rowData) => {
 
   
-    return <input id={rowData.id} name="firt" style={{marginLeft:"10%"}} type="radio" />
+    return <input id={rowData.id} name="firt" style={{marginLeft:"10%"}} type="radio" onClick={ () => { chooseEmployee(rowData.id)}}/>
+         
  
   
   
@@ -130,7 +146,7 @@ const AppointDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Full Name</h6>
+                          <h6 className="mb-0">Creater</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.fullname}
@@ -145,7 +161,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name</h6>
+                          <h6 className="mb-0">Title</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.name}</p>
@@ -208,28 +224,48 @@ const AppointDetail = () => {
                           <h6 className="mb-0">StartDate</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.startDate}{Appointment.startTime}</p>
+                          <p>{Appointment.startDate} {Appointment.startTime}</p>
                         </div>
                       </div>
 
+                      {
+                        Appointment.endDate==""|| Appointment.endDate==null ? (<>
 
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">End Date</h6>
+                        </>) : (
+                          
+                          <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">End Date</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Appointment.endDate}</p>
+                          </div>
                         </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.endDate}</p>
-                        </div>
-                      </div>
 
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
-                          <h6 className="mb-0">Accepted Day</h6>
+                          
+                        )
+                      }
+
+
+{
+                        Appointment.acceptedDate==""|| Appointment.acceptedDate==null ? (<>
+
+                        </>) : (
+                          
+                          <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0">Accepted Day</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Appointment.acceptedDate}</p>
+                          </div>
                         </div>
-                        <div className="col-sm-9 text-secondary">
-                          <p>{Appointment.acceptedTime}</p>
-                        </div>
-                      </div>
+
+                          
+                        )
+                      }
+                    
+                   
 
                     </div>
 
@@ -307,21 +343,37 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">FullName</h6>
+                          <h6 className="mb-0">Full Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.lead.fullname}
-                            <Button style={{ marginLeft: "10%" }}>
+                          <Link
+                      to={{
+                        pathname: "/Dashboard/Manager/LeadAppoiment",
+                        state:Appointment.lead.id,
+                      }}
+                  
+                      >
+                      <Button style={{ marginLeft: "10%" }}>
                               <FontAwesomeIcon icon={faExternalLinkSquare} />
                             </Button>
+                        </Link>
 
                           </p>
                         </div>
                       </div>
+                      <div className="row mb-3">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">Name Call:</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              <p>{Appointment.lead.nameCall}</p>
+                            </div>
+                          </div>
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status Lead</h6>
+                          <h6 className="mb-0">Status Lead:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p className="badge badge-primary mr-2">{Appointment.lead.leadStatus}</p>
@@ -344,9 +396,17 @@ const AppointDetail = () => {
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.product.name}
+                          <Link 
+                          to={{
+                            pathname: "/Dashboard/Manager/ProductAppoimnet",
+                            state: Appointment.product.id,
+                          }}
+                          
+                          >
                             <Button style={{ marginLeft: "10%" }}>
                               <FontAwesomeIcon icon={faExternalLinkSquare} />
                             </Button>
+                            </Link>
                           </p>
                         </div>
                       </div>

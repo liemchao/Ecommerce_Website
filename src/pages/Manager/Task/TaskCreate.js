@@ -21,7 +21,6 @@ const ProductDetail = () => {
   const [Appointment, setAppointment] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState([]);
-  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
@@ -37,15 +36,15 @@ const ProductDetail = () => {
 
     let data = {
       name:name,
-      employeeId: id,
+      employeeId: idEm,
       leadId: idLead
     };
     console.log(data);
 
 
-    await ApiService.Ass(data)
+    await ApiService.createTask(data)
       .then((response) => {
-        setSuccessMsg("Assing Appoint successfull");
+        setSuccessMsg("Assing Task Successfull");
         setLoading(false);
       })
       .catch((error) => {
@@ -162,7 +161,7 @@ const ProductDetail = () => {
      let radio = document.getElementById(id);
       if (radio.checked){
        setem(id)
-       console.log(idEm)
+     
 
     }
 
@@ -248,7 +247,20 @@ useEffect(() => {
                 </DataTable>
 
             <Button style={{marginTop:"5%"}} onClick={AssTask}> <FontAwesomeIcon icon={faPlus}/> Create Task</Button>
-
+            {loading && (
+       <span className="spinner-border spinner-border-sm float-lg-right"></span>
+     )}
+     {/* Message after submit */}
+     {errMsg && (
+       <span className="alert alert-danger float-lg-right" role="alert">
+         {errMsg}
+       </span>
+     )}
+     {successMsg && (
+       <span className="alert alert-success float-lg-right" role="alert">
+         {successMsg}
+       </span>
+     )}
               </div>
             </div>
 

@@ -99,6 +99,19 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
+                          <h6 className="mb-0">Gender:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          {account.gender?(<>
+                          <p>Female</p>
+                          </>):(<>
+                            <p>Male</p>
+                          </>)}
+                         
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
                           <h6 className="mb-0">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">

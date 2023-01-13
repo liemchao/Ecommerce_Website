@@ -262,7 +262,6 @@ async function getDistrict(proviceID) {
         listSet.push(dataObj);
       })
 
-      console.log(listSet)
       setDistrict(listSet);
     
 
@@ -367,7 +366,6 @@ async function getDistrict(proviceID) {
           obj['indexNumber'] = count
 
         })
-        console.log(response);
 
         setDirec(listDataSet);
 
@@ -490,6 +488,7 @@ async function getDistrict(proviceID) {
             <label htmlFor="name">Price</label>
             <InputText
               id="name"
+             
               type="number"
               required
               onChange={(e) => setProduct({ ...Product, price: e.target.value })}

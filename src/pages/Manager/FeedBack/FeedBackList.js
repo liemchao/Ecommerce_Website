@@ -105,7 +105,7 @@ const FeedBackList = () => {
           <Link
             style={{ paddingLeft: "5%" }}
             to={{
-              pathname: "/Dashboard/Manager/LeadDetail",
+              pathname: "/Dashboard/Manager/FeedBackDetail",
               state: rowData,
             }}
           >
@@ -124,7 +124,9 @@ const FeedBackList = () => {
     }
   }
 
-
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
   const customerName = (rowData) => {
 
    return <p>{rowData.customer.fullname}</p>;
@@ -222,8 +224,18 @@ const FeedBackList = () => {
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {!data ? (
-          <p>No data to show...</p>
+       {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           emptyMessage="No FeedBack  Found."
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">

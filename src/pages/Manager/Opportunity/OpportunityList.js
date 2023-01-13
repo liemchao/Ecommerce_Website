@@ -108,7 +108,7 @@ const LeadList = () => {
           <Link
             style={{ paddingLeft: "5%" }}
             to={{
-              pathname: "/Dashboard/Manager/LeadDetail",
+              pathname: "/Dashboard/Manager/OpportunityDetail",
               state: rowData,
             }}
           >
@@ -125,6 +125,9 @@ const LeadList = () => {
     }else{
       return <div className="badge badge-success mr-2">{rowData.opportunityStatus}</div>;
     }
+  }
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
   }
 
   // const template = {
@@ -168,6 +171,14 @@ const LeadList = () => {
 
   }
 
+  const dealValue = (rowData)=>{
+    
+    let num = rowData.listedPrice
+    return(
+       num.toLocaleString()
+    )
+  }
+
   const searchProduct= () =>{
     const filterData = data.filter((value)=>{
      console.log(value);
@@ -194,9 +205,19 @@ const LeadList = () => {
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {!data ? (
-          <p>No data to show...</p>
-        ) : (
+       {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           emptyMessage="No Opportunity Found."
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
+        ): (
           <div id="wrapper">
             <div className="container-fluid">
               <div className="card shadow mb-4">
@@ -208,7 +229,7 @@ const LeadList = () => {
                   <Column header="No" field="indexNumber"/>
                   <Column header="Name" field="name"/>
                   <Column header="Description" field="description"/>
-                  <Column header="Deal Value" field="listedPrice"/>
+                  <Column header="Deal Value" body={dealValue}/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
 

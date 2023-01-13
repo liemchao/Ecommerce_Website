@@ -2,50 +2,80 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Tabs, Tab, Button, Figure  } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
+import ApiService from "../../../api/apiService";
 
 const ProductDetail = () => {
     const { state } = useLocation();
     const [Product, setProduct] = useState([]);
+    const [ProductFa, setProductFa] = useState('');
+
+    const [ProductVi, setProductVi] = useState([]);
    
     const [loadingData, setLoadingData] = useState(true);
-    
 
+    const [id, setID] = useState(state.id);
+
+    
+    
+    
     useEffect(() => {
       if (typeof state != "undefined") {
         localStorage.setItem("Temp", JSON.stringify(state));
       }
       const storageEvent = JSON.parse(localStorage.getItem("Temp"));
       setProduct(storageEvent);
+      getFoveritList();
+      getViewProdcut();
       setLoadingData(false);
-      // getFoveritList();
     }, []);
 
-    // async function getFoveritList() {
-    //   setLoadingData(true);
-    //   await ApiService.getFoveritList(Product.id)
-    //     .then((response) => {
-       
-    //       setData(response);
-    //       console.log(response);
-        
-    //       setLoadingData(false);
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
+
+
+    async function getFoveritList() {
+      setLoadingData(true);
+      console.log(id);
+      await ApiService.getProductFavorite(id)
+        .then((response) => {
+          setProductFa(response.data)
+          setLoadingData(false);
+        })
+        .catch((error) => {
+          if (error.response) {
            
-    //       } else if (error.request) {
-    //         // no response
-    //         console.log(error.request);
-    //       } else {
+          } else if (error.request) {
+            // no response
+            console.log(error.request);
+          } else {
         
-    //       }
-    //       console.log(error.config);
-    //     });
-    // }
+          }
+          console.log(error.config);
+        });
+    }
+
+    async function getViewProdcut() {
+      setLoadingData(true);
+      console.log(id);
+      await ApiService.getViewProduct(id)
+        .then((response) => {
+          setProductVi(response.data)
+          setLoadingData(false);
+        })
+        .catch((error) => {
+          if (error.response) {
+           
+          } else if (error.request) {
+            // no response
+            console.log(error.request);
+          } else {
+        
+          }
+          console.log(error.config);
+        });
+    }
   
     return (
       <div>
@@ -283,9 +313,33 @@ const ProductDetail = () => {
 
 
                     </Tab>
+                    <Tab eventKey="Favoirte" title="Product Behavor" >
+                    <div className="card-body">
+              
+                     <div className="row mb-3">
+                          <div className="col-sm-6">
+                            <h6 className="mb-0">Number of Customer View The Product:</h6>
+                          </div>
+                          <div className="col-sm-4 text-secondary">
+                            <p>{ProductFa}</p>
+                          </div>
+                        </div>
+                        
+                     <div className="row mb-3">
+                          <div className="col-sm-6">
+                            <h6 className="mb-6">Number of Customer Like The Product:</h6>
+                          </div>
+                          <div className="col-sm-4 text-secondary">
+                            <p>{ProductVi}</p>
+                          </div>
+                        </div>
+
+                    
+                      </div>
+                      </Tab>
                    
 
-
+                   
 
                   </Tabs>
                 </div>

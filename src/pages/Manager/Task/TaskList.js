@@ -51,29 +51,7 @@ const TaskList = () => {
           const count = ++ index ;
           obj['indexNumber'] = count
         })
-        // let bigArray = []
-        // // // let nameArray = []
-      
-        // listDataSet.map((value, index) => {
-        //   let objArray = []
-        //   let name = value.name;
-        //   let createDate = value.createDate
-        //   let isDone = value.isDone
-        //   let taskDetails = value.taskDetails
-
-       
-        //   let creater = value.creater
-        //   let employee = value.employee
-        //   objArray.push(name)
-        //   objArray.push(createDate)
-        //   objArray.push(isDone)
-        //   objArray.push(taskDetails)
-        //   objArray.push(creater)
-        //   objArray.push(employee)
-        //   bigArray.push(objArray)
-        //   console.log(bigArray.length ,bigArray)
-        // })
-        
+        setTotalRecords(response.data.totalRow);
         setData(listDataSet)
         setLoadingData(false);
       })
@@ -151,6 +129,9 @@ const TaskList = () => {
       </div>
     );
   };
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
  
   // const template = {
   //   layout: "CurrentPageReport PrevPageLink NextPageLink",
@@ -243,8 +224,18 @@ const TaskList = () => {
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {!data ? (
-          <p>No data to show...</p>
+        {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           emptyMessage="No Task Found."
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">

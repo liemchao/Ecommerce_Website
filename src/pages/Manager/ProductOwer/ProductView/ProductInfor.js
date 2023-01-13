@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import { Tabs, Tab, Button, Figure  } from "react-bootstrap";
 import PageHeading from "../../../../components/PageHeading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 

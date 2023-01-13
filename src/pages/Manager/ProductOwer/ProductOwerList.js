@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
 
@@ -11,9 +10,10 @@ import { Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CreateProduct from "../ProductOwer/ProductOwerCreate"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileMedicalAlt, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import ProductOwerUpdate from "./ProductOwerUpdate";
 
 
 const ProductOwerList = () => {
@@ -28,6 +28,7 @@ const ProductOwerList = () => {
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
+ 
 
   async function getProductOwer() {
     setLoadingData(true);
@@ -83,6 +84,26 @@ const ProductOwerList = () => {
     setRows(event.rows);
     setCurrentPage(event.page + 1);
   };
+
+  async function handleDelete (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to delete this Product Ower?"
+    );
+
+    if (confirm) {
+      console.log(rowData.id)
+      await ApiService.deleteProductOwer(rowData.id)
+        .then((response) => {
+          window.alert(" Delete this Product Ower sucsseful.")
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't delete this Product.")
+        });
+    }
+  };
   
   const getStatus=(rowData)=>{
   
@@ -99,6 +120,9 @@ const ProductOwerList = () => {
     return <div className="badge badge-info mr-2">{rowData.totalProduct}</div>;
 
   }
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
 
   const customButton = (rowData) => {
     return (
@@ -113,8 +137,8 @@ const ProductOwerList = () => {
         >
          <Button style={{marginLeft:"-20%"}}><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
         </Link>
-        <Button  style={{marginLeft:"-10%" , paddingLeft:"9%"}} className="btn btn-success"><FontAwesomeIcon icon={faPen}/></Button>
-        <Button style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+        <ProductOwerUpdate rowData={rowData} refreshList={refreshList} />
+        <Button onClick={(e) => handleDelete(e, rowData)} style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
      
         {/* Detail */}
         {/* <Link
@@ -149,19 +173,7 @@ const ProductOwerList = () => {
   };
   
 
-  // const onPageInputKeyDown = (event, options, totalPage) => {
-  //   if (event.key === "Enter") {
-  //     const page = parseInt(currentPage);
-  //     if (page < 0 || page > totalPage) {
-  //       setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
-  //     } else {
-  //       const first = currentPage ? options.rows * (page - 1) : 0;
-  //       setFirst(first);
-  //       setPageInputTooltip("Press 'Enter' key to go to this page.");
-  //     }
-  //   }
-  // };
-
+ 
   const handleSearch = (e) =>{
     setQuery(e.target.value);
     if(e.target.value === ""){
@@ -250,8 +262,18 @@ const ProductOwerList = () => {
        onClick={searchProductOwer}
        ><FontAwesomeIcon icon={faSearch}/></Button>
        </div>
-        {!data ? (
-          <p>No data to show...</p>
+        {data.length==0 ? (
+          <div style={{marginTop:"2%"}}id="wrapper">
+          <div className="container-fluid">
+            <div className="card shadow mb-1">
+              <DataTable
+              emptyMessage="No Product Ower Found."
+              >
+              <Column header="Result" body={notFound}/>
+              </DataTable>
+             </div>
+             </div>
+             </div>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">

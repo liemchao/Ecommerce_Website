@@ -76,19 +76,16 @@ const TaskDetail = () => {
           <div className="main-body">
             <div className="row">
 
-            <div className="col-lg-4">
-              <div className="card">
-                </div>
-                </div>
+          
             
-              <div className="col-lg-8">
+              <div className="col-lg-12">
                 <div className="card">
                   <Tabs
                     defaultActiveKey="profile"
                     id="uncontrolled-tab-example"
                     className="mb-3"
                   >
-                    <Tab eventKey="profile" title="Information Task">
+                    <Tab eventKey="profile" title="Information">
                       <div className="card-body">
                         <div className="row mb-3">
                           <div className="col-sm-3">
@@ -158,7 +155,7 @@ const TaskDetail = () => {
                       </div>
                     </Tab>
 
-                     <Tab eventKey="Employee" title="Employer">
+                     <Tab eventKey="Employee" title="Employee">
                      <div className="card-body">
                         <div className="row mb-3">
                           <div className="col-sm-3">
@@ -231,7 +228,7 @@ const TaskDetail = () => {
                      <div className="card-body">
                      <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Lead:</h6>
+                            <h6 className="mb-0">Lead Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                           {

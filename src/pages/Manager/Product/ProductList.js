@@ -5,6 +5,7 @@ import ApiService from "../../../api/apiService";
 
 // import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
+import { InputText } from 'primereact/inputtext';
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
@@ -28,7 +29,9 @@ import ProductDeleList from "./FliterProduct/ProductDele";
 
 
 const ProductList = () => {
+  const [globalFilterValue1, setGlobalFilterValue1] = useState('');
   const [data, setData] = useState([]);
+  const [filters1, setFilters1] = useState(null);
   const [errMsg, setErrMsg] = useState("");
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
@@ -44,11 +47,10 @@ const ProductList = () => {
 
   async function getPublicProduct() {
     setLoadingData(true);
-    // if(currentPage == 1) 
+
     await ApiService.getPublicProduct(currentPage, rows)
       .then((response) => {
-        // setCounter()
-        // let start = 9
+     
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         let  counter = 10 * (currentPage-1)
@@ -78,6 +80,7 @@ const ProductList = () => {
 
   useEffect(() => {
     getPublicProduct();
+    
   }, [currentPage]);
 
   const refreshList = () => {
@@ -85,6 +88,7 @@ const ProductList = () => {
     getPublicProduct();
   };
   
+
 
   const onPageChange = (event) => {
     setFirst(event.first);
@@ -134,7 +138,7 @@ const ProductList = () => {
       await ApiService.deleteProduct(rowData.id)
         .then((response) => {
           window.alert(" Delete this Product sucsseful.")
-          refreshList();
+          window.location.reload();
         })
         .catch((e) => {
           console.log(e);
@@ -153,7 +157,7 @@ const ProductList = () => {
             state: rowData,
           }}
         >
-         <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} color="primary"/></Button>
+         <Button icon="pi pi-filter-slash" style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} color="primary"/></Button>
         </Link>
         <UpdateProduct rowData={rowData} refreshList={refreshList} />
         <Button onClick={(e) => handleDelete(e, rowData)} style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
@@ -175,6 +179,18 @@ const ProductList = () => {
   //     />
   //   );
   // };
+  const renderHeader1 = () => {
+    console.log('sss')
+    return (
+      <div className="flex justify-content-between">
+      <Button type="button" icon="pi pi-filter-slash" label="Clear" className="p-button-outlined" />
+      <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          {/* <InputText value={globalFilterValue1} onChange={onGlobalFilterChange1} placeholder="Keyword Search" /> */}
+      </span>
+  </div>
+    )
+}
   
   const handleSearch = (e) =>{
     setQuery(e.target.value);
@@ -189,12 +205,14 @@ const ProductList = () => {
     
     await ApiService.searchProduct(query)
       .then((response) => {
-        // check if the data is populated
+       
+       
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
-        let  counter = 10 * (currentPage-1)
-        listDataSet.map((obj, index) => { 
-          obj['indexNumber'] = (counter + ++index) 
+        listDataSet.map((obj, index) => {
+          const count = ++ index ;
+          obj['indexNumber'] = count
+
         })
         setData(listDataSet);
         setLoadingData(false)
@@ -221,7 +239,7 @@ const ProductList = () => {
   }
 
 
- 
+  const header1 = renderHeader1();
 
   return (
     <>
@@ -248,6 +266,7 @@ const ProductList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
+           emptyMessage="No Product Found."
            >
            <Column header="Result" body={notFound}/>
            </DataTable>
@@ -268,15 +287,23 @@ const ProductList = () => {
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
+                  rowHover={true}
+                  sortMode="multiple"
+                  filterDisplay="menu"
+               
+                  globalFilterFields={['name','No']}
+                  filters={filters1}
+                  showGridlines
+                  
                 >
-              <Column style={{width: "5%" }} header="No" field="indexNumber"/>
-                  <Column style={{width: "20%" }} header="Name"  field="name"/>
+              <Column style={{width: "7%" }} header="No" field="indexNumber"   />
+                  <Column  style={{width: "20%" }} header="Name" field="name" sortable />
                   <Column header="Category" body={getCaId} />
                   {/* <Column header="Image" body={customImage} /> */}
-                  <Column style={{width: "22%" ,header:"center"}} header="Address" body={getAddress} />
-                  <Column style={{width: "12%" }}header="Price(VND)" body={getPrice} />
-                  <Column header="Status" body={getStatus} />
-                  <Column header="Action" body={customButton} />
+                  <Column style={{width: "22%" ,header:"center"}} header="Address"   body={getAddress}  /> 
+                  <Column style={{width: "12%" }}header="Price(VND)" body={getPrice}  />
+                  <Column header="Status" body={getStatus}  />
+                  <Column header="Action"  body={customButton}  />
                   </DataTable>
                 <Paginator
                   paginator

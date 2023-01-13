@@ -200,14 +200,28 @@ const Sidebar = () => {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Resource</h6>
+                <Link className="collapse-item"  to="/Dashboard/Manager/OpportunityList">
+                  Opportunity List
+                </Link>
+                <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">
+                  Appointment List
+                </Link>
+                <Link className="collapse-item" to="/Dashboard/Manager/LeadList">
+                  Lead List
+                </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
                   Product List
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductOwerList">
                   Product Ower
                 </Link>
-                <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">
-                  Appointment List
+                
+                <Link className="collapse-item" to="/Dashboard/Manager/FeedBackList">
+                  FeedBack List
+                </Link>
+
+                <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
+                  Task List
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/AccountList">
@@ -219,21 +233,7 @@ const Sidebar = () => {
                 </Link>
 
 
-                <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
-                  Task List
-                </Link>
-
-                <Link className="collapse-item" to="/Dashboard/Manager/LeadList">
-                  Lead List
-                </Link>
-
-                <Link className="collapse-item" to="/Dashboard/Manager/OpportunityList">
-                  Opportunity List
-                </Link>
-                <Link className="collapse-item" to="/Dashboard/Manager/FeedBackList">
-                  FeedBack List
-                </Link>
-
+               
 
                 {/* <h6 className="collapse-header">Jobs:</h6>
                 <Link className="collapse-item" to="/Dashboard/Recruiter/CompanyList">

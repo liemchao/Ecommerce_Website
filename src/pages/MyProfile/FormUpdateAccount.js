@@ -2,90 +2,55 @@ import React, { useEffect, useState } from "react";
 import ApiService from "../../api/apiService";
 import "./MyProfile.css";
 
-export default function FormUpdateAccount() {
-
-    const initialAccount = { fullName: "", email: "", phone: "", password: "" , roleId:"", image:"", gender:"", dob:"" }
-    const user = JSON.parse(localStorage.getItem("user"));
-    const [account, setAccount] = useState(initialAccount);
-    const [message, setMessage] = useState({});
+export default function FormUpdateAccount(rowData) {
+ const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
 
-    useEffect(() => {
-        ApiService.getAccountById(user.id)
-            .then((response) => {
-                setAccount(response.data.data);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    }, []);
+  const [user, setUser] = useState({});
+ 
 
-    const handleChange = event => {
-        const { name, value } = event.target;
-        setAccount({ ...account, [name]: value });
+  useEffect(() => {
+    setUser(rowData.rowData)
+  }, [rowData.rowData]);
+  
+  async function updateInfo() {
+  
+    setLoading(true);
+
+    let updateData = {
+      id:user.id,
+      fullname: user.fullname,
+      phone: user.phone,
+      gender: Boolean(user.gender),
+      dob:user.dob
+     
     };
+    console.log(updateData)
 
+    ApiService.updateProFile(updateData)
+      .then((response) => {
+        setSuccessMsg("Update Profile Successfully!");
+        setLoading(false);
+      })
+      .catch((error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
 
-    const handleChangeAccount = e => {
-        e.preventDefault();
-        if(validate()){
-            const data = new FormData()
-            data.append('id', user.id)
-            data.append('fullName', account.fullName)
-            data.append('email', account.email)
-            data.append('phoneNumber', account.phone)
-            data.append('password', account.password)
-            data.append('gender', account.gender)
-            data.append('roleId', account.roleId)
-            data.append('img', account.image)
-            data.append('dob', account.dob)
+        setErrMsg(resMessage);
+        setLoading(false);
+      });
+  }
 
-
-            updateProfile(data)
-        }else{
-            return;
-        }
-    }
-
-    const updateProfile = (data) => {
-        var object = {};
-        data.forEach((value, key) => object[key] = value);
-        var json = JSON.stringify(object);
-
-        ApiService.updateAccount(json)
-            .then((response) => {
-                ApiService.getAccountById(user.id)
-                    .then((response) => {
-                        setAccount(response.data.data);
-                        console.log(response.data);
-                    })
-                    .catch((e) => {
-                        console.log(e);
-                    });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    const validate = () => {
-        let temp = {}
-        temp.fullName = account.fullName == "" ? false:true;
-        temp.email = account.email == "" ? false:true;
-        temp.phoneNumber = account.phone == "" ? false:true;
-        temp.password = account.password == "" ? false:true;
-        temp.gender = account.gender == "" ? false:true;
-        temp.image = account.image == "" ? false:true;
-        temp.dob = account.dob == "" ? false:true;
-        setMessage(temp);
-        return Object.values(temp).every(x => x == true)
-    }
-
-    const appErrorsClass = field => (field in message && message[field] == false) ? ' validate' : ''
 
     return (
         <div>
-        <form onSubmit={handleChangeAccount}>
+        
             <div className="card-body">
                 <div className="row mb-3">
                     <div className="col-sm-3">
@@ -94,10 +59,12 @@ export default function FormUpdateAccount() {
                     <div className="col-sm-9 text-secondary">
                         <input
                             type="text"
-                            className={"form-control"+ appErrorsClass('name')}
+                            className="form-control"
                             name="name"
-                            value={user.fullName}
-                            onChange={handleChange}
+                            defaultValue={user.fullName}
+                            onChange={(e) =>
+                                setUser({ ...user, fullname: e.target.value })
+                              }
                         />
                     </div>
                 </div>
@@ -107,11 +74,13 @@ export default function FormUpdateAccount() {
                     </div>
                     <div className="col-sm-9 text-secondary">
                         <input
-                            type="email"
-                            className={"form-control"+ appErrorsClass('email')}
-                            name="email"
-                            value={user.email}
-                            onChange={handleChange}
+                            type="text"
+                            className="form-control"
+                            name="phoneNumber"
+                            readOnly
+                            defaultValue={user.email}
+                           
+
                         />
                     </div>
                 </div>
@@ -122,54 +91,92 @@ export default function FormUpdateAccount() {
                     <div className="col-sm-9 text-secondary">
                         <input
                             type="text"
-                            className={"form-control"+ appErrorsClass('phoneNumber')}
+                            className="form-control"
                             name="phoneNumber"
-                            value={user.phone}
-                            onChange={handleChange}
+                            readOnly
+                            defaultValue={user.phone}
+                            onChange={(e) =>
+                                setUser({ ...user, phone: e.target.value })
+                              }
 
                         />
                     </div>
                 </div>
-                {/* <div className="row mb-3">
-                    <div className="col-sm-3">
-                        <h6 className="mb-0">Image</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                        <input
-                            type="file"
-                            className={"form-control"+ appErrorsClass('address')}
-                            name="image"
-                            value={user.image}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div> */}
+
+
                 <div className="row mb-3">
                     <div className="col-sm-3">
                         <h6 className="mb-0">Gender</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
+                    <select 
+              onChange={(e) => setUser({ ...user, gender: e.target.value })}
+            >
+               
+                          {
+                            user.gender=="Male" ? (<>
+                               <option key='1' value={true} selected>{user.gender}</option>
+                               <option key='2' value={false}>FeMale</option>
+                            </>) : (<>
+                                <option key='3' value={false} selected>{user.gender}</option>
+                               <option key='4' value={true}>Male</option>
+                            
+                            </>)
+                          }
+                  
+              
+            </select>
+
+                    </div>
+                </div>
+
+                <div className="row mb-3">
+                    <div className="col-sm-3">
+                        <h6 className="mb-0">Date of Birth</h6>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
                         <input
-                            type="text"
-                            className={"form-control"+ appErrorsClass('status')}
-                            placeholder={user.gender}
-                            onChange={handleChange}
+                            type="date"
+                            className="form-control"
+                            name="date"
+                            value={user.dob}
+                            onChange={(e) =>
+                                setUser({ ...user, dob: e.target.value })
+                              }
                         />
                     </div>
                 </div>
+            
+               
                 <div className="row">
                     <div className="col-sm-3" />
                     <div className="col-sm-9 text-secondary">
                         <button
-                            type="submit"
+
+                           type="button" onClick={updateInfo}
                             className="btn btn-primary px-4"
                         >
                             Save Changes
                         </button>
+                         {/* Spinner */}
+        {loading && (
+          <span className="spinner-border spinner-border-sm float-lg-right"></span>
+        )}
+        {/* Message after submit */}
+        {errMsg && (
+          <span className="alert alert-danger float-lg-right" role="alert">
+            {errMsg}
+          </span>
+        )}
+        {successMsg && (
+          <span className="alert alert-success float-lg-right" role="alert">
+            {successMsg}
+          </span>
+        )}
                     </div>
                 </div>
             </div>
-        </form>
+      
         </div>
     )
 }

@@ -230,6 +230,8 @@ const AppointmentList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
+            emptyMessage="No Appoinment Found."
+
            >
            <Column header="Result" body={notFound}/>
            </DataTable>

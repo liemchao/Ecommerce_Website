@@ -35,12 +35,8 @@ const LeadDetail = () => {
       ) : (
         <div className="main-body">
           <div className="row">
-            <div className="col-lg-4">
-              <div className="card">
-               
-              </div>
-            </div>
-            <div className="col-lg-8">
+         
+            <div className="col-lg-12">
               <div className="card">
                 <Tabs
                   defaultActiveKey="profile"

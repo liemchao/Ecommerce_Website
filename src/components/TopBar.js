@@ -25,7 +25,7 @@ const Topbar = () => {
 
         setTotalRecords(response.data.totalRow);
         setData(response.data.data);
-        toast("You have Appoiment !")
+        toast("You have notifiton !")
       })
       .catch((error) => {
         if (error.response) {
@@ -82,15 +82,16 @@ const Topbar = () => {
               aria-expanded="false"
             >
               <FontAwesomeIcon style={{ height: "70%", width: "60%", marginLeft: "10%", marginBottom: "30%" }} icon={faBell} />
-              <Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords}</Badge>
+              {totalRecords>34 ? (<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-34}</Badge></>):(<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-totalRecords+1}</Badge></>)}
+             
             </a>
 
             <ToastContainer/>
-            <div style={{ overflow: "auto", maxHeight: "10rem", scrollbarWidth: "none" }}
+            <div style={{ overflow: "auto", maxHeight: "15rem", scrollbarWidth: "none" }}
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
-              <div className="row">
+              {/* <div className="row">
                 <Button style={{ marginLeft: "10%", border: "2px solid white " }}>
                   All
                 </Button>
@@ -100,7 +101,7 @@ const Topbar = () => {
 
                 </Button>
 
-              </div>
+              </div> */}
 
 
               {

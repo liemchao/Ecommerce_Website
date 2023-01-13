@@ -11,9 +11,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
-import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
-import CreateProduct from "../Product/ProductCreate"
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import LeadCreate from "./DetailLead/LeadCreate";
+import LeadUpdate from "./DetailLead/LeadUpdate";
 
 
 
@@ -114,7 +114,7 @@ const LeadList = () => {
           >
            <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
-          <AccountUpdate rowData={rowData} refreshList={refreshList} />
+          < LeadUpdate rowData={rowData} refreshList={refreshList} />
         </div>
       );
     };
@@ -168,15 +168,29 @@ const LeadList = () => {
 
   }
 
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-     console.log(value);
-      return (
-        value.fullname.toLowerCase().includes(query.toLowerCase())
-      )
-    });
-    setData(filterData);
+  async function searchProduct() {
+    
+    await ApiService.searchLead(query)
+      .then((response) => {
+        // check if the data is populated
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        let  counter = 10 * (currentPage-1)
+        listDataSet.map((obj, index) => { 
+          obj['indexNumber'] = (counter + ++index) 
+        })
+        setData(listDataSet);
+        setLoadingData(false)
+       
+      })
+      .catch((error) => {
+        if(error.response.status == 404) {
+          setData([]);
+         
 
+        }
+      
+      });
   }
 
   return (
@@ -185,7 +199,7 @@ const LeadList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="Lead List" />
-          <CreateProduct refreshList={refreshList}/>
+          <LeadCreate refreshList={refreshList}/>
         </div> 
         <div className="row">
        <div style={{marginBottom:20}}>
@@ -194,7 +208,7 @@ const LeadList = () => {
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {!data ? (
+        {data.length==0 ? (
           <p>No data to show...</p>
         ) : (
           <div id="wrapper">

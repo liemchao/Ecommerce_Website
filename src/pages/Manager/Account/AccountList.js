@@ -204,6 +204,9 @@ const AccountList = () => {
     }
 
   }
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
 
   const searchProduct= () =>{
     const filterData = data.filter((value)=>{
@@ -231,8 +234,18 @@ const AccountList = () => {
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {!data ? (
-          <p>No data to show...</p>
+       {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           emptyMessage="No Cusomter Found."
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">

@@ -1,6 +1,7 @@
 
 import authHeader from "../redux/services/auth-header";
 import axios from "axios";
+import authHeader2 from "../redux/services/auth-imgae";
 
 
 /* Login */
@@ -40,6 +41,12 @@ const updateStatusAccount = (data) => {
   });
 };
 
+const updateLead = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/update`,data, {
+    headers: authHeader(),
+  });
+};
+
 const changeUserRole = (data) => {
   return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/adjusting-role`,data, {
     headers: authHeader(),
@@ -50,6 +57,12 @@ const changeUserRole = (data) => {
 
 const createAccount = (data) => {
   return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/add`,data, {
+    headers: authHeader(),
+  });
+};
+
+const createLead = (data) => {
+  return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/add`,data, {
     headers: authHeader(),
   });
 };
@@ -96,7 +109,7 @@ const getPublicProduct = (page,size) => {
 };
 
 const searchProduct = (query) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?searchString=${query}`, {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?pageNumber=1&pageSize=10&searchString=${query}`, {
     headers: authHeader(),
   });
 };
@@ -150,6 +163,17 @@ const createProduct = (data) => {
   });
 };
 
+const createImage = (data) => {
+  return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-product-image`,data, {
+    headers: authHeader2(),
+  });
+};
+
+const createTask = (data) => {
+  return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/Task/task/add`,data, {
+    headers: authHeader(),
+  });
+};
 const createProductOwer = (data) => {
   return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner/add`,data, {
     headers: authHeader(),
@@ -173,6 +197,12 @@ const deleteProduct = (id) => {
     headers: authHeader(),
   });
 };
+const deleteProductOwer = (id) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner/delete?id=${id}`,id,{
+    headers: authHeader(),
+  });
+};
+
 const getFoveritList = (id) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/number-of-farvorite?id=${id}`, {
     headers: authHeader(),
@@ -295,6 +325,18 @@ const getDistrict= (id) => {
   headers: authHeader(),
 });
 };
+const getProductView= (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/number-of-view?id=${id}`,{
+  headers: authHeader(),
+});
+};
+
+const getProductFavorite= (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/number-of-farvorite?id=${id}`,{
+  headers: authHeader(),
+});
+};
+
 
 //Filter Appointment
 
@@ -448,6 +490,18 @@ const getEmployeeAppointment = () => {
 });
 };
 
+const updateProductOwer = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner/update`,data, {
+    headers: authHeader(),
+  });
+};
+
+const updateProFile = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/update`,data, {
+    headers: authHeader(),
+  });
+};
+
 export default {
   Login,
   Logout,
@@ -457,6 +511,8 @@ export default {
   getAccountById,
   getAccountSystem,
   updateStatusAccount,
+  updateProductOwer,
+  updateProFile,
   changeUserRole,
   getViewProduct,
   createAccount,
@@ -498,14 +554,22 @@ export default {
   getPublicProduct,
   getProductOwer,
   getProductById,
+  getProductFavorite,
+  getProductView,
 
   createProduct,
   createProductOwer,
 
   searchProduct,
   updateProduct,
+  updateLead,
+  
   deleteProduct,
+  deleteProductOwer,
   getTask,
+  createImage,
+  createLead,
+  createTask,
   getidCategory,
   getidProductOwer,
   getLead,
@@ -535,7 +599,5 @@ export default {
   getTaskEm,
   getLeadbyID,
   
-
-
  
 };

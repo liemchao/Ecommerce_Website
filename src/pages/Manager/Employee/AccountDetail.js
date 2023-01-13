@@ -10,6 +10,8 @@ import TaskEmList from "./EmployeeTab/TaskEm";
 import AppointmentEm from "./EmployeeTab/AppointmentEm";
 import OpportunityEmList from "./EmployeeTab/OppEm";
 import LeadEmList from "./EmployeeTab/LeadEm";
+import Progressbar from "./EmployeeTab/ProgreesBar";
+import DataTableFilterDemo from "./EmployeeTab/Datatable";
 
 const AccountDetail = () => {
   const { state } = useLocation();
@@ -152,6 +154,15 @@ const AccountDetail = () => {
                     <LeadEmList rowData={account}/>
 
                   </Tab>
+
+                  <Tab eventKey="Pro" title="Progress">
+                    <Progressbar/>
+
+                  </Tab>
+                  {/* <Tab eventKey="Data" title="Data">
+                    <DataTableFilterDemo/>
+
+                  </Tab> */}
 
                 </Tabs>
               </div>

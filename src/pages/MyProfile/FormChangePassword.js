@@ -2,60 +2,52 @@ import React, { useEffect, useState } from "react";
 import ApiService from "../../api/apiService";
 import "./MyProfile.css";
 
-export default function FormChangePassword() {
+export default function FormChangePassword(rowData) {
 
-    const initalState = {
-        oldPassword: "", newPassword: "", confirmPassword: ""
-    }
+    const [loading, setLoading] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
+    const [successMsg, setSuccessMsg] = useState("");
+  
+  
+    const [user, setUser] = useState({});
+   
+  
+    useEffect(() => {
+      setUser(rowData.rowData)
+    }, [rowData.rowData]);
     
-    const [password, setPassword] = useState(initalState)
-    const user = JSON.parse(localStorage.getItem("user"));
-    const [message, setMessage] = useState({});
-
-    const changePassword = (data) => {
-        var object = {};
-        data.forEach((value, key) => object[key] = value);
-        var json = JSON.stringify(object);
-        ApiService.updatePassword(json).then(res => {
-            console.log(res.data);
-            reset();
-        }).catch(e => {
-            console.log(e);
+    async function updateInfo() {
+    
+      setLoading(true);
+  
+      let updateData = {
+        id:user.id,
+        fullname: user.fullName,
+        email: user.email,
+        phone: user.phone,
+        gender: Boolean(user.gender),
+        dob:user.dob
+       
+      };
+      console.log(updateData)
+  
+      ApiService.updateProFile(updateData)
+        .then((response) => {
+          setSuccessMsg("Update Profile Successfully!");
+          setLoading(false);
         })
+        .catch((error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+  
+          setErrMsg(resMessage);
+          setLoading(false);
+        });
     }
-
-    const reset = () => { setPassword(initalState) };
-
-    const handlePassword = e => {
-        e.preventDefault();
-        if (validate()) {
-            const data = new FormData()
-            data.append('id', user.Id)
-            data.append('oldPassword', password.oldPassword)
-            data.append('newPassword', password.newPassword)
-            data.append('confirmPassword', password.newPassword)
-            changePassword(data)
-        } else {
-            return;
-        }
-    }
-
-    const handleChange = event => {
-        const { name, value } = event.target;
-        setPassword({ ...password, [name]: value });
-    };
-
-
-   const validate = () => {
-        let temp = {}
-        temp.oldPassword = password.oldPassword == "" ? false:true;
-        temp.newPassword = password.newPassword == "" ? false:true;
-        temp.confirmPassword = (password.confirmPassword == "" || password.newPassword != password.confirmPassword) ? false:true;
-        setMessage(temp);
-        return Object.values(temp).every(x => x == true)
-    }
-
-    const appErrorsClass = field => (field in message && message[field] == false) ? ' validate' : ''
 
 
     return (
@@ -69,9 +61,10 @@ export default function FormChangePassword() {
                         <div className="col-sm-9 text-secondary">
                             <input
                                 type="password"
-                                className={"form-control"+ appErrorsClass('oldPassword')}
+                                className="form-control"
                                 name="oldPassword"
                                 value={password.oldPassword}
+                                required
                                 onChange={handleChange}
                             />
                         </div>
@@ -83,9 +76,10 @@ export default function FormChangePassword() {
                         <div className="col-sm-9 text-secondary">
                             <input
                                 type="password"
-                                className={"form-control"+ appErrorsClass('newPassword')}
+                                className="form-control"
                                 name="newPassword"
                                 value={password.newPassword}
+                                required
                                 onChange={handleChange}
                             />
                         </div>
@@ -97,7 +91,7 @@ export default function FormChangePassword() {
                         <div className="col-sm-9 text-secondary">
                             <input
                                 type="password"
-                                className={"form-control"+ appErrorsClass('confirmPassword')}
+                                className="form-control"
                                 name="confirmPassword"
                                 value={password.confirmPassword}
                                 onChange={handleChange}

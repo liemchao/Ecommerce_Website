@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-
-
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 
 import ApiService from "../../../api/apiService";
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LandingPage from "../../../redux/services/auth-imgae";
+
 export default function ProductUpdate({ rowData, refreshList }) {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [Product, setProduct] = useState("");
+  const [picture, setPicture] = useState({});
 
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
@@ -21,38 +22,11 @@ export default function ProductUpdate({ rowData, refreshList }) {
   const [ower, setOwer] = useState([]);
   const [unti, setUniti] = useState([]);
   const [direc, setDirec]= useState([]);
+  const [test, Setest]= useState('1');
   const [provice, setProvice]= useState([]);
-  
+  const [image, setImage]= useState([]);
 
 
-
-
-  async function UpdateProduct() {
-    setLoading(true);
-
-    let data = {
-      // id: rowData.id,
-    
-
-    };
-
-    await ApiService.updateProduct(data)
-      .then((response) => {
-        setSuccessMsg("Update Product Successfull");
-        setLoading(false);
-      })
-      .catch((error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setErrMsg(resMessage);
-        setLoading(false);
-      });
-  }
 
   async function getOwer() {
     setLoading(true);
@@ -87,6 +61,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
         console.log(error.config);
       });
   }
+
   async function getProductStatus() {
     setLoading(true);
 
@@ -221,16 +196,67 @@ export default function ProductUpdate({ rowData, refreshList }) {
     e.preventDefault();
     setErrMsg("");
     setSuccessMsg("");
-    UpdateProduct();
+    // UpdateProduct();
   };
 
   useEffect(() => {
-    getCate();
-    getOwer();
-    getProductStatus();
-    getUniti();
     getDirc();
-  }, []);
+  }, [test]);
+
+  useEffect(() => {
+    getCate();
+  }, [test]);
+
+  useEffect(() => {
+    getOwer();
+  }, [test]);
+
+  useEffect(() => {
+    getProductStatus();
+  }, [test]);
+
+  useEffect(() => {
+    getUniti();
+  }, [test]);
+
+  const uploadPicture = e => {
+    setPicture({
+      /* contains the preview, if you want to show the picture to the user
+           you can access it with this.state.currentPicture
+       */
+      picturePreview: URL.createObjectURL(e.target.files[0]),
+      /* this contains the file we want to send */
+      pictureAsFile: e.target.files[0]
+    });
+  };
+
+  const setImageAction = async e => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("id", rowData.id);
+    formData.append("file", picture.pictureAsFile);
+
+    console.log(picture.pictureAsFile);
+
+    for (var key of formData.entries()) {
+      console.log(key[0] + ", " + key[1]);
+    }
+
+    const data = await fetch("https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-product-image", {
+      method: "post",
+      headers: { 
+      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImRkNjM3ZjgyLWY5ZGQtNDQ4YS1iNDRhLTdkNGY5YzI0NzFhNCIsIkVtYWlsQWRyZXNzIjoibWFuYWdlckBnbWFpbC5jb20iLCJTdGF0dXMiOiJBY3RpdmF0ZWQiLCJSb2xlIjoiTWFuYWdlciIsIm5iZiI6MTY3MjAyNjcxNiwiZXhwIjoxNjc0NjE4NzE2LCJpYXQiOjE2NzIwMjY3MTZ9.IyesJccj0zl11M-MBgXQEK-j360WcEk9OyJctTldp9w" },
+      body: formData
+    });
+
+    const uploadedImage = await data.json();
+    if (uploadedImage) {
+      console.log("Successfully uploaded image");
+    } else {
+      console.log("Error Found");
+    }
+  };
  
 
   return (
@@ -543,16 +569,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               // onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
             />
           </div>
-          <div style={{marginTop:"-3%"}} className="p-field p-col-8 p-md-4">
-            <label htmlFor="recivedate">Image</label>
-            <InputText
-              id="name"
-              type="file"
-               defaultValue={rowData.url}
-              required
-              // onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
-            />
-          </div>
+         <LandingPage rowData={rowData}/>
          
           {/* Gender */}
           <div className="p-field p-col-8 p-md-3">

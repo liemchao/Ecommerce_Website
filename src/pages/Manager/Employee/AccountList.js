@@ -119,6 +119,9 @@ const AccountList = () => {
       </div>
     );
   };
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
 
   const onPageChange = (event) => {
     setFirst(event.first);
@@ -210,8 +213,18 @@ const AccountList = () => {
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {!data && data.role=="employee"? (
-          <p>No data to show...</p>
+       {data.length==0 ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           emptyMessage="No Employee Found."
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">
