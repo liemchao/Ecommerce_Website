@@ -1,286 +1,261 @@
-import 'primeicons/primeicons.css';
-import 'primereact/resources/primereact.css';
-import 'primeflex/primeflex.css';
+import React from "react";
+import {
+  useTable,
+  useGlobalFilter,
+  useAsyncDebounce,
+  useFilters,
+  useSortBy,
+  usePagination,
+  useRowSelect,
+} from "react-table";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Pagination } from "react-bootstrap";
+import BTable from "react-bootstrap/Table";
 
-import React, { useState, useEffect } from 'react';
-// import { classNames } from 'primereact/utils';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
-// import { CustomerService } from '../service/CustomerService';
-import './DataTableDemo.css';
-
-const DataTableFilterDemo = () => {
-    const [customers1, setCustomers1] = useState(null);
-    const [customers2, setCustomers2] = useState(null);
-    const [filters1, setFilters1] = useState(null);
-    const [filters2, setFilters2] = useState({
-   
-    });
-    const [globalFilterValue1, setGlobalFilterValue1] = useState('');
-    const [globalFilterValue2, setGlobalFilterValue2] = useState('');
-    const [loading1, setLoading1] = useState(true);
-    const [loading2, setLoading2] = useState(true);
-    const representatives = [
-      
-    ];
-
-    const statuses = [
-        'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
-    ];
-
-    // const customerService = new CustomerService();
-
-    useEffect(() => {
-        // customerService.getCustomersLarge().then(data => { setCustomers1(getCustomers(data)); setLoading1(false) });
-        // customerService.getCustomersLarge().then(data => { setCustomers2(getCustomers(data)); setLoading2(false) });
-        initFilters1();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-
-    const getCustomers = (data) => {
-        return [...data || []].map(d => {
-            d.date = new Date(d.date);
-            return d;
-        });
-    }
-
-    const formatDate = (value) => {
-        return value.toLocaleDateString('en-US', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-    }
-
-    const formatCurrency = (value) => {
-        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    }
-
-    const clearFilter1 = () => {
-        initFilters1();
-    }
-
-    const onGlobalFilterChange1 = (e) => {
-        const value = e.target.value;
-        let _filters1 = { ...filters1 };
-        _filters1['global'].value = value;
-
-        setFilters1(_filters1);
-        setGlobalFilterValue1(value);
-    }
-
-    const onGlobalFilterChange2 = (e) => {
-        const value = e.target.value;
-        let _filters2 = { ...filters2 };
-        _filters2['global'].value = value;
-
-        setFilters2(_filters2);
-        setGlobalFilterValue2(value);
-    }
-
-    const initFilters1 = () => {
-        setFilters1({
-          
-        });
-        setGlobalFilterValue1('');
-    }
-
-    const renderHeader1 = () => {
-        return (
-            <div className="flex justify-content-between">
-                <Button type="button" icon="pi pi-filter-slash" label="Clear" className="p-button-outlined" onClick={clearFilter1} />
-                <span className="p-input-icon-left">
-                    <i className="pi pi-search" />
-                    <InputText value={globalFilterValue1} onChange={onGlobalFilterChange1} placeholder="Keyword Search" />
-                </span>
-            </div>
-        )
-    }
-
-    const renderHeader2 = () => {
-        return (
-            <div className="flex justify-content-end">
-                <span className="p-input-icon-left">
-                    <i className="pi pi-search" />
-                    <InputText value={globalFilterValue2} onChange={onGlobalFilterChange2} placeholder="Keyword Search" />
-                </span>
-            </div>
-        )
-    }
-
-    const countryBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <img alt="flag" src="/images/flag/flag_placeholder.png" onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className={`flag flag-${rowData.country.code}`} width={30} />
-                <span className="image-text">{rowData.country.name}</span>
-            </React.Fragment>
-        );
-    }
-
-    const filterClearTemplate = (options) => {
-        return <Button type="button" icon="pi pi-times" onClick={options.filterClearCallback} className="p-button-secondary"></Button>;
-    }
-
-    const filterApplyTemplate = (options) => {
-        return <Button type="button" icon="pi pi-check" onClick={options.filterApplyCallback} className="p-button-success"></Button>
-    }
-
-    const filterFooterTemplate = () => {
-        return <div className="px-3 pt-0 pb-3 text-center font-bold">Customized Buttons</div>;
-    }
-
-    const representativeBodyTemplate = (rowData) => {
-        const representative = rowData.representative;
-        return (
-            <React.Fragment>
-                <img alt={representative.name} src={`images/avatar/${representative.image}`} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{ verticalAlign: 'middle' }} />
-                <span className="image-text">{representative.name}</span>
-            </React.Fragment>
-        );
-    }
-
-    const representativeFilterTemplate = (options) => {
-        return <MultiSelect value={options.value} options={representatives} itemTemplate={representativesItemTemplate} onChange={(e) => options.filterCallback(e.value)} optionLabel="name" placeholder="Any" className="p-column-filter" />;
-    }
-
-    const representativesItemTemplate = (option) => {
-        return (
-            <div className="p-multiselect-representative-option">
-                <img alt={option.name} src={`images/avatar/${option.image}`} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{ verticalAlign: 'middle' }} />
-                <span className="image-text">{option.name}</span>
-            </div>
-        );
-    }
-
-    const dateBodyTemplate = (rowData) => {
-        return formatDate(rowData.date);
-    }
-
-    const dateFilterTemplate = (options) => {
-        return <Calendar value={options.value} onChange={(e) => options.filterCallback(e.value, options.index)} dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />
-    }
-
-    const balanceBodyTemplate = (rowData) => {
-        return formatCurrency(rowData.balance);
-    }
-
-    const balanceFilterTemplate = (options) => {
-        return <InputNumber value={options.value} onChange={(e) => options.filterCallback(e.value, options.index)} mode="currency" currency="USD" locale="en-US" />
-    }
-
-    const statusBodyTemplate = (rowData) => {
-        return <span className={`customer-badge status-${rowData.status}`}>{rowData.status}</span>;
-    }
-
-    const statusFilterTemplate = (options) => {
-        return <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
-    }
-
-    const statusItemTemplate = (option) => {
-        return <span className={`customer-badge status-${option}`}>{option}</span>;
-    }
-
-    const activityBodyTemplate = (rowData) => {
-        return <ProgressBar value={rowData.activity} showValue={false}></ProgressBar>;
-    }
-
-    const activityFilterTemplate = (options) => {
-        return (
-            <React.Fragment>
-                <Slider value={options.value} onChange={(e) => options.filterCallback(e.value)} range className="m-3"></Slider>
-                <div className="flex align-items-center justify-content-between px-2">
-                    <span>{options.value ? options.value[0] : 0}</span>
-                    <span>{options.value ? options.value[1] : 100}</span>
-                </div>
-            </React.Fragment>
-        )
-    }
-
-    const verifiedBodyTemplate = (rowData) => {
-        // return <i className={classNames('pi', {'true-icon pi-check-circle': rowData.verified, 'false-icon pi-times-circle': !rowData.verified})}></i>;
-    }
-
-    const verifiedFilterTemplate = (options) => {
-        return <TriStateCheckbox value={options.value} onChange={(e) => options.filterCallback(e.value)} />
-    }
-
-    const representativeRowFilterTemplate = (options) => {
-        return <MultiSelect value={options.value} options={representatives} itemTemplate={representativesItemTemplate} onChange={(e) => options.filterApplyCallback(e.value)} optionLabel="name" placeholder="Any" className="p-column-filter" maxSelectedLabels={1} />;
-    }
-
-    const statusRowFilterTemplate = (options) => {
-        return <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterApplyCallback(e.value)} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
-    }
-
-    const verifiedRowFilterTemplate = (options) => {
-        return <TriStateCheckbox value={options.value} onChange={(e) => options.filterApplyCallback(e.value)} />
-    }
-
-    const header1 = renderHeader1();
-    const header2 = renderHeader2();
-
-    return (
-        <div className="datatable-filter-demo">
-            <div className="card">
-                <h5>Filter Menu</h5>
-                <p>Filters are displayed in an overlay.</p>
-                <DataTable 
-                value={customers1} 
-                paginator 
-                className="p-datatable-customers" showGridlines
-                rows={10}
-                dataKey="id"
-                filters={filters1} 
-                filterDisplay="menu" 
-                loading={loading1} 
-                responsiveLayout="scroll"
-                globalFilterFields={['name', 'country.name', 'representative.name', 'balance', 'status']}
-                header={header1} 
-                emptyMessage="No customers found.">
-                    <Column field="name" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
-                    <Column header="Country"
-                     filterField="country.name" 
-                     style={{ minWidth: '12rem' }} 
-                     body={countryBodyTemplate}
-                    filter filterPlaceholder="Search by country"
-                    filterClear={filterClearTemplate} filterApply={filterApplyTemplate} filterFooter={filterFooterTemplate} />
-                    <Column header="Agent" filterField="representative" showFilterMatchModes={false}
-                     filterMenuStyle={{ width: '14rem'}} style={{ minWidth: '14rem' }} body={representativeBodyTemplate}
-                        filter filterElement={representativeFilterTemplate} />
-                    <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate}
-                        filter filterElement={dateFilterTemplate} />
-                    <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />
-                    <Column field="status" header="Status" filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusFilterTemplate} />
-                    <Column field="activity" header="Activity" showFilterMatchModes={false} style={{ minWidth: '12rem' }} body={activityBodyTemplate} filter filterElement={activityFilterTemplate} />
-                    <Column field="verified" header="Verified" dataType="boolean" bodyClassName="text-center" style={{ minWidth: '8rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedFilterTemplate} />
-                </DataTable>
-            </div>
-
-            <div className="card">
-                <h5>Filter Row</h5>
-                <p>Filters are displayed inline within a separate row.</p>
-                <DataTable value={customers2} paginator className="p-datatable-customers" rows={10}
-                    dataKey="id" filters={filters2} filterDisplay="row" loading={loading2} responsiveLayout="scroll"
-                    globalFilterFields={['name', 'country.name', 'representative.name', 'status']} header={header2} emptyMessage="No customers found.">
-                    <Column field="name" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
-                    <Column header="Country" filterField="country.name" style={{ minWidth: '12rem' }} body={countryBodyTemplate} filter filterPlaceholder="Search by country" />
-                    <Column header="Agent" filterField="representative" showFilterMenu={false} filterMenuStyle={{ width: '14rem'}} style={{ minWidth: '14rem' }} body={representativeBodyTemplate}
-                        filter filterElement={representativeRowFilterTemplate} />
-                    <Column field="status" header="Status" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusRowFilterTemplate} />
-                    <Column field="verified" header="Verified" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate} />
-                </DataTable>
-            </div>
-        </div>
-    );
+// Custom Cell for Avatar
+export function AvatarCell({ value, column, row }) {
+  return (
+    <div>
+      <div>
+        <img
+          height="10%"
+          src={row.original[column.imgAccessor]}
+          alt={row.original[column.imgAccessor]}
+        />
+      </div>
+    </div>
+  );
 }
-                
-export default DataTableFilterDemo
+
+// This is a custom filter UI for selecting
+// a unique option from a list
+export function SelectColumnFilter({
+  column: { filterValue, setFilter, preFilteredRows, id },
+}) {
+  // Calculate the options for filtering
+  // using the preFilteredRows
+  const options = React.useMemo(() => {
+    const options = new Set();
+    preFilteredRows.forEach((row) => {
+      options.add(row.values[id]);
+    });
+    return [...options.values()];
+  }, [id, preFilteredRows]);
+
+  // Render a multi-select box
+  return (
+    <select
+      name={id}
+      id={id}
+      value={filterValue}
+      onChange={(e) => {
+        setFilter(e.target.value || undefined);
+      }}
+    >
+      <option value="">All</option>
+      {options.map((option, i) => (
+        <option key={i} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+// Define a default UI for filtering
+function GlobalFilter({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) {
+  const count = preGlobalFilteredRows.length;
+  const [value, setValue] = React.useState(globalFilter);
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined);
+  }, 200);
+
+  return (
+    <span>
+      Search:{" "}
+      <input
+        value={value || ""}
+        onChange={(e) => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }}
+        placeholder={`${count} records...`}
+      />
+    </span>
+  );
+}
+
+function DataTable({ columns, data }) {
+  // Use the state and functions returned from useTable to build your UI
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0 },
+    },
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
+    usePagination,
+    useRowSelect,
+  );
+
+  // Render the UI for your table
+  return (
+    <>
+      {/* Global search */}
+      <GlobalFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        globalFilter={state.globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
+      {headerGroups.map((headerGroup) =>
+        headerGroup.headers.map((column) =>
+          column.Filter ? (
+            <div key={column.id}>
+              <label for={column.id}>{column.render("Header")}: </label>
+              {column.render("Filter")}
+            </div>
+          ) : null
+        )
+      )}
+      {/* Table */}
+      <div>
+        <BTable
+          striped
+          bordered
+          hover
+          size="sm"
+          {...getTableProps()}
+          border="1"
+        >
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  // Add the sorting props to control sorting. For this example
+                  // we can add them into the header props
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    {column.render("Header")}
+                    {/* Add a sort direction indicator */}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " ▼"
+                          : " ▲"
+                        : ""}
+                    </span>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()} role="cell">
+                        {cell.column.Cell.name === "defaultRenderer" ? (
+                          <div>{cell.render("Cell")}</div>
+                        ) : (
+                          cell.render("Cell")
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </BTable>
+      </div>
+      {/* 
+        Pagination can be built however you'd like. 
+        This is just a very basic UI implementation:
+      */}
+      <div className="d-flex justify-content-between">
+        {/* Page controll */}
+        <div>
+          <span>
+            Go to page:{" "}
+            <input
+              type="number"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              style={{ width: "100px" }}
+            />
+          </span>{" "}
+          {/* Select how many records to show */}
+          <select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+            }}
+          >
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Show current page index */}
+        <div>
+          <span>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </span>
+        </div>
+        {/* Pagination */}
+        <Pagination>
+          <Pagination.First
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          />
+          <Pagination.Prev
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          />
+          <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
+          <Pagination.Last
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          />
+        </Pagination>
+      </div>
+    </>
+  );
+}
+
+export default DataTable;

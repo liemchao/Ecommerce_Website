@@ -242,6 +242,93 @@ async function getDistrict(proviceID) {
        
     
       }
+      if(obj.district_name==("Quận 1")) {
+        modifineProvinceName = obj.district_name
+        obj.district_name = `${obj.district_name.replace("Quận 1","")} District 1 `
+     
+  
+    }
+
+    if(obj.district_name.includes("Quận 11")) {
+      modifineProvinceName = obj.district_name
+      obj.district_name = `${obj.district_name.replace("Quận 11","")} District 11`
+   
+
+  }
+  
+  if(obj.district_name.includes("Quận 10")) {
+    modifineProvinceName = obj.district_name
+    obj.district_name = `${obj.district_name.replace("Quận 10","")} District 10`
+ 
+
+}
+
+if(obj.district_name.includes("Quận 12")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 12","")} District 12`
+
+
+}
+
+if(obj.district_name.includes("Quận 2")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 2","")} District 2`
+
+
+}
+
+if(obj.district_name.includes("Quận 3")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 3","")} District 3`
+
+
+}
+
+if(obj.district_name.includes("Quận 4")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 4","")} District 4`
+
+
+}
+
+
+if(obj.district_name.includes("Quận 5")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 5","")} District 5`
+
+
+}
+
+if(obj.district_name.includes("Quận 6")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 6","")} District 6`
+
+
+}
+
+if(obj.district_name.includes("Quận 7")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 7","")} District 7`
+
+
+}
+
+if(obj.district_name.includes("Quận 8")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 8","")} District 8`
+
+
+}
+
+if(obj.district_name.includes("Quận 9")) {
+  modifineProvinceName = obj.district_name
+  obj.district_name = `${obj.district_name.replace("Quận 9","")} District 9`
+
+
+}
+
+
+
       if(obj.district_name.includes("Quận")) {
         modifineProvinceName = obj.district_name
         obj.district_name = `${obj.district_name.replace("Quận ", "")} District`

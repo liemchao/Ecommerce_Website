@@ -169,7 +169,7 @@ const LeadDetail = () => {
                       }
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Create Day</h6>
+                          <h6 className="mb-0">Create Day: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(account.createDate).slice(0, 10)}</p>
@@ -177,7 +177,7 @@ const LeadDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead Status</h6>
+                          <h6 className="mb-0">Lead Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.leadStatus === "New" ? (

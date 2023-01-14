@@ -62,7 +62,7 @@ const ProductOWerDetail = () => {
 
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Create Day</h6>
+                          <h6 className="mb-0">Create Day:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(Opportunity.createDate).slice(0, 10)}</p>
@@ -71,7 +71,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Listed Price</h6>
+                          <h6 className="mb-0">Listed Price:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(Opportunity.listedPrice).toLocaleString()}</p>
@@ -295,7 +295,7 @@ const ProductOWerDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create</h6>
+                          <h6 className="mb-0">Time Create:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(Opportunity.employee.createDate).slice(11, 19)}</p>
@@ -305,7 +305,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.employee.status == "Activated" ? (
@@ -328,7 +328,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Product Name</h6>
+                          <h6 className="mb-0">Product Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.name}
@@ -349,7 +349,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Street</h6>
+                          <h6 className="mb-0">Street:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.street}</p>
@@ -359,7 +359,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">District</h6>
+                          <h6 className="mb-0">District:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.district}</p>
@@ -368,7 +368,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Province</h6>
+                          <h6 className="mb-0">Province:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.province}</p>
@@ -378,7 +378,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Product Status</h6>
+                          <h6 className="mb-0">Product Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p className="badge badge-primary mr-2">{Opportunity.product.productStatus}</p>
