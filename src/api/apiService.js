@@ -456,6 +456,13 @@ const getNoti = () => {
   });
 };
 
+const getKPI = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template`, {
+    headers: authHeader(),
+  });
+};
+
+
 
 const getopportunitytLead = (id) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Opportunity/opportunity/lead/${id}`,{
@@ -606,6 +613,7 @@ export default {
   getLeadEm,
   getTaskEm,
   getLeadbyID,
+  getKPI,
   
  
 };

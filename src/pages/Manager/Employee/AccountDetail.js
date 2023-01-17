@@ -11,7 +11,7 @@ import AppointmentEm from "./EmployeeTab/AppointmentEm";
 import OpportunityEmList from "./EmployeeTab/OppEm";
 import LeadEmList from "./EmployeeTab/LeadEm";
 import Progressbar from "./EmployeeTab/ProgreesBar";
-import DataTableFilterDemo from "./EmployeeTab/Datatable";
+// import DataTableFilterDemo from "./EmployeeTab/Datatable";
 
 const AccountDetail = () => {
   const { state } = useLocation();

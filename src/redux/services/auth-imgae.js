@@ -1,8 +1,13 @@
 import React, {useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+
 
 const LandingPage = (rowData) => {
 
   const [picture, setPicture] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const uploadPicture = e => {
     setPicture({
       /* contains the preview, if you want to show the picture to the user
@@ -19,12 +24,7 @@ const LandingPage = (rowData) => {
     const formData = new FormData();
     formData.append("id", rowData.rowData.id);
     formData.append("file", picture.pictureAsFile);
-
-    console.log(picture.pictureAsFile);
-
-    for (var key of formData.entries()) {
-      console.log(key[0] + ", " + key[1]);
-    }
+  
 
     const data = await fetch("https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-product-image", {
       method: "post",
@@ -33,25 +33,41 @@ const LandingPage = (rowData) => {
       body: formData
     });
 
-    const uploadedImage = await data.json();
-    console.log(data.json())
-    if (uploadedImage) {
-      console.log("Successfully uploaded image");
+    const uploadedImage = await data.text();
+    console.log(uploadedImage)
+    if (uploadedImage=="Success") {
+      setSuccessMsg("Upload image successfully!");
+      setLoading(false)
+   
     } else {
-      console.log("Error Found");
+      setErrMsg("Upload image Fail!");
     }
   };
 
 
   return (
-    <div className="content landing">
+    <div className="content landing" style={{marginLeft:"3%"}}>
       <form onSubmit={setImageAction}>
         <input type="file" name="image" onChange={uploadPicture} />
         <br />
         <br />
-        <button type="submit" name="upload">
+        <Button type="submit" name="upload">
           Upload
-        </button>
+        </Button>
+        {loading && (
+          <span className="spinner-border spinner-border-sm float-lg-right"></span>
+        )}
+        {/* Message after submit */}
+        {errMsg && (
+          <span className="alert alert-danger float-lg-right" role="alert">
+            {errMsg}
+          </span>
+        )}
+        {successMsg && (
+          <span style={{marginLeft:10}}className="alert alert-success float-lg 1-right" role="alert">
+            {successMsg}
+          </span>
+        )}
       </form>
     </div>
   );

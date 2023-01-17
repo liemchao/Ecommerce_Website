@@ -2,12 +2,13 @@ import React, {  useEffect, useState } from "react";
 import Modal from "react-modal";
 
 import { InputText } from "primereact/inputtext";
-// import { InputTextarea } from "primereact/inputtextarea";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select';
 import ApiService from "../../../api/apiService";
+
 
 export default function ProductCreate({ refreshList }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -570,7 +571,6 @@ if(obj.district_name.includes("Quận 9")) {
             <InputText
               id="name"
               type="text"
-              
               onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
           </div>
@@ -579,7 +579,6 @@ if(obj.district_name.includes("Quận 9")) {
             <label htmlFor="name">Price</label>
             <InputText
               id="name"
-             
               type="number"
               required
               onChange={(e) => setProduct({ ...Product, price: e.target.value })}
@@ -589,9 +588,9 @@ if(obj.district_name.includes("Quận 9")) {
            {/* Name */}
            <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">Description</label>
-            <InputText
+            <InputTextarea
+            rows="2" cols="10"
               id="name"
-              type="text"
               required
               onChange={(e) => setProduct({ ...Product, description: e.target.value })}
             />
@@ -600,12 +599,14 @@ if(obj.district_name.includes("Quận 9")) {
           <div className="p-field p-col-8 p-md-4">
            <label htmlFor="role">Category:</label><br></br>
             <select
-              onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
-            >
               
+              onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
+            >                
 
+                    <option hidden selected>Select-Category</option>
 {
                       category.map((x, y) =>
+                    
                       
                         <option key={y} value={x.id}>{x.productCategoryName}</option>)
                     }
@@ -622,6 +623,7 @@ if(obj.district_name.includes("Quận 9")) {
               onChange={(e) => setProduct({ ...Product,productStatus:e.target.selectedOptions[0].text })}
             
             >
+                <option hidden selected>Select-Product-Status</option>
                 
               {
                     prostatus.map((x, y) =>
@@ -635,6 +637,7 @@ if(obj.district_name.includes("Quận 9")) {
             <select
               onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
+               <option hidden selected>Select-Product-Ower</option>
               {
                       ower.map((x, y) =>
                         <option key={y} value={x.id}>{x.productOwnerName}</option>)
@@ -705,6 +708,7 @@ if(obj.district_name.includes("Quận 9")) {
             <select
               onChange={(e) => setProduct({ ...Product, direction:e.target.selectedOptions[0].text })}
             >
+              <option hidden selected>Select-Direction</option>
               {
                     direc.map((x, y) =>
                         <option key={y} value={x.id}>{x.name}</option>)
@@ -722,6 +726,7 @@ if(obj.district_name.includes("Quận 9")) {
             
               classNamePrefix="select"
             >
+              <option hidden selected>Select-Province</option>
             
               {
                       provice.map((x, y) =>
@@ -737,6 +742,7 @@ if(obj.district_name.includes("Quận 9")) {
              classNamePrefix="select"
               onChange={(e) => setProduct({ ...Product, district: e.target.selectedOptions[0].text })}      
             >
+               <option hidden selected>Select-District</option>
               {
                  
 

@@ -111,10 +111,10 @@ const AccountList = () => {
             state: rowData,
           }}
         >
-            <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
+            <Button style={{marginLeft:"18%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
         </Link>
         {/* Update */}
-        <AccountUpdate rowData={rowData} refreshList={refreshList} />
+        {/* <AccountUpdate rowData={rowData} refreshList={refreshList} /> */}
         <Button  style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
       </div>
     );

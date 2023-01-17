@@ -171,7 +171,7 @@ const AccountDetail = () => {
 
                   </Tab>
 
-                  <Tab eventKey="Analazy" title="Analazy">
+                  <Tab eventKey="Analazy" title="Analysis">
 
                  <Analazycustomer rowData={account}/>
 

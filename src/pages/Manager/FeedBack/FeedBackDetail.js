@@ -141,7 +141,7 @@ const FeedbackDetail = () => {
 
                   
                   </Tab>
-                  <Tab eventKey="creater" title="Creater">
+                  {/* <Tab eventKey="creater" title="Creater">
 
                     <div className="card-body">
 
@@ -180,7 +180,7 @@ const FeedbackDetail = () => {
                     </div>
 
 
-                  </Tab>
+                  </Tab> */}
                  
 
                   <Tab eventKey="opportunity" title="Customer">

@@ -12,10 +12,10 @@ const Analazycustomer = ({ rowData }) => {
       
         <div className="row">
         <div className="col-xl-6 col-lg-6">
-              <Bar title="Analazy by location"/>
+              <Bar title="Analysis by location"/>
             </div>
             <div className="col-xl-6 col-lg-6">
-              <Bar title="Analazy by category "/>
+              <Bar title="Analysis by category "/>
             </div>
             </div>
           </>

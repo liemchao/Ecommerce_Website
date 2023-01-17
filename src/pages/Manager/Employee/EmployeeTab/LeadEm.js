@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../../../api/apiService";
-import { Card ,Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";

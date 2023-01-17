@@ -21,6 +21,7 @@ const AppointmentList = React.lazy(() => import("./pages/Manager/Appointment/App
 const AppointmentDetail = React.lazy(() => import("./pages/Manager/Appointment/AppointmentDetail"))
 const TaskDetail = React.lazy(() => import("./pages/Manager/Task/TaskDetail"))
 const TaskCreate = React.lazy(() => import("./pages/Manager/Task/TaskCreate"))
+const TaskUpdate = React.lazy(() => import("./pages/Manager/Task/TaskUpdate"))
 const LeadList = React.lazy(() => import("./pages/Manager/Lead/LeadList"))
 const ManagerTaskList = React.lazy(() => import("./pages/Manager/Task/TaskList"))
 const ProductOwerList = React.lazy(() => import("./pages/Manager/ProductOwer/ProductOwerList"))
@@ -39,6 +40,7 @@ const OppProduct = React.lazy(() => import("./pages/Manager/Opportunity/OppProdu
 const ProductAppoimnet = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/ProductAppointment"))
 const LeadAppoiment = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/LeadDetailAp"))
 const FeedBackAppointment = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackDe/AppoimentFe"))
+
 
 
 
@@ -84,6 +86,8 @@ const routes = [
   { path: "/Dashboard/Manager/ProductAppoimnet", name: "ProductAppoimnet", component: ProductAppoimnet},
   { path: "/Dashboard/Manager/LeadAppoiment", name: "ProductAppoimnet", component: LeadAppoiment },
   { path: "/Dashboard/Manager/FeedBackAppointment", name: "FeedBackAppointment", component: FeedBackAppointment },
+  { path: "/Dashboard/Manager/TaskUpdate", name: "TaskCreateList", component: TaskUpdate },
+
   
 
 

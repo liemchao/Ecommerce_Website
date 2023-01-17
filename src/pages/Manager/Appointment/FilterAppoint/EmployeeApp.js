@@ -178,7 +178,7 @@ const EmployeeDetail = () => {
 
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Day of Brith:</h6>
+                              <h6 className="mb-0">Date of Birth:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{(account.dob).slice(0, 10)}</p>

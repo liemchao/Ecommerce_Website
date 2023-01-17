@@ -25,7 +25,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
 
     let data = {
   id: rowData.id,
-  roleId: role,
+  roleId: parseInt(role),
   
     };
 

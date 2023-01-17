@@ -16,7 +16,7 @@ class ChartBar extends Component {
     componentDidMount() {
 
         const myBarChart = this.chartRef.current.getContext("2d");
-        this.setState({ title: this.props.title ? this.props.title : 'Basic Card Example' });
+     
         
 
         new Chart(myBarChart, {

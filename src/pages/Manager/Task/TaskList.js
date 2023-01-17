@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -125,7 +126,15 @@ const TaskList = () => {
         >
          <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
         </Link>
-        <AccountUpdate rowData={rowData} refreshList={refreshList} />
+        <Link
+          style={{ paddingRight: "30px" }}
+          to={{
+            pathname: "/Dashboard/Manager/TaskUpdate",
+            
+          }}
+        >
+         <Button className="btn btn-success"><FontAwesomeIcon icon={faPencilAlt}/></Button>
+        </Link>
       </div>
     );
   };

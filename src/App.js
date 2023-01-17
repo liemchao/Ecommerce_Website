@@ -48,22 +48,6 @@ class App extends Component {
               name="Verify"
               render={(props) => <VerifyPage {...props} />}
             />
-            <Route
-              path="/404"
-              name="404"
-              render={(props) => <Page404 {...props} />}
-            />
-            <Route
-              path="/Verify"
-              name="Verify"
-              render={(props) => <Verify {...props} />}
-            />
-            <Route
-              exact
-              path="/404"
-              name="Page 404"
-              render={(props) => <Page404 {...props} />}
-            />
           </Switch>
         </React.Suspense>
       </HashRouter>

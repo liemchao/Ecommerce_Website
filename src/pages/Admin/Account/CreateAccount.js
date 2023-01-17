@@ -36,7 +36,7 @@ export default function AccountCreate({ refreshList }) {
     phone:Account.phone,
     password:Account.password,
     fullname: Account.fullname,
-    roleId: parseInt(Account.roleId),
+    roleId: 3,
     // image: Account.image,
     gender: Boolean(Account.gender),
     dob:Account.dob
@@ -121,7 +121,7 @@ export default function AccountCreate({ refreshList }) {
             <InputText
               id="email"
               type="email"
-              value={Account.email}
+         
               onChange={(e) => setAccount({ ...Account, email: e.target.value })}
             />
           </div>
@@ -133,7 +133,7 @@ export default function AccountCreate({ refreshList }) {
             <InputText
               id="phone"
               type="phone"
-              value={Account.phone}
+             
               onChange={(e) => setAccount({ ...Account, phone: e.target.value })}
             />
           </div>
@@ -144,25 +144,25 @@ export default function AccountCreate({ refreshList }) {
             <InputText
               id="password"
               type="password"
-              value={Account.password}
+           
               
               onChange={(e) => setAccount({ ...Account, password: e.target.value })}
             />
           </div>
            {/* Name */}
            <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">FullName</label>
+            <label htmlFor="name">Full Name</label>
             <InputText
               id="name"
               type="text"
-              value={Account.fullname}
+        
              
               onChange={(e) => setAccount({ ...Account, fullname: e.target.value })}
             />
           </div>
            {/* Name */}
-           <div className="p-field p-col-12 p-md-6">
-           <label htmlFor="role">Change Role</label>
+           {/* <div className="p-field p-col-12 p-md-6">
+           <label htmlFor="role">Set Role</label>
             <select
               onChange={(e) => setAccount({...Account, roleId: parseInt(e.currentTarget.value)})}
             >
@@ -170,7 +170,7 @@ export default function AccountCreate({ refreshList }) {
               <option value="2">Manager</option>
               <option value="3">Admin</option>
             </select>
-          </div>
+          </div> */}
            {/* Name */}
            {/* <div className="p-field p-col-12 p-md-6">
             <label htmlFor="name">Image</label>
@@ -184,7 +184,7 @@ export default function AccountCreate({ refreshList }) {
           </div> */}
            {/* Name */}
            <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">DOB</label>
+            <label htmlFor="name">Date of Birth</label>
             <InputText
               id="name"
               type="date"
@@ -196,7 +196,7 @@ export default function AccountCreate({ refreshList }) {
    
           
           {/* Gender */}
-          <div className="p-field p-col-12 p-md-3">
+          <div  style={{marginTop:"-1.5%"}}className="p-field p-col-12 p-md-3">
             <label htmlFor="status">Gender</label>
             <br />
             <div className="form-check">

@@ -114,12 +114,12 @@ export default function FormUpdateAccount(rowData) {
             >
                
                           {
-                            user.gender=="Male" ? (<>
-                               <option key='1' value={true} selected>{user.gender}</option>
-                               <option key='2' value={false}>FeMale</option>
+                            user.gender == "Male" ? (<>
+                               <option  value={true} selected>Male</option>
+                               <option  value={false}>FeMale</option>
                             </>) : (<>
-                                <option key='3' value={false} selected>{user.gender}</option>
-                               <option key='4' value={true}>Male</option>
+                                <option  value={false} selected> FeMale </option>
+                               <option   value={true}>Male</option>
                             
                             </>)
                           }

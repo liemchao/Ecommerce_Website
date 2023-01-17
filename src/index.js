@@ -14,7 +14,7 @@ import "primeicons/primeicons.css";
 //SBAdmin2 Style
 import './assets/scss/sb-admin-2.scss';
 
-//Attendant Style
+// Attendant Style
 import './assets/css/sb-admin-2.css';
 import './assets/css/sb-admin-2.min.css';
 

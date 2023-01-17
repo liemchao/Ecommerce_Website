@@ -389,7 +389,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
           </div>
 
           <div className="p-field p-col-3 p-md-3" style={{marginTop:"-2%"}}>
-           <label htmlFor="ower">ProductOwer</label><br></br>
+           <label htmlFor="ower">Product Ower</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
@@ -503,7 +503,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               // onChange={(e) => setProduct({ ...Product, province: e.target.value })}
             />
           </div>
-          <div className="p-field p-col-8 p-md-4">
+          <div style={{marginTop:"-2%"}}className="p-field p-col-8 p-md-4">
            <label htmlFor="direction">Direction:</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
@@ -526,7 +526,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               
             </select>
           </div>
-          <div className="p-field p-col-8 p-md-4">
+          <div style={{marginTop:"-2%"}} className="p-field p-col-8 p-md-4">
            <label htmlFor="Utilites">Utilities:</label><br></br>
             <select
               // onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
@@ -559,8 +559,8 @@ export default function ProductUpdate({ rowData, refreshList }) {
               onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
             />
           </div> */}
-          <div style={{marginTop:"-3%"}} className="p-field p-col-8 p-md-4">
-            <label htmlFor="recivedate">receivedDate</label>
+          <div style={{marginTop:"-2%"}} className="p-field p-col-8 p-md-4">
+            <label htmlFor="recivedate">Received Date</label>
             <InputText
               id="name"
               type="datetime"
@@ -572,9 +572,9 @@ export default function ProductUpdate({ rowData, refreshList }) {
          <LandingPage rowData={rowData}/>
          
           {/* Gender */}
-          <div className="p-field p-col-8 p-md-3">
-            <label htmlFor="status">isFurniture</label>
-            <br />
+          <div style={{marginLeft:"5%"}}className="p-field p-col-8 p-md-3">
+            <label htmlFor="status">Furniture</label>
+            <br /> 
             <div className="form-check">
               <input
                 className="form-check-input"

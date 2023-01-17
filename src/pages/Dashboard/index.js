@@ -4,7 +4,12 @@ import ChartDonut from "../../components/Charts/Donut";
 import ChartLine from "../../components/Charts/Line";
 import Bar from "../../components/Charts/Bar"
 import PageHeading from "../../components/PageHeading";
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, Redirect } from "react-router-dom";
+import { Button } from "react-bootstrap";
+
+
 
 const Dashboard = () => {
   // componentWillMount() {
@@ -22,14 +27,27 @@ const Dashboard = () => {
         {(user.role.includes("Manager")) && (
           <>
             <PageHeading title="Performance dasboard" />
+            <Button
+    
+    style={{ marginTop:"-4%",float: "right"}}
+    className="btn btn-primary" 
+><FontAwesomeIcon icon={faDownload} /> Dowload Report</Button>
             <div className="row">
+
+        
             
             <CardInfo
               title="Lead (Convertion) Ratio"
               icon="calendar"
               color="primary"
               value="17:1"
-            />
+             
+            > 
+            
+            <Link>
+            </Link>
+            
+            </CardInfo>
             <CardInfo
               title="Leads"
               icon="calendar"
@@ -57,6 +75,7 @@ const Dashboard = () => {
               icon="comments"
               color="warning"
               value="18"
+
             />
           </div>
           <div className="row">

@@ -16,6 +16,9 @@ const Topbar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [data, setData] = useState([]);
   const [totalRecords, setTotalRecords] = useState();
+  const [readno, setRead] = useState();
+
+
 
 
   async function getNoti() {
@@ -24,8 +27,9 @@ const Topbar = () => {
       .then((response) => {
 
         setTotalRecords(response.data.totalRow);
+        setRead(totalRecords-1)
         setData(response.data.data);
-        toast("You have notifiton !")
+
       })
       .catch((error) => {
         if (error.response) {
@@ -45,7 +49,16 @@ const Topbar = () => {
   }
 
   useEffect(() => {
-    getNoti()
+
+    setInterval(() => {
+      getNoti()
+    }, 5000);
+
+
+    toast("You have notifiton !")
+
+
+  
   }, []);
   
 
@@ -59,9 +72,9 @@ const Topbar = () => {
     history.push("/Login");
   }
  
-  const refreshList = () => {
-    getNoti();
-  };
+  // const refreshList = () => {
+  //   getNoti();
+  // };
 
 
   return (
@@ -69,7 +82,7 @@ const Topbar = () => {
       {/* Topbar Navbar */}
       <ul className="navbar-nav ml-auto">
 
-        <div style={{ marginTop: 20 }} >
+        <div style={{ marginTop: "4%" }} >
 
           <li className="nav-item dropdown no-arrow">
             <a
@@ -82,7 +95,7 @@ const Topbar = () => {
               aria-expanded="false"
             >
               <FontAwesomeIcon style={{ height: "70%", width: "60%", marginLeft: "10%", marginBottom: "30%" }} icon={faBell} />
-              {totalRecords>34 ? (<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-34}</Badge></>):(<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-totalRecords+1}</Badge></>)}
+              {totalRecords>readno ? (<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-readno}</Badge></>):(<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-totalRecords + 1}</Badge></>)}
              
             </a>
 
@@ -108,7 +121,6 @@ const Topbar = () => {
                 data.map((x, y) =>
                 <>
                   <Button
-                  onClick={refreshList}
                     className="dropdown-item"
                     >
                      {x.isRead==true ? (<div style={{color:"blue"}}>

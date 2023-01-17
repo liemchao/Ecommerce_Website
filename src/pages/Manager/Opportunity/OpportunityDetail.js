@@ -100,6 +100,7 @@ const ProductOWerDetail = () => {
                     </Tab>
                     <Tab eventKey="Productview" title="Lead">
                     <div className="card-body">
+
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0"> Lead's Name:</h6>
@@ -122,23 +123,23 @@ const ProductOWerDetail = () => {
                         <div className="col-sm-3">
                           <h6 className="mb-0">Gender:</h6>
                         </div>
-                        <div className="col-sm-9 text-secondary">
+                  
                           {Opportunity.lead.gender ? (
-                            <div className="col-sm-7text-secondary">Male
+                            <div className="col-sm-7 text-secondary">Male
 
                             </div>
 
                           ) : (
-                            <div className="col-sm-7text-secondary">Female
+                            <div className="col-sm-7 text-secondary">Female
                             </div>
 
                           )
 
                           }
-                        </div>
+                     
                       </div>
 
-                      <div className="row mb-3">
+                      <div className="row mb-2">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Email:</h6>
                         </div>
@@ -146,7 +147,8 @@ const ProductOWerDetail = () => {
                           <p>{Opportunity.lead.email}</p>
                         </div>
                       </div>
-                      <div className="row mb-3">
+
+                      <div className="row mb-2">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Phone:</h6>
                         </div>
@@ -154,7 +156,7 @@ const ProductOWerDetail = () => {
                           <p>{Opportunity.lead.phone}</p>
                         </div>
                       </div>
-                      <div className="row mb-3">
+                      <div className="row mb-2">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Lead Type: </h6>
                         </div>
@@ -167,7 +169,7 @@ const ProductOWerDetail = () => {
 
                         </>) : (
                           
-                          <div className="row mb-3">
+                          <div className="row mb-2">
                             <div className="col-sm-3">
                               <h6 className="mb-0">Company Name:</h6>
                             </div>
@@ -186,7 +188,7 @@ const ProductOWerDetail = () => {
 
                         </>) : (
                           
-                          <div className="row mb-3">
+                          <div className="row mb-2">
                             <div className="col-sm-3">
                               <h6 className="mb-0">Website:</h6>
                             </div>
@@ -204,7 +206,7 @@ const ProductOWerDetail = () => {
 
                         </>) : (
 
-                          <div className="row mb-3">
+                          <div className="row mb-2">
                             <div className="col-sm-3">
                               <h6 className="mb-0">Date of Birth :</h6>
                             </div>
@@ -214,7 +216,7 @@ const ProductOWerDetail = () => {
                           </div>
                         )
                       }
-                      <div className="row mb-3">
+                      <div className="row mb-2">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Create Day: </h6>
                         </div>
@@ -222,7 +224,7 @@ const ProductOWerDetail = () => {
                           <p>{(Opportunity.lead.createDate).slice(0, 10)}</p>
                         </div>
                       </div>
-                      <div className="row mb-3">
+                      <div className="row mb-2">
                         <div className="col-sm-3">
                           <h6 className="mb-0">Lead Status: </h6>
                         </div>

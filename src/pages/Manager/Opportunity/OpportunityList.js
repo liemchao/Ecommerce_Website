@@ -2,22 +2,17 @@ import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
+import { CSVLink} from 'react-csv';
 
 import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
-import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
-import CreateProduct from "../Product/ProductCreate"
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
-
-
-
-
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 
 const LeadList = () => {
@@ -26,8 +21,9 @@ const LeadList = () => {
   const [totalRecords, setTotalRecords] = useState();
   const [query, setQuery] = useState("");
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(10);
+  const [rows, setRows] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState("");
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
@@ -39,14 +35,13 @@ const LeadList = () => {
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
+        let  counter = 5 * (currentPage-1)
         listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
-
+        
+          obj['indexNumber'] = (counter + ++index) 
+         
         })
-        // setTotalRecords(response.totalRow);
         setTotalRecords(response.data.totalRow);
-        console.log(totalRecords)
 
         setData(listDataSet);
 
@@ -55,18 +50,14 @@ const LeadList = () => {
       })
       .catch((error) => {
         if (error.response) {
-          // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+          setError(error.response)
         } else if (error.request) {
-          // no response
-          console.log(error.request);
+          setError(error.request)
+         
         } else {
-          // Something wrong in setting up the request
-          console.log("Error", error.message);
+         
         }
-        console.log(error.config);
+        setError(error)
       });
   }
 
@@ -112,16 +103,16 @@ const LeadList = () => {
               state: rowData,
             }}
           >
-           <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+           <Button style={{marginLeft:"10%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
-          <AccountUpdate rowData={rowData} refreshList={refreshList} />
+          {/* <AccountUpdate rowData={rowData} refreshList={refreshList} /> */}
         </div>
       );
     };
 
   const customStatus = (rowData) => {
     if(rowData.opportunityStatus=="New"){
-      return <div className="badge badge-primary mr-2">{rowData.opportunityStatus}</div>;
+      return <div className="badge badge-warning mr-2">{rowData.opportunityStatus}</div>;
     }else{
       return <div className="badge badge-success mr-2">{rowData.opportunityStatus}</div>;
     }
@@ -181,9 +172,8 @@ const LeadList = () => {
 
   const searchProduct= () =>{
     const filterData = data.filter((value)=>{
-     console.log(value);
       return (
-        value.fullname.toLowerCase().includes(query.toLowerCase())
+        value.name.toLowerCase().includes(query.toLowerCase())
       )
     });
     setData(filterData);
@@ -196,11 +186,16 @@ const LeadList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="Opportunity List" />
-          <CreateProduct refreshList={refreshList}/>
+          {/* <Button
+    style={{ margin:0,float: "right"}}
+    className="btn btn-primary" 
+>  Generate Excel</Button> */}
+<CSVLink   style={{ margin:0,float: "right"}}  data={data} filename="Opportunity"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink>
+          {/* <CreateProduct refreshList={refreshList}/> */}
         </div> 
         <div className="row">
-       <div style={{marginBottom:20}}>
-       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <div style={{marginBottom:10, marginTop:"-2%", marginLeft:"62%"}}>
+       <input onChange={handleSearch}  style={{height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
        onClick={searchProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
@@ -210,7 +205,11 @@ const LeadList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
-           emptyMessage="No Opportunity Found."
+           emptyMessage={ 
+           <div style={{ textAlign: "center", fontSize: 30 }}>
+           <h1 className="badge badge-danger mr-2">No Opportunity Found</h1>
+         </div>
+          }
            >
            <Column header="Result" body={notFound}/>
            </DataTable>
@@ -225,6 +224,8 @@ const LeadList = () => {
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
+                  rowHover={true}
+                  
                 >
                   <Column header="No" field="indexNumber"/>
                   <Column header="Name" field="name"/>
