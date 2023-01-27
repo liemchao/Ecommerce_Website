@@ -46,9 +46,19 @@ const FeedbackDetail = () => {
                 >
                   <Tab eventKey="profile" title="Information">
                     <div className="card-body">
-                        {account.content=="" ? (<></>):( <div className="row mb-3">
+                        {account.content=="" ? (<>
+                        
+                          <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Content:</h6>
+                          <h6 className="mb-0 font-weight-bold">Content:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                        Empty
+                        </div>
+                      </div>
+                        </>):( <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0 font-weight-bold">Content:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.content}
@@ -56,9 +66,9 @@ const FeedbackDetail = () => {
                       </div>)}
                      
 
-                      <div className="row mb-3">
+                      <div  style={{marginTop:25}}className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Rate:</h6>
+                          <h6 className="mb-0 font-weight-bold">Rate:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                         <p>{account.rate}</p>
@@ -67,7 +77,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Feedback Date:</h6>
+                          <h6 className="mb-0 font-weight-bold">Feedback Date:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(account.feedbackDate).slice(0, 10)}</p>
@@ -82,7 +92,7 @@ const FeedbackDetail = () => {
                 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Title</h6>
+                          <h6 className="mb-0 font-weight-bold">Title: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.name}
@@ -105,7 +115,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Activity Type:</h6>
+                          <h6 className="mb-0 font-weight-bold">Activity Type:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.activityType}</p>
@@ -114,7 +124,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Description:</h6>
+                          <h6 className="mb-0 font-weight-bold">Description:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.description}</p>
@@ -123,7 +133,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.appointment.appointmentStatus =="Finished" ? (
@@ -147,7 +157,7 @@ const FeedbackDetail = () => {
 
                     <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Full Name</h6>
+                          <h6 className="mb-0 font-weight-bold">Full Name</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.fullname}
@@ -161,7 +171,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone</h6>
+                          <h6 className="mb-0 font-weight-bold">Phone</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.phone}</p>
@@ -170,7 +180,7 @@ const FeedbackDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.appointment.email}</p>
@@ -188,7 +198,7 @@ const FeedbackDetail = () => {
                      <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name:</h6>
+                          <h6 className="mb-0 font-weight-bold">Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.customer.fullname}</p>
@@ -196,7 +206,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.customer.email}</p>
@@ -204,7 +214,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone:</h6>
+                          <h6 className="mb-0 font-weight-bold">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.customer.phone}</p>
@@ -212,7 +222,7 @@ const FeedbackDetail = () => {
                       </div>
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
+                          <h6 className="mb-0 font-weight-bold">Gender:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.gender}</p>
@@ -220,7 +230,7 @@ const FeedbackDetail = () => {
                       </div> */}
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Birth Day:</h6>
+                          <h6 className="mb-0 font-weight-bold">Birth Day:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.birthday}</p>
@@ -228,7 +238,7 @@ const FeedbackDetail = () => {
                       </div> */}
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Joined Since:</h6>
+                          <h6 className="mb-0 font-weight-bold">Joined Since:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(account.customer.createDate).slice(0, 10)}</p>
@@ -236,7 +246,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create:</h6>
+                          <h6 className="mb-0 font-weight-bold">Time Create:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(account.customer.createDate).slice(11, 19)}</p>
@@ -244,7 +254,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Date of Birth</h6>
+                          <h6 className="mb-0 font-weight-bold">Date of Birth</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{account.customer.dob}</p>
@@ -252,7 +262,7 @@ const FeedbackDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.customer.status ? (

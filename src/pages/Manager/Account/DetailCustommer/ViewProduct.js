@@ -163,7 +163,7 @@ const customButton = (rowData) => {
                 <Column style={{ width: "10%" }} header="No" field="indexNumber" />
                 <Column style={{ paddingRight: 2, paddingLeft: 3, width: "19%" }} header="Product Name" body={ProductName} />
                 <Column style={{paddingLeft:"6%",width: "19%" }} header="Price(VND)" body={Price}/>
-                <Column  style={{paddingLeft:"6%",width: "19%" }}  header="Status" body={getStatus} />
+                <Column  style={{paddingLeft:"6%",width: "19%" }}  header="Sale Status" body={getStatus} />
                 <Column header="Action" body={customButton} />
               </DataTable>
               <Paginator

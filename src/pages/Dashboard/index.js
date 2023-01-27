@@ -4,7 +4,7 @@ import ChartDonut from "../../components/Charts/Donut";
 import ChartLine from "../../components/Charts/Line";
 import Bar from "../../components/Charts/Bar"
 import PageHeading from "../../components/PageHeading";
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { faIdCard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, Redirect } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -26,12 +26,44 @@ const Dashboard = () => {
       <>
         {(user.role.includes("Manager")) && (
           <>
-            <PageHeading title="Performance dasboard" />
-            <Button
+            <PageHeading title="Performance dasboard" /> 
+         
+
+
+<li className="nav-item dropdown no-arrow"  style={{ marginTop:"-7%",float: "right", listStyle:"none"}} >
+           <a 
+            className="nav-link dropdown-toggle"
+            href="/#"
+            id="userDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+              <Button
     
-    style={{ marginTop:"-4%",float: "right"}}
+    style={{ marginTop:"10%",float: "right"}}
     className="btn btn-primary" 
-><FontAwesomeIcon icon={faDownload} /> Dowload Report</Button>
+>   <FontAwesomeIcon icon={faIdCard} /> Action KPI</Button> 
+            </a>
+          {/* Dropdown - User Information */}
+          <div
+            className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            aria-labelledby="userDropdown"
+          >
+            <Link className="dropdown-item" to="/Dashboard/MyProfile">
+               Create Template
+
+            </Link>
+            <div className="dropdown-divider"></div>
+            <Link className="dropdown-item" to="/Dashboard/MyProfile">
+               Update Template
+
+            </Link>
+          </div>
+        </li>
+
+
             <div className="row">
 
         

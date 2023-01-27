@@ -74,7 +74,7 @@ export default function ProductCreate({ refreshList }) {
     console.log(createData);
     await ApiService.createProduct(createData)
       .then((response) => {
-        setSuccessMsg("Create Product successfully!");
+        setSuccessMsg("Create Product Successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -569,7 +569,9 @@ if(obj.district_name.includes("Quận 9")) {
           <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">Name</label>
             <InputText
+            placeholder="Fill in the product name"
               id="name"
+              required
               type="text"
               onChange={(e) => setProduct({ ...Product, name: e.target.value })}
             />
@@ -578,6 +580,7 @@ if(obj.district_name.includes("Quận 9")) {
           <div className="p-field p-col-2 p-md-4">
             <label htmlFor="name">Price</label>
             <InputText
+             placeholder="VND"
               id="name"
               type="number"
               required
@@ -589,6 +592,7 @@ if(obj.district_name.includes("Quận 9")) {
            <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">Description</label>
             <InputTextarea
+             placeholder="Fill in the product description"
             rows="2" cols="10"
               id="name"
               required
@@ -649,7 +653,8 @@ if(obj.district_name.includes("Quận 9")) {
            <div  style={{marginLeft:"0%"}}className="p-field p-col-2 p-md-2">
             <label htmlFor="name">Width</label>
             <InputText
-       
+              min={1}
+              max={600000}
               id="name"
               type="number"
               required
@@ -660,7 +665,9 @@ if(obj.district_name.includes("Quận 9")) {
            <div className="p-field p-col-3 p-md-2">
             <label htmlFor="name">Length</label>
             <InputText
-              id="name"
+             min={1}
+             max={600000}
+              id="length"
               type="number"
               required
               onChange={(e) => setProduct({ ...Product, length: e.target.value })}
@@ -668,35 +675,43 @@ if(obj.district_name.includes("Quận 9")) {
           </div>
 
           <div className="p-field p-col-3 p-md-2">
-            <label htmlFor="name">Bedroom</label>
+            <label htmlFor="name">No. Bedroom</label>
             <InputText
-              id="name"
+             min={1}
+             max={20}
+              id="bedrom"
               type="number"
               required
               onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
             />
           </div>
           <div className="p-field p-col-3 p-md-2">
-            <label htmlFor="name">Toilet</label>
+            <label htmlFor="name">No. Toilet</label>
             <InputText
-              id="name"
+              min={1}
+              max={20}
+              id="tolet"
               type="number"
               onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
             />
           </div>
           <div className="p-field p-col-3 p-md-2">
-            <label style={{marginRight:5}} htmlFor="name">Floor</label>
+            <label style={{marginRight:5}} htmlFor="name">No. Floor</label>
             <InputText
-              id="name"
+              min={1}
+              max={100}
+              id="floor"
               type="number"
               required
               onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
             />
           </div>
           <div className="p-field p-col-1 p-md-2">
-            <label htmlFor="name">Facade</label>
+            <label htmlFor="name">No. Facade</label>
             <InputText
-              id="name"
+              id="facade"
+              min={1}
+              max={6}
               type="number"
               required
               onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
@@ -756,6 +771,7 @@ if(obj.district_name.includes("Quận 9")) {
           <div className="p-field p-col-8 p-md-4">
             <label htmlFor="name">Street</label>
             <InputText
+            placeholder="Fill in street name/house number"
               id="name"
               type="text"
               required
@@ -799,6 +815,7 @@ if(obj.district_name.includes("Quận 9")) {
           <div style={{marginTop:"-0.2%"}} className="p-field p-col-8 p-md-4">
             <label htmlFor="name">receivedDate</label>
             <InputText
+            placeholder="dd/mm/yyyy"
               id="name"
               type="datetime-local"
               value={Product.receivedDate}
@@ -834,7 +851,7 @@ if(obj.district_name.includes("Quận 9")) {
                 onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
               <label className="form-check-label" htmlFor="exampleRadios2">
-               Not Avalabel
+               Not Avaliable
               </label>
             </div>
           </div>

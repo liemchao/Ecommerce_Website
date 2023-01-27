@@ -294,7 +294,7 @@ const LeadDetail = () => {
       )}
           <div>
         <Link 
-        to="/Dashboard/Manager/LeadList"
+        to="/Dashboard/Manager/AppointmentList"
         >
          <Button style={{marginTop:"2%"}}>
           <FontAwesomeIcon icon={faStepBackward} /> Back to

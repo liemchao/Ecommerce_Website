@@ -36,7 +36,7 @@ const AppointDetail = () => {
 
     await ApiService.AssAppointment(data)
       .then((response) => {
-        setSuccessMsg("Assing Appoitment successfull");
+        setSuccessMsg("Delegated Appointment Successfull");
         setLoading(false);
       })
       .catch((error) => {
@@ -47,7 +47,7 @@ const AppointDetail = () => {
           error.message ||
           error.toString();
 
-        setErrMsg(resMessage);
+        setErrMsg("Delegated Appointment Failed");
         setLoading(false);
       });
   }
@@ -146,7 +146,7 @@ const AppointDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Full Name:</h6>
+                          <h6 className="mb-0 font-weight-bold">Full Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.fullname}
@@ -158,7 +158,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Title:</h6>
+                          <h6 className="mb-0 font-weight-bold">Title:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.name}</p>
@@ -168,7 +168,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone:</h6>
+                          <h6 className="mb-0 font-weight-bold">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.phone}</p>
@@ -177,7 +177,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.email}</p>
@@ -186,7 +186,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Activity Type:</h6>
+                          <h6 className="mb-0 font-weight-bold">Activity Type:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.activityType}</p>
@@ -195,7 +195,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Description:</h6>
+                          <h6 className="mb-0 font-weight-bold">Description:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.description}</p>
@@ -205,7 +205,7 @@ const AppointDetail = () => {
 
                     <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Appoinment Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Appoinment Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p className="badge badge-success mr-2"> {Appointment.appointmentStatus}</p>
@@ -221,7 +221,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Create Date:</h6>
+                          <h6 className="mb-0 font-weight-bold">Create Date:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.createDate}</p>
@@ -230,7 +230,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">StartDate:</h6>
+                          <h6 className="mb-0 font-weight-bold">Start Day:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.startDate} {Appointment.startTime}</p>
@@ -244,7 +244,7 @@ const AppointDetail = () => {
                           
                           <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">End Date:</h6>
+                            <h6 className="mb-0 font-weight-bold">End Date:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Appointment.endDate}</p>
@@ -263,7 +263,7 @@ const AppointDetail = () => {
                           
                           <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Accepted Day:</h6>
+                            <h6 className="mb-0 font-weight-bold">Accepted Day:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Appointment.acceptedDate}</p>
@@ -291,7 +291,7 @@ const AppointDetail = () => {
                         <div className="card-body">
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Employee's Name:</h6>
+                              <h6 className="mb-0 font-weight-bold">Employee's Name:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               {Appointment.employee.fullname}
@@ -303,7 +303,7 @@ const AppointDetail = () => {
 
                           {/* <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Gender:</h6>
+                              <h6 className="mb-0 font-weight-bold">Gender:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               {Appointment.employee.gender ? (
@@ -323,7 +323,7 @@ const AppointDetail = () => {
 
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Email:</h6>
+                              <h6 className="mb-0 font-weight-bold">Email:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{Appointment.employee.email}</p>
@@ -331,7 +331,7 @@ const AppointDetail = () => {
                           </div>
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Phone:</h6>
+                              <h6 className="mb-0 font-weight-bold">Phone:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{Appointment.employee.phone}</p>
@@ -352,7 +352,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead's Name:</h6>
+                          <h6 className="mb-0 font-weight-bold">Lead's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.lead.fullname}
@@ -373,7 +373,7 @@ const AppointDetail = () => {
                       </div>
                       <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Name Call:</h6>
+                              <h6 className="mb-0 font-weight-bold">Name Call:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{Appointment.lead.nameCall}</p>
@@ -382,7 +382,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status Lead:</h6>
+                          <h6 className="mb-0 font-weight-bold">Status Lead:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p className="badge badge-primary mr-2">{Appointment.lead.leadStatus}</p>
@@ -401,7 +401,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Product Name:</h6>
+                          <h6 className="mb-0 font-weight-bold">Product Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.product.name}
@@ -421,7 +421,7 @@ const AppointDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Street:</h6>
+                          <h6 className="mb-0 font-weight-bold">Street:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.product.street}</p>
@@ -431,7 +431,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">District:</h6>
+                          <h6 className="mb-0 font-weight-bold">District:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.product.district}</p>
@@ -440,7 +440,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Province:</h6>
+                          <h6 className="mb-0 font-weight-bold">Province:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Appointment.product.province}</p>
@@ -450,7 +450,7 @@ const AppointDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Product Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Product Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p className="badge badge-primary mr-2">{Appointment.product.productStatus}</p>

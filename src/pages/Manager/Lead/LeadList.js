@@ -160,6 +160,11 @@ const LeadList = () => {
   //     );
   //   },
   // };
+
+  const notFound =()=>{
+    return <div className="badge badge-danger mr-2">Not Found</div>;
+  }
+
   const handleSearch = (e) =>{
     setQuery(e.target.value);
     if(e.target.value === ""){
@@ -209,7 +214,21 @@ const LeadList = () => {
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
         {data.length==0 ? (
-          <p>No data to show...</p>
+          <div style={{marginTop:"2%"}}id="wrapper">
+          <div className="container-fluid">
+            <div className="card shadow mb-1">
+              <DataTable
+              emptyMessage={ 
+                <div style={{ textAlign: "center", fontSize: 30 }}>
+                <h1 className="badge badge-danger mr-2">No Lead Found</h1>
+              </div>
+               }
+              >
+              <Column header="Result" body={notFound}/>
+              </DataTable>
+             </div>
+             </div>
+             </div>
         ) : (
           <div id="wrapper">
             <div className="container-fluid">
@@ -218,11 +237,14 @@ const LeadList = () => {
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
+                  rowHover={true}
+
                 >
                   <Column header="No" field="indexNumber"/>
                   <Column header="Name" field="fullname"/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
+                  
 
                 
                 </DataTable>

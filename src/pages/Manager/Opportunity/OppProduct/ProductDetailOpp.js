@@ -22,10 +22,7 @@ const ProductInfor = () => {
         await ApiService.getProductById(id)
             .then((response) => {
 
-                setProduct(response.data.data);
-                console.log(response.data.data)
-
-
+                setProduct(response.data.data[0]);
                 setLoadingData(false);
             })
             .catch((error) => {
@@ -59,7 +56,7 @@ const ProductInfor = () => {
                         <div className="col-lg-4">
 
                             {
-                                Product[0].productImages.map((x, y) =>
+                                Product.productImages.map((x, y) =>
                                     <div style={{ textAlign: "center" }} className="card">
                                         <Figure style={{ margin: "2%" }}>
                                             <Figure.Image
@@ -79,186 +76,254 @@ const ProductInfor = () => {
                         </div>
                         <div className="col-lg-8">
                             <div className="card">
-                                <Tabs
-                                    defaultActiveKey="Detail"
-                                    id="uncontrolled-tab-example"
-                                    className="mb-3"
-                                >
-                                    <Tab eventKey="Detail" title="Product Detail">
-                                        <div className="card-body">
+                            <Tabs
+                    defaultActiveKey="Detail"
+                    id="uncontrolled-tab-example"
+                    className="mb-3"
+                  >
+                    <Tab eventKey="Detail" title="Product Detail">
+                      <div className="card-body">
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Name</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].name}</p>
-                                                </div>
-                                            </div>
+                      <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Product Name:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.name}</p>
+                          </div>
+                        </div>
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Category</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].category.productCategoryName}</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Category:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.category.productCategoryName}</p>
+                          </div>
+                        </div>
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Price</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].price}(VND)</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Price:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.price}(VND)</p>
+                          </div>
+                        </div>
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Description</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <textarea>{Product[0].description}</textarea>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Description:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <textarea>{Product.description}</textarea>
+                          </div>
+                        </div>
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Width</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].width}m</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Width:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.width}m</p>
+                          </div>
+                        </div>
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Length</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].length}m</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Length:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.length}m</p>
+                          </div>
+                        </div>
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Area</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].area}m&#178;</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Area:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.area}m&#178;</p>
+                          </div>
+                        </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Number of Bedroom:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.noBedroom}</p>
+                          </div>
+                        </div>
 
-                                        </div>
-                                    </Tab>
-                                    <Tab eventKey="Product" title="Product Local">
-                                        <div className="card-body">
-
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Street</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].street}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">District</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].district}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Province</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].province}</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Number of Toilet:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.noToilet}</p>
+                          </div>
+                        </div>
 
 
-                                        </div>
-                                    </Tab>
-
-                                    <Tab eventKey="Status" title="Product Status">
-                                        <div className="card-body">
-
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Number of Bedroom</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].noBedroom}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Number of Toilet</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].noToilet}</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Number of Floor:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.noFloor}</p>
+                          </div>
+                        </div>
 
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Number of Floor</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].noFloor}</p>
-                                                </div>
-                                            </div>
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Facade:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.facade}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0 font-weight-bold">Furniture:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          {Product.isFurniture ? (
+                            <div className="badge badge-primary mr-2">
+                              Active
+                            </div>
+                          ) : (
+                            <div className="badge badge-danger mr-2">
+                              Not Avaliable
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      </div>
+                    </Tab>
+                    <Tab eventKey="Product" title="Product Location">
+                      <div className="card-body">
+
+                      <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Street:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.street}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">District:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.district}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Province:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.province}</p>
+                          </div>
+                        </div>
+
+                       
+                      </div>
+                    </Tab>
+
+                    <Tab eventKey="Status" title="Product Status">
+                      <div className="card-body">
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Sale Status:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p className="badge badge-info mr-2">{Product.productStatus}</p>
+                          </div>
+                        </div>
+
+                        {Product.isDelete ? (<>
+                        
+                        <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Delete Status:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      <p className="badge badge-danger">True</p>
+                      </div>
+                    </div>
+                      </>):( <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Delete Status:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      <p className="badge badge-success mr-2">False</p>
+                      </div>
+                    </div>)}
 
 
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Facade</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <p>{Product[0].facade}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Furniture</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    {Product[0].isFurniture ? (
-                                                        <div className="badge badge-primary mr-2">
-                                                            Active
-                                                        </div>
-                                                    ) : (
-                                                        <div className="badge badge-danger mr-2">
-                                                            Not Avaliable
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
+                        {Product.soldDate==null ? (<>
+                        
+                        <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Sold Date:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      Empty
+                      </div>
+                    </div>
+                      </>):( <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Sold Date:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        {Product.soldDate}
+                      </div>
+                    </div>)}
 
 
-                                        </div>
-                                    </Tab>
-                                    <Tab eventKey="Ower" title="Product Ower" >
+                   
+
+
+                      </div>
+                    </Tab>
+                    <Tab eventKey="Ower" title="Product Ower" >
                     <div className="card-body">
                      <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Name Ower:</h6>
+                            <h6 className="mb-0 font-weight-bold">Name Ower:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
           
                   
                       
-                        <p>{Product[0].productOwner.name} 
-                    </p>
+                        <p>{Product.productOwner.name} 
+                        <Link
+                        
+                        to={{
+                          pathname: "/Dashboard/Manager/ProductOwerInfo",
+                          state: Product,
+                        }}
+                        
+                        >
+                        <Button style={{marginLeft:"10%"}}>
+                          
+                          <FontAwesomeIcon icon={faExternalLinkSquare} />
+                          </Button>
+                          </Link></p>
+                          
+                          
+                     
+                    
+                    
+                          
                           </div>
                         </div>
                        

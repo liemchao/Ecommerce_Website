@@ -44,7 +44,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Opportunity Name:</h6>
+                            <h6 className="mb-0 font-weight-bold">Opportunity Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Opportunity.name}</p>
@@ -53,7 +53,7 @@ const ProductOWerDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Description:</h6>
+                            <h6 className="mb-0 font-weight-bold">Description:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.description}</p>
@@ -62,7 +62,7 @@ const ProductOWerDetail = () => {
 
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Create Day:</h6>
+                          <h6 className="mb-0 font-weight-bold">Create Day:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(Opportunity.createDate).slice(0, 10)}</p>
@@ -71,7 +71,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Listed Price:</h6>
+                          <h6 className="mb-0 font-weight-bold">Deal Value:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(Opportunity.listedPrice).toLocaleString()}</p>
@@ -81,7 +81,7 @@ const ProductOWerDetail = () => {
                       
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.opportunityStatus== 'New' ? (
@@ -89,7 +89,7 @@ const ProductOWerDetail = () => {
                               New
                             </div>
                           ) : (
-                            <div className="badge badge-sucess mr-2">
+                            <div className="badge badge-success mr-2">
                             {Opportunity.opportunityStatus}
                             </div>
                           )}
@@ -103,7 +103,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0"> Lead's Name:</h6>
+                          <h6 className="mb-0 font-weight-bold"> Lead's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.lead.fullname}
@@ -112,7 +112,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Name Call:</h6>
+                          <h6 className="mb-0 font-weight-bold">Name Call:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.lead.nameCall}
@@ -121,7 +121,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
+                          <h6 className="mb-0 font-weight-bold">Gender:</h6>
                         </div>
                   
                           {Opportunity.lead.gender ? (
@@ -141,7 +141,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-2">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.lead.email}</p>
@@ -150,7 +150,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-2">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone:</h6>
+                          <h6 className="mb-0 font-weight-bold">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.lead.phone}</p>
@@ -158,7 +158,7 @@ const ProductOWerDetail = () => {
                       </div>
                       <div className="row mb-2">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead Type: </h6>
+                          <h6 className="mb-0 font-weight-bold">Lead Type: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.lead.leadType}</p>
@@ -171,7 +171,7 @@ const ProductOWerDetail = () => {
                           
                           <div className="row mb-2">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Company Name:</h6>
+                              <h6 className="mb-0 font-weight-bold">Company Name:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{Opportunity.lead.companyName}</p>
@@ -190,7 +190,7 @@ const ProductOWerDetail = () => {
                           
                           <div className="row mb-2">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Website:</h6>
+                              <h6 className="mb-0 font-weight-bold font-weight-bold">Website:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{Opportunity.lead.website}</p>
@@ -208,7 +208,7 @@ const ProductOWerDetail = () => {
 
                           <div className="row mb-2">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Date of Birth :</h6>
+                              <h6 className="mb-0 font-weight-bold font-weight-bold">Date of Birth :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{(Opportunity.lead.dob).slice(0, 10)}</p>
@@ -218,7 +218,7 @@ const ProductOWerDetail = () => {
                       }
                       <div className="row mb-2">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Create Day: </h6>
+                          <h6 className="mb-0 font-weight-bold">Create Day: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(Opportunity.lead.createDate).slice(0, 10)}</p>
@@ -226,7 +226,7 @@ const ProductOWerDetail = () => {
                       </div>
                       <div className="row mb-2">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead Status: </h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Lead Status: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.lead.leadStatus === "New" ? (
@@ -249,7 +249,7 @@ const ProductOWerDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Emplyee's Name:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Emplyee's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.employee.fullname}</p>
@@ -257,7 +257,7 @@ const ProductOWerDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.employee.email}</p>
@@ -265,7 +265,7 @@ const ProductOWerDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.employee.phone}</p>
@@ -273,7 +273,7 @@ const ProductOWerDetail = () => {
                       </div>
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
+                          <h6 className="mb-0 font-weight-bold">Gender:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.employee.gender}</p>
@@ -281,15 +281,30 @@ const ProductOWerDetail = () => {
                       </div> */}
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Birth Day:</h6>
+                          <h6 className="mb-0 font-weight-bold">Birth Day:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.employee.birthday}</p>
                         </div>
                       </div> */}
+                       {
+                        Opportunity.employee.dob == null|Opportunity.employee.dob == "" ? (<>
+
+                        </>) : (
+
+                          <div className="row mb-2">
+                            <div className="col-sm-3">
+                              <h6 className="mb-0 font-weight-bold">Date of Birth :</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">
+                              <p>{(Opportunity.employee.dob).slice(0, 10)}</p>
+                            </div>
+                          </div>
+                        )
+                      }
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Joined Since:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Joined Since:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(Opportunity.employee.createDate).slice(0, 10)}</p>
@@ -297,7 +312,7 @@ const ProductOWerDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Time Create:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(Opportunity.employee.createDate).slice(11, 19)}</p>
@@ -307,7 +322,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Opportunity.employee.status == "Activated" ? (
@@ -330,7 +345,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Product Name:</h6>
+                          <h6 className="mb-0 font-weight-bold font-weight-bold">Product Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.name}
@@ -351,7 +366,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Street:</h6>
+                          <h6 className="mb-0 font-weight-bold">Street:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.street}</p>
@@ -361,7 +376,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">District:</h6>
+                          <h6 className="mb-0 font-weight-bold">District:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.district}</p>
@@ -370,7 +385,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Province:</h6>
+                          <h6 className="mb-0 font-weight-bold">Province:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{Opportunity.product.province}</p>
@@ -380,7 +395,7 @@ const ProductOWerDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Product Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Sale Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p className="badge badge-primary mr-2">{Opportunity.product.productStatus}</p>

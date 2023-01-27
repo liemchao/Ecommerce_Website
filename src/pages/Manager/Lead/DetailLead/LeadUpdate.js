@@ -39,7 +39,7 @@ export default function LeadUpdate({ rowData, refreshList }) {
 
     ApiService.updateLead(UpdateData)
       .then((response) => {
-        setSuccessMsg("Update Lead successfully!");
+        setSuccessMsg("Update Lead Successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -50,7 +50,7 @@ export default function LeadUpdate({ rowData, refreshList }) {
           error.message ||
           error.toString();
 
-        setErrMsg(resMessage);
+        setErrMsg("Update Lead Failed!");
         setLoading(false);
       });
   }

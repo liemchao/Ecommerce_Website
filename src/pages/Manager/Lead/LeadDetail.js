@@ -49,7 +49,7 @@ const LeadDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead's Name:</h6>
+                          <h6 className="mb-0 font-weight-bold">Lead's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.fullname}
@@ -58,7 +58,7 @@ const LeadDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
+                          <h6 className="mb-0 font-weight-bold">Gender:</h6>
                         </div>
                     
                           {account.gender ? (
@@ -78,7 +78,7 @@ const LeadDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.email}</p>
@@ -86,7 +86,7 @@ const LeadDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone:</h6>
+                          <h6 className="mb-0 font-weight-bold">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.phone}</p>
@@ -94,7 +94,7 @@ const LeadDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead Type: </h6>
+                          <h6 className="mb-0 font-weight-bold">Lead Type: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.leadType}</p>
@@ -107,7 +107,7 @@ const LeadDetail = () => {
                           
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Company Name:</h6>
+                              <h6 className="mb-0 font-weight-bold">Company Name:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{account.companyName}</p>
@@ -126,7 +126,7 @@ const LeadDetail = () => {
                           
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Website:</h6>
+                              <h6 className="mb-0 font-weight-bold">Website:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{account.website}</p>
@@ -138,7 +138,7 @@ const LeadDetail = () => {
                       }
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
+                          <h6 className="mb-0 font-weight-bold">Gender:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.gender}</p>
@@ -146,7 +146,7 @@ const LeadDetail = () => {
                       </div> */}
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Birth Day:</h6>
+                          <h6 className="mb-0 font-weight-bold">Birth Day:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.birthday}</p>
@@ -159,7 +159,7 @@ const LeadDetail = () => {
 
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Date of Birth:</h6>
+                              <h6 className="mb-0 font-weight-bold">Date of Birth:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{(account.dob).slice(0, 10)}</p>
@@ -169,7 +169,7 @@ const LeadDetail = () => {
                       }
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Create Day: </h6>
+                          <h6 className="mb-0 font-weight-bold">Create Day: </h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{(account.createDate).slice(0, 10)}</p>
@@ -177,7 +177,7 @@ const LeadDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Lead Status:</h6>
+                          <h6 className="mb-0 font-weight-bold">Lead Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.leadStatus === "New" ? (
@@ -204,7 +204,7 @@ const LeadDetail = () => {
                         <div className="card-body">
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Name:</h6>
+                              <h6 className="mb-0 font-weight-bold">Name:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               {account.account.fullname}
@@ -213,7 +213,7 @@ const LeadDetail = () => {
 
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Gender:</h6>
+                              <h6 className="mb-0 font-weight-bold">Gender:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               {account.account.gender ? (
@@ -233,7 +233,7 @@ const LeadDetail = () => {
 
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Email:</h6>
+                              <h6 className="mb-0 font-weight-bold">Email:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{account.account.email}</p>
@@ -241,7 +241,7 @@ const LeadDetail = () => {
                           </div>
                           <div className="row mb-3">
                             <div className="col-sm-3">
-                              <h6 className="mb-0">Phone:</h6>
+                              <h6 className="mb-0 font-weight-bold">Phone:</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                               <p>{account.account.phone}</p>

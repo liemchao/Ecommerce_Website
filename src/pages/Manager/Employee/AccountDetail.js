@@ -65,7 +65,7 @@ const AccountDetail = () => {
                     <div className="card-body">
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Employee's Name:</h6>
+                          <h6 className="mb-0 font-weight-bold">Employee's Name:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.fullname}</p>
@@ -73,7 +73,7 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Email:</h6>
+                          <h6 className="mb-0 font-weight-bold">Email:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.email}</p>
@@ -81,7 +81,7 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Phone:</h6>
+                          <h6 className="mb-0 font-weight-bold">Phone:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.phone}</p>
@@ -89,23 +89,23 @@ const AccountDetail = () => {
                       </div>
                       {/* <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Gender:</h6>
+                          <h6 className="mb-0 font-weight-bold">Gender:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p>{account.gender}</p>
                         </div>
                       </div> */}
-                      {/* <div className="row mb-3">
+                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Birth Day:</h6>
+                          <h6 className="mb-0 font-weight-bold">Date of Birth:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <p>{account.birthday}</p>
+                          <p>{account.dob}</p>
                         </div>
-                      </div> */}
+                      </div> 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Joined Since:</h6>
+                          <h6 className="mb-0 font-weight-bold">Joined Since:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(account.createDate).slice(0, 10)}</p>
@@ -113,7 +113,7 @@ const AccountDetail = () => {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Time Create</h6>
+                          <h6 className="mb-0 font-weight-bold">Time Create</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <p >{(account.createDate).slice(11, 19)}</p>
@@ -123,7 +123,7 @@ const AccountDetail = () => {
 
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Status</h6>
+                          <h6 className="mb-0 font-weight-bold">Status</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {account.status == "Activated" ? (
@@ -155,10 +155,10 @@ const AccountDetail = () => {
 
                   </Tab>
 
-                  <Tab eventKey="Pro" title="Progress">
+                  {/* <Tab eventKey="Pro" title="Progress">
                     <Progressbar/>
 
-                  </Tab>
+                  </Tab> */}
                   {/* <Tab eventKey="Data" title="Data">
                     <DataTableFilterDemo/>
 

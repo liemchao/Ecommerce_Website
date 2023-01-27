@@ -10,7 +10,10 @@ import { Paginator } from "primereact/paginator";
 import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashRestore} from '@fortawesome/free-solid-svg-icons';
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBan } from '@fortawesome/free-solid-svg-icons';
+
 
 const AccountAdminList = () => {
   const [data, setData] = useState([]);
@@ -74,6 +77,57 @@ const AccountAdminList = () => {
   };
 
 
+  async function handleBan (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to ban this account?"
+    );
+
+    if (confirm) {
+
+      let dataupdate = {
+        userId: rowData.id,
+        status: 0,
+        
+          };
+      await ApiService.updateStatusAccount(dataupdate)
+        .then((response) => {
+          window.alert(" Ban this account sucsseful.")
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't ban this account.")
+        });
+    }
+  };
+
+  async function handleRetore (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to restore this account?"
+    );
+
+    if (confirm) {
+
+      let dataupdate = {
+        userId: rowData.id,
+        status: 1,
+        
+          };
+      await ApiService.updateStatusAccount(dataupdate)
+        .then((response) => {
+          window.alert(" Restore this account sucsseful.")
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't restore this account.")
+        });
+    }
+  };
+
+
 
   const customRole = (rowData) => {
     return <div className="badge badge-primary mr-2">{rowData.role.roleName}</div>;
@@ -93,22 +147,30 @@ const AccountAdminList = () => {
   const customButton = (rowData) => {
     return (
       <>
-        <div className="row">
+        <div style={{ paddingRight: "5%" }}className="row">
 
           {/* Detail */}
           <Link
-            style={{ paddingRight: "10px" }}
+            style={{ paddingRight: "5%" }}
             to={{
               pathname: "/Dashboard/Admin/AccountDetail",
               state: rowData,
             }}
           >
-            <Button  style={{ marginLeft: "0px" }}><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
+            <Button><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
           </Link>
           {/* Update */}
 
           <AccountUpdate rowData={rowData} refreshList={refreshList} />
-        </div>
+     
+        { rowData.status === "Activated" ? (<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleBan(e, rowData)} className="btn btn-danger"><FontAwesomeIcon icon={faBan} /></Button>
+        </>):(<>
+          <Button  style={{marginLeft:"2%"}} onClick={(e) => handleRetore(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore} /></Button>
+         </>)
+
+        }
+           </div>
       </>
     );
   };
@@ -191,6 +253,8 @@ const AccountAdminList = () => {
                         value={data}
                         loading={loadingData}
                         responsiveLayout="scroll"
+                        rowHover={true}
+
                       >
                         <Column style={{ width: "5%" }} header="No" field="indexNumber" />
                         <Column header="Name" field="fullname" />

@@ -118,7 +118,7 @@ const ProductDetail = () => {
 
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Product Name:</h6>
+                            <h6 className="mb-0 font-weight-bold">Product Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.name}</p>
@@ -127,7 +127,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Category:</h6>
+                            <h6 className="mb-0 font-weight-bold">Category:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.category.productCategoryName}</p>
@@ -136,7 +136,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Price:</h6>
+                            <h6 className="mb-0 font-weight-bold">Price:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.price}(VND)</p>
@@ -145,7 +145,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Description:</h6>
+                            <h6 className="mb-0 font-weight-bold">Description:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <textarea>{Product.description}</textarea>
@@ -154,7 +154,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Width:</h6>
+                            <h6 className="mb-0 font-weight-bold">Width:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.width}m</p>
@@ -163,7 +163,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Length:</h6>
+                            <h6 className="mb-0 font-weight-bold">Length:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.length}m</p>
@@ -172,55 +172,15 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Area:</h6>
+                            <h6 className="mb-0 font-weight-bold">Area:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.area}m&#178;</p>
                           </div>
                         </div>
-
-                      </div>
-                    </Tab>
-                    <Tab eventKey="Product" title="Product Local">
-                      <div className="card-body">
-
-                      <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Street:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.street}</p>
-                          </div>
-                        </div>
-
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">District:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.district}</p>
-                          </div>
-                        </div>
-
-                        <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Province:</h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <p>{Product.province}</p>
-                          </div>
-                        </div>
-
-                       
-                      </div>
-                    </Tab>
-
-                    <Tab eventKey="Status" title="Product Status">
-                      <div className="card-body">
-
-                      <div className="row mb-3">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Bedroom:</h6>
+                            <h6 className="mb-0 font-weight-bold">Number of Bedroom:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noBedroom}</p>
@@ -229,7 +189,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Toilet:</h6>
+                            <h6 className="mb-0 font-weight-bold">Number of Toilet:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noToilet}</p>
@@ -239,7 +199,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Number of Floor:</h6>
+                            <h6 className="mb-0 font-weight-bold">Number of Floor:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.noFloor}</p>
@@ -249,7 +209,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Facade:</h6>
+                            <h6 className="mb-0 font-weight-bold">Facade:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Product.facade}</p>
@@ -258,7 +218,7 @@ const ProductDetail = () => {
 
                         <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Furniture:</h6>
+                          <h6 className="mb-0 font-weight-bold">Furniture:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           {Product.isFurniture ? (
@@ -273,6 +233,111 @@ const ProductDetail = () => {
                         </div>
                       </div>
 
+                      </div>
+                    </Tab>
+                    <Tab eventKey="Product" title="Product Location">
+                      <div className="card-body">
+
+                      <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Street:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.street}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">District:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.district}</p>
+                          </div>
+                        </div>
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Province:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Product.province}</p>
+                          </div>
+                        </div>
+
+                       
+                      </div>
+                    </Tab>
+
+                    <Tab eventKey="Status" title="Product Status">
+                      <div className="card-body">
+
+                        <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Sale Status:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p className="badge badge-info mr-2">{Product.productStatus}</p>
+                          </div>
+                        </div>
+
+                        {Product.isDelete ? (<>
+                        
+                        <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Delete Status:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      <p className="badge badge-danger">True</p>
+                      </div>
+                    </div>
+                      </>):( <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Delete Status:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      <p className="badge badge-success mr-2">False</p>
+                      </div>
+                    </div>)}
+
+
+                        {Product.soldDate==null ? (<>
+                        
+                        <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Sold Date:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      Empty
+                      </div>
+                    </div>
+                      </>):( <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Sold Date:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        {Product.soldDate}
+                      </div>
+                    </div>)}
+
+                    {Product.employeeSold==null ? (<>
+                        
+                        <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Name's EmployeeSold:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                      Empty
+                      </div>
+                    </div>
+                      </>):( <div className="row mb-3">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0 font-weight-bold">Name's EmployeeSold:</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        {Product.employeeSold.fullname}
+                      </div>
+                    </div>)}
 
                       </div>
                     </Tab>
@@ -280,7 +345,7 @@ const ProductDetail = () => {
                     <div className="card-body">
                      <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Name Ower:</h6>
+                            <h6 className="mb-0 font-weight-bold">Name Ower:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
           
@@ -300,12 +365,6 @@ const ProductDetail = () => {
                           <FontAwesomeIcon icon={faExternalLinkSquare} />
                           </Button>
                           </Link></p>
-                          
-                          
-                     
-                    
-                    
-                          
                           </div>
                         </div>
                        
@@ -313,12 +372,12 @@ const ProductDetail = () => {
 
 
                     </Tab>
-                    <Tab eventKey="Favoirte" title="Product Behavor" >
+                    <Tab eventKey="Favoirte" title="Customer Analytics" >
                     <div className="card-body">
               
                      <div className="row mb-3">
                           <div className="col-sm-6">
-                            <h6 className="mb-0">Number of Customer View The Product:</h6>
+                            <h6 className="mb-0 font-weight-bold">Number of Customer View The Product:</h6>
                           </div>
                           <div className="col-sm-4 text-secondary">
                             <p>{ProductFa}</p>

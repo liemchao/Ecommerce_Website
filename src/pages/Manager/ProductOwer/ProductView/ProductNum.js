@@ -92,14 +92,24 @@ const ProductNumList = ({ rowData }) => {
     };
 
 
-    const customStatus = (data) => {
-        if (data.isFavorite) {
-            return <div className="badge badge-success mr-2"> Favorite</div>;
+    const getStatus=(data)=>{
+  
+        if (data.productStatus=="On sale") {
+          return <div className="badge badge-success mr-2"> On sale</div>;
         }
-        else {
-            return <div className="badge badge-warning mr-2">Not Favorite</div>;
+        if (data.productStatus === "Not open for sale") {
+          return <div className="badge badge-dark mr-2">Not open for sale</div>
         }
-    };
+        if (data.productStatus === "On hold") {
+          return <div className="badge badge-warning mr-2">On hold</div>
+        }
+        if (data.productStatus === "Deposited") {
+          return <div className="badge badge-info mr-2">Deposited</div>
+        }
+        if (data.productStatus === "Sold") {
+          return <div className="badge badge-secondary mr-2">Sold</div>
+        }
+      }
     const Price = (data) => {
 
         return <div className="badge badge-primary mr-2"> {data.price.toLocaleString()}</div>;
@@ -159,8 +169,8 @@ const ProductNumList = ({ rowData }) => {
                             >
                                 <Column style={{ width: "10%" }} header="No" field="indexNumber" />
                                 <Column style={{ paddingRight: 2, paddingLeft: 3, width: "19%" }} header="Product Name" body={ProductName} />
-                                <Column style={{ paddingLeft: "6%" }} header="Price(VND)" body={Price} />
-                                <Column header="Favorite" body={customStatus} />
+                                <Column  header="Price(VND)" body={Price} />
+                                <Column  style={{width: "20%" }}  header="Sale Status" body={getStatus} />
                                 <Column header="Action" body={customButton} />
                             </DataTable>
                             <Paginator

@@ -598,7 +598,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
                 // onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
               <label className="form-check-label" htmlFor="exampleRadios2">
-               Not Avalabel
+               Not Avaliable
               </label>
             </div>
           </div>

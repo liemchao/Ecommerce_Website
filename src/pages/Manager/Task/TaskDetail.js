@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Tabs, Tab, Button } from "react-bootstrap";
 import PageHeading from "../../../components/PageHeading";
-import LeadList from "../Lead/LeadList";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
@@ -38,9 +37,7 @@ const TaskDetail = () => {
  
        await ApiService.getNameLead(id)
         .then((response) => {
-        
-          console.log("sssds"+ response.data.data[0].fullname)
-         
+                 
           setName(response.data.data[0].fullname)
      
         })

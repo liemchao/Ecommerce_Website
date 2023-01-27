@@ -42,7 +42,7 @@ export default function FormUpdateAccount(rowData) {
           error.message ||
           error.toString();
 
-        setErrMsg(resMessage);
+        setErrMsg("Update Profile Failed!");
         setLoading(false);
       });
   }

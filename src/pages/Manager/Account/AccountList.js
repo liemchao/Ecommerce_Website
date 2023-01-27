@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
-import AccountCreate from "../../../components/Modals/Account/AccountCreate";
-import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
 import ApiService from "../../../api/apiService";
 
 import { Link } from "react-router-dom";
@@ -12,8 +10,10 @@ import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import { faBan} from '@fortawesome/free-solid-svg-icons'
+import { faTrashRestore} from '@fortawesome/free-solid-svg-icons'
+
 
 
 const AccountList = () => {
@@ -107,9 +107,58 @@ const AccountList = () => {
   const customStatus = (rowData) => {
     if (rowData.status=="Activated") {
       return <div className="badge badge-primary mr-2">Active</div>;
+    }else 
+    return <div className="badge badge-danger mr-2">Banned</div>;
+    
+  };
+
+  async function handleBan (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to ban this account?"
+    );
+
+    if (confirm) {
+
+      let dataupdate = {
+        userId: rowData.id,
+        status: 0,
+        
+          };
+      await ApiService.updateStatusCustomerAccount(dataupdate)
+        .then((response) => {
+          window.alert(" Ban this account sucsseful.")
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't ban this account.")
+        });
     }
-    if (!rowData.status=="Banned") {
-      return <div className="badge badge-danger mr-2">Banned</div>;
+  };
+
+  async function handleRetore (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to restore this account?"
+    );
+
+    if (confirm) {
+
+      let dataupdate = {
+        userId: rowData.id,
+        status: 1,
+        
+          };
+      await ApiService.updateStatusCustomerAccount(dataupdate)
+        .then((response) => {
+          window.alert(" Restore this account sucsseful.")
+          refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't restore this account.")
+        });
     }
   };
 
@@ -126,11 +175,16 @@ const AccountList = () => {
             state: rowData,
           }}
         >
-            <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
+            <Button  style={{marginLeft:"18%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
         </Link>
-        {/* Update */}
-        <AccountUpdate rowData={rowData} refreshList={refreshList} />
-        <Button  style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+       
+        { rowData.status === "Activated" ? (<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleBan(e, rowData)} className="btn btn-danger"><FontAwesomeIcon icon={faBan} /></Button>
+        </>):(<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleRetore(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore} /></Button>
+         </>)
+
+        }
       </div>
     );
   };
@@ -239,7 +293,11 @@ const AccountList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
-           emptyMessage="No Cusomter Found."
+             emptyMessage={ 
+              <div style={{ textAlign: "center", fontSize: 30 }}>
+              <h1 className="badge badge-danger mr-2">No Account Customer Found</h1>
+            </div>
+             }
            >
            <Column header="Result" body={notFound}/>
            </DataTable>
@@ -255,6 +313,8 @@ const AccountList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                   responsive="true"
+                  rowHover={true}
+
                 >
 
                  

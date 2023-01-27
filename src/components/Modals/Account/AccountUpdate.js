@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 
-// import { InputText } from "primereact/inputtext";
-// import { InputTextarea } from "primereact/inputtextarea";
+
 import { Button } from "primereact/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
-// import { FileUpload } from "primereact/fileupload";
+
 
 import ApiService from "../../../api/apiService";
-// import { app } from "./../../../firebase/firebase";
+
 
 export default function AccountUpdate({ rowData, refreshList }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -47,62 +46,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
       });
   }
 
-  async function updateStatus() {
-    setLoading(true);
-    
-    let data = {
-      userId: rowData.id,
-      status: 1,
-      
-        };
-   
-
-    await ApiService.updateStatusAccount(data)
-      .then((response) => {
-        console.log(response);
-        setSuccessMsg("Status change successfully!");
-        setLoading(false);
-      })
-      .catch((error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setErrMsg(resMessage);
-        setLoading(false);
-      });
-  }
-  async function updateStatusBand() {
-    setLoading(true);
-    
-    let data = {
-      userId: rowData.id,
-      status: 0,
-      
-        };
-   
-
-    await ApiService.updateStatusAccount(data)
-      .then((response) => {
-        console.log(response);
-        setSuccessMsg("Status change successfully!");
-        setLoading(false);
-      })
-      .catch((error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setErrMsg(resMessage);
-        setLoading(false);
-      });
-  }
+  
 
   const handleOpenModal = (e) => {
     e.preventDefault();
@@ -111,18 +55,7 @@ export default function AccountUpdate({ rowData, refreshList }) {
     setModalIsOpen(true);
   };
 
-  const handleChangeStatusActive = async (e) => {
-    e.preventDefault();
-    setErrMsg("");
-    setSuccessMsg("");
-    updateStatus();
-  };
-  const handleChangeStatusBanned = async (e) => {
-    e.preventDefault();
-    setErrMsg("");
-    setSuccessMsg("");
-    updateStatusBand();
-  };
+
 
   const handleChangeRole = async (e) => {
     e.preventDefault();
@@ -154,10 +87,10 @@ export default function AccountUpdate({ rowData, refreshList }) {
           },
           content: {
             position: "absolute",
-            top: "60px",
-            left: "250px",
-            right: "250px",
-            bottom: "120px",
+            top: "100px",
+            left: "400px",
+            right: "300px",
+            bottom: "300px",
             border: "1px solid #ccc",
             background: "#fff",
             overflow: "auto",
@@ -168,34 +101,12 @@ export default function AccountUpdate({ rowData, refreshList }) {
           },
         }}
       >
-        <h3>Update Customer Account</h3>
+        <h3>Update Role User Account</h3>
         <div className="p-fluid p-formgrid p-grid">
-          {/* Status */}
-          <div className="p-field p-col-12 p-md-3">
-            <label htmlFor="status">Status</label>
-            <br />
-            {rowData.status === "Activated" && (
-
-              // setStatus(0),
-              <Button
-                
-                onClick={handleChangeStatusBanned}
-                label="Change to Banned"
-                className="p-button-rounded p-button-danger"
-              />
-            )}
-            {rowData.status === "Banned" && (
-              <Button
-                onClick={handleChangeStatusActive}
-                label="Change to Active"
-                className="p-button-rounded p-button-success"
-              />
-            )}
-          </div>
-          {/* ROLE */}
-          <div className="p-field p-col-12 p-md-3">
-            <label htmlFor="role">Change Role</label>
-            <select
+          <div style={{marginLeft:"30%"}}className="p-field p-col-12 p-md-7">
+            <label htmlFor="role" style={{fontSize:30}}>Change Role</label><br>
+            </br>
+            <select  style={{marginLeft:"10%"}}
               onChange={(e) => setRole(e.currentTarget.value)}
             >
               <option value="3">Employee</option>

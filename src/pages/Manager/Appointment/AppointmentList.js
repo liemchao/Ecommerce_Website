@@ -89,7 +89,7 @@ const AppointmentList = () => {
 
   const AppointmentStatus = (rowData) => {
     if (rowData.appointmentStatus === "Customer Canceled") {
-      return <div className="badge badge-info mr-2">Customer Canceled</div>
+      return <div className="badge badge-warning mr-2">Customer Canceled</div>
     }
     if (rowData.appointmentStatus === "Expired") {
       return <div className="badge badge-warning mr-2">Expired</div>
@@ -174,11 +174,11 @@ const AppointmentList = () => {
 
   }
 
-  async function searchProduct() {
+  async function searchAppointment() {
     
-    await ApiService.searchProduct(query)
+    await ApiService.searchAppointment(query)
       .then((response) => {
-        // check if the data is populated
+       
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -220,9 +220,9 @@ const AppointmentList = () => {
       </div>
       <div className="row">
        <div style={{marginBottom:20}}>
-       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by title" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={searchAppointment}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
        {data.length==0 ? (
@@ -230,7 +230,11 @@ const AppointmentList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
-            emptyMessage="No Appoinment Found."
+               emptyMessage={ 
+                <div style={{ textAlign: "center", fontSize: 30 }}>
+                <h1 className="badge badge-danger mr-2">No Appoinment Found</h1>
+              </div>
+               }
 
            >
            <Column header="Result" body={notFound}/>
@@ -252,10 +256,11 @@ const AppointmentList = () => {
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
+                  rowHover={true}
                 >
                   <Column header="No" field="indexNumber" />
+                  <Column style={{ width: "18%" }} header="Title" field="name" />
                   <Column header="Activity Type" field="activityType" />
-                  <Column style={{ width: "18%" }} header="Description" field="description" />
                   <Column header="Start Date" body={TimeCreate} />
                   <Column header="End Date" field="endDate" />
                   <Column header="Employee" body={EmployeeName} />

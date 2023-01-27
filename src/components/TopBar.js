@@ -9,6 +9,8 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from 'react-toastify';
 
+
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const Topbar = () => {
@@ -49,13 +51,15 @@ const Topbar = () => {
   }
 
   useEffect(() => {
+   if(user.role=="Manager"){
 
     setInterval(() => {
       getNoti()
     }, 5000);
-
-
-    toast("You have notifiton !")
+    toast("You Have Notification !")
+   }
+   
+ 
 
 
   
@@ -95,7 +99,8 @@ const Topbar = () => {
               aria-expanded="false"
             >
               <FontAwesomeIcon style={{ height: "70%", width: "60%", marginLeft: "10%", marginBottom: "30%" }} icon={faBell} />
-              {totalRecords>readno ? (<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-readno}</Badge></>):(<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-totalRecords + 1}</Badge></>)}
+              {user.role=="Manager" ?(<>{totalRecords>readno ?  (<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-readno}</Badge></>):(<><Badge style={{ marginTop: "-60%" }} bg="primary">{totalRecords-totalRecords + 1}</Badge></>)}</>):(<></>)}
+              
              
             </a>
 

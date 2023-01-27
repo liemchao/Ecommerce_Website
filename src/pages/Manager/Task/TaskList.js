@@ -238,7 +238,11 @@ const TaskList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
-           emptyMessage="No Task Found."
+              emptyMessage={ 
+                <div style={{ textAlign: "center", fontSize: 30 }}>
+                <h1 className="badge badge-danger mr-2">No Task Found</h1>
+              </div>
+               }
            >
            <Column header="Result" body={notFound}/>
            </DataTable>

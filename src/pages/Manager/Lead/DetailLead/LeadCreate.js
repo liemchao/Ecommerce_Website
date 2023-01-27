@@ -47,7 +47,7 @@ export default function LeadCreate({ refreshList }) {
      await ApiService.createLead(createData)
       .then((response) => {
         console.log(response);
-        setSuccessMsg("Create successfully!");
+        setSuccessMsg("Create Lead Successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -58,7 +58,7 @@ export default function LeadCreate({ refreshList }) {
           error.message ||
           error.toString();
 
-        setErrMsg(resMessage);
+        setErrMsg("Create Lead Failed!");
         setLoading(false);
       });
   }

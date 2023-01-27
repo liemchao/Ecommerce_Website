@@ -5,7 +5,6 @@ import ApiService from "../../../api/apiService";
 
 // import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
-import { InputText } from 'primereact/inputtext';
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
@@ -13,8 +12,10 @@ import { Link } from "react-router-dom";
 import CreateProduct from "../Product/ProductCreate"
 import UpdateProduct from "../Product/Updateproduct";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
+import { faColonSign, faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import { faTrashRestore} from '@fortawesome/free-solid-svg-icons'
+
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 import { Tab,Tabs } from "react-bootstrap";
 import ProductNoList from "./FliterProduct/ProductNo";
@@ -147,6 +148,27 @@ const ProductList = () => {
     }
   };
 
+
+  async function handleRestone (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to restore this Product?"
+    );
+
+    if (confirm) {
+      console.log(rowData.id)
+      await ApiService.deleteProduct(rowData.id)
+        .then((response) => {
+          window.alert(" Restore this Product sucsseful.")
+          window.location.reload();
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("Can't delete this Product.")
+        });
+    }
+  };
+
   const customButton = (rowData) => {
     return (
       <>
@@ -157,10 +179,16 @@ const ProductList = () => {
             state: rowData,
           }}
         >
-         <Button icon="pi pi-filter-slash" style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} color="primary"/></Button>
+         <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} color="primary"/></Button>
         </Link>
         <UpdateProduct rowData={rowData} refreshList={refreshList} />
-        <Button onClick={(e) => handleDelete(e, rowData)} style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+        { rowData.isDelete ? (<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleRestone(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore} /></Button>
+        </>):(<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleDelete(e, rowData)} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+         </>)
+
+        }
       </div>
       </>
     );
@@ -180,7 +208,6 @@ const ProductList = () => {
   //   );
   // };
   const renderHeader1 = () => {
-    console.log('sss')
     return (
       <div className="flex justify-content-between">
       <Button type="button" icon="pi pi-filter-slash" label="Clear" className="p-button-outlined" />
@@ -203,10 +230,8 @@ const ProductList = () => {
 
   async function searchProduct() {
     
-    await ApiService.searchProduct(query)
+    await ApiService.searchProduct(currentPage,rows,query)
       .then((response) => {
-       
-       
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -214,6 +239,8 @@ const ProductList = () => {
           obj['indexNumber'] = count
 
         })
+        setTotalRecords(response.data.totalRow);
+        console.log(totalRecords)
         setData(listDataSet);
         setLoadingData(false)
        
@@ -266,7 +293,11 @@ const ProductList = () => {
        <div className="container-fluid">
          <div className="card shadow mb-1">
            <DataTable
-           emptyMessage="No Product Found."
+           emptyMessage={ 
+            <div style={{ textAlign: "center", fontSize: 30 }}>
+            <h1 className="badge badge-danger mr-2">No Product Found</h1>
+          </div>
+           }
            >
            <Column header="Result" body={notFound}/>
            </DataTable>
@@ -281,7 +312,7 @@ const ProductList = () => {
           >
             <Tab eventKey="Detail" title="All Product">
             <div id="wrapper">
-            <div className="container-fluid">
+            <div className="container-fluid datatable-filter-demo">
               <div className="card shadow mb-4">
               <DataTable
                   value={data}
@@ -290,7 +321,7 @@ const ProductList = () => {
                   rowHover={true}
                   sortMode="multiple"
                   filterDisplay="menu"
-               
+                  header={header1}
                   globalFilterFields={['name','No']}
                   filters={filters1}
                   showGridlines

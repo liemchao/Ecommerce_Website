@@ -223,7 +223,7 @@ useEffect(() => {
 
   return (
     <div>
-      <PageHeading title="Task Create" />
+      <PageHeading title="Create Task" />
       {!data? (
         <p>Loading, please wait...</p>
       ) : (

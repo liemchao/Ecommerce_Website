@@ -115,6 +115,10 @@ const AppointmentAcList = () => {
         );
       };
 
+      const notFound =()=>{
+        return <div className="badge badge-danger mr-2">Not Found</div>;
+      }
+
     const onPageChange = (event) => {
         setFirst(event.first);
         setRows(event.rows);
@@ -141,38 +145,57 @@ const AppointmentAcList = () => {
 
     return (
         <>
-            {data ? (
+           {data.length==0 ? (
+                 <div style={{marginTop:"2%"}}id="wrapper">
+                 <div className="container-fluid">
+                   <div className="card shadow mb-1">
+                     <DataTable
+                       emptyMessage={ 
+                        <div style={{ textAlign: "center", fontSize: 30 }}>
+                        <h1 className="badge badge-danger mr-2">No Appoinment Found</h1>
+                      </div>
+                       }
+          
+                     >
+                     <Column header="Result" body={notFound}/>
+                     </DataTable>
+                    </div>
+                    </div>
+                    </div>
+           
+            ) : (
                 <div id="wrapper">
-                    <div className="container-fluid">
-                        <div className="card shadow mb-4">
-                            <DataTable
-                                value={data}
-                                loading={loadingData}
-                                responsiveLayout="scroll"
-                            >
-                                <Column header="No" field="indexNumber" />
-                                <Column header="Activity Type" field="activityType" />
-                                <Column style={{ width: "22%" }} header="Description" field="description" />
-                                <Column header="Start Date" body={TimeCreate} />
-                                <Column header="End Date" field="endDate" />
-                                <Column header="Employee" body={EmployeeName} />
-                                <Column header="Status" body={AppointmentStatus} />
-                                <Column header="Action" body={customButton} />
-                            </DataTable>
-                            <Paginator
-                                paginator
-                                // template={template}
-                                first={first}
-                                rows={rows}
-                                totalRecords={totalRecords}
-                                onPageChange={onPageChange}
-                                className="p-jc-end p-my-3"
-                            />
-                        </div>
+                <div className="container-fluid">
+                    <div className="card shadow mb-4">
+                        <DataTable
+                            value={data}
+                            loading={loadingData}
+                            responsiveLayout="scroll"
+                            emptyMessage="No Appoinment Found."
+                            rowHover={true}
+                        >
+                            <Column header="No" field="indexNumber" />
+                            <Column header="Activity Type" field="activityType" />
+                            <Column style={{ width: "14%" }} header="Description" field="description" />
+                            <Column header="Start Date" body={TimeCreate} />
+                            <Column header="End Date" field="endDate" />
+                            <Column header="Employee" body={EmployeeName} />
+                            <Column header="Status" body={AppointmentStatus} />
+                            <Column header="Action" body={customButton} />
+                        </DataTable>
+                        <Paginator
+                            paginator
+                            // template={template}
+                            first={first}
+                            rows={rows}
+                            totalRecords={totalRecords}
+                            onPageChange={onPageChange}
+                            className="p-jc-end p-my-3"
+                        />
                     </div>
                 </div>
-            ) : (
-                <p>No data to show...</p>
+            </div>
+              
 
             )}
         </>

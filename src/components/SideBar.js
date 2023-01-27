@@ -2,6 +2,22 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser} from '@fortawesome/free-solid-svg-icons';
+import { faUserFriends} from '@fortawesome/free-solid-svg-icons';
+import { faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
+import { faCalendar} from '@fortawesome/free-solid-svg-icons';
+import { faTable } from '@fortawesome/free-solid-svg-icons';
+import { faUserGear } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faTasks } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+
+
+
+
+
+
 
 const Sidebar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -67,9 +83,10 @@ const Sidebar = () => {
               data-parent="#accordionSidebar"
             >
               <div className="bg-white py-2 collapse-inner rounded">
+              
                 <h6 className="collapse-header">Account</h6>
-                <Link className="collapse-item" to="/Dashboard/Admin/AccountList">
-                  Accounts
+                <Link className="collapse-item" to="/Dashboard/Admin/AccountList"><FontAwesomeIcon icon={faUser}/> Accounts
+                  
                 </Link>
                 {/* <Link className="collapse-item" to="/Dashboard/Admin/CompanyList">
                   Company
@@ -204,35 +221,35 @@ const Sidebar = () => {
                  on
                 >
                   
-                  Opportunity List
+                  Opportunity  <FontAwesomeIcon icon={faTable}/>
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">
-                  Appointment List
+                  Appointment <FontAwesomeIcon icon={faCalendar}/>
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/LeadList">
-                  Lead List
+                  Lead <FontAwesomeIcon icon={faUserGear}/>
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
-                  Product List
+                  Product <FontAwesomeIcon icon={faHome}/>
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductOwerList">
-                  Product Ower
+                  Product Owner <FontAwesomeIcon icon={faUserAstronaut}/>
                 </Link>
                 
                 <Link className="collapse-item" to="/Dashboard/Manager/FeedBackList">
-                  FeedBack List
+                  FeedBack <FontAwesomeIcon icon={faStar}/>
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
-                  Task List
+                  Task <FontAwesomeIcon icon={faTasks}/>
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/AccountList">
-                  Customer List
+                  Customer <FontAwesomeIcon icon={faUserFriends}/>
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/EmployeeList">
-                  Employee List
+                  Employee <FontAwesomeIcon icon={faUserCircle}/>
                 </Link>
 
 

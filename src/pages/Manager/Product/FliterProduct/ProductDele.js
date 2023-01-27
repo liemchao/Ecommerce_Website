@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UpdateProduct from "../Updateproduct";
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import { faTrashRestore} from '@fortawesome/free-solid-svg-icons'
 
 
 const ProductDeleList = () => {
@@ -99,6 +99,26 @@ const ProductDeleList = () => {
           }
     }
 
+    async function handleRestone (e, rowData) {
+        e.preventDefault();
+        let confirm = window.confirm(
+          "Are you sure you want to restore this Product?"
+        );
+    
+        if (confirm) {
+          console.log(rowData.id)
+          await ApiService.deleteProduct(rowData.id)
+            .then((response) => {
+              window.alert(" Restore this Product sucsseful.")
+              window.location.reload();
+            })
+            .catch((e) => {
+              console.log(e);
+              window.alert("Can't delete this Product.")
+            });
+        }
+      };
+
     const customButton = (rowData) => {
         return (
             <>
@@ -112,6 +132,7 @@ const ProductDeleList = () => {
                <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} color="primary"/></Button>
               </Link>
               <UpdateProduct rowData={rowData} refreshList={refreshList} />
+              <Button style={{marginLeft:"2%"}} onClick={(e) => handleRestone(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore} /></Button>
             </div>
             </>
         );

@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import { faTrashRestore} from '@fortawesome/free-solid-svg-icons'
 import ProductOwerUpdate from "./ProductOwerUpdate";
 
 
@@ -45,27 +46,19 @@ const ProductOwerList = () => {
        
         setTotalRecords(response.data.totalRow);
         setData(listDataSet);
-        console.log(listDataSet);
-        // console.log(toString(listDataSet.productImages.url));
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+    
         setLoadingData(false);
       })
       .catch((error) => {
         if (error.response) {
-          // get response with a status code not in range 2xx
-          // console.log(error.response.data.data);
-          // console.log(error.response.data.status);
-          // console.log(error.response.data.headers);
+      
         } else if (error.request) {
-          // no response
-          console.log(error.request);
+       
+        
         } else {
-          // Something wrong in setting up the request
-          // console.log("Error", error.message);
+        
         }
-        console.log(error.config);
+      
       });
   }
 
@@ -92,15 +85,33 @@ const ProductOwerList = () => {
     );
 
     if (confirm) {
-      console.log(rowData.id)
       await ApiService.deleteProductOwer(rowData.id)
         .then((response) => {
           window.alert(" Delete this Product Ower sucsseful.")
           refreshList();
         })
         .catch((e) => {
-          console.log(e);
+         
           window.alert("Can't delete this Product.")
+        });
+    }
+  };
+
+  async function handleRestone (e, rowData) {
+    e.preventDefault();
+    let confirm = window.confirm(
+      "Are you sure you want to restore this Product Ower?"
+    );
+
+    if (confirm) {
+     
+      await ApiService.deleteProductOwer(rowData.id)
+        .then((response) => {
+          window.alert(" Restore this Product Ower sucsseful.")
+          refreshList();
+        })
+        .catch((e) => {
+          window.alert("Can't restore this Product Ower.")
         });
     }
   };
@@ -109,10 +120,10 @@ const ProductOwerList = () => {
   
     if (rowData.isDelete) {
   
-      return <div className="badge badge-danger mr-2">Inactive</div>;
+      return <div className="badge badge-danger mr-2">True</div>;
     }
     else{
-      return <div className="badge badge-success mr-2">Avaliable</div>;
+      return <div className="badge badge-dark mr-2">False</div>;
     }
   }
   
@@ -129,7 +140,6 @@ const ProductOwerList = () => {
       <>
       <div className="row">
       <Link
-          style={{ paddingRight: "10px" }}
           to={{
             pathname: "/Dashboard/Manager/ProductOwerDetail",
             state: rowData,
@@ -138,7 +148,13 @@ const ProductOwerList = () => {
          <Button style={{marginLeft:"-20%"}}><FontAwesomeIcon icon={faFileMedicalAlt}/></Button>
         </Link>
         <ProductOwerUpdate rowData={rowData} refreshList={refreshList} />
-        <Button onClick={(e) => handleDelete(e, rowData)} style={{marginLeft:"3%"}} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+        { rowData.isDelete ? (<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleRestone(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore} /></Button>
+        </>):(<>
+          <Button style={{marginLeft:"2%"}} onClick={(e) => handleDelete(e, rowData)} className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+         </>)
+
+        }
      
         {/* Detail */}
         {/* <Link
@@ -267,7 +283,11 @@ const ProductOwerList = () => {
           <div className="container-fluid">
             <div className="card shadow mb-1">
               <DataTable
-              emptyMessage="No Product Ower Found."
+              emptyMessage={ 
+                <div style={{ textAlign: "center", fontSize: 30 }}>
+                <h1 className="badge badge-danger mr-2">No Product Ower Found</h1>
+              </div>
+               }
               >
               <Column header="Result" body={notFound}/>
               </DataTable>
@@ -287,8 +307,8 @@ const ProductOwerList = () => {
                   <Column style={{width: "18%" }} header="Name"  field="productOwnerName"/>
                   <Column header="Phone"  field="phone"/>
                   <Column style={{width: "22%" }} header="Email"  field="email"/>
-                  <Column style={{textAlign:"center"}}header="TotalProduct"  body={getValue}/>
-                  <Column header="Delete" body={getStatus} />
+                  <Column style={{textAlign:"center"}}header="Total Product"  body={getValue}/>
+                  <Column style={{textAlign:"center"}} header="Delete Status" body={getStatus} />
                   <Column header="Action" body={customButton} />
 
             

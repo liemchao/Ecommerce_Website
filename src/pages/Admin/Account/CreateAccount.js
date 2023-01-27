@@ -19,10 +19,8 @@ export default function AccountCreate({ refreshList }) {
   const [Account, setAccount] = useState({
     email:"",
     phone:"",
-    password:"",
     fullname: "",
     roleId: 0 ,
-    // image: "",
     gender:false,
     dob:""
     // userAccountId: user.Id,
@@ -34,7 +32,6 @@ export default function AccountCreate({ refreshList }) {
     let createData = {
     email:Account.email,
     phone:Account.phone,
-    password:Account.password,
     fullname: Account.fullname,
     roleId: 3,
     // image: Account.image,
@@ -138,17 +135,7 @@ export default function AccountCreate({ refreshList }) {
             />
           </div>
 
-           {/* Name */}
-           <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">Password</label>
-            <InputText
-              id="password"
-              type="password"
-           
-              
-              onChange={(e) => setAccount({ ...Account, password: e.target.value })}
-            />
-          </div>
+
            {/* Name */}
            <div className="p-field p-col-12 p-md-6">
             <label htmlFor="name">Full Name</label>

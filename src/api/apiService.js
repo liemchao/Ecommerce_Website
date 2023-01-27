@@ -41,6 +41,12 @@ const updateStatusAccount = (data) => {
   });
 };
 
+const updateStatusCustomerAccount = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/CustomerAccount/customer-account/update-status`,data, {
+    headers: authHeader(),
+  });
+};
+
 const updateLead = (data) => {
   return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead/update`,data, {
     headers: authHeader(),
@@ -108,8 +114,8 @@ const getPublicProduct = (page,size) => {
   });
 };
 
-const searchProduct = (query) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?pageNumber=1&pageSize=10&searchString=${query}`, {
+const searchProduct = (currentPage,size,query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?pageNumber=${currentPage}&pageSize=${size}&searchString=${query}`, {
     headers: authHeader(),
   });
 };
@@ -137,7 +143,7 @@ const searchEmployee = (query) => {
 };
 
 const searchAppointment = (query) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?searchString=${query}`, {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=1&pageSize=10&searchString=${query}`, {
     headers: authHeader(),
   });
 };
@@ -197,6 +203,9 @@ const deleteProduct = (id) => {
     headers: authHeader(),
   });
 };
+
+
+
 const deleteProductOwer = (id) => {
   return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner/delete?id=${id}`,id,{
     headers: authHeader(),
@@ -320,6 +329,14 @@ const getFavoirteProduct= (id) => {
   headers: authHeader(),
 });
 };
+
+const getImageProduct= (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product-image/${id}`,{
+  headers: authHeader(),
+});
+};
+
+
 const getDistrict= (id) => {
   return axios.get(`https://vapi.vnappmob.com/api/province/district/${id}`,{
   headers: authHeader(),
@@ -571,6 +588,7 @@ export default {
   getProductById,
   getProductFavorite,
   getProductView,
+  getImageProduct,
 
   createProduct,
   createProductOwer,
@@ -578,6 +596,7 @@ export default {
   searchProduct,
   updateProduct,
   updateLead,
+  updateStatusCustomerAccount,
   
   deleteProduct,
   deleteProductOwer,
@@ -614,6 +633,7 @@ export default {
   getTaskEm,
   getLeadbyID,
   getKPI,
+
   
  
 };

@@ -102,7 +102,7 @@ const ProductSoList = () => {
 
       const getAddress = (rowData)=>{
         return(
-          <div className="auto">{rowData.street}/{rowData.district}/{rowData.province}</div>
+          <div className="auto">{rowData.street},{rowData.district},{rowData.province}</div>
         )
     
       }
@@ -114,8 +114,8 @@ const ProductSoList = () => {
       }
       const getStatus=(rowData)=>{
   
-        if (rowData.productStatus === "Not open for sale") {
-            return <div className="badge badge-dark mr-2">Not open for sale</div>
+        if (rowData.productStatus === "Sold") {
+            return <div className="badge badge-sucsseful mr-2">Sold</div>
           }
     }
 
