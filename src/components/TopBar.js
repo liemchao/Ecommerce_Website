@@ -42,8 +42,7 @@ const Topbar = () => {
     await ApiService.getAppointmentExP()
       .then((response) => {
     
-   
-        setData(response);
+  
        
       })
       .catch((error) => {
@@ -58,9 +57,7 @@ const Topbar = () => {
     await ApiService.AddKPI()
       .then((response) => {
     
-   
-        setData(response);
-       
+      
       })
       .catch((error) => {
     
@@ -97,7 +94,7 @@ const Topbar = () => {
 
     setInterval(() => {
       getNoti()
-    }, 60000);
+    }, 5000);
     toast("You Have Notification !")
    }
    
