@@ -7,17 +7,10 @@ import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
-import { InputText } from "primereact/inputtext";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
-import LeadCreate from "./DetailLead/LeadCreate";
-import LeadUpdate from "./DetailLead/LeadUpdate";
-
-
-
-
 
 
 const LeadList = () => {
@@ -26,26 +19,26 @@ const LeadList = () => {
   const [totalRecords, setTotalRecords] = useState();
   const [query, setQuery] = useState("");
   const [first, setFirst] = useState(0);
-  const [errMsg, setErrMsg] = useState("");
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState("");
   const [pageInputTooltip, setPageInputTooltip] = useState(
     "Press 'Enter' key to go to this page."
   );
 
-  async function getLeadList() {
+  async function getOpportunity() {
     setLoadingData(true);
 
-    ApiService.getLead( currentPage,rows,query)
+    ApiService.getKIPreport()
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
+        let  counter = 10 * (currentPage-1)
         listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
-
+        
+          obj['indexNumber'] = (counter + ++index) 
+         
         })
-       
         setTotalRecords(response.data.totalRow);
 
         setData(listDataSet);
@@ -55,23 +48,23 @@ const LeadList = () => {
       })
       .catch((error) => {
         if (error.request.status=="404") {
-          setErrMsg(error.request.status)
+          setError(error.request.status)
         } else if (error.request) {
       
-          setErrMsg(error.request);
+          setError(error.request);
         } else {
-          setErrMsg(error.config);
+          setError(error.config);
       
         }
       });
   }
 
   useEffect(() => {
-    getLeadList();
+    getOpportunity();
   }, [currentPage]);
 
   const refreshList = () => {
-    getLeadList();
+    getOpportunity();
   };
 
   const onPageChange = (event) => {
@@ -93,9 +86,6 @@ const LeadList = () => {
     }
   };
 
-  const onPageInputChange = (event) => {
-    setCurrentPage(event.target.value);
-  };
 
   const customButton = (rowData) => {
       return (
@@ -104,62 +94,28 @@ const LeadList = () => {
           <Link
             style={{ paddingLeft: "5%" }}
             to={{
-              pathname: "/Dashboard/Manager/LeadDetail",
+              pathname: "/Dashboard/Manager/KPIUpdate",
               state: rowData,
             }}
           >
-           <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+           <Button style={{marginLeft:"10%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
-          < LeadUpdate rowData={rowData} refreshList={refreshList} />
+          {/* <AccountUpdate rowData={rowData} refreshList={refreshList} /> */}
         </div>
       );
     };
 
   const customStatus = (rowData) => {
-    if(rowData.leadStatus=="New"){
-      return <div className="badge badge-warning mr-2">{rowData.leadStatus}</div>;
+    if(rowData.status=="In process"){
+      return <div className="badge badge-success mr-2">{rowData.status}</div>;
     }else{
-      return <div className="badge badge-success mr-2">{rowData.leadStatus}</div>;
+      return <div className="badge badge-success mr-2">{rowData.status}</div>;
     }
   }
-
-  // const template = {
-  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
-  //   CurrentPageReport: (options) => {
-  //     return (
-  //       <>
-  //         <span
-  //           className="p-mx-3"
-  //           style={{ color: "var(--text-color)", userSelect: "none" }}
-  //         >
-  //           Go to{" "}
-  //           <InputText
-  //             size="2"
-  //             className="p-ml-1"
-  //             value={currentPage}
-  //             tooltip={pageInputTooltip}
-  //             onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-  //             onChange={onPageInputChange}
-  //           />
-  //         </span>
-  //         <span
-  //           style={{
-  //             color: "var(--text-color)",
-  //             userSelect: "none",
-  //             width: "120px",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           {options.first} - {options.last} of {options.totalRecords}
-  //         </span>
-  //       </>
-  //     );
-  //   },
-  // };
-
   const notFound =()=>{
     return <div className="badge badge-danger mr-2">Not Found</div>;
   }
+
 
   const handleSearch = (e) =>{
     setQuery(e.target.value);
@@ -167,40 +123,52 @@ const LeadList = () => {
 
   }
 
- 
+  const dealValue = (rowData)=>{
+    
+    let num = rowData.listedPrice
+    return(
+      <p className="badge badge-primary mr-2">{num.toLocaleString()}</p>
+    )
+  }
+
 
   return (
     <>
       {/* New DataTable */}
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <PageHeading title="Lead List" />
-          <LeadCreate refreshList={refreshList}/>
+          <PageHeading title="KPI List" />
+          {/* <Button
+    style={{ margin:0,float: "right"}}
+    className="btn btn-primary" 
+>  Generate Excel</Button> */}
+{/* <CSVLink   style={{ margin:0,float: "right"}}  data={data} filename="Opportunity"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink> */}
+        
         </div> 
         <div className="row">
-       <div style={{marginBottom:20}}>
-       <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
+       <div style={{marginBottom:10, marginTop:"-2%", marginLeft:"62%"}}>
+       <input onChange={handleSearch}  style={{height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={getLeadList}
+       onClick={getOpportunity}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {errMsg=="404"  ? (
-          <div style={{marginTop:"2%"}}id="wrapper">
-          <div className="container-fluid">
-            <div className="card shadow mb-1">
-              <DataTable
-              emptyMessage={ 
-                <div style={{ textAlign: "center", fontSize: 30 }}>
-                <h1 className="badge badge-danger mr-2">No Lead Found</h1>
-              </div>
-               }
-              >
-              <Column header="Result" body={notFound}/>
-              </DataTable>
-             </div>
-             </div>
-             </div>
-        ) : (
+       {error=="404" ? (
+       <div style={{marginTop:"2%"}}id="wrapper">
+       <div className="container-fluid">
+         <div className="card shadow mb-1">
+           <DataTable
+           emptyMessage={ 
+           <div style={{ textAlign: "center", fontSize: 30 }}>
+           <h1 className="badge badge-danger mr-2">No Opportunity Found</h1>
+         </div>
+          }
+           >
+           <Column header="Result" body={notFound}/>
+           </DataTable>
+          </div>
+          </div>
+          </div>
+        ): (
           <div id="wrapper">
             <div className="container-fluid">
               <div className="card shadow mb-4">
@@ -209,13 +177,14 @@ const LeadList = () => {
                   loading={loadingData}
                   responsiveLayout="scroll"
                   rowHover={true}
-
+                  
                 >
                   <Column header="No" field="indexNumber"/>
-                  <Column header="Name" field="fullname"/>
+                  <Column header="Name" field="name"/>
+                  <Column header="Description" field="description"/>
+                  <Column header="FrequencyOfCreate" field="frequencyOfCreate"/>
                   <Column header="Status" body={customStatus}/>
                   <Column header="Action" body={customButton} />
-                  
 
                 
                 </DataTable>

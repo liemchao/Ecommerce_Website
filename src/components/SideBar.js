@@ -12,6 +12,8 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faTasks } from '@fortawesome/free-solid-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faFileArchive } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -250,6 +252,9 @@ const Sidebar = () => {
 
                 <Link className="collapse-item" to="/Dashboard/Manager/EmployeeList">
                   Employee <FontAwesomeIcon icon={faUserCircle}/>
+                </Link>
+                <Link className="collapse-item" to="/Dashboard/Manager/KPIList">
+                  KPI <FontAwesomeIcon icon={faFileArchive}/>
                 </Link>
 
 

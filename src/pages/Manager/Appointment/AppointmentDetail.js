@@ -59,7 +59,6 @@ const AppointDetail = () => {
 
     await ApiService.getEmployeeAppointment()
       .then((response) => {
-            console.log(response.data.data)
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
         listDataSet.map((obj, index) => {
@@ -201,7 +200,25 @@ const AppointDetail = () => {
                           <p>{Appointment.description}</p>
                         </div>
                       </div>
-                  
+
+
+                      {
+                        Appointment.abortReason==""|| Appointment.abortReason==null ? (<>
+
+                        </>) : (
+                          
+                          <div className="row mb-3">
+                          <div className="col-sm-3">
+                            <h6 className="mb-0 font-weight-bold">Reason:</h6>
+                          </div>
+                          <div className="col-sm-9 text-secondary">
+                            <p>{Appointment.abortReason}</p>
+                          </div>
+                        </div>
+
+                          
+                        )
+                      }
 
                     <div className="row mb-3">
                         <div className="col-sm-3">
@@ -295,9 +312,17 @@ const AppointDetail = () => {
                             </div>
                             <div className="col-sm-9 text-secondary">
                               {Appointment.employee.fullname}
+                              <Link 
+                          to={{
+                            pathname: "/Dashboard/Manager/EmployeeAppointment",
+                            state: Appointment.employee.id,
+                          }}  
+                          >
                                <Button style={{ marginLeft: "10%" }}>
+                               
                               <FontAwesomeIcon icon={faExternalLinkSquare} />
                             </Button>
+                            </Link>
                             </div>
                           </div>
 
@@ -468,7 +493,7 @@ const AppointDetail = () => {
               </div>
             </div>
           
-            {Appointment.employee==null?(
+            {Appointment.employee==null && Appointment.appointmentStatus=="Watting" ? (
              <div className="col-lg-12">
                 <div className="card">
 
@@ -498,9 +523,8 @@ const AppointDetail = () => {
                 >
                   <Column header="Employee Name" field="fullname"/>
                   <Column style={{width: "22%"}}header="Email" field="email"/>
-                  <Column style={{width: "22%"}}header="Email" field="email"/>
-                  <Column  header="phone" field="phone"/>
-                  <Column style={{textAlign: "center"}}header="Number Appoinment Doing" field="numberOfAppoinmentOnDoing"/>
+                  <Column  header="Phone" field="phone"/>
+                  <Column style={{textAlign: "center"}}header="No. Appoinment Ongoing" field="numberOfAppoinmentOnDoing"/>
                   <Column header="Action" body={customButton1} />
                 </DataTable>
                </div>

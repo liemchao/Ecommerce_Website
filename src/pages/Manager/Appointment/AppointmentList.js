@@ -42,7 +42,7 @@ const AppointmentList = () => {
   async function getAppointmentList() {
     setLoadingData(true);
 
-    await ApiService.getAppoinment(currentPage, rows)
+    await ApiService.getAppoinment(currentPage,rows,query)
       .then((response) => {
      
         const dataRes = response.data.data
@@ -59,15 +59,15 @@ const AppointmentList = () => {
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-        
+        if (error.request.status=="404") {
+          setErrMsg(error.request.status)
         } else if (error.request) {
       
-          console.log(error.request);
+          setErrMsg(error.request);
         } else {
+          setErrMsg(error.config);
       
         }
-        console.log(error.config);
       });
   }
 
@@ -168,38 +168,11 @@ const AppointmentList = () => {
   
   const handleSearch = (e) =>{
     setQuery(e.target.value);
-    if(e.target.value === ""){
-      refreshList();
-    }
+   
 
   }
 
-  async function searchAppointment() {
-    
-    await ApiService.searchAppointment(query)
-      .then((response) => {
-       
-        const dataRes = response.data.data
-        const listDataSet = [...dataRes];
-        listDataSet.map((obj, index) => {
-          const count = ++index;
-          obj['indexNumber'] = count
-
-        })
-        
-        setData(listDataSet);
-        setLoadingData(false)
-       
-      })
-      .catch((error) => {
-        if(error.response.status == 404) {
-          setData([]);
-          setErrMsg(error.response.data)
-
-        }
-      
-      });
-  }
+  
   
   const notFound =()=>{
     return <div className="badge badge-danger mr-2">Not Found</div>;
@@ -222,10 +195,10 @@ const AppointmentList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by title" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchAppointment}
+       onClick={getAppointmentList}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-       {data.length==0 ? (
+       {errMsg=="404" ? (
        <div style={{marginTop:"2%"}}id="wrapper">
        <div className="container-fluid">
          <div className="card shadow mb-1">

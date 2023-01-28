@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import Chart from "chart.js";
+// import React, { useState, useEffect } from "react";
 
 
-class ChartBar extends Component {
+class ChartLocationBar extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: this.props.title,
-        }
+      
     }
+
+
+    
     chartRef = React.createRef();
 
     componentDidMount() {
@@ -57,7 +59,7 @@ class ChartBar extends Component {
 
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
-                        <h6 className="m-0 font-weight-bold text-primary">{this.state.title}</h6>
+                        <h6 className="m-0 font-weight-bold text-primary">Analysis by location</h6>
                     </div>
                     <div className="card-body">
                         <div className="chart-bar">
@@ -82,4 +84,4 @@ class ChartBar extends Component {
     }
 }
 
-export default ChartBar;
+export default ChartLocationBar;

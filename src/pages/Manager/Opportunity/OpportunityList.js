@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
-import { CSVLink} from 'react-csv';
 
 import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
@@ -12,7 +11,6 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 
 const LeadList = () => {
@@ -31,7 +29,7 @@ const LeadList = () => {
   async function getOpportunity() {
     setLoadingData(true);
 
-    ApiService.getOpportunity( currentPage,rows)
+    ApiService.getOpportunity( currentPage,rows,query)
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
@@ -49,15 +47,15 @@ const LeadList = () => {
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-          setError(error.response)
+        if (error.request.status=="404") {
+          setError(error.request.status)
         } else if (error.request) {
-          setError(error.request)
-         
+      
+          setError(error.request);
         } else {
-         
+          setError(error.config);
+      
         }
-        setError(error)
       });
   }
 
@@ -88,9 +86,6 @@ const LeadList = () => {
     }
   };
 
-  const onPageInputChange = (event) => {
-    setCurrentPage(event.target.value);
-  };
 
   const customButton = (rowData) => {
       return (
@@ -121,44 +116,10 @@ const LeadList = () => {
     return <div className="badge badge-danger mr-2">Not Found</div>;
   }
 
-  // const template = {
-  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
-  //   CurrentPageReport: (options) => {
-  //     return (
-  //       <>
-  //         <span
-  //           className="p-mx-3"
-  //           style={{ color: "var(--text-color)", userSelect: "none" }}
-  //         >
-  //           Go to{" "}
-  //           <InputText
-  //             size="2"
-  //             className="p-ml-1"
-  //             value={currentPage}
-  //             tooltip={pageInputTooltip}
-  //             onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-  //             onChange={onPageInputChange}
-  //           />
-  //         </span>
-  //         <span
-  //           style={{
-  //             color: "var(--text-color)",
-  //             userSelect: "none",
-  //             width: "120px",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           {options.first} - {options.last} of {options.totalRecords}
-  //         </span>
-  //       </>
-  //     );
-  //   },
-  // };
+
   const handleSearch = (e) =>{
     setQuery(e.target.value);
-    if(e.target.value === ""){
-      refreshList();
-    }
+   
 
   }
 
@@ -170,15 +131,6 @@ const LeadList = () => {
     )
   }
 
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-      return (
-        value.name.toLowerCase().includes(query.toLowerCase())
-      )
-    });
-    setData(filterData);
-
-  }
 
   return (
     <>
@@ -190,17 +142,17 @@ const LeadList = () => {
     style={{ margin:0,float: "right"}}
     className="btn btn-primary" 
 >  Generate Excel</Button> */}
-<CSVLink   style={{ margin:0,float: "right"}}  data={data} filename="Opportunity"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink>
-          {/* <CreateProduct refreshList={refreshList}/> */}
+{/* <CSVLink   style={{ margin:0,float: "right"}}  data={data} filename="Opportunity"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink> */}
+        
         </div> 
         <div className="row">
        <div style={{marginBottom:10, marginTop:"-2%", marginLeft:"62%"}}>
        <input onChange={handleSearch}  style={{height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={getOpportunity}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-       {data.length==0 ? (
+       {error=="404" ? (
        <div style={{marginTop:"2%"}}id="wrapper">
        <div className="container-fluid">
          <div className="card shadow mb-1">

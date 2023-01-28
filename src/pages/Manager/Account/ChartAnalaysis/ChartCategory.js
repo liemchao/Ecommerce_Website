@@ -1,18 +1,49 @@
 import React, { Component } from 'react';
 import Chart from "chart.js";
+import ApiService from '../../../../api/apiService';
 
 
-class ChartBar extends Component {
+class ChartCategoryBar extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: this.props.title,
-        }
+  
     }
+  
+
     chartRef = React.createRef();
 
     componentDidMount() {
+
+
+
+        // async function getOpportunity() {
+        //     setLoadingData(true);
+        
+        //     ApiService.getAz( )
+        //       .then((response) => {
+        //         const dataRes = response.data.data
+             
+            
+        
+        //         setData(listDataSet);
+        
+              
+        //         setLoadingData(false);
+        //       })
+        //       .catch((error) => {
+        //         if (error.request.status=="404") {
+        //           setError(error.request.status)
+        //         } else if (error.request) {
+              
+        //           setError(error.request);
+        //         } else {
+        //           setError(error.config);
+              
+        //         }
+        //       });
+        //   }
+
 
         const myBarChart = this.chartRef.current.getContext("2d");
 
@@ -57,7 +88,7 @@ class ChartBar extends Component {
 
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
-                        <h6 className="m-0 font-weight-bold text-primary">{this.state.title}</h6>
+                        <h6 className="m-0 font-weight-bold text-primary">Analysis by category </h6>
                     </div>
                     <div className="card-body">
                         <div className="chart-bar">
@@ -82,4 +113,4 @@ class ChartBar extends Component {
     }
 }
 
-export default ChartBar;
+export default ChartCategoryBar;

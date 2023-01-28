@@ -9,7 +9,8 @@ class CardInfo extends Component {
             icon: 'fas fa-calendar fa-2x text-gray-300',
             color: 'primary',
             cardClass: '',
-            titleClass:''
+            titleClass:'',
+            com :this.props.com,
         }
     }
 
@@ -27,7 +28,7 @@ class CardInfo extends Component {
                         <div className="row no-gutters align-items-center">
                             <div className="col mr-2">
                                 <div className={this.state.titleClass}>{this.props.title}</div>
-                                <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.value}</div>
+                                <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.value}{this.state.com}</div>
                             </div>
                             <div className="col-auto">
                                 <i className={this.state.icon}></i>

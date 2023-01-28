@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApiService from "../../api/apiService";
 import "./MyProfile.css";
-
+import { InputText } from "primereact/inputtext";
 export default function FormUpdateAccount(rowData) {
  const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -116,9 +116,9 @@ export default function FormUpdateAccount(rowData) {
                           {
                             user.gender == "Male" ? (<>
                                <option  value={true} selected>Male</option>
-                               <option  value={false}>FeMale</option>
+                               <option  value={false}>Female</option>
                             </>) : (<>
-                                <option  value={false} selected> FeMale </option>
+                                <option  value={false} selected> Female </option>
                                <option   value={true}>Male</option>
                             
                             </>)
@@ -135,15 +135,14 @@ export default function FormUpdateAccount(rowData) {
                         <h6 className="mb-0">Date of Birth</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="date"
-                            value={user.dob}
-                            onChange={(e) =>
-                                setUser({ ...user, dob: e.target.value })
-                              }
-                        />
+                        <InputText
+                  
+                     id="name"
+              type="date"
+              // value="10/08/2000"
+              required
+              onChange={(e) => setUser({ ...user, dob: e.target.value })}
+            />
                     </div>
                 </div>
             

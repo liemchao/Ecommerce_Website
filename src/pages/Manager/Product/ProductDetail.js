@@ -386,7 +386,7 @@ const ProductDetail = () => {
                         
                      <div className="row mb-3">
                           <div className="col-sm-6">
-                            <h6 className="mb-6">Number of Customer Like The Product:</h6>
+                            <h6 className="mb-0 font-weight-bold">Number of Customer Like The Product:</h6>
                           </div>
                           <div className="col-sm-4 text-secondary">
                             <p>{ProductVi}</p>

@@ -7,7 +7,6 @@ const MyProfile = React.lazy(() => import("./pages/MyProfile/MyProfile"));
 const AdminAccountList = React.lazy(() => import("./pages/Admin/Account/AccountList"));
 const AdminAccountDetail = React.lazy(() => import("./pages/Admin/Account/AccountDetail"));
 const CreateAccount = React.lazy(() => import("./pages/Admin/Account/CreateAccount"));
-// const AdminCompanyDetail = React.lazy(() => import("./pages/Admin/Company/CompanyDetail"));
 
 // Manager
 const CustomerAccountList = React.lazy(() => import("./pages/Manager/Account/AccountList"));
@@ -39,16 +38,12 @@ const LeadInfo = React.lazy(() => import("./pages/Manager/Task/DetailTask/LeadIn
 const OppProduct = React.lazy(() => import("./pages/Manager/Opportunity/OppProduct/ProductDetailOpp"))
 const ProductAppoimnet = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/ProductAppointment"))
 const LeadAppoiment = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/LeadDetailAp"))
+const EmployeeAppoiment = React.lazy(() => import("./pages/Manager/Appointment/FilterAppoint/EmployeeApp"))
 const FeedBackAppointment = React.lazy(() => import("./pages/Manager/FeedBack/FeedBackDe/AppoimentFe"))
-
-
-
-
-
-
-
-
-
+const KPItemplate = React.lazy(() => import("./pages/Manager/KPI/CreateKPI"))
+const UpdateKPItemplate = React.lazy(() => import("./pages/Manager/KPI/UpdateKPI"))
+const KPIlist = React.lazy(() => import("./pages/Manager/KPIReport/KPIList"))
+const KPIUpdate = React.lazy(() => import("./pages/Manager/KPIReport/UpdateKPI"))
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -87,10 +82,11 @@ const routes = [
   { path: "/Dashboard/Manager/LeadAppoiment", name: "ProductAppoimnet", component: LeadAppoiment },
   { path: "/Dashboard/Manager/FeedBackAppointment", name: "FeedBackAppointment", component: FeedBackAppointment },
   { path: "/Dashboard/Manager/TaskUpdate", name: "TaskCreateList", component: TaskUpdate },
-
-  
-
-
+  { path: "/Dashboard/Manager/EmployeeAppointment", name: "EmployeeAppointment", component: EmployeeAppoiment },
+  { path: "/Dashboard/Manager/CreateKPI", name: "CreateKPI", component: KPItemplate },
+  { path: "/Dashboard/Manager/UpdateKPI", name: "UpdateKPI", component: UpdateKPItemplate },
+  { path: "/Dashboard/Manager/KPIList", name: "KPIList", component: KPIlist },
+  { path: "/Dashboard/Manager/KPIUpdate", name: "KPIUpdate", component: KPIUpdate },
 
 
 ];

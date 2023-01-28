@@ -21,20 +21,17 @@ const ProductOwerList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
+  const [errMsg, setErrMsg] = useState("");
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [pageInputTooltip, setPageInputTooltip] = useState(
-    "Press 'Enter' key to go to this page."
-  );
- 
+
 
   async function getProductOwer() {
     setLoadingData(true);
 
-    ApiService.getProductOwer(currentPage,rows)
+    ApiService.getProductOwer(currentPage,rows,query)
       .then((response) => {
         // console.log(response);
         const dataRes = response.data.data
@@ -50,15 +47,15 @@ const ProductOwerList = () => {
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-      
+        if (error.request.status=="404") {
+          setErrMsg(error.request.status)
         } else if (error.request) {
-       
-        
-        } else {
-        
-        }
       
+          setErrMsg(error.request);
+        } else {
+          setErrMsg(error.config);
+      
+        }
       });
   }
 
@@ -173,94 +170,14 @@ const ProductOwerList = () => {
       </>
     );
   };
-  const customImage = (rowData) => {
-    return (
-      <img
-        style={{ width: "100px", height: "60px",marginRight:"2%"}}
-        src={rowData.productImages[1].url}
-        alt="product-image"
-        className="img-fluid"
-        onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-        }
-      />
-    );
-  };
+
   
 
  
   const handleSearch = (e) =>{
-    setQuery(e.target.value);
-    if(e.target.value === ""){
-      refreshList();
-    }
-
+    setQuery(e.target.value); 
   }
 
-  async function searchProductOwer (){
-    await ApiService.searchProductOwer(query)
-    .then((response) => {
-      // check if the data is populated
-      const dataRes = response.data.data
-      const listDataSet = [...dataRes];
-      let  counter = 10 * (currentPage-1)
-        listDataSet.map((obj, index) => { 
-          obj['indexNumber'] = (counter + ++index) 
-        })
-      
-      setData(listDataSet);
-      setLoadingData(false)
-     
-    })
-    .catch((error) => {
-      if(error.response.status == 404) {
-        setData([]);
-   
-
-      }
-    
-    });
-
-  }
-
-  const onPageInputChange = (event) => {
-    setCurrentPage(event.target.value);
-  };
-
-  const template = {
-    layout: "CurrentPageReport PrevPageLink NextPageLink",
-    CurrentPageReport: (options) => {
-      return (
-        <>
-          <span
-            className="p-mx-3"
-            style={{ color: "var(--text-color)", userSelect: "none" }}
-          >
-            Go to{" "}
-            {/* <InputText
-              size="2"
-              className="p-ml-1"
-              value={currentPage}
-              tooltip={pageInputTooltip}
-              onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-              onChange={onPageInputChange}
-            /> */}
-          </span>
-          <span
-            style={{
-              color: "var(--text-color)",
-              userSelect: "none",
-              width: "120px",
-              textAlign: "center",
-            }}
-          >
-            {options.first} - {options.last} of {options.totalRecords}
-          </span>
-        </>
-      );
-    },
-  };
 
   return (
     <>
@@ -275,10 +192,10 @@ const ProductOwerList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProductOwer}
+       onClick={getProductOwer}
        ><FontAwesomeIcon icon={faSearch}/></Button>
        </div>
-        {data.length==0 ? (
+        {errMsg=="404" ? (
           <div style={{marginTop:"2%"}}id="wrapper">
           <div className="container-fluid">
             <div className="card shadow mb-1">

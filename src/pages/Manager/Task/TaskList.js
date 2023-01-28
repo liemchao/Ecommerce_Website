@@ -23,11 +23,9 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 const TaskList = () => {
   const [data, setData] = useState([]);
-  const [names, setNames] = useState([]);
-
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
-  const [totalPage, setTotalPage] = useState();
+  const [errMsg, setErrMsg] = useState("");
   const [first, setFirst] = useState(0);
   const [query, setQuery] = useState(0);
   const [rows, setRows] = useState(10);
@@ -44,7 +42,7 @@ const TaskList = () => {
   async function getTaskList() {
     setLoadingData(true);
 
-    await ApiService.getTask(currentPage,rows)
+    await ApiService.getTask(currentPage, rows, query)
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
@@ -57,19 +55,15 @@ const TaskList = () => {
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-          // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+        if (error.request.status=="404") {
+          setErrMsg(error.request.status)
         } else if (error.request) {
-          // no response
-          console.log(error.request);
+      
+          setErrMsg(error.request);
         } else {
-          // Something wrong in setting up the request
-          console.log("Error", error.message);
+          setErrMsg(error.config);
+      
         }
-        console.log(error.config);
       });
   }
 
@@ -142,74 +136,12 @@ const TaskList = () => {
     return <div className="badge badge-danger mr-2">Not Found</div>;
   }
  
-  // const template = {
-  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
-  //   CurrentPageReport: (options) => {
-  //     return (
-  //       <>
-  //         <span
-  //           className="p-mx-3"
-  //           style={{ color: "var(--text-color)", userSelect: "none" }}
-  //         >
-  //           Go to{" "}
-  //           <InputText
-  //             size="2"
-  //             className="p-ml-1"
-  //             value={currentPage}
-  //             tooltip={pageInputTooltip}
-  //             onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-  //             onChange={onPageInputChange}
-  //           />
-  //         </span>
-  //         <span
-  //           style={{
-  //             color: "var(--text-color)",
-  //             userSelect: "none",
-  //             width: "120px",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           {options.first} - {options.last} of {options.totalRecords}
-  //         </span>
-  //       </>
-  //     );
-  //   },
-  // };  
 
-  // const handleDelete = (e, rowData) => {
-  //   e.preventDefault();
-  //   let confirm = window.confirm(
-  //     "Are you sure you want to delete this Task?"
-  //   );
-
-  //   if (confirm) {
-  //     ApiService.deletePayments(rowData)
-  //       .then((response) => {
-  //         console.log(response.data);
-  //         refreshList();
-  //       })
-  //       .catch((e) => {
-  //         window.alert(e.message);
-  //       });
-  //   }
-  // };
   const handleSearch = (e) =>{
     setQuery(e.target.value);
-    if(e.target.value === ""){
-      refreshList();
-    }
-
+  
   }
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-     console.log(value);
-      return (
-        value.name.toLowerCase().includes(query.toLowerCase())
-      )
-    });
-    setData(filterData);
 
-  }
 
   return (
     <>
@@ -230,10 +162,10 @@ const TaskList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={getTaskList}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-        {data.length==0 ? (
+        {errMsg=="404" ? (
        <div style={{marginTop:"2%"}}id="wrapper">
        <div className="container-fluid">
          <div className="card shadow mb-1">

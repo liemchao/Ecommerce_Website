@@ -15,17 +15,17 @@ const EmployeeDetail = () => {
   const { state } = useLocation();
     const [account, setAccount] = useState([]);
     const [id, setid] = useState(state);
-    console.log(state)
+ 
 
     const [loadingData, setLoadingData] = useState(true);
 
     async function getLeadDetail() {
 
         setLoadingData(true);
-        await ApiService.getEmlo(id)
+        await ApiService.getAccountById(id)
             .then((response) => {
 
-              setAccount(response.data.data[0]);
+              setAccount(response.data.data);
                 
                 setLoadingData(false);
             })

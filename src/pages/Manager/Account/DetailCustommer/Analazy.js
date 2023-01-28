@@ -1,21 +1,17 @@
-import PageHeading from "../../../../components/PageHeading";
-// import { Link, Redirect } from "react-router-dom";
-import Bar from "../../../../components/Charts/Bar"
 import React, { Component,useEffect,useState } from "react";
-
+import ChartCategoryBar from "../ChartAnalaysis/ChartCategory";
+import ChartLocationBar from "../ChartAnalaysis/ChartLocation";
 
 const Analazycustomer = ({ rowData }) => {
-
-
     return(
         <>
       
         <div className="row">
         <div className="col-xl-6 col-lg-6">
-              <Bar title="Analysis by location"/>
+              <ChartCategoryBar />
             </div>
             <div className="col-xl-6 col-lg-6">
-              <Bar title="Analysis by category "/>
+              <ChartLocationBar/>
             </div>
             </div>
           </>

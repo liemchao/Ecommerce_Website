@@ -19,8 +19,7 @@ import { faTrashRestore} from '@fortawesome/free-solid-svg-icons'
 const AccountList = () => {
   const [data, setData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
-  // const [totalRecords, setTotalRecords] = useState();
-  // const [totalPage, setTotalPage] = useState();
+  const [errMsg, setErrMsg] = useState("");
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +32,7 @@ const AccountList = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getAccountCustomer(currentPage,rows)
+    await ApiService.getAccountCustomer(currentPage,rows,query)
       .then((response) => {
 
         const dataRes = response.data.data
@@ -46,25 +45,19 @@ const AccountList = () => {
         setTotalRecords(response.data.totalRow);
 
         setData(listDataSet);
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+    
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-          // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+        if (error.request.status=="404") {
+          setErrMsg(error.request.status)
         } else if (error.request) {
-          // no response
-          console.log(error.request);
+      
+          setErrMsg(error.request);
         } else {
-          // Something wrong in setting up the request
-          console.log("Error", error.message);
+          setErrMsg(error.config);
+      
         }
-        console.log(error.config);
       });
   }
 
@@ -91,18 +84,7 @@ const AccountList = () => {
     );
   };
 
-  const customAddress = (rowData) => {
-    return(
-      <>
-        <span
-          className="d-inline-block text-truncate"
-          style={{ maxWidth: 150 }}
-        >
-          {rowData.address}
-        </span>
-      </>
-    );
-  };
+
 
   const customStatus = (rowData) => {
     if (rowData.status=="Activated") {
@@ -189,62 +171,6 @@ const AccountList = () => {
     );
   };
 
-  // const onPageChange = (event) => {
-  //   setFirst(event.first);
-  //   setRows(event.rows);
-  //   setCurrentPage(event.page + 1);
-  // };
-
-  // const onPageInputKeyDown = (event, options, totalPage) => {
-  //   if (event.key === "Enter") {
-  //     const page = parseInt(currentPage);
-  //     if (page < 0 || page > totalPage) {
-  //       setPageInputTooltip(`Value must be between 1 and ${totalPage}.`);
-  //     } else {
-  //       const first = currentPage ? options.rows * (page - 1) : 0;
-  //       setFirst(first);
-  //       setPageInputTooltip("Press 'Enter' key to go to this page.");
-  //     }
-  //   }
-  // };
-
-  // const onPageInputChange = (event) => {
-  //   setCurrentPage(event.target.value);
-  // };
-
-  // const template = {
-  //   layout: "CurrentPageReport PrevPageLink NextPageLink",
-  //   CurrentPageReport: (options) => {
-  //     return (
-  //       <>
-  //         <span
-  //           className="p-mx-3"
-  //           style={{ color: "var(--text-color)", userSelect: "none" }}
-  //         >
-  //           Go to{" "}
-  //           <InputText
-  //             size="2"
-  //             className="p-ml-1"
-  //             value={currentPage}
-  //             tooltip={pageInputTooltip}
-  //             onKeyDown={(e) => onPageInputKeyDown(e, options, totalPage)}
-  //             onChange={onPageInputChange}
-  //           />
-  //         </span>
-  //         <span
-  //           style={{
-  //             color: "var(--text-color)",
-  //             userSelect: "none",
-  //             width: "120px",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           {options.first} - {options.last} of {options.totalRecords}
-  //         </span>
-  //       </>
-  //     );
-  //   },
-  // };
   const onPageChange = (event) => {
     setFirst(event.first);
     setRows(event.rows);
@@ -253,26 +179,14 @@ const AccountList = () => {
 
   const handleSearch = (e) =>{
     setQuery(e.target.value);
-    if(e.target.value === ""){
-      refreshList();
-    }
+    
 
   }
   const notFound =()=>{
     return <div className="badge badge-danger mr-2">Not Found</div>;
   }
 
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-     console.log(value);
-      return (
-        value.fullname.toLowerCase().includes(query.toLowerCase())
-      )
-    });
-    setData(filterData);
-
-  }
-
+  
   return (
     <>
       {/* New DataTable */}
@@ -285,10 +199,10 @@ const AccountList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={getAccountList}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-       {data.length==0 ? (
+       {errMsg=="404" ? (
        <div style={{marginTop:"2%"}}id="wrapper">
        <div className="container-fluid">
          <div className="card shadow mb-1">

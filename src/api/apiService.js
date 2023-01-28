@@ -73,14 +73,14 @@ const createLead = (data) => {
   });
 };
 
-const getAccountCustomer = (currentPage,rows) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/CustomerAccount/customer-account?pageNumber=${currentPage}&pageSize=${rows}`, {
+const getAccountCustomer = (currentPage,rows,query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/CustomerAccount/customer-account?pageNumber=${currentPage}&pageSize=${rows}&searchString=${query}`, {
     headers: authHeader(),
   });
 };
 
-const getTask = (currentPage , rows) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Task/task?pageNumber=${currentPage}&pageSize=${rows}`, {
+const getTask = (currentPage , rows, query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Task/task?pageNumber=${currentPage}&pageSize=${rows}&searchString=${query}`, {
     headers: authHeader(),
   });
 };
@@ -95,8 +95,8 @@ const getAccountAdmin = (currentPage,rows) => {
     headers: authHeader(),
   });
 };
-const getAccountEmployee = (currentPage,rows) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}&filter=2%3B3`, {
+const getAccountEmployee = (currentPage,rows,query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}&searchString=${query}&filter=2%3B3`, {
     headers: authHeader(),
   });
 };
@@ -108,8 +108,8 @@ const searchAccountSystem = (query) => {
   });
 };
 
-const getPublicProduct = (page,size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?pageNumber=${page}&pageSize=${size}&filter=1%3BIsDelete`, {
+const getPublicProduct = (page,size, query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product?pageNumber=${page}&pageSize=${size}&searchString=${query}&filter=1%3BIsDelete`, {
     headers: authHeader(),
   });
 };
@@ -156,8 +156,8 @@ const searchTask = (query) => {
 
 
 
-const getProductOwer = (page,size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner?pageNumber=${page}&pageSize=${size}`, {
+const getProductOwer = (page,size,query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/ProductOwner/product-owner?pageNumber=${page}&pageSize=${size}&searchString=${query}`, {
     headers: authHeader(),
   });
 };
@@ -251,8 +251,8 @@ const getProductStatus = () => {
   });
 };
 
-const getAppoinment = (page, size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&sort=2%3Bfalse`, {
+const getAppoinment = (page, size, query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment?pageNumber=${page}&pageSize=${size}&searchString=${query}&sort=2%3Bfalse`, {
     headers: authHeader(),
   });
 };
@@ -270,8 +270,8 @@ const AssAppointment = (data) => {
 };
 
 
-const getLead = (page,size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead?pageNumber=${page}&pageSize=${size}`, {
+const getLead = (page,size,query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Lead/lead?pageNumber=${page}&pageSize=${size}&searchString=${query}`, {
     headers: authHeader(),
   });
 };
@@ -281,12 +281,17 @@ const getNewLead = (page,size) => {
   });
 };
 
-const getOpportunity  = (page,size) => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Opportunity/opportunity?pageNumber=${page}&pageSize=${size}`, {
+const getOpportunity  = (page,size,query) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Opportunity/opportunity?pageNumber=${page}&pageSize=${size}&searchString=${query}`, {
     headers: authHeader(),
   });
 };
 
+const getKIPreport = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi`, {
+    headers: authHeader(),
+  });
+};
 const getFeedBack  = (page,size) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/Feedback/feedback?pageNumber=${page}&pageSize=${size}`, {
     headers: authHeader(),
@@ -473,11 +478,6 @@ const getNoti = () => {
   });
 };
 
-const getKPI = () => {
-  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template`, {
-    headers: authHeader(),
-  });
-};
 
 
 
@@ -533,6 +533,28 @@ const updateProFile = (data) => {
   });
 };
 
+//KPI
+const getKPI = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template`, {
+    headers: authHeader(),
+  });
+};
+
+
+const getKPIPerformance = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/performance-report`,{
+  headers: authHeader(),
+});
+};
+
+//Location
+const getAnalazyLocation = (id) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/History/history/analyze-by-category?customerId=${id}`,{
+  headers: authHeader(),
+});
+};
+
+
 export default {
   Login,
   Logout,
@@ -564,6 +586,7 @@ export default {
   getopportunitytLead,
   getAppointCusomter,
   getopportunitytCusomter,
+  getKPIPerformance,
 
   // // Companies
   //Filter
@@ -633,6 +656,8 @@ export default {
   getTaskEm,
   getLeadbyID,
   getKPI,
+  getAnalazyLocation,
+  getKIPreport,
 
   
  

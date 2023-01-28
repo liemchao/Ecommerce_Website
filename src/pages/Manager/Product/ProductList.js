@@ -49,7 +49,7 @@ const ProductList = () => {
   async function getPublicProduct() {
     setLoadingData(true);
 
-    await ApiService.getPublicProduct(currentPage, rows)
+    await ApiService.getPublicProduct(currentPage, rows, query)
       .then((response) => {
      
         const dataRes = response.data.data
@@ -67,15 +67,15 @@ const ProductList = () => {
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-        
+        if (error.request.status=="404") {
+          setErrMsg(error.request.status)
         } else if (error.request) {
       
-          console.log(error.request);
+          setErrMsg(error.request);
         } else {
+          setErrMsg(error.config);
       
         }
-        console.log(error.config);
       });
   }
 
@@ -220,40 +220,37 @@ const ProductList = () => {
 }
   
   const handleSearch = (e) =>{
-    setQuery(e.target.value);
-  
-    if(e.target.value === ""){
-      refreshList();
-    }
+    setQuery(e.target.value)
+
 
   }
 
-  async function searchProduct() {
+  // async function searchProduct() {
     
-    await ApiService.searchProduct(currentPage,rows,query)
-      .then((response) => {
-        const dataRes = response.data.data
-        const listDataSet = [...dataRes];
-        listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
+  //   await ApiService.searchProduct(currentPage,rows,query)
+  //     .then((response) => {
+  //       const dataRes = response.data.data
+  //       const listDataSet = [...dataRes];
+  //       listDataSet.map((obj, index) => {
+  //         const count = ++ index ;
+  //         obj['indexNumber'] = count
 
-        })
-        setTotalRecords(response.data.totalRow);
-        console.log(totalRecords)
-        setData(listDataSet);
-        setLoadingData(false)
+  //       })
+  //       setTotalRecords(response.data.totalRow);
+  //       console.log(totalRecords)
+  //       setData(listDataSet);
+  //       setLoadingData(false)
        
-      })
-      .catch((error) => {
-        if(error.response.status == 404) {
-          setData([]);
-          setErrMsg(error.response.data)
+  //     })
+  //     .catch((error) => {
+  //       if(error.response.status == 404) {
+  //         setData([]);
+  //         setErrMsg(error.response.data)
 
-        }
+  //       }
       
-      });
-  }
+  //     });
+  // }
   
   const notFound =()=>{
     return <div className="badge badge-danger mr-2">Not Found</div>;
@@ -285,10 +282,10 @@ const ProductList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={getPublicProduct}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-       {data.length==0 ? (
+       {errMsg=="404" ? (
        <div style={{marginTop:"2%"}}id="wrapper">
        <div className="container-fluid">
          <div className="card shadow mb-1">
@@ -321,11 +318,14 @@ const ProductList = () => {
                   rowHover={true}
                   sortMode="multiple"
                   filterDisplay="menu"
-                  header={header1}
                   globalFilterFields={['name','No']}
                   filters={filters1}
                   showGridlines
-                  
+                  emptyMessage={ 
+                    <div style={{ textAlign: "center", fontSize: 30 }}>
+                    <h1 className="badge badge-danger mr-2">No Product Found</h1>
+                  </div>
+                   }     
                 >
               <Column style={{width: "7%" }} header="No" field="indexNumber"   />
                   <Column  style={{width: "20%" }} header="Name" field="name" sortable />

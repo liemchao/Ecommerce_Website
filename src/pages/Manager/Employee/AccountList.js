@@ -11,8 +11,6 @@ import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons'
-import { faBan} from '@fortawesome/free-solid-svg-icons'
-import { faTrashRestore} from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
@@ -23,6 +21,8 @@ const AccountList = () => {
   const [query, setQuery] = useState("");
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
+  const [errMsg, setErrMsg] = useState("");
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(
@@ -32,7 +32,7 @@ const AccountList = () => {
   async function getAccountList() {
     setLoadingData(true);
 
-    await ApiService.getAccountEmployee(currentPage, rows)
+    await ApiService.getAccountEmployee(currentPage, rows,query)
       .then((response) => {
 
         const dataRes = response.data.data
@@ -42,29 +42,23 @@ const AccountList = () => {
           obj['indexNumber'] = count
 
         })
-        // setTotalRecords(response.totalRow);
+    
         setTotalRecords(response.data.totalRow);
 
         setData(listDataSet);
-        // setTotalPage(response.data.totalPage);
-        // setTotalRecords(response.data.totalEle);
-        // you tell it that you had the result
+    
         setLoadingData(false);
       })
       .catch((error) => {
-        if (error.response) {
-          // get response with a status code not in range 2xx
-          console.log(error.response.data.data);
-          console.log(error.response.data.status);
-          console.log(error.response.data.headers);
+        if (error.request.status=="404") {
+          setErrMsg(error.request.status)
         } else if (error.request) {
-          // no response
-          console.log(error.request);
+      
+          setErrMsg(error.request);
         } else {
-          // Something wrong in setting up the request
-          console.log("Error", error.message);
+          setErrMsg(error.config);
+      
         }
-        console.log(error.config);
       });
   }
 
@@ -101,55 +95,7 @@ const AccountList = () => {
     }
   };
 
-  async function handleBan (e, rowData) {
-    e.preventDefault();
-    let confirm = window.confirm(
-      "Are you sure you want to ban this account?"
-    );
-
-    if (confirm) {
-
-      let dataupdate = {
-        userId: rowData.id,
-        status: 0,
-        
-          };
-      await ApiService.updateStatusAccount(dataupdate)
-        .then((response) => {
-          window.alert(" Ban this account sucsseful.")
-          refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-          window.alert("Can't ban this account.")
-        });
-    }
-  };
-
-  async function handleRetore (e, rowData) {
-    e.preventDefault();
-    let confirm = window.confirm(
-      "Are you sure you want to restore this account?"
-    );
-
-    if (confirm) {
-
-      let dataupdate = {
-        userId: rowData.id,
-        status: 1,
-        
-          };
-      await ApiService.updateStatusAccount(dataupdate)
-        .then((response) => {
-          window.alert(" Restore this account sucsseful.")
-          refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-          window.alert("Can't restore this account.")
-        });
-    }
-  };
+ 
 
   const customButton = (rowData) => {
     return (
@@ -163,15 +109,6 @@ const AccountList = () => {
         >
             <Button style={{marginLeft:"18%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
         </Link>
-        {/* Update */}
-        {/* <AccountUpdate rowData={rowData} refreshList={refreshList} /> */}
-        { rowData.status === "Activated" ? (<>
-          <Button style={{marginLeft:"2%"}} onClick={(e) => handleBan(e, rowData)} className="btn btn-danger"><FontAwesomeIcon icon={faBan} /></Button>
-        </>):(<>
-          <Button style={{marginLeft:"2%"}} onClick={(e) => handleRetore(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore}/></Button>
-         </>)
-
-        }
       </div>
     );
   };
@@ -237,22 +174,11 @@ const AccountList = () => {
   // };
   const handleSearch = (e) =>{
     setQuery(e.target.value);
-    if(e.target.value === ""){
-      refreshList();
-    }
+ 
 
   }
 
-  const searchProduct= () =>{
-    const filterData = data.filter((value)=>{
-     console.log(value);
-      return (
-        value.fullname.toLowerCase().includes(query.toLowerCase())
-      )
-    });
-    setData(filterData);
-
-  }
+ 
 
   return (
     <>
@@ -266,10 +192,10 @@ const AccountList = () => {
        <div style={{marginBottom:20}}>
        <input onChange={handleSearch}  style={{marginLeft:850,height:40,textAlign:"center"}}className="mt-4" type="text" placeholder="Search by name" aria-label="Search"/>
        <Button type="button" style={{height:40,width:100,marginTop:-7, marginLeft:10}}
-       onClick={searchProduct}
+       onClick={getAccountList}
        ><FontAwesomeIcon icon={faSearch} /></Button>
        </div>
-       {data.length==0 ? (
+       {errMsg=="404"  ? (
        <div style={{marginTop:"2%"}}id="wrapper">
        <div className="container-fluid">
          <div className="card shadow mb-1">
