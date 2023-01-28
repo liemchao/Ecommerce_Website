@@ -19,6 +19,8 @@ const Topbar = () => {
   const [data, setData] = useState([]);
   const [totalRecords, setTotalRecords] = useState();
   const [readno, setRead] = useState();
+  const [statusEx, setStatusEx] = useState();
+  const [statusAdd, setStatusAdd] = useState();
 
 
   async function getAppointmentExp() {
@@ -27,8 +29,8 @@ const Topbar = () => {
     await ApiService.getAppointmentExP()
       .then((response) => {
     
-   
-        setData(response);
+        setStatusEx(response)
+      
        
       })
       .catch((error) => {
@@ -42,7 +44,7 @@ const Topbar = () => {
     await ApiService.getAppointmentExP()
       .then((response) => {
     
-  
+        setStatusAdd(response)
        
       })
       .catch((error) => {
@@ -103,26 +105,26 @@ const Topbar = () => {
   }, []);
 
 
-  // useEffect(() => {
-  //   if(user.role=="Manager"){
+  useEffect(() => {
+    if(user.role=="Manager"){
  
-  //    setInterval(() => {
-  //     addKPI() 
-  //    }, 5000000);
-  //   }
+     setInterval(() => {
+      addKPI() 
+     }, 50000);
+    }
     
-  //  }, []);
+   }, []);
 
 
-  //  useEffect(() => {
-  //   if(user.role=="Manager"){
+   useEffect(() => {
+    if(user.role=="Manager"){
  
-  //    setInterval(() => {
-  //     getAppointmentExp() 
-  //    }, 50000);
-  //   }
+     setInterval(() => {
+      getAppointmentExp() 
+     }, 7000);
+    }
     
-  //  }, []);
+   }, []);
 
   //  useEffect(() => {
   //   if(user.role=="Manager"){
