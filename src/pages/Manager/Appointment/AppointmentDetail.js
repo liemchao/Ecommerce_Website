@@ -493,7 +493,7 @@ const AppointDetail = () => {
               </div>
             </div>
           
-            {Appointment.employee==null && Appointment.appointmentStatus=="Watting" ? (
+            {Appointment.employee==null && Appointment.appointmentStatus=="Waiting" ? (
              <div className="col-lg-12">
                 <div className="card">
 
