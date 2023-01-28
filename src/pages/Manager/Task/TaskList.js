@@ -118,17 +118,9 @@ const TaskList = () => {
             state: rowData,
           }}
         >
-         <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+         <Button style={{marginLeft:"10%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
         </Link>
-        <Link
-          style={{ paddingRight: "30px" }}
-          to={{
-            pathname: "/Dashboard/Manager/TaskUpdate",
-            
-          }}
-        >
-         <Button className="btn btn-success"><FontAwesomeIcon icon={faPencilAlt}/></Button>
-        </Link>
+    
       </div>
     );
   };

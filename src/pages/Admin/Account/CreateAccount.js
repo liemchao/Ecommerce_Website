@@ -129,8 +129,9 @@ export default function AccountCreate({ refreshList }) {
             <label htmlFor="name">Phone</label>
             <InputText
               id="phone"
-              type="phone"
-             
+              type="number"
+              min={1000000000}
+              max={2000000000000}
               onChange={(e) => setAccount({ ...Account, phone: e.target.value })}
             />
           </div>

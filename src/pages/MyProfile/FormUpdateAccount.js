@@ -6,14 +6,42 @@ export default function FormUpdateAccount(rowData) {
  const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-
+  const [data, setData] = useState([]);
 
   const [user, setUser] = useState({});
  
 
   useEffect(() => {
-    setUser(rowData.rowData)
+  
+    setUser(rowData.rowData);
+    getProfile();
   }, [rowData.rowData]);
+
+
+  async function getProfile() {
+  
+
+    ApiService.getProfile()
+      .then((response) => {
+   
+
+        setData(response.data.data[0].dob);
+
+      
+      })
+      .catch((error) => {
+        if (error.request) {
+          setErrMsg(error.request)
+        } else if (error.request) {
+      
+          setErrMsg(error.request);
+        } else {
+          setErrMsg(error.config);
+      
+        }
+      });
+  }
+
   
   async function updateInfo() {
   
@@ -138,8 +166,8 @@ export default function FormUpdateAccount(rowData) {
                         <InputText
                   
                      id="name"
-              type="date"
-              // value="10/08/2000"
+              type="text"
+              defaultValue={data}
               required
               onChange={(e) => setUser({ ...user, dob: e.target.value })}
             />

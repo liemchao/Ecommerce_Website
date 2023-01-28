@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardInfo from "../../components/Cards/Info";
 // import ChartDonut from "../../components/Charts/Donut";
 // import ChartLine from "../../components/Charts/Line";
@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, Redirect } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ApiService from "../../api/apiService";
-import { CSVLink} from 'react-csv';
 
 
 
@@ -24,181 +23,143 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user || user.Roles === "") {
       return <Redirect to="/Login" />;
-  
-    }else{
+
+    } else {
       getKPIPerforment();
 
     }
   }, []);
-  
+
   async function getKPIPerforment() {
-  
+
     await ApiService.getKPIPerformance()
       .then((response) => {
-      
-        setData(response.data.data)    
+
+        setData(response.data.data)
       })
       .catch((error) => {
         if (error.request) {
           setErrMsg(error.request)
         } else if (error.request) {
-      
+
           setErrMsg(error.request);
         } else {
           setErrMsg(error.config);
-      
+
         }
       });
   }
 
-  
 
 
 
-    return (
-      <>
-        {(user.role.includes("Manager")) && (
-          <>
-            <PageHeading title="Performance dasboard" /> 
-         
+
+  return (
+    <>
+      {(user.role.includes("Manager")) && (
+        <>
+          <PageHeading title="Performance dasboard" />
+
+          {data.length == 0 ? (<></>) : (<>
+
+            <div className="row">
+
+              <div className="col-lg-5">
+                <div className="card">
+                  <div className="card-body">
+
+                    <CardInfo
+                      title="Lead (To Customer) Ratio"
+                      icon="calendar"
+                      color="primary"
+                      value={data.leadToCustomerRatio}
+                      com=":1"
+                    >
+
+                      <CardInfo
+                        title="Revenue"
+                        icon="calendar"
+                        color="primary"
+                        value={data.revenue.toLocaleString()}
+                      />
+
+                      <Link>
+                      </Link>
+
+                      :1</CardInfo>
 
 
-<li className="nav-item dropdown no-arrow"  style={{ marginTop:"-7%",float: "right", listStyle:"none"}} >
-           <a 
-            className="nav-link dropdown-toggle"
-            href="/#"
-            id="userDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-              <Button
-    
-    style={{ marginTop:"10%",float: "right"}}
-    className="btn btn-primary" 
->   <FontAwesomeIcon icon={faIdCard} /> Action KPI</Button> 
-            </a>
-          {/* Dropdown - User Information */}
-          <div
-            className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="userDropdown"
-          >
-            <Link className="dropdown-item" to="/Dashboard/Manager/CreateKPI">
-               Create Template
+                    <CardInfo
+                      title="Leads"
+                      icon="calendar"
+                      color="primary"
+                      value={data.leads}
+                    />
+                    <CardInfo
+                      title="Opportunitties"
+                      icon="calendar"
+                      color="success"
+                      value={data.opportunities}
+                    />
 
-            </Link>
-            <div className="dropdown-divider"></div>
-            <Link className="dropdown-item" to="/Dashboard/Manager/UpdateKPI">
-               Update Template
+                    <CardInfo
+                      title="Negotiation"
+                      icon="calendar"
+                      color="dark"
+                      value={data.negotiation}
+                    />
 
-            </Link>
-            {/* <div className="dropdown-divider"></div> */}
-            {/* <CSVLink data={file} filename="PerformanceReport"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Report</CSVLink> */}
+                    <CardInfo title="Wins" icon="clipboard" color="info" value={data.wins} />
 
-          </div>
-        </li>
+                    <CardInfo
+                      title="Loses"
+                      icon="comments"
+                      color="danger"
+                      value={data.loses}
 
+                    />
+                  </div>
+                </div>
+              </div>
 
-{data.length==0?(<></>):(<>
+              <div className="col-lg-7">
+                <div className="card">
+                  <div className="card-body">
 
-  <div className="row">
+                    <CardInfo
+                      title="Lead(To Opportunity Ratio)"
+                      icon="calendar"
+                      color="primary"
+                      value={data.leadToOpportunityRatioInPercent}
+                      com="%"
+                    >%</CardInfo>
 
+                    <CardInfo
+                      title="Opportunity (To Win Ratio)"
+                      icon="calendar"
+                      color="primary"
+                      value={data.opportunityToWinRatioInPercent}
+                      com="%"
+                    >%</CardInfo>
 
-  <CardInfo
-  title="Revenue"
-  icon="calendar"
-  color="primary"
-  value={data.revenue.toLocaleString()}
-/>
-  
-            
-<CardInfo
-  title="Lead (To Customer) Ratio"
-  icon="calendar"
-  color="primary"
-  value={data.leadToCustomerRatio}
-  com=":1"
-> 
+                  </div>
 
-<Link>
-</Link>
-
-:1</CardInfo>
+                </div>
+              </div>
+            </div>
 
 
 
-<CardInfo
-  title="Lead (To Qualified Lead) Ratio"
-  icon="calendar"
-  color="primary"
-  value={data.leadToQualifiedLeadRatio}
-  com=":1"
-> 
-<Link>
-</Link>
-:1
-</CardInfo>
+          </>)}
 
 
 
-<CardInfo
-  title="Lead(To Opportunity Ratio)In Percent"
-  icon="calendar"
-  color="primary"
-  value={data.leadToOpportunityRatioInPercent}
-  com="%"
->%</CardInfo>
+        </>
 
-<CardInfo
-  title="Opportunity (To Win Ratio) In Percent"
-  icon="calendar"
-  color="primary"
-  value={data.opportunityToWinRatioInPercent}
-  com="%"
->%</CardInfo>
+      )}
 
-<CardInfo
-  title="Leads"
-  icon="calendar"
-  color="primary"
-  value={data.leads}
-/>
-<CardInfo
-  title="Opportunitties"
-  icon="calendar"
-  color="success"
-  value={data.opportunities}
-/>
 
-<CardInfo
-  title="Negotiation"
-  icon="calendar"
-  color="dark"
-  value={data.negotiation}
-/>
-
-<CardInfo title="Wins" icon="clipboard" color="info" value={data.wins} />
-
-<CardInfo
-  title="Loses"
-  icon="comments"
-  color="danger"
-  value={data.loses}
-
-/>
-
-</div>
-</>)}
-
-         
-       
-          </>
-
-        )}
-    
-       
-      </>
-    );
-  }
+    </>
+  );
+}
 export default Dashboard;

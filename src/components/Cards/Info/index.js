@@ -6,7 +6,7 @@ class CardInfo extends Component {
         this.state = {
             value: this.props.value,
             title: this.props.title,
-            icon: 'fas fa-calendar fa-2x text-gray-300',
+            icon: 'fas fa-calendar fa-2x text-gray-200',
             color: 'primary',
             cardClass: '',
             titleClass:'',
@@ -15,14 +15,14 @@ class CardInfo extends Component {
     }
 
     componentDidMount() {
-        this.setState({cardClass: `card border-left-${this.props.color} shadow h-100 py-2`})
-        this.setState({icon: `fas fa-${this.props.icon} fa-2x text-gray-300`})
+        this.setState({cardClass: `card border-left-${this.props.color} shadow h-200 `})
+        this.setState({icon: `fas fa-${this.props.icon} fa-2x text-gray-200`})
         this.setState({titleClass: `text-xs font-weight-bold text-${this.props.color} text-uppercase mb-1`})
     }
 
     render() {
         return (
-            <div className="col-xl-2 col-md-4 mb-4">
+            <div className="col-xl-10 col-md-4 mb-2">
                 <div className={this.state.cardClass}>
                     <div className="card-body">
                         <div className="row no-gutters align-items-center">

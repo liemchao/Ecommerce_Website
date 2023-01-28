@@ -144,7 +144,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -158,7 +160,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -170,7 +174,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -182,7 +188,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -208,7 +216,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -220,7 +230,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -232,7 +244,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -244,7 +258,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -256,7 +272,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -268,7 +286,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -281,7 +301,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>
@@ -293,7 +315,9 @@ export default function KPIUpdate(rowData) {
                                            <div className="col-sm-9 text-secondary">
                                             <InputText
                                                 id="phone"
-                                                type="text"
+                                                type="number"
+                                                min={1}
+                                                max={600000}
                                                 required
                                             />
                                             </div>

@@ -306,6 +306,13 @@ const getNameLead = (id) => {
 });
 };
 
+const getProfile = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/profile`,{
+  headers: authHeader(),
+});
+};
+
+
 
 const getProvie = () => {
   return axios.get(`https://vapi.vnappmob.com/api/province`
@@ -651,6 +658,7 @@ export default {
 
   //Get Employee Detail
   getOppEm,
+  getProfile,
   getAppointmEm,
   getLeadEm,
   getTaskEm,

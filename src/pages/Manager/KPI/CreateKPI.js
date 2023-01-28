@@ -68,29 +68,18 @@ export default function ProductCreate({ refreshList }) {
     <div>
     
      
-        <h3>Add Template KPI</h3>
+        <h3>Add  KPI Template</h3>
         <div className="p-fluid p-formgrid p-grid" style={{marginLeft:"30%"}}>
           {/* Name */}
-          <div className="p-field p-col-12 p-md-6">
-           <label htmlFor="role">Frequency Of Create:</label><br></br>
-            <select
-              onChange={(e) => setProduct({ ...Product, direction:e.target.selectedOptions[0].text })}
-            >
-              <option hidden selected>Select-Frequency Of Create</option>
-              <option  >One Week</option>
-             
-             
-              
-            </select>
-          </div>
-
-
-           {/* Name */}
+     
+        
            <div style={{marginRight:"10%"}} className="p-field p-col-12 p-md-6" >
-            <label htmlFor="name">Expected Call</label>
+            <label htmlFor="name">No. Expected Call</label>
             <InputText
               id="email"
-              type="email"
+              type="number"
+              min={1}
+              max={600000}
               required
               onChange={(e) => setProduct({ ...Product, email: e.target.value })}
             />
@@ -98,10 +87,12 @@ export default function ProductCreate({ refreshList }) {
 
            {/* Name */}
            <div className="p-field p-col-12 p-md-6">
-            <label htmlFor="name">Expected Meeting</label>
+            <label htmlFor="name">No. Expected Meeting</label>
             <InputText
               id="phone"
-              type="phone"
+              type="number"
+              min={1}
+              max={600000}
               required
               onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
             />
@@ -109,40 +100,48 @@ export default function ProductCreate({ refreshList }) {
 
 
           <div style={{marginRight:"10%"}} className="p-field p-col-12 p-md-6" >
-            <label htmlFor="name">Expected New Lead</label>
+            <label htmlFor="name">No. Expected New Lead</label>
             <InputText
               id="email"
-              type="email"
+              type="number"
+              min={1}
+              max={600000}
               required
               onChange={(e) => setProduct({ ...Product, email: e.target.value })}
             />
           </div><br></br>
 
           <div style={{marginRight:"10%"}} className="p-field p-col-12 p-md-6" >
-            <label htmlFor="name">Expected Lead Convert</label>
+            <label htmlFor="name">No. Expected Lead Convert</label>
             <InputText
               id="email"
-              type="email"
+              type="number"
+              min={1}
+              max={600000}
               required
               onChange={(e) => setProduct({ ...Product, email: e.target.value })}
             />
           </div><br></br>
 
           <div style={{marginRight:"10%"}} className="p-field p-col-12 p-md-6" >
-            <label htmlFor="name">Expected Sales</label>
+            <label htmlFor="name">No. Expected Sales</label>
             <InputText
               id="email"
-              type="email"
+              type="number"
+              min={1}
+              max={600000}
               required
               onChange={(e) => setProduct({ ...Product, email: e.target.value })}
             />
           </div><br></br>
 
           <div style={{marginRight:"10%"}} className="p-field p-col-12 p-md-6" >
-            <label htmlFor="name">Expected Revenue</label>
+            <label htmlFor="name">No. Expected Revenue</label>
             <InputText
               id="email"
-              type="email"
+              type="number"
+              min={1}
+              max={600000}
               required
               onChange={(e) => setProduct({ ...Product, email: e.target.value })}
             />

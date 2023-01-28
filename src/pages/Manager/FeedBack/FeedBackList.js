@@ -109,9 +109,8 @@ const FeedBackList = () => {
               state: rowData,
             }}
           >
-           <Button style={{marginLeft:"-20%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+           <Button style={{marginLeft:"30%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
-          <AccountUpdate rowData={rowData} refreshList={refreshList} />
         </div>
       );
     };

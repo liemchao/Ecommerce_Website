@@ -157,16 +157,16 @@ const AccountList = () => {
             state: rowData,
           }}
         >
-            <Button  style={{marginLeft:"18%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
+            <Button  style={{marginLeft:"40%"}}> <FontAwesomeIcon icon={faFileMedicalAlt} /></Button>
         </Link>
        
-        { rowData.status === "Activated" ? (<>
+        {/* { rowData.status === "Activated" ? (<>
           <Button style={{marginLeft:"2%"}} onClick={(e) => handleBan(e, rowData)} className="btn btn-danger"><FontAwesomeIcon icon={faBan} /></Button>
         </>):(<>
           <Button style={{marginLeft:"2%"}} onClick={(e) => handleRetore(e, rowData)} className="btn btn-dark"><FontAwesomeIcon icon={faTrashRestore} /></Button>
          </>)
 
-        }
+        } */}
       </div>
     );
   };

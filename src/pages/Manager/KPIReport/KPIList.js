@@ -9,7 +9,7 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import { faAdd, faClipboardList, faPenAlt } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
 
 
@@ -92,15 +92,25 @@ const LeadList = () => {
         <div className="row">
           {/* Detail */}
           <Link
-            style={{ paddingLeft: "5%" }}
+            style={{ paddingLeft: "5%" ,}}
             to={{
               pathname: "/Dashboard/Manager/KPIUpdate",
               state: rowData,
             }}
           >
-           <Button style={{marginLeft:"10%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+           <Button  style={{marginLeft:"360%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
-          {/* <AccountUpdate rowData={rowData} refreshList={refreshList} /> */}
+          <Link
+            style={{ paddingLeft: "5%" ,}}
+            to={{
+              pathname: "/Dashboard/Manager/UpdateKPI",
+              state: rowData,
+            }}
+          >
+           <Button className="btn btn-success" style={{marginLeft:"300%"}}> <FontAwesomeIcon icon={faPenAlt}/></Button>
+          </Link>
+          
+       
         </div>
       );
     };
@@ -123,11 +133,11 @@ const LeadList = () => {
 
   }
 
-  const dealValue = (rowData)=>{
+  const DayCreate = (rowData)=>{
     
-    let num = rowData.listedPrice
+    let num = rowData.startDate
     return(
-      <p className="badge badge-primary mr-2">{num.toLocaleString()}</p>
+      <p>{num.slice(0,10)}</p>
     )
   }
 
@@ -138,6 +148,23 @@ const LeadList = () => {
       <div>
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <PageHeading title="KPI List" />
+
+
+          <div style={{marginLeft:"80%", paddingLeft:"5%"}}className="d-sm-flex align-items-center justify-content-between">
+        
+        {/* Upload File Modal */}
+        <Link
+           
+            to={{
+              pathname: "/Dashboard/Manager/CreateKPI",
+            }}
+          >
+           <Button> <FontAwesomeIcon icon={faAdd}/> Add</Button>
+          </Link>
+        
+      
+        
+      </div>
           {/* <Button
     style={{ margin:0,float: "right"}}
     className="btn btn-primary" 
@@ -159,7 +186,7 @@ const LeadList = () => {
            <DataTable
            emptyMessage={ 
            <div style={{ textAlign: "center", fontSize: 30 }}>
-           <h1 className="badge badge-danger mr-2">No Opportunity Found</h1>
+           <h1 className="badge badge-danger mr-2">No KPI Found</h1>
          </div>
           }
            >
@@ -181,10 +208,7 @@ const LeadList = () => {
                 >
                   <Column header="No" field="indexNumber"/>
                   <Column header="Name" field="name"/>
-                  <Column header="Description" field="description"/>
-                  <Column header="FrequencyOfCreate" field="frequencyOfCreate"/>
-                  <Column header="Status" body={customStatus}/>
-                  <Column header="Action" body={customButton} />
+                  <Column style={{textAlign:"center"}} header="Action" body={customButton} />
 
                 
                 </DataTable>

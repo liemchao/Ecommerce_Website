@@ -223,38 +223,38 @@ const Sidebar = () => {
                  on
                 >
                   
-                  Opportunity  <FontAwesomeIcon icon={faTable}/>
+                  <FontAwesomeIcon icon={faTable}/> Opportunity  
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/AppointmentList">
-                  Appointment <FontAwesomeIcon icon={faCalendar}/>
+                <FontAwesomeIcon icon={faCalendar}/> Appointment 
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/LeadList">
-                  Lead <FontAwesomeIcon icon={faUserGear}/>
+                <FontAwesomeIcon icon={faUserGear}/> Lead 
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductList">
-                  Product <FontAwesomeIcon icon={faHome}/>
+                <FontAwesomeIcon icon={faHome}/> Product 
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/ProductOwerList">
-                  Product Owner <FontAwesomeIcon icon={faUserAstronaut}/>
+                <FontAwesomeIcon icon={faUserAstronaut}/> Product Owner 
                 </Link>
                 
                 <Link className="collapse-item" to="/Dashboard/Manager/FeedBackList">
-                  FeedBack <FontAwesomeIcon icon={faStar}/>
+                <FontAwesomeIcon icon={faStar}/> FeedBack 
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/TaskList">
-                  Task <FontAwesomeIcon icon={faTasks}/>
+                <FontAwesomeIcon icon={faTasks}/> Task 
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/AccountList">
-                  Customer <FontAwesomeIcon icon={faUserFriends}/>
+                <FontAwesomeIcon icon={faUserFriends}/> Customer 
                 </Link>
 
                 <Link className="collapse-item" to="/Dashboard/Manager/EmployeeList">
-                  Employee <FontAwesomeIcon icon={faUserCircle}/>
+                <FontAwesomeIcon icon={faUserCircle}/> Employee 
                 </Link>
                 <Link className="collapse-item" to="/Dashboard/Manager/KPIList">
-                  KPI <FontAwesomeIcon icon={faFileArchive}/>
+                <FontAwesomeIcon icon={faFileArchive}/> KPI 
                 </Link>
 
 

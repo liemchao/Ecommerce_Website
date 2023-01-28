@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 
 import PageHeading from "../../../components/PageHeading";
 // import ApiService from "../../../api/ApiService";
@@ -125,7 +127,7 @@ const AccountDetail = () => {
                           <h6 className="mb-0 font-weight-bold">Status:</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {account.status=="Actived" ? (
+                          {account.status=="Activated" ? (
                             <div className="badge badge-primary mr-2">
                               Active
                             </div>
@@ -144,6 +146,16 @@ const AccountDetail = () => {
           </div>
         </div>
       )}
+       <div>
+        <Link 
+        to="/Dashboard/Admin/AccountList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} />  Back to
+           
+         </Button>
+        </Link>
+      </div>
     </div>
   );
 };
