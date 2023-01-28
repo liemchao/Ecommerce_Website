@@ -21,7 +21,51 @@ const Topbar = () => {
   const [readno, setRead] = useState();
 
 
+  async function getAppointmentExp() {
+  
 
+    await ApiService.getAppointmentExP()
+      .then((response) => {
+    
+   
+        setData(response);
+       
+      })
+      .catch((error) => {
+    
+      });
+  }
+
+  async function getAppointmentExp() {
+  
+
+    await ApiService.getAppointmentExP()
+      .then((response) => {
+    
+   
+        setData(response);
+       
+      })
+      .catch((error) => {
+    
+      });
+  }
+
+
+  async function addKPI() {
+  
+
+    await ApiService.AddKPI()
+      .then((response) => {
+    
+   
+        setData(response);
+       
+      })
+      .catch((error) => {
+    
+      });
+  }
 
   async function getNoti() {
 
@@ -57,11 +101,46 @@ const Topbar = () => {
     toast("You Have Notification !")
    }
    
- 
-
 
   
   }, []);
+
+
+  useEffect(() => {
+    if(user.role=="Manager"){
+ 
+     setInterval(() => {
+      addKPI() 
+     }, 500000);
+    }
+    
+   }, []);
+
+
+  //  useEffect(() => {
+  //   if(user.role=="Manager"){
+ 
+  //    setInterval(() => {
+  //     getAppointmentExp() 
+  //    }, 50000);
+  //   }
+    
+  //  }, []);
+
+  //  useEffect(() => {
+  //   if(user.role=="Manager"){
+ 
+  //    setInterval(() => {
+  //     getAppointmentExp() 
+  //    }, 50000);
+  //    toast("You Have Notification !")
+  //   }
+    
+ 
+   
+  //  }, []);
+
+  
   
 
 

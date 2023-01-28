@@ -191,6 +191,17 @@ const createProductOwer = (data) => {
     headers: authHeader(),
   });
  };
+ const getAppointmentExP = () => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/Appointment/appointment/expire`,{
+    headers: authHeader(),
+  });
+ };
+
+ const AddKPI = () => {
+  return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/add`,{
+    headers: authHeader(),
+  });
+ };
 
 // const changeProductStatus = (id, data) => {
 //   return axios.get(`https://dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account/`, {
@@ -666,7 +677,8 @@ export default {
   getKPI,
   getAnalazyLocation,
   getKIPreport,
-
+  getAppointmentExP,
+  AddKPI,
   
  
 };

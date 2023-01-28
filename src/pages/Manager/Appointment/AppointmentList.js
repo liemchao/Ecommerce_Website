@@ -30,6 +30,7 @@ const AppointmentList = () => {
   const [errMsg, setErrMsg] = useState("");
   const [loadingData, setLoadingData] = useState(true);
   const [totalRecords, setTotalRecords] = useState();
+  const [exp, setExp] = useState();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,6 +71,9 @@ const AppointmentList = () => {
         }
       });
   }
+
+
+  
 
   useEffect(() => {
     getAppointmentList();
