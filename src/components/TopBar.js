@@ -97,7 +97,7 @@ const Topbar = () => {
 
     setInterval(() => {
       getNoti()
-    }, 5000);
+    }, 60000);
     toast("You Have Notification !")
    }
    
@@ -111,21 +111,21 @@ const Topbar = () => {
  
      setInterval(() => {
       addKPI() 
-     }, 500000);
+     }, 5000000);
     }
     
    }, []);
 
 
-  //  useEffect(() => {
-  //   if(user.role=="Manager"){
+   useEffect(() => {
+    if(user.role=="Manager"){
  
-  //    setInterval(() => {
-  //     getAppointmentExp() 
-  //    }, 50000);
-  //   }
+     setInterval(() => {
+      getAppointmentExp() 
+     }, 50000);
+    }
     
-  //  }, []);
+   }, []);
 
   //  useEffect(() => {
   //   if(user.role=="Manager"){
