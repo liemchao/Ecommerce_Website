@@ -9,8 +9,9 @@ import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faClipboardList, faPenAlt } from '@fortawesome/free-solid-svg-icons'
+import { faAdd, faClipboardList, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+
 
 
 const LeadList = () => {
@@ -100,17 +101,6 @@ const LeadList = () => {
           >
            <Button  style={{marginLeft:"360%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
-          <Link
-            style={{ paddingLeft: "5%" ,}}
-            to={{
-              pathname: "/Dashboard/Manager/UpdateKPI",
-              state: rowData,
-            }}
-          >
-           <Button className="btn btn-success" style={{marginLeft:"300%"}}> <FontAwesomeIcon icon={faPenAlt}/></Button>
-          </Link>
-          
-       
         </div>
       );
     };
@@ -146,11 +136,11 @@ const LeadList = () => {
     <>
       {/* New DataTable */}
       <div>
-        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+        <div className="d-sm-flex align-items-center justify-content-between mb-2">
           <PageHeading title="KPI List" />
 
 
-          <div style={{marginLeft:"80%", paddingLeft:"5%"}}className="d-sm-flex align-items-center justify-content-between">
+          <div className="d-sm-flex align-items-center justify-content-between">
         
         {/* Upload File Modal */}
         <Link
@@ -159,8 +149,17 @@ const LeadList = () => {
               pathname: "/Dashboard/Manager/CreateKPI",
             }}
           >
-           <Button> <FontAwesomeIcon icon={faAdd}/> Add</Button>
+           <Button  style={{marginLeft:"-10%"}}> <FontAwesomeIcon icon={faAdd}/> Add Template</Button>
           </Link>
+
+          <Link 
+           
+           to={{
+             pathname: "/Dashboard/Manager/CreateKPI",
+           }}
+         >
+          <Button style={{marginLeft:"-1%"}}> <FontAwesomeIcon icon={faEdit}/> Update Template</Button>
+         </Link>
         
       
         
