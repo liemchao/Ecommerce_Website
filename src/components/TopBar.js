@@ -106,26 +106,26 @@ const Topbar = () => {
   }, []);
 
 
-  useEffect(() => {
-    if(user.role=="Manager"){
+  // useEffect(() => {
+  //   if(user.role=="Manager"){
  
-     setInterval(() => {
-      addKPI() 
-     }, 5000000);
-    }
+  //    setInterval(() => {
+  //     addKPI() 
+  //    }, 5000000);
+  //   }
     
-   }, []);
+  //  }, []);
 
 
-   useEffect(() => {
-    if(user.role=="Manager"){
+  //  useEffect(() => {
+  //   if(user.role=="Manager"){
  
-     setInterval(() => {
-      getAppointmentExp() 
-     }, 50000);
-    }
+  //    setInterval(() => {
+  //     getAppointmentExp() 
+  //    }, 50000);
+  //   }
     
-   }, []);
+  //  }, []);
 
   //  useEffect(() => {
   //   if(user.role=="Manager"){
