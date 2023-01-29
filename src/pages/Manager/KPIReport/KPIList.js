@@ -99,7 +99,7 @@ const LeadList = () => {
               state: rowData,
             }}
           >
-           <Button  style={{marginLeft:"360%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
+           <Button  style={{marginLeft:"440%"}}> <FontAwesomeIcon icon={faClipboardList}/></Button>
           </Link>
         </div>
       );
@@ -155,7 +155,8 @@ const LeadList = () => {
           <Link 
            
            to={{
-             pathname: "/Dashboard/Manager/CreateKPI",
+             pathname: "/Dashboard/Manager/UpdateKPI",
+             
            }}
          >
           <Button style={{marginLeft:"-1%"}}> <FontAwesomeIcon icon={faEdit}/> Update Template</Button>
