@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ApiService from "../../../api/apiService";
+
 import PageHeading from "../../../components/PageHeading";
-import { InputText } from "primereact/inputtext";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave} from '@fortawesome/free-solid-svg-icons'
-
-import { Button } from "react-bootstrap";
 
 
-export default function KPIUpdate(rowData) {
+
+export default function KPIDetail(rowData) {
     const [loading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
@@ -52,7 +48,7 @@ export default function KPIUpdate(rowData) {
                             <h6 className="mb-0 font-weight-bold">Period: </h6>
                                            </div>
                                            <div className="col-sm-8 text-secondary">
-                                           <p>{KPI.startDate.slice(0, 10)}   -  {KPI.endDate.slice(0, 10)} </p>
+                                           <p>{KPI.startDate}   -  {KPI.endDate} </p>
                                             </div>
                                         </div><br></br>
 
@@ -180,7 +176,7 @@ export default function KPIUpdate(rowData) {
 </div>
                             </div>
 
-                            {/* User is recruit */}
+                          
                         </div>
                     </div>
                 </div>
@@ -188,35 +184,7 @@ export default function KPIUpdate(rowData) {
         </div>
 
 
-        //         <div className="row">
-        //             <div className="col-sm-3" />
-        //             <div className="col-sm-9 text-secondary">
-        //                 <button
-
-        //                    type="button" onClick={updateInfo}
-        //                     className="btn btn-primary px-4"
-        //                 >
-        //                     Save Changes
-        //                 </button>
-        //                  {/* Spinner */}
-        // {loading && (
-        //   <span className="spinner-border spinner-border-sm float-lg-right"></span>
-        // )}
-        // {/* Message after submit */}
-        // {errMsg && (
-        //   <span className="alert alert-danger float-lg-right" role="alert">
-        //     {errMsg}
-        //   </span>
-        // )}
-        // {successMsg && (
-        //   <span className="alert alert-success float-lg-right" role="alert">
-        //     {successMsg}
-        //   </span>
-        // )}
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
+       
 
     )
 }

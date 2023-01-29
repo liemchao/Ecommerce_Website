@@ -43,7 +43,7 @@ const FeedBackAppointment = React.lazy(() => import("./pages/Manager/FeedBack/Fe
 const KPItemplate = React.lazy(() => import("./pages/Manager/KPI/CreateKPI"))
 const UpdateKPItemplate = React.lazy(() => import("./pages/Manager/KPI/UpdateKPI"))
 const KPIlist = React.lazy(() => import("./pages/Manager/KPIReport/KPIList"))
-const KPIUpdate = React.lazy(() => import("./pages/Manager/KPIReport/UpdateKPI"))
+const DetailKPI = React.lazy(() => import("./pages/Manager/KPIReport/DetailKPI"))
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -86,7 +86,7 @@ const routes = [
   { path: "/Dashboard/Manager/CreateKPI", name: "CreateKPI", component: KPItemplate },
   { path: "/Dashboard/Manager/UpdateKPI", name: "UpdateKPI", component: UpdateKPItemplate },
   { path: "/Dashboard/Manager/KPIList", name: "KPIList", component: KPIlist },
-  { path: "/Dashboard/Manager/KPIUpdate", name: "KPIUpdate", component: KPIUpdate },
+  { path: "/Dashboard/Manager/DetailKPI", name: "KPIUpdate", component: DetailKPI },
 
 
 ];

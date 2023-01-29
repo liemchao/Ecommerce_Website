@@ -95,7 +95,7 @@ const LeadList = () => {
           <Link
             style={{ paddingLeft: "5%" ,}}
             to={{
-              pathname: "/Dashboard/Manager/KPIUpdate",
+              pathname: "/Dashboard/Manager/DetailKPI",
               state: rowData,
             }}
           >
