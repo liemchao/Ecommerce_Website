@@ -73,6 +73,12 @@ const createLead = (data) => {
   });
 };
 
+const createKPI = (data) => {
+  return axios.post(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template/add`,data, {
+    headers: authHeader(),
+  });
+};
+
 const getAccountCustomer = (currentPage,rows,query) => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/CustomerAccount/customer-account?pageNumber=${currentPage}&pageSize=${rows}&searchString=${query}`, {
     headers: authHeader(),
@@ -551,6 +557,12 @@ const updateProFile = (data) => {
   });
 };
 
+const UpdateKPItemplate = (data) => {
+  return axios.put(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template/update`,data, {
+    headers: authHeader(),
+  });
+};
+
 //KPI
 const getKPI = () => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template`, {
@@ -561,6 +573,12 @@ const getKPI = () => {
 
 const getKPIPerformance = () => {
   return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/performance-report`,{
+  headers: authHeader(),
+});
+};
+
+const getKPItemplate = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/template`,{
   headers: authHeader(),
 });
 };
@@ -678,7 +696,10 @@ export default {
   getAnalazyLocation,
   getKIPreport,
   getAppointmentExP,
+  getKPItemplate,
   AddKPI,
+  createKPI,
+  UpdateKPItemplate,
   
  
 };

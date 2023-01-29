@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 
 const LandingPage = (rowData) => {
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const [picture, setPicture] = useState({});
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -29,7 +29,7 @@ const LandingPage = (rowData) => {
     const data = await fetch("https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-product-image", {
       method: "post",
       headers: { 
-      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImRkNjM3ZjgyLWY5ZGQtNDQ4YS1iNDRhLTdkNGY5YzI0NzFhNCIsIkVtYWlsQWRyZXNzIjoibWFuYWdlckBnbWFpbC5jb20iLCJTdGF0dXMiOiJBY3RpdmF0ZWQiLCJSb2xlIjoiTWFuYWdlciIsIm5iZiI6MTY3MjAyNjcxNiwiZXhwIjoxNjc0NjE4NzE2LCJpYXQiOjE2NzIwMjY3MTZ9.IyesJccj0zl11M-MBgXQEK-j360WcEk9OyJctTldp9w" },
+      "Authorization":user.token},
       body: formData
     });
 

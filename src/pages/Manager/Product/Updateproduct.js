@@ -13,7 +13,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [Product, setProduct] = useState("");
   const [picture, setPicture] = useState({});
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
   const [errMsg, setErrMsg] = useState("");
@@ -24,8 +24,6 @@ export default function ProductUpdate({ rowData, refreshList }) {
   const [direc, setDirec]= useState([]);
   const [test, Setest]= useState('1');
   const [provice, setProvice]= useState([]);
-  const [image, setImage]= useState([]);
-
 
 
   async function getOwer() {
@@ -200,6 +198,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
   };
 
   useEffect(() => {
+
     getDirc();
   }, [test]);
 
@@ -246,7 +245,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
     const data = await fetch("https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-product-image", {
       method: "post",
       headers: { 
-      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImRkNjM3ZjgyLWY5ZGQtNDQ4YS1iNDRhLTdkNGY5YzI0NzFhNCIsIkVtYWlsQWRyZXNzIjoibWFuYWdlckBnbWFpbC5jb20iLCJTdGF0dXMiOiJBY3RpdmF0ZWQiLCJSb2xlIjoiTWFuYWdlciIsIm5iZiI6MTY3MjAyNjcxNiwiZXhwIjoxNjc0NjE4NzE2LCJpYXQiOjE2NzIwMjY3MTZ9.IyesJccj0zl11M-MBgXQEK-j360WcEk9OyJctTldp9w" },
+      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImRkNjM3ZjgyLWY5ZGQtNDQ4YS1iNDRhLTdkNGY5YzI0NzFhNCIsIkVtYWlsQWRyZXNzIjoibWFuYWdlckBnbWFpbC5jb20iLCJTdGF0dXMiOiJBY3RpdmF0ZWQiLCJSb2xlIjoiTWFuYWdlciIsIm5iZiI6MTY3NDk5NzQyNCwiZXhwIjoxNjc3NTg5NDI0LCJpYXQiOjE2NzQ5OTc0MjR9.xOyFn16aJWrXHxtzfSZUU5uwpKY8suBqYQLSDxMsKyY" },
       body: formData
     });
 

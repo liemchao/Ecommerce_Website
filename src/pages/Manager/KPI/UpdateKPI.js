@@ -1,41 +1,58 @@
-import React, { useState } from "react";
-
-
+import React, { useState,useEffect } from "react";
 import { InputText } from "primereact/inputtext";
 // import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
-
+import { Link } from "react-router-dom";
 import ApiService from "../../../api/apiService";
 
-export default function ProductCreate({ refreshList }) {
+export default function ProductUpdate() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const [Product, setProduct] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    isDelete: true,
-  });
+  const [KPI, setKPI] = useState({});
+  async function getKPI() {
 
-  async function createProduct() {
+    await ApiService.getKPI()
+      .then((response) => {
+        setKPI(response.data.data)  
+      })
+      .catch((error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setErrMsg(resMessage);
+       
+      });
+  }
+  useEffect(() => {
+    getKPI();
+  }, []);
+
+  async function UpdateKPItemplate() {
     setLoading(true);
 
-    let createData = {
-      name: Product.name,
-      email: Product.email,
-      phone: Product.phone,
-      isDelete: true,
-
-
+    let update = {
+      id:KPI.id,
+      frequencyOfCreate:1,
+      expectedCall:parseInt(KPI.expectedCall),
+      expectedMeeting:parseInt(KPI.expectedMeeting),
+      expectedNewLead:parseInt(KPI.expectedNewLead),
+      expectedLeadConvert:parseInt(KPI.expectedLeadConvert),
+      expectedSales:parseInt(KPI.expectedSales),
+      expectedRevenue:parseInt(KPI.expectedRevenue)
     };
-    console.log(createData);
-    await ApiService.createProductOwer(createData)
+    console.log(update)
+    await ApiService.UpdateKPItemplate(update)
       .then((response) => {
-        console.log(response);
-        setSuccessMsg("Create successfully!");
+        setSuccessMsg("Update KPI successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -51,24 +68,18 @@ export default function ProductCreate({ refreshList }) {
       });
   }
 
-  const handleclose = () => {
-    setErrMsg("");
-    setSuccessMsg("");
-    setModalIsOpen(false);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createProduct();
+   UpdateKPItemplate();
     setErrMsg("")
     setSuccessMsg("")
   };
 
   return (
     <div>
+{loading?(<><p>Loading Data</p></>):(<>
 
-
-      <h3>Update KPI Template</h3>
+  <h3>Update KPI Template</h3>
       <div className="p-fluid p-formgrid p-grid" style={{ marginLeft: "30%" }}>
     
     
@@ -79,9 +90,10 @@ export default function ProductCreate({ refreshList }) {
             id="email"
             type="number"
             min={1}
+            defaultValue={KPI.expectedCall}
             max={600000}
             required
-            onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+            onChange={(e) => setKPI({ ...KPI, expectedCall: e.target.value })}
           />
         </div><br></br>
 
@@ -91,11 +103,12 @@ export default function ProductCreate({ refreshList }) {
           <InputText
             id="phone"
             type="number"
+            defaultValue={KPI.expectedMeeting}
             min={1}
             max={600000}
 
             required
-            onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
+            onChange={(e) => setKPI({...KPI, expectedMeeting: e.target.value })}
           />
         </div><br></br>
 
@@ -107,8 +120,9 @@ export default function ProductCreate({ refreshList }) {
             type="number"
             min={1}
             max={600000}
+            defaultValue={KPI.expectedNewLead}
             required
-            onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+            onChange={(e) => setKPI({...KPI, expectedNewLead: e.target.value })}
           />
         </div><br></br>
 
@@ -117,10 +131,11 @@ export default function ProductCreate({ refreshList }) {
           <InputText
             id="email"
             type="number"
+            defaultValue={KPI.expectedLeadConvert}
             min={1}
             max={600000}
             required
-            onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+            onChange={(e) => setKPI({...KPI, expectedLeadConvert: e.target.value })}
           />
         </div><br></br>
 
@@ -129,11 +144,12 @@ export default function ProductCreate({ refreshList }) {
           <InputText
             id="email"
             type="number"
+            defaultValue={KPI.expectedSales}
             min={1}
             max={600000}
             required
-            onChange={(e) => setProduct({ ...Product, email: e.target.value })}
-          />
+            onChange={(e) => setKPI({...KPI, expectedSales: e.target.value })}
+            />
         </div><br></br>
 
         <div style={{ marginRight: "10%" }} className="p-field p-col-12 p-md-6" >
@@ -141,22 +157,30 @@ export default function ProductCreate({ refreshList }) {
           <InputText
             id="email"
             type="number"
+            defaultValue={KPI.expectedRevenue}
             min={1}
             max={600000}
             required
-            onChange={(e) => setProduct({ ...Product, email: e.target.value })}
-          />
+            onChange={(e) => setKPI({...KPI, expectedRevenue: e.target.value })}
+            />
         </div><br></br>
 
 
       </div>
 
+      <Link
+      to={{
+        pathname: "/Dashboard/Manager/KPIList",
+      }}
+      
+      >
       <Button
-        type="button"
-        label="Close"
-        onClick={() => handleclose()}
-        style={{ marginLeft: "40%" }}
-      />
+          type="button"
+          label="Close"
+        
+          style={{marginLeft:"40%"}}
+        />
+      </Link>
       <Button type="button" onClick={handleSubmit}
         style={{ marginLeft: "5%" }}>
 
@@ -177,6 +201,9 @@ export default function ProductCreate({ refreshList }) {
           {successMsg}
         </span>
       )}
+</>)}
+
+      
     </div>
   );
 }

@@ -1,41 +1,44 @@
 import React, {  useState } from "react";
-import Modal from "react-modal";
 
 import { InputText } from "primereact/inputtext";
 // import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 
 import ApiService from "../../../api/apiService";
+import { Link } from "react-router-dom";
 
-export default function ProductCreate({ refreshList }) {
+export default function KPITemplateCreate() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   
-  const [Product, setProduct] = useState({
-    name:"",
-    email:"",
-    phone:"",
-    isDelete:true,
+  const [KPI, setKPI] = useState({
+    frequencyOfCreate:1,
+    expectedCall:0,
+    expectedMeeting:0,
+    expectedNewLead:0,
+    expectedLeadConvert:0,
+    expectedSales:0,
+    expectedRevenue:0
   });
 
-  async function createProduct() {
+  async function CreateKPI() {
     setLoading(true);
 
     let createData = {
-    name:Product.name,
-    email:Product.email,
-    phone:Product.phone,
-    isDelete:true,
- 
-
+    frequencyOfCreate:KPI.frequencyOfCreate,
+    expectedCall:KPI.expectedCall,
+    expectedMeeting:KPI.expectedMeeting,
+    expectedNewLead:KPI.expectedNewLead,
+    expectedLeadConvert:KPI.expectedLeadConvert,
+    expectedSales:KPI.expectedSales,
+    expectedRevenue:KPI.expectedRevenue
     };
     console.log(createData);
-    await ApiService.createProductOwer(createData)
+    await ApiService.createKPI(createData)
       .then((response) => {
-        console.log(response);
-        setSuccessMsg("Create successfully!");
+        setSuccessMsg("Create KPI template successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -54,12 +57,11 @@ export default function ProductCreate({ refreshList }) {
   const handleclose=()=>{
     setErrMsg("");
     setSuccessMsg("");
-    setModalIsOpen(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createProduct();
+    CreateKPI();
     setErrMsg("")
     setSuccessMsg("")
   };
@@ -81,7 +83,7 @@ export default function ProductCreate({ refreshList }) {
               min={1}
               max={600000}
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setKPI({ ...KPI, expectedCall: e.target.value })}
             />
           </div><br></br>
 
@@ -94,7 +96,7 @@ export default function ProductCreate({ refreshList }) {
               min={1}
               max={600000}
               required
-              onChange={(e) => setProduct({ ...Product, phone: e.target.value })}
+              onChange={(e) => setKPI({...KPI, expectedMeeting: e.target.value })}
             />
           </div><br></br>
 
@@ -107,7 +109,7 @@ export default function ProductCreate({ refreshList }) {
               min={1}
               max={600000}
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setKPI({...KPI, expectedNewLead: e.target.value })}
             />
           </div><br></br>
 
@@ -119,7 +121,7 @@ export default function ProductCreate({ refreshList }) {
               min={1}
               max={600000}
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setKPI({...KPI, expectedLeadConvert: e.target.value })}
             />
           </div><br></br>
 
@@ -131,7 +133,7 @@ export default function ProductCreate({ refreshList }) {
               min={1}
               max={600000}
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setKPI({...KPI, expectedSales: e.target.value })}
             />
           </div><br></br>
 
@@ -143,19 +145,26 @@ export default function ProductCreate({ refreshList }) {
               min={1}
               max={600000}
               required
-              onChange={(e) => setProduct({ ...Product, email: e.target.value })}
+              onChange={(e) => setKPI({...KPI, expectedRevenue: e.target.value })}
             />
           </div><br></br>
 
           
         </div>
+      <Link
+      to={{
+        pathname: "/Dashboard/Manager/KPIList",
+      }}
       
-        <Button
+      >
+      <Button
           type="button"
           label="Close"
-          onClick={() =>  handleclose()}
+        
           style={{marginLeft:"40%"}}
         />
+      </Link>
+     
         <Button type="button" onClick={handleSubmit}
             style={{marginLeft:"5%"}}>
     
