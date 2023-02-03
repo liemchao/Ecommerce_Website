@@ -3,13 +3,11 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 
 // Containers
 const DashboardLayout = React.lazy(() => import("./layout/DefaultLayout"));
-const Verify = React.lazy(() => import("./pages/Confirmation/EmailVerify"));
 
 // Pages
 const LandingPage = React.lazy(() => import("./pages/Landing/Public/Public"));
 const Page404 = React.lazy(() => import("./pages/NotFound"));
 const LoginPage = React.lazy(() => import("./pages/Login/Login"));
-const VerifyPage = React.lazy(() => import("./pages/Confirmation/EmailVerify"));
 
 class App extends Component {
   render() {
@@ -43,11 +41,7 @@ class App extends Component {
               render={(props) => <LoginPage {...props} />
             }
             />
-            <Route
-              path="/Verify"
-              name="Verify"
-              render={(props) => <VerifyPage {...props} />}
-            />
+           
           </Switch>
         </React.Suspense>
       </HashRouter>
