@@ -25,6 +25,13 @@ const getAccountSystem = (currentPage,rows) => {
   });
 };
 
+const getAllAccountSystem = () => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account`, {
+    headers: authHeader(),
+  });
+};
+
+
 
 
 
@@ -106,6 +113,13 @@ const getAccountEmployee = (currentPage,rows,query) => {
     headers: authHeader(),
   });
 };
+
+const getEmployeeAccount = (currentPage,rows) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/SystemAccount/system-account?pageNumber=${currentPage}&pageSize=${rows}&filter=2%3B3`, {
+    headers: authHeader(),
+  });
+};
+
 
 
 const searchAccountSystem = (query) => {
@@ -700,6 +714,7 @@ export default {
   AddKPI,
   createKPI,
   UpdateKPItemplate,
-  
+  getEmployeeAccount,
+  getAllAccountSystem,
  
 };

@@ -19,6 +19,7 @@ const Topbar = () => {
   const [data, setData] = useState([]);
   const [totalRecords, setTotalRecords] = useState();
   const [readno, setRead] = useState();
+  const [error , setErrMsg]= useState()
   const [statusEx, setStatusEx] = useState();
   const [statusAdd, setStatusAdd] = useState();
 
@@ -30,6 +31,7 @@ const Topbar = () => {
       .then((response) => {
     
         setStatusEx(response)
+        setErrMsg(error)
       
        
       })
@@ -48,6 +50,7 @@ const Topbar = () => {
        
       })
       .catch((error) => {
+        setErrMsg(error)
     
       });
   }
@@ -78,16 +81,8 @@ const Topbar = () => {
       })
       .catch((error) => {
         if (error.response) {
-          // get response with a status code not in range 2xx
-       
-        } else if (error.request) {
-          // no response
-        
-        } else {
-          // Something wrong in setting up the request
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
+          setErrMsg(error)         
+        }    
       });
   }
 

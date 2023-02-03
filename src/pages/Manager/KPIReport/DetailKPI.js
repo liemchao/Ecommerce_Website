@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import PageHeading from "../../../components/PageHeading";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 
 export default function KPIDetail(rowData) {
@@ -181,10 +185,19 @@ export default function KPIDetail(rowData) {
                     </div>
                 </div>
             )}
+             <div>
+        <Link 
+        to="/Dashboard/Manager/KPIList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
         </div>
+        
 
-
-       
 
     )
 }

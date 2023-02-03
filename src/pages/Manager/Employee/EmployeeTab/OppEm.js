@@ -74,8 +74,19 @@ const OpportunityEmList = ({ rowData }) => {
     const customStatus = (rowData) => {
       if(rowData.opportunityStatus=="New"){
         return <div className="badge badge-primary mr-2">{rowData.opportunityStatus}</div>;
-      }else{
+      }
+      if(rowData.opportunityStatus=="Lost"){
+        return <div className="badge badge-danger mr-2">{rowData.opportunityStatus}</div>;
+      }
+      if(rowData.opportunityStatus=="Reservations"){
+        return <div className="badge badge-info mr-2">{rowData.opportunityStatus}</div>;
+      }
+      if(rowData.opportunityStatus=="Under review"){
         return <div className="badge badge-success mr-2">{rowData.opportunityStatus}</div>;
+      }
+      
+      else{
+        return <div className="badge badge-warning mr-2">{rowData.opportunityStatus}</div>;
       }
     }
 
@@ -101,6 +112,8 @@ const OpportunityEmList = ({ rowData }) => {
                             value={data}
                             loading={loadingData}
                             responsiveLayout="scroll"
+                            rowHover={true}
+
                         >
                             <Column header="No" field="indexNumber" />
                             <Column header="Name" field="name" />

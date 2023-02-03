@@ -186,7 +186,7 @@ const AccountDetail = () => {
       )}
        <div>
         <Link 
-        to="/Dashboard/Manager/AppointmentList"
+        to="/Dashboard/Manager/AccountList"
         >
          <Button style={{marginTop:"2%"}}>
           <FontAwesomeIcon icon={faStepBackward} /> Back to

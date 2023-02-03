@@ -8,10 +8,16 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Paginator } from "primereact/paginator";
 import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
+import { CSVLink } from "react-csv";
+import { faDownload} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import 'primeflex/primeflex.css';
+import 'primereact/resources/themes/saga-blue/theme.css'
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
 
 const LeadList = () => {
   const [data, setData] = useState([]);
@@ -107,14 +113,26 @@ const LeadList = () => {
 
   const customStatus = (rowData) => {
     if(rowData.opportunityStatus=="New"){
-      return <div className="badge badge-warning mr-2">{rowData.opportunityStatus}</div>;
-    }else{
+      return <div className="badge badge-primary mr-2">{rowData.opportunityStatus}</div>;
+    }
+    if(rowData.opportunityStatus=="Lost"){
+      return <div className="badge badge-danger mr-2">{rowData.opportunityStatus}</div>;
+    }
+    if(rowData.opportunityStatus=="Reservations"){
+      return <div className="badge badge-info mr-2">{rowData.opportunityStatus}</div>;
+    }
+    if(rowData.opportunityStatus=="Under review"){
       return <div className="badge badge-success mr-2">{rowData.opportunityStatus}</div>;
+    }
+    
+    else{
+      return <div className="badge badge-warning mr-2">{rowData.opportunityStatus}</div>;
     }
   }
   const notFound =()=>{
     return <div className="badge badge-danger mr-2">Not Found</div>;
   }
+  
 
 
   const handleSearch = (e) =>{
@@ -141,8 +159,8 @@ const LeadList = () => {
           {/* <Button
     style={{ margin:0,float: "right"}}
     className="btn btn-primary" 
->  Generate Excel</Button> */}
-{/* <CSVLink   style={{ margin:0,float: "right"}}  data={data} filename="Opportunity"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink> */}
+>  Generate Excel</Button>  */}
+ {/* <CSVLink  style={{ margin:0,float: "right" , opacity:0}}  data={data} filename="Opportunity"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink> */}
         
         </div> 
         <div className="row">
@@ -176,20 +194,20 @@ const LeadList = () => {
                   value={data}
                   loading={loadingData}
                   responsiveLayout="scroll"
-                  rowHover={true}
-                  
+                  rowHover={true}          
                 >
                   <Column header="No" field="indexNumber"/>
-                  <Column header="Name" field="name"/>
-                  <Column header="Description" field="description"/>
-                  <Column header="Deal Value" body={dealValue}/>
-                  <Column header="Status" body={customStatus}/>
+                  <Column header="Name"  filterPlaceholder="Search by name" field="name"/>
+                  <Column header="Description"  field="description"/>
+                  <Column header="Deal Value"  body={dealValue}/>
+                  <Column header="Status"   body={customStatus}/>
                   <Column header="Action" body={customButton} />
 
                 
                 </DataTable>
                 <Paginator
                   paginator
+
                   // template={template}
                   first={first}
                   rows={rows}

@@ -97,6 +97,7 @@ const FavoirteList = ({ rowData }) => {
                     loading={loadingData}
                     responsiveLayout="scroll"
                     responsive="true"
+                    rowHover={true}
                   >
                     <Column style={{ width: "10%" }} header="No" field="indexNumber" />
                     <Column style={{ paddingRight: 2, paddingLeft: 3, width: "19%" }} header="Product Name" body={ProductName} />

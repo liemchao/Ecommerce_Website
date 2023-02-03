@@ -101,6 +101,8 @@ const OpportunityCustomerList = ({ rowData }) => {
                             value={data}
                             loading={loadingData}
                             responsiveLayout="scroll"
+                            rowHover={true}
+s
                         >
                             <Column header="No" field="indexNumber" />
                             <Column header="Name" field="name" />

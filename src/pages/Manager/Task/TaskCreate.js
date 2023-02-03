@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PageHeading from "../../../components/PageHeading";
 import ApiService from "../../../api/apiService";
 import { DataTable } from "primereact/datatable";
@@ -9,6 +9,7 @@ import { Button  } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -235,7 +236,7 @@ useEffect(() => {
               <label htmlFor="name">Task Name</label>
                <input onChange={(e) => setName(e.currentTarget.value)} ></input>
                 </div>
-
+                <PageHeading title="List Employee" />
                 <DataTable     style={{overflow:"scroll",maxHeight: "27rem"}}
                   value={data1}
                   loading={loadingData}
@@ -266,6 +267,7 @@ useEffect(() => {
 
 
             <div className="col-lg-7">
+            <PageHeading title="List Customer" />
               <div className="card">
 
               <div className="container-fluid">
@@ -296,6 +298,16 @@ useEffect(() => {
           </div>
         </div>
       )}
+             <div>
+        <Link 
+        to="/Dashboard/Manager/TaskList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
     </div>
   );
 };

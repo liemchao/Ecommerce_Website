@@ -8,7 +8,7 @@ const Analazycustomer = ({ rowData }) => {
       
         <div className="row">
         <div className="col-xl-6 col-lg-6">
-              <ChartCategoryBar />
+              <ChartCategoryBar/>
             </div>
             <div className="col-xl-6 col-lg-6">
               <ChartLocationBar/>

@@ -1,14 +1,15 @@
 import React, {  useState } from "react";
 
 import { InputText } from "primereact/inputtext";
-// import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 
 import ApiService from "../../../api/apiService";
 import { Link } from "react-router-dom";
-
+import 'primeflex/primeflex.css';
+import 'primereact/resources/themes/saga-blue/theme.css'
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
 export default function KPITemplateCreate() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");

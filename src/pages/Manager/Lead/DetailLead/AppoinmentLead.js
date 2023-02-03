@@ -118,6 +118,8 @@ const AppointLeadList = ({ rowData }) => {
                 loading={loadingData}
                 responsiveLayout="scroll"
                 responsive="true"
+                rowHover={true}
+
               >
                   <Column style={{ width: "10%" }}header="No" field="indexNumber" />
                   <Column header="Activity Type" field="activityType" />

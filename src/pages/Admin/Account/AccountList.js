@@ -51,13 +51,15 @@ const AccountList = () => {
         // check if the data is populated
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
+        let  counter = 10 * (currentPage-1)
         listDataSet.map((obj, index) => {
-          const count = ++index;
-          obj['indexNumber'] = count
-
+        
+          obj['indexNumber'] = (counter + ++index) 
+         
         })
-        setData(listDataSet);
         setTotalRecords(response.data.totalRow);
+
+        setData(listDataSet);
         setLoadingData(false)
       })
       .catch((error) => {
@@ -256,18 +258,7 @@ const AccountList = () => {
             setErrMsg(error.response.data)
 
           }
-          // if (error.response) {
-          //   faTableCellsLarge
-          //   setErrMsg(error.response.data)
-
-          // } else if (error.request) {
-          //   setErrMsg(error.response.data);
-
-          // } else {
-  
-          //   setErrMsg(error.response.data);
-          // }
-          // setErrMsg(error.response.data);
+         
         });
     }
 

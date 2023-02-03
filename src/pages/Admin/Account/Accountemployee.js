@@ -35,7 +35,7 @@ const AccountEmployeeList = () => {
 
 
   async function getAccountEmployee() {
-    await ApiService.getAccountEmployee(currentPage, rows)
+    await ApiService.getEmployeeAccount(currentPage, rows)
       .then((response) => {
         // check if the data is populated
         const dataRes = response.data.data

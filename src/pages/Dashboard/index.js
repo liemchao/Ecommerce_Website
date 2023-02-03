@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
 import CardInfo from "../../components/Cards/Info";
-// import ChartDonut from "../../components/Charts/Donut";
-// import ChartLine from "../../components/Charts/Line";
-// import Bar from "../../components/Charts/Bar"
+
 import PageHeading from "../../components/PageHeading";
-import { faIdCard } from '@fortawesome/free-solid-svg-icons'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { Link, Redirect } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import ApiService from "../../api/apiService";
 
-
+import { CSVLink } from "react-csv";
+import { faDownload} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Dashboard = () => {
+  const [dataaccount, setAccount] = useState([]);
+
   const [errMsg, setErrMsg] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
+  const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState([]);
-  const [file, setFile] = useState([]);
+  const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [ad, setAd] = useState();
+  const [em, setEm] = useState();
+  const [ma, setMa] = useState();
+  const [totalRecords, setTotalRecords] = useState();
+
 
   useEffect(() => {
     if (!user || user.Roles === "") {
@@ -26,9 +31,49 @@ const Dashboard = () => {
 
     } else {
       getKPIPerforment();
-
     }
   }, []);
+
+  
+  useEffect(() => {
+    setLoadingData(true)
+    getAccountAdmin()
+    getAccountEmployee()
+    getAccountManager()
+    getAccountSystem()
+  }, [ad]);
+
+
+
+  async function getAccountSystem() {
+    await ApiService.getAllAccountSystem()
+      .then((response) => {
+        // check if the data is populated
+        const dataRes = response.data.data
+        const listDataSet = [...dataRes];
+        listDataSet.map((obj, index) => {
+          const count = ++index;
+          obj['indexNumber'] = count
+
+        })
+        setAccount(listDataSet);
+        setTotalRecords(response.data.totalRow);
+        setLoadingData(false)
+      })
+      .catch((error) => {
+        if (error.response) {
+
+        } else if (error.request) {
+        
+
+        } else {
+
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
 
   async function getKPIPerforment() {
 
@@ -49,6 +94,66 @@ const Dashboard = () => {
         }
       });
   }
+
+  async function getAccountAdmin() {
+    await ApiService.getAccountAdmin(currentPage, rows)
+      .then((response) => {
+        setAd(response.data.totalRow);
+        setLoadingData(false)
+      })
+      .catch((error) => {
+        if (error.response) {
+
+        } else if (error.request) {
+
+        } else {
+
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getAccountEmployee() {
+    await ApiService.getEmployeeAccount(currentPage, rows)
+      .then((response) => {
+       
+        setEm(response.data.totalRow);
+        setLoadingData(false)
+
+      })
+      .catch((error) => {
+        if (error.response) {
+
+        } else if (error.request) {
+
+        } else {
+
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  async function getAccountManager() {
+    await ApiService.getAccountManager(currentPage, rows)
+      .then((response) => {
+        setMa(response.data.totalRow);
+        setLoadingData(false)
+      })
+      .catch((error) => {
+        if (error.response) {
+
+        } else if (error.request) {
+
+        } else {
+
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
 
 
 
@@ -147,6 +252,85 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+
+
+
+          </>)}
+
+
+
+        </>
+
+      )}
+
+       {(user.role.includes("Admin")) && (
+        <>
+          <PageHeading title="Account dashboard" />
+
+          { loadingData ? (<></>) : (<>
+            <CSVLink  style={{ marginTop:"-5%", float: "right" , opacity:0}}  data={dataaccount} filename="Account"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink>
+
+            <div className="row">
+              
+
+              <div className="col-lg-4">
+                <div className="card">
+                  <div className="card-body">
+
+                    <CardInfo
+                      title="Number of Admin Account "
+                      icon="calendar"
+                      color="danger"
+                      value={ad}
+                    />
+
+                      
+                  
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className="card">
+                  <div className="card-body">
+
+                  <CardInfo
+                      title="Number of Manager Account "
+                      icon="calendar"
+                      color="warning"
+                      value={ma}
+                    />
+
+               
+                    
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className="card">
+                  <div className="card-body">
+
+                  <CardInfo
+                      title="Number of Employee Account "
+                      icon="calendar"
+                      color="success"
+                      value={em}
+                     
+                    />
+
+               
+                     
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            
 
 
 

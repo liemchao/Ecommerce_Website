@@ -114,8 +114,10 @@ const AppointCustomerList = ({ rowData }) => {
                 loading={loadingData}
                 responsiveLayout="scroll"
                 responsive="true"
+                rowHover={true}
+
               >
-                  <Column style={{ width: "10%" }}header="No" field="indexNumber" />
+                  <Column style={{ width: "6%" }}header="No" field="indexNumber" />
                   <Column header="Activity Type" field="activityType" />
                   <Column style={{ width: "14%" }} header="Description" field="description" />
                   <Column header="Start Date" body={TimeCreate} />

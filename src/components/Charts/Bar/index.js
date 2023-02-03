@@ -14,6 +14,26 @@ class ChartBar extends Component {
 
     componentDidMount() {
 
+        const em = JSON.parse(localStorage.getItem("Temp"));
+        const user = JSON.parse(localStorage.getItem("user"));
+    
+        const id = em.id
+     
+        fetch(`https://backup-dtv-crm.azurewebsites.net/api/v1/History/history/analyze-by-location?customerId=${id}`,
+            {
+                method: 'GET',
+                headers: {
+                    "Authorization": "Bearer " + user.token,
+                    "Accept": "application/json, text/plain,",
+                    "Content-type": "application/json; charset=UTF-8;",
+                }
+            }).then(res => res.json())
+            .then((result) => {
+                setItem(result.data)
+              
+    
+            })
+
         const myBarChart = this.chartRef.current.getContext("2d");
 
 
