@@ -115,7 +115,7 @@ const ProductSoList = () => {
       const getStatus=(rowData)=>{
   
         if (rowData.productStatus === "Sold") {
-            return <div className="badge badge-sucsseful mr-2">Sold</div>
+            return <div className="badge badge-success mr-2">Sold</div>
           }
     }
 

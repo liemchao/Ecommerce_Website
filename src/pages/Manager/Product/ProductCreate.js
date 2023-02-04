@@ -71,7 +71,7 @@ export default function ProductCreate({ refreshList }) {
     productOwnerId:Product.productOwnerId,
     receivedDate:Product.receivedDate,
     };
-    console.log(createData);
+   
     await ApiService.createProduct(createData)
       .then((response) => {
         setSuccessMsg("Create Product Successfully!");
@@ -185,12 +185,10 @@ async function getProvice() {
         if(obj.province_name.includes("Thành phố ")) {
           modifineProvinceName = obj.province_name
           obj.province_name = `${obj.province_name.replace("Thành phố ", "")} City`
-          console.log(obj.province_name)
         }
           if(obj.province_name.includes("Tỉnh")) {
             modifineProvinceName = obj.province_name
             obj.province_name = `${obj.province_name.replace("Tỉnh ", "")} Province`
-            console.log(obj.province_name)
         
         }
         let dataObj = {
@@ -227,7 +225,6 @@ async function getProvice() {
 
 async function getDistrict(proviceID) {
   setLoading(true);
-  console.log(proviceID)
 
   await ApiService.getDistrict(proviceID)
     .then((response) => {

@@ -11,8 +11,6 @@ import LandingPage from "../../../redux/services/auth-imgae";
 export default function ProductUpdate({ rowData, refreshList }) {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [Product, setProduct] = useState("");
-  const [picture, setPicture] = useState({});
   const user = JSON.parse(localStorage.getItem("user"));
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
@@ -23,7 +21,13 @@ export default function ProductUpdate({ rowData, refreshList }) {
   const [unti, setUniti] = useState([]);
   const [direc, setDirec]= useState([]);
   const [test, Setest]= useState('1');
-  const [provice, setProvice]= useState([]);
+  const [Product, setProduct] = useState({});
+
+
+
+
+
+
 
 
   async function getOwer() {
@@ -183,6 +187,53 @@ export default function ProductUpdate({ rowData, refreshList }) {
       });
   }
 
+
+  async function UpdateProduct() {
+  
+    setLoading(true);
+
+    let updateData = {
+    id:Product.id,
+    name: Product.name,
+    description:Product.description,
+    categoryId:Product.categoryId,
+    price:parseInt(Product.price),
+    width: parseInt(Product.width),
+    length: parseInt(Product.length),
+    street: Product.street,
+    province: Product.province,
+    district: Product.district,
+    noBedroom: parseInt(Product.noBedroom),
+    noToilet: parseInt(Product.noToilet),
+    noFloor: parseInt(Product.noFloor),
+    facade: parseInt(Product.facade),
+    isFurniture: Boolean(Product.isFurniture),
+    direction: Product.direction,
+    utilities: Product.utilities,
+    productStatus:Product.productStatus,
+    productOwnerId:Product.productOwnerId,
+    receivedDate:Product.receivedDate,
+    };
+    console.log(updateData)
+
+    ApiService.updateProduct(updateData)
+      .then((response) => {
+        setSuccessMsg("Update Product successfully!");
+        setLoading(false);
+      })
+      .catch((error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setErrMsg(resMessage);
+        setLoading(false);
+      });
+  }
+
   const handleOpenModal = (e) => {
     e.preventDefault();
     setErrMsg("");
@@ -191,11 +242,14 @@ export default function ProductUpdate({ rowData, refreshList }) {
   };
 
   const handleUpdateProduct = async (e) => {
-    e.preventDefault();
-    setErrMsg("");
-    setSuccessMsg("");
-    // UpdateProduct();
+    e.preventDefault()
+    UpdateProduct();
   };
+  
+
+  useEffect(() => {
+    setProduct(rowData)
+  }, [rowData]);
 
   useEffect(() => {
 
@@ -281,7 +335,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="number"
               defaultValue={rowData.price}
-              // onChange={(e) => setProduct({ ...Product, price: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, price: e.target.value })}
             />
           </div>
 
@@ -293,14 +347,14 @@ export default function ProductUpdate({ rowData, refreshList }) {
               type="text"
               defaultValue={rowData.description}
               required
-              // onChange={(e) => setProduct({ ...Product, description: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, description: e.target.value })}
             />
           </div>
            
           <div className="p-field p-col-8 p-md-4"style={{marginTop:"-2.5%"}}>
            <label htmlFor="cate">Category</label><br></br>
             <select
-              // onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, categoryId: e.target.value })}
             >
               
 
@@ -330,8 +384,8 @@ export default function ProductUpdate({ rowData, refreshList }) {
           <div className="p-field p-col-8 p-md-4"style={{marginTop:"-2.5%"}}>
            <label htmlFor="status">Product Status</label><br></br>
             <select
-              // onChange={(e) => setProduct({ ...Product,productStatus: e.target.value })}
-            >
+              onChange={(e) => setProduct({ ...Product,productStatus:e.target.selectedOptions[0].text })}
+              >
               
               {
                      prostatus.map((x, y) =>(
@@ -354,7 +408,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
           <div className="p-field p-col-3 p-md-3" style={{marginTop:"-2%"}}>
            <label htmlFor="ower">Product Ower</label><br></br>
             <select
-              // onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, productOwnerId: e.target.value })}
             >
                {
                      ower.map((x, y) =>(
@@ -381,7 +435,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="number"
               defaultValue={rowData.width}
-              // onChange={(e) => setProduct({ ...Product, width: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, width: e.target.value })}
             />
           </div>
            {/* Name */}
@@ -392,7 +446,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               type="number"
               defaultValue={rowData.length}
               required
-              // onChange={(e) => setProduct({ ...Product, length: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, length: e.target.value })}
             />
           </div>
 
@@ -402,7 +456,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="number"
               defaultValue={rowData.noBedroom}
-              // onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, noBedroom: e.target.value })}
             />
           </div>
           <div className="p-field p-col-3 p-md-2">
@@ -411,7 +465,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="number"
               defaultValue={rowData.noToilet}
-              // onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, noToilet: e.target.value })}
             />
           </div>
           <div className="p-field p-col-3 p-md-2">
@@ -420,7 +474,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="number"
               defaultValue={rowData.noFloor}
-              // onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, noFloor: e.target.value })}
             />
           </div>
           <div className="p-field p-col-1 p-md-2">
@@ -429,7 +483,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="number"
               defaultValue={rowData.facade}
-              // onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, facade: e.target.value })}
             />
           </div>
 
@@ -440,7 +494,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="text"
               defaultValue={rowData.street}
-              // onChange={(e) => setProduct({ ...Product, street: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, street: e.target.value })}
             />
           </div>
 
@@ -452,7 +506,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="text"
               defaultValue={rowData.district}
-              // onChange={(e) => setProduct({ ...Product, district: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, district: e.target.value })}
             />
           </div>
 
@@ -463,14 +517,14 @@ export default function ProductUpdate({ rowData, refreshList }) {
               id="name"
               type="text"
               defaultValue={rowData.province}
-              // onChange={(e) => setProduct({ ...Product, province: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, province: e.target.value })}
             />
           </div>
           <div style={{marginTop:"-2%"}}className="p-field p-col-8 p-md-4">
            <label htmlFor="direction">Direction:</label><br></br>
             <select
-              // onChange={(e) => setProduct({ ...Product, direction: e.target.value })}
-            >
+              onChange={(e) => setProduct({ ...Product, direction:e.target.selectedOptions[0].text })}
+              >
                 {
                      direc.map((x, y) =>(
                         <>
@@ -492,7 +546,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
           <div style={{marginTop:"-2%"}} className="p-field p-col-8 p-md-4">
            <label htmlFor="Utilites">Utilities:</label><br></br>
             <select
-              // onChange={(e) => setProduct({ ...Product, utilities: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, utilities: e.target.selectedOptions[0].text })}
             >
  {
                      unti.map((x, y) =>(
@@ -526,10 +580,10 @@ export default function ProductUpdate({ rowData, refreshList }) {
             <label htmlFor="recivedate">Received Date</label>
             <InputText
               id="name"
-              type="datetime"
+              type="datetime-local"
               defaultValue={rowData.receivedDate}
               required
-              // onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
+              onChange={(e) => setProduct({ ...Product, receivedDate: e.target.value })}
             />
           </div>
          <LandingPage rowData={rowData}/>
@@ -545,7 +599,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
                 name="exampleRadios"
                 id="exampleRadios1"
                 value={true}
-                // onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
+                onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
               <label className="form-check-label" htmlFor="exampleRadios1">
                Avaliable
@@ -558,7 +612,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
                 name="exampleRadios"
                 id="exampleRadios2"
                 value={false}
-                // onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
+                onChange={(e) => setProduct({ ...Product, isFurniture: e.target.value })}
               />
               <label className="form-check-label" htmlFor="exampleRadios2">
                Not Avaliable
