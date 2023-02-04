@@ -31,13 +31,17 @@ const AppointDetail = () => {
       employeeId: id,
 
     };
-    console.log(data)
 
 
     await ApiService.AssAppointment(data)
       .then((response) => {
         setSuccessMsg("Delegated Appointment Successfull");
+    //      let disable = document.createAttribute("disabled")
+    // disableButton.setAttributeNode(disable)
+    // nameLead.push(rowData.fullname);
+    // setLead(rowData.id);
         setLoading(false);
+
       })
       .catch((error) => {
         const resMessage =
@@ -99,8 +103,12 @@ const AppointDetail = () => {
     
 
    }
-
  }
+
+ const refreshList = () => {
+  AppointDetail()
+};
+
   const customButton1 = (rowData) => {
 
   
@@ -497,7 +505,9 @@ const AppointDetail = () => {
              <div className="col-lg-12">
                 <div className="card">
 
-<Button   style={{ float:"right"}} onClick={AssAppointment} >Assign Appointment</Button>
+               <Link to="/Dashboard/Manager/AppointmentList">
+              
+                <Button id="buttonass" className="col-lg-12" style={{ float:"right"}} onClick={AssAppointment} >Assign Appointment</Button></Link>
      {loading && (
        <span className="spinner-border spinner-border-sm float-lg-right"></span>
      )}

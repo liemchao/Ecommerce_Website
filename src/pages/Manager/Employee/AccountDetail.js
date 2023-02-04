@@ -155,10 +155,10 @@ const AccountDetail = () => {
 
                   </Tab>
 
-                 <Tab eventKey="Pro" title="KPI">
+                 {/* <Tab eventKey="Pro" title="KPI">
                     <KPIEmployee rowData={account}/>
 
-                  </Tab> 
+                  </Tab>  */}
                   {/* <Tab eventKey="Data" title="Data">
                     <DataTableFilterDemo/>
 

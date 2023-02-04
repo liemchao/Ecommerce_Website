@@ -218,19 +218,9 @@ export default function ProductUpdate({ rowData, refreshList }) {
     getUniti();
   }, [test]);
 
-  const uploadPicture = e => {
-    setPicture({
-      /* contains the preview, if you want to show the picture to the user
-           you can access it with this.state.currentPicture
-       */
-      picturePreview: URL.createObjectURL(e.target.files[0]),
-      /* this contains the file we want to send */
-      pictureAsFile: e.target.files[0]
-    });
-  };
+ 
 
- 
- 
+
 
   return (
     <div>

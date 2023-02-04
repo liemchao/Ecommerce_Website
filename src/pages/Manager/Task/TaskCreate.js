@@ -10,8 +10,7 @@ import { Button  } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
-
-
+import { InputText } from "primereact/inputtext";
 
 const ProductDetail = () => {
   const { state } = useLocation();
@@ -40,12 +39,14 @@ const ProductDetail = () => {
       employeeId: idEm,
       leadId: idLead
     };
-    console.log(data);
+    if(data.name==""){
+      setErrMsg("The name of the task cannot be null");
+    }else{
 
-
-    await ApiService.createTask(data)
+      await ApiService.createTask(data)
       .then((response) => {
         setSuccessMsg("Assing Task Successfull");
+        setErrMsg("")
         setLoading(false);
       })
       .catch((error) => {
@@ -59,6 +60,10 @@ const ProductDetail = () => {
         setErrMsg(resMessage);
         setLoading(false);
       });
+
+    }
+
+   
   }
 
   async function GetLead() {
@@ -68,9 +73,9 @@ const ProductDetail = () => {
       .then((response) => {
         const dataRes = response.data.data
         const listDataSet = [...dataRes];
+        let  counter = 10 * (currentPage-1)
         listDataSet.map((obj, index) => {
-          const count = ++ index ;
-          obj['indexNumber'] = count
+          obj['indexNumber'] = (counter + ++index) 
 
         })
       
@@ -234,7 +239,9 @@ useEffect(() => {
               <div className="card">
               <div className="p-field p-col-8 p-md-4">
               <label htmlFor="name">Task Name</label>
-               <input onChange={(e) => setName(e.currentTarget.value)} ></input>
+               <input
+               required
+               onChange={(e) => setName(e.currentTarget.value)} />
                 </div>
                 <PageHeading title="List Employee" />
                 <DataTable     style={{overflow:"scroll",maxHeight: "27rem"}}
@@ -247,7 +254,8 @@ useEffect(() => {
                   <Column header="Action" body={customButton1} />
                 </DataTable>
 
-            <Button style={{marginTop:"5%"}} onClick={AssTask}> <FontAwesomeIcon icon={faPlus}/> Create Task</Button>
+               
+            <Button className="col-lg-12" style={{marginTop:"5%"}} onClick={AssTask}> <FontAwesomeIcon icon={faPlus}/> Create Task</Button>
             {loading && (
        <span className="spinner-border spinner-border-sm float-lg-right"></span>
      )}

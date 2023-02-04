@@ -25,7 +25,7 @@ const TaskList = () => {
   const [totalRecords, setTotalRecords] = useState();
   const [errMsg, setErrMsg] = useState("");
   const [first, setFirst] = useState(0);
-  const [query, setQuery] = useState(0);
+  const [query, setQuery] = useState("");
   const [rows, setRows] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInputTooltip, setPageInputTooltip] = useState(

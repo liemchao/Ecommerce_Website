@@ -84,6 +84,7 @@ const TaskEmList = ({ rowData }) => {
                        loading={loadingData}
                        responsiveLayout="scroll"
                        responsive="true"
+                       rowHover={true}
                      >
                          <Column header="No" field="indexNumber" />
                          <Column header="Name Task" field="name" />
