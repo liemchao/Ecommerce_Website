@@ -87,7 +87,7 @@ const TaskDetail = () => {
                        
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Task's Name:</h6>
+                            <h6 className="mb-0 font-weight-bold">Task's Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p >{(Task.name)} </p>
@@ -95,7 +95,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Date Create:</h6>
+                            <h6 className="mb-0 font-weight-bold">Date Create:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p >{(Task.createDate)} </p>
@@ -104,7 +104,7 @@ const TaskDetail = () => {
                        
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Status:</h6>
+                            <h6 className="mb-0 font-weight-bold">Status:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             {Task.isDone ? (
@@ -124,7 +124,7 @@ const TaskDetail = () => {
                       <div className="card-body">
                       <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Creater:</h6>
+                            <h6 className="mb-0 font-weight-bold">Creater:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.creater.fullname}</p>
@@ -132,7 +132,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Email:</h6>
+                            <h6 className="mb-0 font-weight-bold">Email:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.creater.email}</p>
@@ -140,7 +140,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Phone:</h6>
+                            <h6 className="mb-0 font-weight-bold">Phone:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.creater.phone}</p>
@@ -154,7 +154,7 @@ const TaskDetail = () => {
                      <div className="card-body">
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Emplyee's Name:</h6>
+                            <h6 className="mb-0 font-weight-bold">Emplyee's Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.employee.fullname}</p>
@@ -162,7 +162,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Email:</h6>
+                            <h6 className="mb-0 font-weight-bold">Email:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.employee.email}</p>
@@ -170,7 +170,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Phone:</h6>
+                            <h6 className="mb-0 font-weight-bold">Phone:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.employee.phone}</p>
@@ -178,7 +178,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Gender:</h6>
+                            <h6 className="mb-0 font-weight-bold">Gender:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                           {Task.employee.gender ? (
@@ -194,7 +194,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Create Date:</h6>
+                            <h6 className="mb-0 font-weight-bold">Create Date:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             <p>{Task.employee.createDate}</p>
@@ -202,7 +202,7 @@ const TaskDetail = () => {
                         </div>
                         <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Status:</h6>
+                            <h6 className="mb-0 font-weight-bold">Status:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                             {Task.employee.status=="Activated" ? (
@@ -223,7 +223,7 @@ const TaskDetail = () => {
                      <div className="card-body">
                      <div className="row mb-3">
                           <div className="col-sm-3">
-                            <h6 className="mb-0">Lead's Name:</h6>
+                            <h6 className="mb-0 font-weight-bold">Lead's Name:</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
                           {
