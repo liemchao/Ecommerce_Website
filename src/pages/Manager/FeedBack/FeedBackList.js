@@ -131,11 +131,7 @@ const FeedBackList = () => {
    return <p>{rowData.customer.fullname}</p>;
       
   }
-  const EmployeeName = (rowData) => {
-
-    return <p>{rowData.appointment.fullname}</p>;
-       
-   }
+ 
   const Rate = (rowData) => {
     // setRating()
     if(rating.length != 0) {
@@ -246,7 +242,6 @@ const FeedBackList = () => {
                 >
                   <Column header="No" field="indexNumber"/>
                   <Column header="Name Customer" body={customerName}/>
-                  <Column header="Name Employee" body={EmployeeName}/>
                   <Column style={{ width: "19%" }} header="Time Revice" field="feedbackDate"/>
                   <Column header="Content" field="content"/>
                   <Column header="Rate" body={Rate}/>
