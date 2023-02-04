@@ -109,7 +109,6 @@ export default function AccountUpdate({ rowData, refreshList }) {
             <select  style={{marginLeft:"10%"}}
               onChange={(e) => setRole(e.currentTarget.value)}
             >
-              <option value="3">Employee</option>
               <option value="2">Manager</option>
               <option value="1">Admin</option>
             </select>

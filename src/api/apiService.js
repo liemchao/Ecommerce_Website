@@ -32,6 +32,12 @@ const getAllAccountSystem = () => {
 };
 
 
+const getKPIemployee = (idEm,idKPI) => {
+  return axios.get(`https://backup-dtv-crm.azurewebsites.net/api/v1/KPI/kpi/employee/${idEm}?kpiId=${idKPI}`, {
+    headers: authHeader(),
+  });
+};
+
 
 
 
@@ -716,5 +722,6 @@ export default {
   UpdateKPItemplate,
   getEmployeeAccount,
   getAllAccountSystem,
+  getKPIemployee,
  
 };

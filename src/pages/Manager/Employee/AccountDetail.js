@@ -10,8 +10,8 @@ import TaskEmList from "./EmployeeTab/TaskEm";
 import AppointmentEm from "./EmployeeTab/AppointmentEm";
 import OpportunityEmList from "./EmployeeTab/OppEm";
 import LeadEmList from "./EmployeeTab/LeadEm";
-import Progressbar from "./EmployeeTab/ProgreesBar";
-// import DataTableFilterDemo from "./EmployeeTab/Datatable";
+import KPIEmployeed from "./EmployeeTab/KPIEmployee";
+import KPIEmployee from "./EmployeeTab/KPIEmployee";
 
 const AccountDetail = () => {
   const { state } = useLocation();
@@ -155,10 +155,10 @@ const AccountDetail = () => {
 
                   </Tab>
 
-                  {/* <Tab eventKey="Pro" title="Progress">
-                    <Progressbar/>
+                 <Tab eventKey="Pro" title="KPI">
+                    <KPIEmployee rowData={account}/>
 
-                  </Tab> */}
+                  </Tab> 
                   {/* <Tab eventKey="Data" title="Data">
                     <DataTableFilterDemo/>
 

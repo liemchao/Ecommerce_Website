@@ -34,16 +34,15 @@ export default function AccountCreate({ refreshList }) {
     phone:Account.phone,
     fullname: Account.fullname,
     roleId: 3,
-    // image: Account.image,
     gender: Boolean(Account.gender),
     dob:Account.dob
-    //   userAccountId: user.Id,
+   
     };
-    console.log(createData);
+   
      await ApiService.createAccount(createData)
       .then((response) => {
         console.log(response);
-        setSuccessMsg("Create successfully!");
+        setSuccessMsg("Create Account Successfully!");
         setLoading(false);
       })
       .catch((error) => {
@@ -118,6 +117,7 @@ export default function AccountCreate({ refreshList }) {
             <InputText
               id="email"
               type="email"
+              required
          
               onChange={(e) => setAccount({ ...Account, email: e.target.value })}
             />
@@ -130,6 +130,7 @@ export default function AccountCreate({ refreshList }) {
             <InputText
               id="phone"
               type="number"
+              required
               min={1000000000}
               max={2000000000000}
               onChange={(e) => setAccount({ ...Account, phone: e.target.value })}
@@ -143,7 +144,7 @@ export default function AccountCreate({ refreshList }) {
             <InputText
               id="name"
               type="text"
-        
+              required
              
               onChange={(e) => setAccount({ ...Account, fullname: e.target.value })}
             />

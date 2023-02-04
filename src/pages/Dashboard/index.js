@@ -7,8 +7,9 @@ import { Link, Redirect } from "react-router-dom";
 import ApiService from "../../api/apiService";
 
 import { CSVLink } from "react-csv";
-import { faDownload} from '@fortawesome/free-solid-svg-icons'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Spinner } from "react-bootstrap";
 
 const Dashboard = () => {
   const [dataaccount, setAccount] = useState([]);
@@ -34,7 +35,7 @@ const Dashboard = () => {
     }
   }, []);
 
-  
+
   useEffect(() => {
     setLoadingData(true)
     getAccountAdmin()
@@ -64,7 +65,7 @@ const Dashboard = () => {
         if (error.response) {
 
         } else if (error.request) {
-        
+
 
         } else {
 
@@ -117,7 +118,7 @@ const Dashboard = () => {
   async function getAccountEmployee() {
     await ApiService.getEmployeeAccount(currentPage, rows)
       .then((response) => {
-       
+
         setEm(response.data.totalRow);
         setLoadingData(false)
 
@@ -172,57 +173,53 @@ const Dashboard = () => {
               <div className="col-lg-5">
                 <div className="card">
                   <div className="card-body">
-
-                    <CardInfo
-                      title="Lead (To Customer) Ratio"
-                      icon="calendar"
-                      color="primary"
-                      value={data.leadToCustomerRatio}
-                      com=":1"
-                    >
+                    <Link style={{ textDecoration: "none" }} to="/Dashboard/Manager/AccountList">
+                      <CardInfo
+                        title="Lead (To Customer)"
+                        icon="calendar"
+                        color="primary"
+                        value={data.leadToCustomerRatio}
+                        com=":1"
+                      >
+                      </CardInfo>
+                    </Link>
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/KPIList">
 
                       <CardInfo
+
                         title="Revenue"
                         icon="calendar"
                         color="primary"
                         value={data.revenue.toLocaleString()}
+                      >
+
+                      </CardInfo>
+                    </Link>
+
+
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/OpportunityList">
+                      <CardInfo
+                        title="Negotiation"
+                        icon="calendar"
+                        color="dark"
+                        value={data.negotiation}
                       />
-
-                      <Link>
-                      </Link>
-
-                      :1</CardInfo>
-
-
-                    <CardInfo
-                      title="Leads"
-                      icon="calendar"
-                      color="primary"
-                      value={data.leads}
-                    />
-                    <CardInfo
-                      title="Opportunitties"
-                      icon="calendar"
-                      color="success"
-                      value={data.opportunities}
-                    />
-
-                    <CardInfo
-                      title="Negotiation"
-                      icon="calendar"
-                      color="dark"
-                      value={data.negotiation}
-                    />
-
-                    <CardInfo title="Wins" icon="clipboard" color="info" value={data.wins} />
-
-                    <CardInfo
-                      title="Loses"
-                      icon="comments"
-                      color="danger"
-                      value={data.loses}
-
-                    />
+                    </Link>
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/OpportunityList">
+                      <CardInfo title="Wins" icon="clipboard" color="info" value={data.wins} />
+                    </Link>
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/OpportunityList">
+                      <CardInfo
+                        title="Loses"
+                        icon="comments"
+                        color="danger"
+                        value={data.loses}
+                      />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -230,22 +227,47 @@ const Dashboard = () => {
               <div className="col-lg-7">
                 <div className="card">
                   <div className="card-body">
-
+                  <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/OpportunityList">
                     <CardInfo
                       title="Lead(To Opportunity Ratio)"
                       icon="calendar"
                       color="primary"
                       value={data.leadToOpportunityRatioInPercent}
                       com="%"
-                    >%</CardInfo>
+                    ></CardInfo>
+                    </Link>
 
-                    <CardInfo
-                      title="Opportunity (To Win Ratio)"
-                      icon="calendar"
-                      color="primary"
-                      value={data.opportunityToWinRatioInPercent}
-                      com="%"
-                    >%</CardInfo>
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/OpportunityList">
+                      <CardInfo
+                        title="Opportunity (To Win Ratio)"
+                        icon="calendar"
+                        color="primary"
+                        value={data.opportunityToWinRatioInPercent}
+                        com="%"
+                      ></CardInfo>
+                    </Link>
+
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/LeadList">
+                      <CardInfo
+                        title="Leads"
+                        icon="calendar"
+                        color="warning"
+                        value={data.leads}
+                      />
+                    </Link>
+
+                    <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Manager/OpportunityList">
+                      <CardInfo
+                        title="Opportunitties"
+                        icon="calendar"
+                        color="success"
+                        value={data.opportunities}
+                      />
+                    </Link>
 
                   </div>
 
@@ -263,29 +285,31 @@ const Dashboard = () => {
 
       )}
 
-       {(user.role.includes("Admin")) && (
+      {(user.role.includes("Admin")) && (
         <>
           <PageHeading title="Account dashboard" />
 
-          { loadingData ? (<></>) : (<>
-            <CSVLink  style={{ marginTop:"-5%", float: "right" , opacity:0}}  data={dataaccount} filename="Account"  className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink>
+          {loadingData ? (<></>) : (<>
+            <CSVLink style={{ marginTop: "-5%", float: "right", opacity: 0 }} data={dataaccount} filename="Account" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} />Generate Excel</CSVLink>
 
             <div className="row">
-              
+
 
               <div className="col-lg-4">
                 <div className="card">
                   <div className="card-body">
-
+             <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Admin/AccountList">
                     <CardInfo
                       title="Number of Admin Account "
                       icon="calendar"
                       color="danger"
                       value={ad}
                     />
+                    </Link>
 
-                      
-                  
+
+
                   </div>
                 </div>
               </div>
@@ -293,17 +317,16 @@ const Dashboard = () => {
               <div className="col-lg-4">
                 <div className="card">
                   <div className="card-body">
-
-                  <CardInfo
+                  <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Admin/AccountList">
+                    <CardInfo
                       title="Number of Manager Account "
                       icon="calendar"
                       color="warning"
+
                       value={ma}
-                    />
-
-               
-                    
-
+                    ></CardInfo>
+                    </Link>
                   </div>
 
                 </div>
@@ -312,17 +335,19 @@ const Dashboard = () => {
               <div className="col-lg-4">
                 <div className="card">
                   <div className="card-body">
-
-                  <CardInfo
+                  <Link style={{ textDecoration: "none" }}
+                      to="/Dashboard/Admin/AccountList">
+                    <CardInfo
                       title="Number of Employee Account "
                       icon="calendar"
                       color="success"
                       value={em}
-                     
-                    />
 
-               
-                     
+                    />
+                    </Link>
+
+
+
 
                   </div>
 
@@ -330,7 +355,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            
+
 
 
 

@@ -44,11 +44,21 @@ const LeadEmList = ({ rowData }) => {
     }, [currentPage]);
 
     const customStatus = (rowData) => {
-        if(rowData.leadStatus=="New"){
-          return <div className="badge badge-warning mr-2">{rowData.leadStatus}</div>;
-        }else{
-          return <div className="badge badge-success mr-2">{rowData.leadStatus}</div>;
-        }
+      if(rowData.leadStatus=="New"){
+        return <div className="badge badge-warning mr-2">{rowData.leadStatus}</div>;
+      } if(rowData.leadStatus=="Qualified"){
+        return <div className="badge badge-success mr-2">{rowData.leadStatus}</div>;
+      }
+      if(rowData.leadStatus=="Contacted"){
+        return <div className="badge badge-info mr-2">{rowData.leadStatus}</div>;
+      }
+      if(rowData.leadStatus=="Unqualified"){
+        return <div className="badge badge-dark mr-2">{rowData.leadStatus}</div>;
+      }
+      
+      else{
+        return <div className="badge badge-secondary mr-2">{rowData.leadStatus}</div>;
+      }
       }
       const customButton = (rowData) => {
         return (
@@ -79,6 +89,7 @@ const LeadEmList = ({ rowData }) => {
                       value={data}
                       loading={loadingData}
                       responsiveLayout="scroll"
+                      rowHover={true}
                     >
                       <Column header="No" field="indexNumber"/>
                       <Column header="Name" field="fullname"/>

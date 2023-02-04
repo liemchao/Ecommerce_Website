@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import PageHeading from "../../../components/PageHeading";
 // import TaskCreate from "../../Manager/Task/TaskCreate";
 // import TaskUpdate from "../../../components/Modals/Task/TaskUpdate";
-import AccountUpdate from "../../../components/Modals/Account/AccountUpdate";
 import ApiService from "../../../api/apiService";
 
 import { DataTable } from "primereact/datatable";
@@ -15,7 +14,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 

@@ -24,7 +24,6 @@ const OpportunityEmList = ({ rowData }) => {
     async function getLeadOpportunity() {
       
         setLoadingData(true)
-        console.log(rowData.id)
 
         await ApiService.getOppEm(rowData.id)
             .then((response) => {

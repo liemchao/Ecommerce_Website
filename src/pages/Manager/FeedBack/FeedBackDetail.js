@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquare } from '@fortawesome/free-solid-svg-icons'
 import { faStepBackward } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+
 
 
 
@@ -289,6 +288,16 @@ const FeedbackDetail = () => {
           </div>
         </div>
       )}
+        <div>
+        <Link 
+        to="/Dashboard/Manager/FeedBackList"
+        >
+         <Button style={{marginTop:"2%"}}>
+          <FontAwesomeIcon icon={faStepBackward} /> Back to
+           
+         </Button>
+        </Link>
+      </div>
     </div>
   );
 };

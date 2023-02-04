@@ -229,33 +229,7 @@ export default function ProductUpdate({ rowData, refreshList }) {
     });
   };
 
-  const setImageAction = async e => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("id", rowData.id);
-    formData.append("file", picture.pictureAsFile);
-
-    console.log(picture.pictureAsFile);
-
-    for (var key of formData.entries()) {
-      console.log(key[0] + ", " + key[1]);
-    }
-
-    const data = await fetch("https://backup-dtv-crm.azurewebsites.net/api/v1/Product/product/add-product-image", {
-      method: "post",
-      headers: { 
-      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImRkNjM3ZjgyLWY5ZGQtNDQ4YS1iNDRhLTdkNGY5YzI0NzFhNCIsIkVtYWlsQWRyZXNzIjoibWFuYWdlckBnbWFpbC5jb20iLCJTdGF0dXMiOiJBY3RpdmF0ZWQiLCJSb2xlIjoiTWFuYWdlciIsIm5iZiI6MTY3NDk5NzQyNCwiZXhwIjoxNjc3NTg5NDI0LCJpYXQiOjE2NzQ5OTc0MjR9.xOyFn16aJWrXHxtzfSZUU5uwpKY8suBqYQLSDxMsKyY" },
-      body: formData
-    });
-
-    const uploadedImage = await data.json();
-    if (uploadedImage) {
-      console.log("Successfully uploaded image");
-    } else {
-      console.log("Error Found");
-    }
-  };
+ 
  
 
   return (

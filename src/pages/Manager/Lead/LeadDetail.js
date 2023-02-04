@@ -175,6 +175,25 @@ const LeadDetail = () => {
                           <p>{(account.createDate).slice(0, 10)}</p>
                         </div>
                       </div>
+
+
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0 font-weight-bold">Life Cycle Stage:</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          {account.lifeCycleStage === "Customer" ? (
+                            <div className="badge badge-info mr-2">
+                              Customer
+                            </div>
+                          ) : (
+                            <div className="badge badge-warning mr-2">
+                              {account.lifeCycleStage}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
                       <div className="row mb-3">
                         <div className="col-sm-3">
                           <h6 className="mb-0 font-weight-bold">Lead Status:</h6>

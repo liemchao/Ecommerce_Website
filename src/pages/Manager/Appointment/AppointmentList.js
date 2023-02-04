@@ -257,7 +257,7 @@ const AppointmentList = () => {
           </div>
 
           </Tab>
-          <Tab eventKey="Wa" title=" Watting">
+          <Tab eventKey="Wa" title=" Waiting">
             <AppointmentWaList/>
           </Tab>
           <Tab eventKey="Ac" title=" Accepted">
